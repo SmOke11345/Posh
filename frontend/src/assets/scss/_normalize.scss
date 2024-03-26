@@ -1,0 +1,93 @@
+/* Изменение поведения браузера */
+@import "https://fonts.googleapis.com/css2?family=Open+Sans:ital,wdth,wght@0,75..100,300..800;1,75..100,300..800&family=Rubik:ital,wght@0,300..900;1,300..900&display=swap";
+@import "variables";
+
+* {
+    padding: 0;
+    margin: 0;
+    box-sizing: border-box;
+}
+
+a {
+    text-decoration: none;
+    color: $dark;
+    font:
+        600 $rubik-sb-16 "Rubik",
+        sans-serif;
+}
+
+p {
+    font-family: "Open Sans", sans-serif;
+}
+
+ul li {
+    list-style: none;
+}
+
+* {
+    padding: 0;
+    margin: 0;
+    box-sizing: border-box;
+}
+
+:active,
+:hover,
+:focus {
+    outline: 0;
+    outline-offset: 0;
+}
+
+html {
+    font-family: "Rubik", sans-serif;
+    font-weight: 400;
+    font-size: 0.52vw; // при разрешении 1920px шрифт 10px
+}
+
+@media screen and (max-width: $desktop) {
+    html {
+        font-size: 0.694vw;
+    }
+}
+
+@media screen and (max-width: $laptop) {
+    html {
+        font-size: 1.01vw;
+    }
+}
+
+@media screen and (max-width: $tablet) {
+    html {
+        font-size: 1.3vw;
+    }
+}
+
+@media screen and (max-width: $mobile) {
+    html {
+        font-size: 2.57vw;
+    }
+}
+
+body {
+    background-color: $gray;
+    font-size: 1.6rem;
+    font-weight: 400;
+    color: $dark;
+    height: 100vh;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+    font-weight: 700;
+    color: $dark;
+}
+
+button {
+    cursor: pointer;
+    border: none;
+    background-color: transparent;
+    outline: none;
+}

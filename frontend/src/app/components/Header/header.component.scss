@@ -1,0 +1,100 @@
+@import "../../../styles";
+
+.header {
+    padding: 3.2rem 6rem;
+    border-radius: 2.4rem;
+    background-color: $section-white;
+
+    &__burger {
+        display: none;
+        margin-right: 2.6rem;
+
+        svg {
+            width: 2rem;
+            height: 2rem;
+        }
+    }
+
+    &--wrap {
+        @extend %wrapper;
+    }
+
+    &__logo img {
+        width: 12.2rem;
+        height: 3.2rem;
+    }
+
+    .nav {
+        @extend %wrapper;
+        width: 30.9rem;
+
+        &__item {
+            span.count {
+                display: block;
+                background-color: $yellow;
+                border-radius: 50%;
+                // TODO: При значение 10 становиться овалом
+                padding: 0.4rem 1rem;
+                font:
+                    600 $opensans-r-16 "Open Sans",
+                    sans-serif;
+            }
+        }
+    }
+
+    .nav:last-child {
+        img {
+            width: 3.2rem;
+            height: 3.2rem;
+        }
+
+        width: 16.4rem;
+        margin-left: 14.5rem;
+    }
+}
+
+@media screen and (max-width: $tablet) {
+    .header {
+        &__burger {
+            display: flex;
+            justify-content: center;
+        }
+
+        .nav:first-child,
+        .nav:last-child .nav__item:first-child {
+            display: none;
+        }
+
+        .nav:last-child {
+            width: 7.6rem;
+            margin-left: 0;
+        }
+    }
+}
+
+@media screen and (max-width: $mobile) {
+    .header {
+        padding: 1.6rem;
+
+        &__logo img {
+            width: 7.6rem;
+            height: 2rem;
+        }
+
+        .nav {
+            &__item span.count {
+                padding: 0 0.6rem;
+            }
+
+            &:last-child {
+                width: 4.6rem;
+
+                img {
+                    display: block;
+                    width: 2rem;
+                    height: 2rem;
+                }
+            }
+        }
+    }
+}

@@ -1,0 +1,45 @@
+/* Общие стили */
+@import "variables";
+
+.container {
+    width: 135.6rem;
+    padding: 0 1.8rem;
+    margin: 2rem auto;
+}
+
+.container-grid {
+    height: 100vh;
+    display: grid;
+    row-gap: 10rem;
+    grid-template-rows: auto 1fr auto;
+}
+
+@media screen and (max-width: $desktop) {
+    .container {
+        width: 130rem;
+    }
+}
+
+@media screen and (max-width: $laptop) {
+    .container {
+        width: 96rem;
+    }
+}
+
+@media screen and (max-width: $tablet) {
+    .container {
+        width: 72rem;
+    }
+}
+
+@media screen and (max-width: $mobile) {
+    .container {
+        width: 100%;
+    }
+    .container-grid {
+        row-gap: 4rem;
+    }
+}
+
+button {
+}

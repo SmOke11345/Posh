@@ -1,0 +1,37 @@
+/* Переменные */
+
+// Цвета
+$blue: #4a69e2;
+$yellow: #ffa52f;
+$white: #ffffff;
+$section-white: #fafafa;
+$gray: #e7e7e3;
+$main-gray: #70706e;
+$dark: #232321;
+//
+$hover: #a5a3a7;
+
+// Размеры шрифтов
+$rubik-sb-90: 9rem;
+$rubik-sb-74: 7.4rem;
+$rubik-sb-48: 4.8rem;
+$rubik-sb-36: 3.6rem;
+$rubik-sb-30: 3rem;
+$rubik-sb-24: 2.4rem;
+$rubik-sb-16: 1.6rem;
+$rubik-m-14: 1.4rem;
+$opensans-sb-20: 2rem;
+$opensans-r-20: 2rem;
+$opensans-r-16: 1.6rem;
+
+// Размеры экранов
+$mobile: 425px;
+$tablet: 768px;
+$laptop: 1440px;
+$desktop: 1600px;
+
+%wrapper {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
