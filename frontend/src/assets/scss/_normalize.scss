@@ -81,7 +81,7 @@ h3,
 h4,
 h5,
 h6 {
-    font-weight: 700;
+    font-weight: 600;
     color: $dark;
 }
 
@@ -90,4 +90,9 @@ button {
     border: none;
     background-color: transparent;
     outline: none;
+}
+
+input {
+    border: none;
+    background-color: transparent;
 }

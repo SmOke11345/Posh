@@ -41,5 +41,43 @@
     }
 }
 
-button {
+button.btn {
+    text-transform: uppercase;
+    padding: 1.6rem;
+    text-align: center;
+    color: $white;
+    letter-spacing: 0.025rem;
+    background-color: $dark;
+    font:
+        500 $rubik-m-14 "Rubik",
+        sans-serif;
+    border-radius: 0.8rem;
+}
+
+label {
+    display: none;
+}
+
+input {
+    outline: 1px solid $white;
+    padding: 1.6rem;
+    border-radius: 0.8rem;
+    width: 100%;
+    transition: all 0.3s ease-in-out;
+
+    &::placeholder {
+        font:
+            400 $inter-r-14 "Inter",
+            sans-serif;
+        letter-spacing: 0.05rem;
+        color: $gray;
+    }
+
+    &:focus {
+        outline: 1px solid $input-focus;
+    }
+
+    &:hover {
+        outline: 1px solid $input-hover;
+    }
 }

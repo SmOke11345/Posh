@@ -1,1 +1,116 @@
 @import "../../../styles";
+
+.footer {
+    h3 {
+        color: $white;
+    }
+
+    a,
+    p {
+        color: $gray;
+        font:
+            600 $opensans-r-20 "Open Sans",
+            sans-serif;
+    }
+
+    &--top,
+    &--bottom {
+        padding: 5rem;
+        @extend %wrapper;
+        border-radius: 4.8rem;
+    }
+
+    &--top {
+        flex-wrap: wrap;
+        justify-content: left;
+        background-color: blue;
+
+        padding-bottom: 13.4rem;
+
+        .wrapper:first-child {
+            margin-right: 17rem;
+        }
+
+        .subject {
+            width: 57.7rem;
+
+            &__title h3 {
+                font-size: $rubik-sb-48;
+                text-transform: uppercase;
+            }
+
+            &__subtitle {
+                margin: 1.5rem 0 3rem;
+            }
+        }
+
+        .form {
+            @extend %wrapper;
+            width: 47.1rem;
+
+            input {
+                margin-right: 1rem;
+            }
+        }
+
+        .footer__logo img {
+            height: 8.8rem;
+            width: 33.5rem;
+        }
+    }
+
+    &--bottom {
+        background-color: $dark;
+        transform: translateY(-8rem);
+        padding-bottom: 38.9rem;
+        position: relative;
+        overflow: hidden;
+
+        .list:first-child li p {
+            width: 45.8rem;
+        }
+
+        .wrapper-inner {
+            @extend %wrapper;
+            align-items: flex-start;
+        }
+
+        list:first-child li p {
+            width: 45.8rem;
+        }
+
+        .wrapper-inner .list:first-child {
+            margin-right: 12.8rem;
+        }
+
+        .list h3.first {
+            font-size: $rubik-sb-36;
+        }
+
+        .list {
+            li:not(:first-child) {
+                margin-top: 0.8rem;
+            }
+
+            &__title {
+                margin-bottom: 1.6rem;
+
+                h3 {
+                    font-size: $rubik-sb-24;
+                    color: $yellow;
+                }
+            }
+        }
+
+        .background {
+            position: absolute;
+            background: url("../../../assets/img/footer/logo--white.svg")
+                no-repeat center center;
+            background-size: contain;
+            bottom: -210px;
+            left: 3rem;
+            right: 3rem;
+            height: 100%;
+        }
+    }
+}
