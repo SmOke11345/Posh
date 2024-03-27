@@ -52,12 +52,9 @@
                 margin-right: 1rem;
             }
         }
-
-        .footer__logo img {
-            height: 8.8rem;
-            width: 33.5rem;
-        }
     }
+
+    // TODO: Подумать что-то над нижней частью футера
 
     &--bottom {
         background-color: $dark;
@@ -73,10 +70,6 @@
         .wrapper-inner {
             @extend %wrapper;
             align-items: flex-start;
-        }
-
-        list:first-child li p {
-            width: 45.8rem;
         }
 
         .wrapper-inner .list:first-child {
@@ -107,10 +100,131 @@
             background: url("../../../assets/img/footer/logo--white.svg")
                 no-repeat center center;
             background-size: contain;
-            bottom: -210px;
+            bottom: -21rem;
             left: 3rem;
             right: 3rem;
             height: 100%;
+        }
+    }
+
+    &__logo img {
+        height: 8.8rem;
+        width: 33.5rem;
+    }
+
+    @media screen and (max-width: $laptop) {
+        .footer {
+            &--top {
+                padding-bottom: 8rem;
+
+                .wrapper:first-child {
+                    margin-right: 0;
+                }
+            }
+
+            &--bottom {
+                padding-bottom: 26.9rem;
+
+                .wrapper-inner .list:first-child {
+                    margin-right: 5rem;
+                }
+
+                .background {
+                    bottom: -17rem;
+                }
+            }
+
+            &__logo {
+                margin: 3rem 0 4rem;
+            }
+        }
+    }
+    @media screen and (max-width: $tablet) {
+        .footer {
+            &--bottom {
+                align-items: normal;
+                flex-direction: column;
+                padding-bottom: 14.9rem;
+
+                .list:first-child li p {
+                    width: 100%;
+                }
+
+                .wrapper-inner {
+                    flex-direction: column;
+                    margin-top: 4rem;
+
+                    .list:first-child {
+                        margin-bottom: 2.5rem;
+                    }
+                }
+
+                .background {
+                    bottom: -26.9rem;
+                }
+            }
+        }
+    }
+    @media screen and (max-width: $mobile) {
+        .footer {
+            &--top,
+            &--bottom {
+                padding: 1.6rem 1.6rem 4rem;
+                border-radius: 2.4rem;
+            }
+
+            &--top {
+                .form,
+                .subject {
+                    width: 100%;
+                }
+
+                .subject {
+                    &__title h3 {
+                        font-size: $rubik-sb-30;
+                    }
+
+                    &__subtitle {
+                        margin-bottom: 1.5rem;
+
+                        p {
+                            font-size: $opensans-r-16;
+                        }
+                    }
+                }
+
+                .form {
+                    flex-direction: column;
+                    row-gap: 0.5rem;
+
+                    input {
+                        margin-right: 0;
+                    }
+
+                    button.btn {
+                        width: 100%;
+                    }
+                }
+            }
+
+            &--bottom {
+                transform: translateY(-4rem);
+                padding-bottom: 8.5rem;
+
+                .list__title.first h3 {
+                    font-size: $rubik-sb-24;
+                }
+
+                .background {
+                    left: 0.9rem;
+                    right: 0.9rem;
+                }
+            }
+
+            &__logo img {
+                height: 6.1rem;
+                width: 23.2rem;
+            }
         }
     }
 }

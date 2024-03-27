@@ -1,62 +1,64 @@
 <footer class="footer">
-    <div class="footer--wrap">
-        <div class="footer--top">
-            <div class="wrapper">
-                <div class="subject">
-                    <div class="subject__title">
-                        <h3>
-                            ВСТУПАЙ В КЛУБ <br />
-                            И ПОЛУЧИ СКИДКУ 15%
-                        </h3>
-                    </div>
-                    <div class="subject__subtitle">
-                        <p>Регистрируйтесь! присоединяйтесь к сообществу.</p>
-                    </div>
+    <div class="footer--top">
+        <div class="wrapper">
+            <div class="subject">
+                <div class="subject__title">
+                    <h3>
+                        ВСТУПАЙ В КЛУБ <br />
+                        И ПОЛУЧИ СКИДКУ
+                    </h3>
                 </div>
-                <form action="" class="form" method="post">
-                    <label for="email"></label>
-                    <input
-                        autocomplete="email"
-                        id="email"
-                        name="email"
-                        placeholder="E-mail"
-                        type="email" />
-                    <button class="btn">Отправить</button>
-                </form>
+                <div class="subject__subtitle">
+                    <p>Регистрируйтесь! присоединяйтесь к сообществу.</p>
+                </div>
             </div>
-            <div class="wrapper">
-                <div class="footer__logo">
-                    <img alt="logo" src="./assets/img/footer/logo--white.svg" />
-                </div>
+            <form
+                (ngSubmit)="submit($event)"
+                [formGroup]="form"
+                class="form"
+                method="post">
+                <label for="email_promo"></label>
+                <input
+                    autocomplete="email"
+                    formControlName="email_promo"
+                    id="email_promo"
+                    name="email_promo"
+                    placeholder="E-mail"
+                    type="email" />
+                <button class="btn">Отправить</button>
+            </form>
+        </div>
+        <div class="wrapper">
+            <div class="footer__logo">
+                <img alt="logo" src="./assets/img/footer/logo--white.svg" />
             </div>
         </div>
-        <div class="footer--bottom">
+    </div>
+    <div class="footer--bottom">
+        <ul class="list">
+            <li class="list__title first">
+                <h3 class="first">О нас</h3>
+            </li>
+            <li>
+                <p>
+                    POSH - ваш надежный партнер в мире моды, где стиль встречает
+                    комфорт, и качество - вдохновление для вашего гардероба.
+                </p>
+            </li>
+        </ul>
+        <div class="wrapper-inner">
             <ul class="list">
-                <li class="list__title first">
-                    <h3 class="first">О нас</h3>
-                </li>
-                <li>
-                    <p>
-                        POSH - ваш надежный партнер в мире моды, где стиль
-                        встречает комфорт, и качество - вдохновление для вашего
-                        гардероба.
-                    </p>
-                </li>
+                <li class="list__title"><h3>Категории</h3></li>
+                <li><a routerLink=""> Женщинам </a></li>
+                <li><a routerLink=""> Мужчинам </a></li>
             </ul>
-            <div class="wrapper-inner">
-                <ul class="list">
-                    <li class="list__title"><h3>Категории</h3></li>
-                    <li><a routerLink=""> Женщинам </a></li>
-                    <li><a routerLink=""> Мужчинам </a></li>
-                </ul>
-                <ul class="list">
-                    <li class="list__title"><h3>Компания</h3></li>
-                    <li><a routerLink=""> О нас </a></li>
-                    <li><a routerLink=""> Контакты </a></li>
-                    <li><a href="" target="_blank"> Блог </a></li>
-                </ul>
-            </div>
-            <div class="background"></div>
+            <ul class="list">
+                <li class="list__title"><h3>Компания</h3></li>
+                <li><a routerLink=""> О нас </a></li>
+                <li><a routerLink=""> Контакты </a></li>
+                <li><a href="" target="_blank"> Блог </a></li>
+            </ul>
         </div>
+        <div class="background"></div>
     </div>
 </footer>

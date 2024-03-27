@@ -94,5 +94,11 @@ button {
 
 input {
     border: none;
+    color: $gray;
     background-color: transparent;
+
+    &:-webkit-autofill {
+        -webkit-text-fill-color: $gray;
+        transition: background-color 5000s ease-in-out 0s;
+    }
 }
