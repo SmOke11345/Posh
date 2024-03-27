@@ -2,6 +2,11 @@
 @import "https://fonts.googleapis.com/css2?family=Open+Sans:ital,wdth,wght@0,75..100,300..800;1,75..100,300..800&family=Rubik:ital,wght@0,300..900;1,300..900&display=swap";
 @import "variables";
 
+// TODO: пока что понятия не имею как убрать router-outlet
+router-outlet {
+    display: none;
+}
+
 * {
     padding: 0;
     margin: 0;
@@ -81,7 +86,9 @@ h3,
 h4,
 h5,
 h6 {
-    font-weight: 600;
+    font:
+        600 $rubik-sb-36 "Rubik",
+        sans-serif;
     color: $dark;
 }
 
@@ -92,13 +99,15 @@ button {
     outline: none;
 }
 
-input {
+input[type="text"],
+input[type="email"],
+input[type="password"] {
     border: none;
-    color: $gray;
+    color: $input-text;
     background-color: transparent;
 
     &:-webkit-autofill {
-        -webkit-text-fill-color: $gray;
+        -webkit-text-fill-color: $input-text;
         transition: background-color 5000s ease-in-out 0s;
     }
 }

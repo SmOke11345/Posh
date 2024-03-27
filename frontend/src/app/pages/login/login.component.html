@@ -1,0 +1,86 @@
+<section class="login">
+    <div class="container-form">
+        <form
+            (ngSubmit)="onSubmit($event)"
+            [formGroup]="loginForm"
+            class="form">
+            <div class="form__title">
+                <h2>Авторизация</h2>
+            </div>
+            <!-- TODO: Восстановление пароля-->
+            <!--<div class="form__link">-->
+            <!--<a routerLink="/register">Регистрация</a>-->
+            <!--</div>-->
+            <div class="form--wrap">
+                <div class="form__input">
+                    <!--TODO: Такое email не найдет, сделать ошибку-->
+                    <label for="email"></label>
+                    <input
+                        [ngClass]="{
+                            error: loginForm.controls['email'].errors
+                        }"
+                        autocomplete="email"
+                        formControlName="email"
+                        id="email"
+                        name="email"
+                        placeholder="E-mail"
+                        type="email" />
+                </div>
+                <div class="form__input password">
+                    <label for="password"></label>
+                    <input
+                        [ngClass]="{
+                            error: loginForm.controls['password'].errors
+                        }"
+                        [type]="typeInputPassword"
+                        autocomplete="password"
+                        formControlName="password"
+                        id="password"
+                        name="password"
+                        placeholder="Пароль" />
+                    <ng-container *ngIf="!showPassword">
+                        <div (click)="showPasswordInput()" class="input-icon">
+                            <img
+                                alt="показать пароль"
+                                src="../../../assets/img/common/password--show.svg" />
+                        </div>
+                    </ng-container>
+                    <ng-container *ngIf="showPassword">
+                        <div (click)="showPasswordInput()" class="input-icon">
+                            <img
+                                alt="показать пароль"
+                                src="../../../assets/img/common/password--hidden.svg" />
+                        </div>
+                    </ng-container>
+                    <ng-container *ngIf="loginForm.controls['password'].errors">
+                        <div class="input-icon info">
+                            <img
+                                alt="ошибка"
+                                src="./assets/img/common/information-circle.svg" />
+                        </div>
+                    </ng-container>
+                    <ng-container *ngIf="loginForm.controls['password'].errors">
+                        <span class="info-text error">Не менее 8 символов</span>
+                    </ng-container>
+                </div>
+            </div>
+            <div class="form--wrap">
+                <div class="form__input checkbox">
+                    <input
+                        formControlName="rememberMe"
+                        id="rememberMe"
+                        name="rememberMe"
+                        type="checkbox" />
+                    <label class="label-checkbox" for="rememberMe"
+                        >Запомнить меня</label
+                    >
+                </div>
+            </div>
+            <div class="form__input button">
+                <button class="btn btn--icon" type="submit">
+                    Авторизоваться
+                </button>
+            </div>
+        </form>
+    </div>
+</section>

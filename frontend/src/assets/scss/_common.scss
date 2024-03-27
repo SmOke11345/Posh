@@ -13,6 +13,11 @@
     grid-template-rows: auto 1fr auto;
 }
 
+.container-form {
+    width: 42.5rem;
+    margin: 0 auto;
+}
+
 @media screen and (max-width: $desktop) {
     .container {
         width: 130rem;
@@ -32,7 +37,8 @@
 }
 
 @media screen and (max-width: $mobile) {
-    .container {
+    .container,
+    .container-form {
         width: 100%;
     }
     .container-grid {
@@ -41,42 +47,176 @@
 }
 
 button.btn {
+    transition: all 0.3s ease-in-out;
     text-transform: uppercase;
     padding: 1.6rem;
     text-align: center;
-    color: $white;
     letter-spacing: 0.025rem;
     background-color: $dark;
+    color: $white;
     font:
         500 $rubik-m-14 "Rubik",
         sans-serif;
     border-radius: 0.8rem;
+    position: relative;
+    width: 100%;
+
+    &--icon::before {
+        content: "";
+        background: url("../img/common/arrow_forward.svg") no-repeat center
+            center;
+        display: block;
+        position: absolute;
+        right: 1.6rem;
+        width: 1.6rem;
+        height: 1.6rem;
+    }
+
+    &:hover {
+        background-color: $btn-hover;
+    }
+
+    &:focus {
+        outline: 0.5rem solid $white;
+    }
+
+    &:active {
+        background-color: $btn-active;
+    }
 }
 
 label {
     display: none;
 }
 
-input {
-    outline: 1px solid $white;
-    padding: 1.6rem;
-    border-radius: 0.8rem;
-    width: 100%;
-    transition: all 0.3s ease-in-out;
+label.label-checkbox {
+    font:
+        400 $opensans-r-16 "Open Sans",
+        sans-serif;
+    display: block;
+}
 
-    &::placeholder {
-        font:
-            400 $inter-r-14 "Inter",
-            sans-serif;
-        letter-spacing: 0.05rem;
+input[type="email"].white {
+    outline: 1px solid $white;
+    color: $gray;
+
+    &:focus {
         color: $gray;
     }
 
+    &:-webkit-autofill {
+        -webkit-text-fill-color: $gray;
+    }
+}
+
+input[type="text"],
+input[type="password"],
+input[type="email"] {
+    padding: 1.5rem 1.6rem;
+    border-radius: 0.8rem;
+    width: 100%;
+    transition: all 0.3s ease-in-out;
+    outline: 1px solid $dark;
+    font:
+        400 $inter-r-14 "Inter",
+        sans-serif;
+    letter-spacing: 0.05rem;
+    color: $input-text;
+
     &:focus {
+        color: $input-text-active;
         outline: 1px solid $input-focus;
     }
 
     &:hover {
         outline: 1px solid $input-hover;
+    }
+}
+
+input.error {
+    outline: 1px solid $error;
+}
+
+.form {
+    display: grid;
+    row-gap: 3rem;
+
+    &--wrap {
+        display: grid;
+        row-gap: 1.5rem;
+    }
+
+    &__input.password {
+        position: relative;
+    }
+
+    &__input.checkbox {
+        display: flex;
+        align-items: center;
+
+        input[type="checkbox"] {
+            margin-right: 0.5rem;
+        }
+    }
+
+    .input-icon {
+        cursor: pointer;
+        position: absolute;
+        top: 1.2rem;
+        right: 1.5rem;
+
+        img {
+            width: 2.4rem;
+            height: 2.4rem;
+        }
+    }
+
+    .input-icon.info {
+        right: 4.5rem;
+    }
+
+    .info-text.error {
+        color: $error;
+        font:
+            400 1.2rem "INter",
+            sans-serif;
+    }
+}
+
+@media screen and (max-width: $mobile) {
+    .form {
+        row-gap: 2rem;
+
+        &__title h2 {
+            font-size: $rubik-sb-24;
+        }
+    }
+}
+
+input[type="checkbox"] {
+    -webkit-appearance: none;
+    border: 0.2rem solid $dark;
+    border-radius: 0.2rem;
+    width: 1.8rem;
+    height: 1.8rem;
+    display: block;
+
+    position: relative;
+
+    &:checked {
+        background: $dark;
+        border-color: $main-gray;
+
+        &::after {
+            content: "";
+            display: block;
+            position: absolute;
+            left: 0.2em;
+            top: 0.4rem;
+            width: 0.9rem;
+            height: 0.7rem;
+            background: url("../img/common/check.svg") no-repeat center center;
+            background-size: contain;
+        }
     }
 }
