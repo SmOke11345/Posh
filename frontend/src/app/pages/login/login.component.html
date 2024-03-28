@@ -1,16 +1,16 @@
 <section class="login">
     <div class="container-form">
-        <form
-            (ngSubmit)="onSubmit($event)"
-            [formGroup]="loginForm"
-            class="form">
-            <div class="form__title">
-                <h2>Авторизация</h2>
+        <form (ngSubmit)="onSubmit()" [formGroup]="loginForm" class="form">
+            <div class="form--wrap">
+                <div class="form__title">
+                    <h2>Авторизация</h2>
+                </div>
+                <div class="form__subtitle">
+                    <p>
+                        <a routerLink="/register"> Еще нет аккаунта? </a>
+                    </p>
+                </div>
             </div>
-            <!-- TODO: Восстановление пароля-->
-            <!--<div class="form__link">-->
-            <!--<a routerLink="/register">Регистрация</a>-->
-            <!--</div>-->
             <div class="form--wrap">
                 <div class="form__input">
                     <!--TODO: Такое email не найдет, сделать ошибку-->
@@ -63,6 +63,10 @@
                         <span class="info-text error">Не менее 8 символов</span>
                     </ng-container>
                 </div>
+                <!-- TODO: Предложение о восстановление пароля появляется после неудачного входа и ошибки валидации пароля-->
+                <!--<div class="form__link">-->
+                <!--<a routerLink="/register">Регистрация</a>-->
+                <!--</div>-->
             </div>
             <div class="form--wrap">
                 <div class="form__input checkbox">

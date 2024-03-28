@@ -52,10 +52,13 @@ export class AuthService {
         // Хешируем пароль
         const hashedPassword = await bcrypt.hash(user.password, 10);
 
+        // Вместо цифр буквы
+        const gender = user.gender === "1" ? "Мужской" : "Женский";
+
         return this.prismaService.user.create({
             data: {
                 ...user,
-                gender: user.gender === 1 ? "Мужской" : "Женский",
+                gender,
                 password: hashedPassword,
             },
         });

@@ -6,11 +6,12 @@ import {
     Validators,
 } from "@angular/forms";
 import { NgClass, NgIf, NgStyle } from "@angular/common";
+import { RouterLink } from "@angular/router";
+import { AuthService } from "../../services/auth.service";
 
 @Component({
     selector: "app-login",
     templateUrl: "./login.component.html",
-    styleUrl: "./login.component.scss",
 })
 export class LoginComponent {
     showPassword: boolean;
@@ -18,7 +19,7 @@ export class LoginComponent {
 
     typeInputPassword: string = "password";
 
-    constructor() {
+    constructor(private authService: AuthService) {
         this.loginForm = new FormGroup({
             email: new FormControl("", [Validators.email, Validators.required]),
             password: new FormControl("", [
@@ -34,12 +35,15 @@ export class LoginComponent {
     /**
      * Авторизация пользователя
      */
-    onSubmit(event: Event) {
-        event.preventDefault();
+    onSubmit() {
         // Устанавливать значение checkbox в form group при помощи setValue
         if (this.loginForm.invalid) {
             return;
         }
+        // TODO: Доделать отображение ошибок
+        this.authService.login({ ...this.loginForm.value }).subscribe({
+            error: (error) => {},
+        });
     }
 
     /**
@@ -56,9 +60,9 @@ export class LoginComponent {
 }
 
 @NgModule({
-    imports: [ReactiveFormsModule, NgIf, NgClass, NgStyle],
+    imports: [ReactiveFormsModule, NgIf, NgClass, NgStyle, RouterLink],
     exports: [],
     declarations: [LoginComponent],
-    providers: [],
+    providers: [AuthService],
 })
 export class LoginModule {}

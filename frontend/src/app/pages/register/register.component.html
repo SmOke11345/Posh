@@ -1,1 +1,148 @@
-<p>register works!</p>
+<section class="register">
+    <div class="container-form">
+        <form (ngSubmit)="onSubmit()" [formGroup]="registerForm" class="form">
+            <div class="form--wrap">
+                <div class="form__title">
+                    <h2>Регистрация</h2>
+                </div>
+                <div class="form__subtitle">
+                    <p>
+                        <a routerLink="/login"> Уже есть аккаунт? </a>
+                    </p>
+                </div>
+            </div>
+            <div class="form--wrap">
+                <div class="form__title-inner">
+                    <h3>Личные данные</h3>
+                </div>
+                <div class="form__input">
+                    <label for="name"></label>
+                    <input
+                        formControlName="name"
+                        id="name"
+                        name="name"
+                        placeholder="Имя"
+                        type="text" />
+                </div>
+                <div class="form__input">
+                    <label for="lastname"></label>
+                    <input
+                        formControlName="lastname"
+                        id="lastname"
+                        name="lastname"
+                        placeholder="Фамилия"
+                        type="text" />
+                </div>
+            </div>
+            <div class="form--wrap">
+                <div class="form__title-inner">
+                    <h3>Пол</h3>
+                </div>
+                <div class="form__input checkbox">
+                    <input
+                        formControlName="gender"
+                        id="gender"
+                        name="gender"
+                        type="radio"
+                        value="1" />
+                    <label class="label-checkbox" for="gender">Мужской</label>
+                    <input
+                        checked
+                        formControlName="gender"
+                        id="genderW"
+                        name="gender"
+                        type="radio"
+                        value="2" />
+                    <label class="label-checkbox" for="genderW">Женский</label>
+                </div>
+            </div>
+            <div class="form--wrap">
+                <div class="form__title-inner">
+                    <h3>Данные для входа</h3>
+                </div>
+                <div class="form__input">
+                    <label for="email"></label>
+                    <input
+                        [ngClass]="{
+                            error: registerForm.controls['email'].errors
+                        }"
+                        autocomplete="email"
+                        formControlName="email"
+                        id="email"
+                        name="email"
+                        placeholder="E-mail"
+                        type="email" />
+                    <ng-container *ngIf="errors">
+                        <span class="info-text error">{{ errors }}</span>
+                    </ng-container>
+                </div>
+                <div class="form__input password">
+                    <label for="password"></label>
+                    <input
+                        [ngClass]="{
+                            error: registerForm.controls['password'].errors
+                        }"
+                        [type]="typeInputPassword"
+                        autocomplete="password"
+                        formControlName="password"
+                        id="password"
+                        name="password"
+                        placeholder="Пароль" />
+                    <ng-container *ngIf="!showPassword">
+                        <div (click)="showPasswordInput()" class="input-icon">
+                            <img
+                                alt="показать пароль"
+                                src="../../../assets/img/common/password--show.svg" />
+                        </div>
+                    </ng-container>
+                    <ng-container *ngIf="showPassword">
+                        <div (click)="showPasswordInput()" class="input-icon">
+                            <img
+                                alt="показать пароль"
+                                src="../../../assets/img/common/password--hidden.svg" />
+                        </div>
+                    </ng-container>
+                    <ng-container
+                        *ngIf="registerForm.controls['password'].errors">
+                        <div class="input-icon info">
+                            <img
+                                alt="ошибка"
+                                src="./assets/img/common/information-circle.svg" />
+                        </div>
+                    </ng-container>
+                    <ng-container
+                        *ngIf="registerForm.controls['password'].errors">
+                        <span class="info-text error">Не менее 8 символов</span>
+                    </ng-container>
+                </div>
+                <div class="form__input checkbox">
+                    <input
+                        id="police"
+                        name="police"
+                        type="checkbox"
+                        value="false" />
+                    <label class="label-checkbox" for="police"
+                        >При нажатии на кнопку “Зарегистрироваться” вы
+                        соглашаетесь с правилами и условиями сайта.
+                    </label>
+                </div>
+                <div class="form__input checkbox">
+                    <input
+                        formControlName="rememberMe"
+                        id="rememberMe"
+                        name="rememberMe"
+                        type="checkbox"
+                        value="false" />
+                    <label class="label-checkbox" for="rememberMe"
+                        >Оставить в системе после регистрации.</label
+                    >
+                </div>
+            </div>
+            <div class="form__input button">
+                <button class="btn btn--icon" type="submit">
+                    Зарегистрироваться
+                </button>
+            </div>
+        </form>
+    </div>
+</section>

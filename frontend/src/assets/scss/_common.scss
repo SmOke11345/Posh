@@ -94,6 +94,7 @@ label.label-checkbox {
         400 $opensans-r-16 "Open Sans",
         sans-serif;
     display: block;
+    width: 100%;
 }
 
 input[type="email"].white {
@@ -141,6 +142,17 @@ input.error {
     display: grid;
     row-gap: 3rem;
 
+    &__subtitle a {
+        font:
+            600 $opensans-r-20 "Open Sans",
+            sans-serif;
+        text-decoration: underline;
+    }
+
+    &__title-inner h3 {
+        font-size: $rubik-sb-24;
+    }
+
     &--wrap {
         display: grid;
         row-gap: 1.5rem;
@@ -154,8 +166,13 @@ input.error {
         display: flex;
         align-items: center;
 
-        input[type="checkbox"] {
+        input[type="checkbox"],
+        input[type="radio"] {
             margin-right: 0.5rem;
+        }
+
+        input[type="radio"] {
+            padding-right: 1.4rem;
         }
     }
 
@@ -190,10 +207,23 @@ input.error {
         &__title h2 {
             font-size: $rubik-sb-24;
         }
+
+        &__title-inner h3 {
+            font-size: $rubik-sb-20;
+        }
+
+        &__subtitle a {
+            font-size: $opensans-r-16;
+        }
+
+        label.label-checkbox {
+            font-size: $opensans-r-14;
+        }
     }
 }
 
-input[type="checkbox"] {
+input[type="checkbox"],
+input[type="radio"] {
     -webkit-appearance: none;
     border: 0.2rem solid $dark;
     border-radius: 0.2rem;
