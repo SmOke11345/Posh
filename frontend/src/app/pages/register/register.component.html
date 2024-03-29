@@ -64,16 +64,25 @@
                     <label for="email"></label>
                     <input
                         [ngClass]="{
-                            error: registerForm.controls['email'].errors
+                            error:
+                                registerForm.controls['email'].errors ||
+                                errors.includes('Такой E-mail уже существует')
                         }"
                         autocomplete="email"
                         formControlName="email"
                         id="email"
                         name="email"
-                        placeholder="E-mail"
+                        placeholder="user@example.com"
                         type="email" />
                     <ng-container *ngIf="errors">
                         <span class="info-text error">{{ errors }}</span>
+                    </ng-container>
+                    <ng-container *ngIf="registerForm.controls['email'].errors">
+                        <div class="input-icon info">
+                            <img
+                                alt="ошибка"
+                                src="./assets/img/common/information-circle.svg" />
+                        </div>
                     </ng-container>
                 </div>
                 <div class="form__input password">

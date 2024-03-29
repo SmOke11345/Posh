@@ -6,8 +6,8 @@ import {
     ReactiveFormsModule,
     Validators,
 } from "@angular/forms";
-import { Router, RouterLink } from "@angular/router";
 import { AuthService } from "../../services/auth.service";
+import { RouterLink } from "@angular/router";
 
 @Component({
     selector: "app-register",
@@ -21,10 +21,7 @@ export class RegisterComponent {
 
     typeInputPassword: string = "password";
 
-    constructor(
-        private router: Router,
-        private usersService: AuthService,
-    ) {
+    constructor(private usersService: AuthService) {
         this.registerForm = new FormGroup({
             name: new FormControl("", [Validators.required]),
             lastname: new FormControl(""),
@@ -44,14 +41,23 @@ export class RegisterComponent {
      * Регистрация пользователя.
      */
     onSubmit() {
-        // Если сheckbox оставить меня в системе равен true, то сохранять данные пользователя в cookie.
         if (this.registerForm.invalid) {
             return;
         }
 
         this.usersService.register({ ...this.registerForm.value }).subscribe({
+            next: () => {
+                if (this.registerForm.value.rememberMe) {
+                    this.usersService
+                        .login({ ...this.registerForm.value })
+                        .subscribe();
+                }
+            },
             error: (error) => {
                 this.errors = error.error.message;
+            },
+            complete: () => {
+                this.errors = "";
             },
         });
     }
@@ -70,7 +76,7 @@ export class RegisterComponent {
 }
 
 @NgModule({
-    imports: [NgIf, ReactiveFormsModule, RouterLink, NgClass],
+    imports: [NgIf, ReactiveFormsModule, NgClass, RouterLink],
     exports: [],
     declarations: [RegisterComponent],
     providers: [AuthService],

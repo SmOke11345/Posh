@@ -4,14 +4,14 @@ import {
     HttpInterceptor,
     HttpRequest,
 } from "@angular/common/http";
-import { CookieService } from "ngx-cookie-service";
+import { StoreDataUserService } from "../utils/storeDataUser.service";
 
 @Injectable()
 export class AuthInterceptorsService implements HttpInterceptor {
-    constructor(private cookieService: CookieService) {}
+    constructor(private storeData: StoreDataUserService) {}
 
     intercept(req: HttpRequest<any>, next: HttpHandler) {
-        const token = this.cookieService.get("access_token");
+        const token = this.storeData.getToken();
 
         if (token) {
             req = req.clone({

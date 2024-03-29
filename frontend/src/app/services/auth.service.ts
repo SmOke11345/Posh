@@ -1,15 +1,17 @@
 import { Injectable } from "@angular/core";
 import { HttpClient } from "@angular/common/http";
-import { User } from "../models/User";
+import { LoginResponse, User } from "../models/User";
 import { Url } from "../models/enums/RequestUrls";
 import { catchError, tap, throwError } from "rxjs";
 import { Router } from "@angular/router";
+import { StoreDataUserService } from "../utils/storeDataUser.service";
 
 @Injectable({
     providedIn: "root",
 })
 export class AuthService {
     constructor(
+        private storeData: StoreDataUserService,
         private http: HttpClient,
         private router: Router,
     ) {}
@@ -24,11 +26,7 @@ export class AuthService {
         return this.http.post<User>(`${Url.REGISTER}`, data).pipe(
             catchError((error) => throwError(error)),
             tap(() => {
-                if (rememberMe) {
-                    // TODO: Сохранить данные в cookies (30 дней) и localStorage.
-                    // this.setCookie(response); // Устанавливает токен в cookies
-                    this.router.navigate(["/profile"]);
-                } else {
+                if (!rememberMe) {
                     this.router.navigate(["/login"]);
                 }
             }),
@@ -42,17 +40,31 @@ export class AuthService {
     login(payload: { email: string; password: string; rememberMe: boolean }) {
         const { rememberMe, ...data } = payload;
 
-        return this.http.post<User>(`${Url.LOGIN}`, data).pipe(
+        return this.http.post<LoginResponse>(`${Url.LOGIN}`, data).pipe(
             catchError((error) => throwError(error)),
-            tap(() => {
+            tap((response) => {
+                const { access_token } = response;
+                const user_data = response.data.passport.user;
+
                 if (rememberMe) {
-                    // TODO: Сохранить данные в cookies (30 дней) и localStorage.
-                    // this.setCookie(response); // Устанавливает токен в cookies
+                    this.setDataUser({ ...user_data }, access_token);
                 } else {
-                    // TODO: сохранить данные пользователя в SessionStorage. А access_token в cookies session.
+                    this.storeData.setToken("sessionCookie", access_token);
+                    this.storeData.setUserData("sessionStorage", user_data);
                     this.router.navigate(["/profile"]);
                 }
             }),
         );
+    }
+
+    /**
+     * Установка данных пользователя в cookies (30 дней) и localStorage.
+     * @param payload
+     * @param token
+     */
+    setDataUser(payload: User, token: string) {
+        this.storeData.setToken("cookie", token);
+        this.storeData.setUserData("localStorage", payload);
+        this.router.navigate(["/profile"]);
     }
 }

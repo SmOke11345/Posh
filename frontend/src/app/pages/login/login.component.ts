@@ -5,9 +5,10 @@ import {
     ReactiveFormsModule,
     Validators,
 } from "@angular/forms";
-import { NgClass, NgIf, NgStyle } from "@angular/common";
+import { NgClass, NgFor, NgIf, NgStyle } from "@angular/common";
 import { RouterLink } from "@angular/router";
 import { AuthService } from "../../services/auth.service";
+import { StoreDataUserService } from "../../utils/storeDataUser.service";
 
 @Component({
     selector: "app-login",
@@ -16,6 +17,8 @@ import { AuthService } from "../../services/auth.service";
 export class LoginComponent {
     showPassword: boolean;
     loginForm: FormGroup;
+
+    errors: string[] = [];
 
     typeInputPassword: string = "password";
 
@@ -36,13 +39,17 @@ export class LoginComponent {
      * Авторизация пользователя
      */
     onSubmit() {
-        // Устанавливать значение checkbox в form group при помощи setValue
         if (this.loginForm.invalid) {
             return;
         }
-        // TODO: Доделать отображение ошибок
         this.authService.login({ ...this.loginForm.value }).subscribe({
-            error: (error) => {},
+            error: (error) => {
+                console.log(error);
+                this.errors = [`${error.error.message}`];
+            },
+            complete: () => {
+                this.errors = [];
+            },
         });
     }
 
@@ -60,9 +67,9 @@ export class LoginComponent {
 }
 
 @NgModule({
-    imports: [ReactiveFormsModule, NgIf, NgClass, NgStyle, RouterLink],
+    imports: [ReactiveFormsModule, NgFor, NgIf, NgClass, NgStyle, RouterLink],
     exports: [],
     declarations: [LoginComponent],
-    providers: [AuthService],
+    providers: [AuthService, StoreDataUserService],
 })
 export class LoginModule {}

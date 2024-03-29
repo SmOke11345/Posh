@@ -13,24 +13,43 @@
             </div>
             <div class="form--wrap">
                 <div class="form__input">
-                    <!--TODO: Такое email не найдет, сделать ошибку-->
                     <label for="email"></label>
                     <input
                         [ngClass]="{
-                            error: loginForm.controls['email'].errors
+                            error:
+                                loginForm.controls['email'].errors ||
+                                errors.includes('E-mail не найден')
                         }"
                         autocomplete="email"
                         formControlName="email"
                         id="email"
                         name="email"
-                        placeholder="E-mail"
+                        placeholder="user@example.com"
                         type="email" />
+                    <ng-container *ngIf="errors">
+                        <ng-container *ngFor="let error of errors">
+                            <span
+                                *ngIf="error.includes('E-mail')"
+                                class="info-text error"
+                                >{{ error }}</span
+                            >
+                        </ng-container>
+                    </ng-container>
+                    <ng-container *ngIf="loginForm.controls['email'].errors">
+                        <div class="input-icon info">
+                            <img
+                                alt="ошибка"
+                                src="./assets/img/common/information-circle.svg" />
+                        </div>
+                    </ng-container>
                 </div>
                 <div class="form__input password">
                     <label for="password"></label>
                     <input
                         [ngClass]="{
-                            error: loginForm.controls['password'].errors
+                            error:
+                                loginForm.controls['password'].errors ||
+                                errors.includes('Неверный пароль')
                         }"
                         [type]="typeInputPassword"
                         autocomplete="password"
@@ -59,8 +78,14 @@
                                 src="./assets/img/common/information-circle.svg" />
                         </div>
                     </ng-container>
-                    <ng-container *ngIf="loginForm.controls['password'].errors">
-                        <span class="info-text error">Не менее 8 символов</span>
+                    <ng-container *ngIf="errors">
+                        <ng-container *ngFor="let error of errors">
+                            <span
+                                *ngIf="error.includes('пароль')"
+                                class="info-text error"
+                                >{{ error }}</span
+                            >
+                        </ng-container>
                     </ng-container>
                 </div>
                 <!-- TODO: Предложение о восстановление пароля появляется после неудачного входа и ошибки валидации пароля-->

@@ -151,15 +151,22 @@ input.error {
 
     &__title-inner h3 {
         font-size: $rubik-sb-24;
+        position: relative;
+
+        &:after {
+            content: "";
+            background: url("../img/common/required.svg") no-repeat center
+                center;
+            background-size: contain;
+            width: 0.7rem;
+            height: 0.7rem;
+            position: absolute;
+        }
     }
 
     &--wrap {
         display: grid;
         row-gap: 1.5rem;
-    }
-
-    &__input.password {
-        position: relative;
     }
 
     &__input.checkbox {
@@ -176,6 +183,14 @@ input.error {
         }
     }
 
+    &__input {
+        position: relative;
+    }
+
+    &__input.password .input-icon.info {
+        right: 4.5rem;
+    }
+
     .input-icon {
         cursor: pointer;
         position: absolute;
@@ -189,13 +204,14 @@ input.error {
     }
 
     .input-icon.info {
-        right: 4.5rem;
+        right: 1.5rem;
     }
 
     .info-text.error {
+        letter-spacing: 0.04rem;
         color: $error;
         font:
-            400 1.2rem "INter",
+            400 1.2rem "Inter",
             sans-serif;
     }
 }
