@@ -1,0 +1,79 @@
+@import "../../../../styles";
+
+.profile {
+    &--wrap {
+        display: grid;
+        grid-template-columns: auto 1fr;
+        column-gap: 4rem;
+    }
+
+    .aside {
+        background-color: $section-white;
+        padding: 2rem 4rem 2rem 2.5rem;
+        border-radius: 2.4rem;
+
+        .title {
+            margin-bottom: 2rem;
+
+            &__img img {
+                width: 8rem;
+                height: 8rem;
+            }
+
+            &__name {
+                margin-top: 0.5rem;
+                width: 95%;
+                white-space: normal;
+
+                h3 {
+                    font-size: $rubik-sb-24;
+                }
+            }
+        }
+    }
+
+    .section_inner {
+        padding: 5rem;
+        background-color: $section-white;
+        border-radius: 2.4rem;
+        height: max-content;
+    }
+
+    .list {
+        &__item {
+            position: relative;
+
+            a {
+                font:
+                    400 $opensans-r-20 "Open Sans",
+                    sans-serif;
+            }
+
+            &:not(:last-child) {
+                margin-bottom: 1rem;
+            }
+        }
+
+        &__item.active {
+            a {
+                position: relative;
+                z-index: 2;
+                color: $gray;
+            }
+
+            &::after {
+                content: "";
+                display: block;
+                position: absolute;
+                z-index: 1;
+                width: 100%;
+                top: -0.5rem;
+                left: -2.5rem;
+                height: 3.7rem;
+                background-color: $yellow;
+                border-radius: 0 2.4rem 0 0;
+                padding: 0 4rem 0 2.5rem;
+            }
+        }
+    }
+}

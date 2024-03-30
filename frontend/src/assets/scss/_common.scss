@@ -9,7 +9,7 @@
 
 .container-grid {
     display: grid;
-    row-gap: 10rem;
+    row-gap: 7.5rem;
     grid-template-rows: auto 1fr auto;
 }
 
@@ -99,7 +99,6 @@ label.label-checkbox {
 
 input[type="email"].white {
     outline: 1px solid $white;
-    color: $gray;
 
     &:focus {
         color: $gray;
@@ -107,6 +106,10 @@ input[type="email"].white {
 
     &:-webkit-autofill {
         -webkit-text-fill-color: $gray;
+    }
+
+    &::placeholder {
+        color: $gray;
     }
 }
 

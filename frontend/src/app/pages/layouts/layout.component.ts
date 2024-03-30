@@ -1,16 +1,18 @@
 import { Component } from "@angular/core";
 import { RouterLink, RouterOutlet } from "@angular/router";
-import { HeaderComponent } from "../components/Header/header.component";
-import { FooterComponent } from "../components/Footer/footer.component";
-import { ServiceModule } from "../services/service.module";
-import { RegisterModule } from "./register/register.component";
-import { LoginModule } from "./login/login.component";
+import { HeaderComponent } from "../../components/Header/header.component";
+import { FooterComponent } from "../../components/Footer/footer.component";
+import { ServiceModule } from "../../services/service.module";
+import { RegisterModule } from "../register/register.component";
+import { LoginModule } from "../login/login.component";
 import { CommonModule } from "@angular/common";
+import { ProfileModule } from "../profile/profile.component";
 
 @Component({
     selector: "app-layout",
     standalone: true,
     imports: [
+        ProfileModule,
         ServiceModule,
         RegisterModule,
         LoginModule,
@@ -29,6 +31,6 @@ import { CommonModule } from "@angular/common";
             </div>
         </div>
     `,
-    styleUrls: ["../../styles.scss"],
+    styleUrls: ["../../../styles.scss"],
 })
 export class LayoutComponent {}

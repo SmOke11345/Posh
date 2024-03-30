@@ -51,7 +51,7 @@ export class AuthService {
                 } else {
                     this.storeData.setToken("sessionCookie", access_token);
                     this.storeData.setUserData("sessionStorage", user_data);
-                    this.router.navigate(["/profile"]);
+                    this.router.navigate(["/catalog"]);
                 }
             }),
         );
@@ -65,6 +65,6 @@ export class AuthService {
     setDataUser(payload: User, token: string) {
         this.storeData.setToken("cookie", token);
         this.storeData.setUserData("localStorage", payload);
-        this.router.navigate(["/profile"]);
+        this.router.navigate(["/catalog"]);
     }
 }

@@ -68,7 +68,7 @@ export class LoginComponent {
 
 @NgModule({
     imports: [ReactiveFormsModule, NgFor, NgIf, NgClass, NgStyle, RouterLink],
-    exports: [],
+    exports: [LoginComponent],
     declarations: [LoginComponent],
     providers: [AuthService, StoreDataUserService],
 })

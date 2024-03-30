@@ -21,7 +21,7 @@ export class RegisterComponent {
 
     typeInputPassword: string = "password";
 
-    constructor(private usersService: AuthService) {
+    constructor(private authService: AuthService) {
         this.registerForm = new FormGroup({
             name: new FormControl("", [Validators.required]),
             lastname: new FormControl(""),
@@ -45,10 +45,10 @@ export class RegisterComponent {
             return;
         }
 
-        this.usersService.register({ ...this.registerForm.value }).subscribe({
+        this.authService.register({ ...this.registerForm.value }).subscribe({
             next: () => {
                 if (this.registerForm.value.rememberMe) {
-                    this.usersService
+                    this.authService
                         .login({ ...this.registerForm.value })
                         .subscribe();
                 }
@@ -77,7 +77,7 @@ export class RegisterComponent {
 
 @NgModule({
     imports: [NgIf, ReactiveFormsModule, NgClass, RouterLink],
-    exports: [],
+    exports: [RegisterComponent],
     declarations: [RegisterComponent],
     providers: [AuthService],
 })
