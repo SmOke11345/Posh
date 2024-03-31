@@ -3,13 +3,13 @@
 .profile {
     &--wrap {
         display: grid;
-        grid-template-columns: auto 1fr;
+        grid-template-columns: 1fr 5.1fr;
         column-gap: 4rem;
     }
 
     .aside {
         background-color: $section-white;
-        padding: 2rem 4rem 2rem 2.5rem;
+        padding: 2rem 2.5rem;
         border-radius: 2.4rem;
 
         .title {
@@ -45,7 +45,7 @@
 
             a {
                 font:
-                    400 $opensans-r-20 "Open Sans",
+                    400 $opensans-r-16 "Open Sans",
                     sans-serif;
             }
 
@@ -69,10 +69,10 @@
                 width: 100%;
                 top: -0.5rem;
                 left: -2.5rem;
-                height: 3.7rem;
+                height: 3.2rem;
                 background-color: $yellow;
                 border-radius: 0 2.4rem 0 0;
-                padding: 0 4rem 0 2.5rem;
+                padding: 0 2.5rem;
             }
         }
     }

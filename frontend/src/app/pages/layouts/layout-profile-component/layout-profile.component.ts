@@ -1,7 +1,9 @@
-import { Component } from "@angular/core";
+import { Component, OnInit } from "@angular/core";
 import { Router, RouterLink, RouterOutlet } from "@angular/router";
 import { UsersService } from "../../../services/users.service";
 import { NgClass, NgForOf } from "@angular/common";
+import { StoreDataUserService } from "../../../utils/storeDataUser.service";
+import { User } from "../../../models/User";
 
 @Component({
     selector: "app-layout-profile-component",
@@ -9,9 +11,9 @@ import { NgClass, NgForOf } from "@angular/common";
     templateUrl: "./layout-profile.component.html",
     styleUrl: "./layout-profile.component.scss",
     imports: [NgClass, NgForOf, RouterLink, RouterOutlet],
-    providers: [UsersService],
+    providers: [UsersService, StoreDataUserService],
 })
-export class LayoutProfileComponent {
+export class LayoutProfileComponent implements OnInit {
     // TODO: Дописать routы
     navList: { name: string; link: string }[] = [
         {
@@ -36,8 +38,19 @@ export class LayoutProfileComponent {
         },
     ];
 
+    userData: User;
+
     constructor(
         public router: Router,
         private usersService: UsersService,
-    ) {}
+        private storeData: StoreDataUserService,
+    ) {
+        this.userData = {} as User;
+    }
+
+    ngOnInit() {
+        // Для SSR
+        if (typeof window !== "undefined")
+            this.userData = this.storeData.getUserData();
+    }
 }

@@ -40,13 +40,18 @@ export class StoreDataUserService {
 
     /**
      * Получение данных пользователя из localStorage или sessionStorage.
-     * @param name
+     * Сначала ищет в localStorage, если нет, то в sessionStorage.
      */
-    getUserData(name: "localStorage" | "sessionStorage") {
-        return JSON.parse(
-            name === "localStorage"
-                ? (localStorage.getItem("user_data") as string)
-                : (sessionStorage.getItem("user_data") as string),
-        );
+    getUserData() {
+        // Для SSR
+        if (typeof window !== "undefined") {
+            if (localStorage.getItem("user_data") !== null) {
+                return JSON.parse(localStorage.getItem("user_data") as string);
+            } else {
+                return JSON.parse(
+                    sessionStorage.getItem("user_data") as string,
+                );
+            }
+        }
     }
 }

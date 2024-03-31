@@ -1,0 +1,52 @@
+@import "../../../assets/scss/variables";
+
+.subject {
+    width: 50%;
+    row-gap: 2rem;
+
+    .wrapper {
+        @extend %wrapper;
+    }
+
+    &--bottom {
+        margin: 2rem 0 4rem;
+    }
+
+    .btns {
+        &__item {
+            width: 100%;
+
+            &:not(:last-child) {
+                margin-right: 1.5rem;
+            }
+        }
+    }
+
+    &__item {
+        p {
+            margin-bottom: 0.5rem;
+        }
+
+        h3 {
+            font-size: $rubik-sb-24;
+        }
+    }
+}
+
+.form.subject {
+    width: 100%;
+
+    .subject__item,
+    .btns {
+        width: 46%;
+    }
+
+    .form__input,
+    .form--wrap {
+        width: 100%;
+    }
+
+    .form__title-inner h3::after {
+        display: none;
+    }
+}

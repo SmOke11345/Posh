@@ -1,1 +1,178 @@
-<p>profile works!</p>
+<ng-container *ngIf="!change">
+    <div class="subject">
+        <div class="subject--top wrapper">
+            <div class="subject__item">
+                <p>Личные данные</p>
+                <h3>{{ userData.name }} {{ userData.lastname }}</h3>
+            </div>
+            <div class="subject__item">
+                <p>Пол</p>
+                <h3>{{ userData.gender }}</h3>
+            </div>
+        </div>
+        <div class="subject--bottom wrapper">
+            <div class="subject__item">
+                <p>Почта</p>
+                <h3>{{ userData.email }}</h3>
+            </div>
+        </div>
+        <div class="btns wrapper">
+            <div class="btns__item">
+                <button (click)="change = true" class="btn">Изменить</button>
+            </div>
+            <div class="btns__item">
+                <button (click)="logout()" class="btn btn--secondary">
+                    Выйти из аккаунта
+                </button>
+            </div>
+        </div>
+    </div>
+</ng-container>
+<ng-container *ngIf="change">
+    <form (ngSubmit)="onSubmit()" [formGroup]="updateForm" class="form subject">
+        <div class="subject--top wrapper">
+            <div class="subject__item">
+                <div class="form--wrap">
+                    <div class="form__title-inner">
+                        <h3>Личные данные</h3>
+                    </div>
+                    <div class="form__input">
+                        <label for="name"></label>
+                        <input
+                            [value]="userData.name"
+                            formControlName="name"
+                            id="name"
+                            name="name"
+                            placeholder="Имя"
+                            type="text" />
+                    </div>
+                    <div class="form__input">
+                        <label for="lastname"></label>
+                        <input
+                            [value]="userData.lastname"
+                            formControlName="lastname"
+                            id="lastname"
+                            name="lastname"
+                            placeholder="Фамилия"
+                            type="text" />
+                    </div>
+                </div>
+            </div>
+            <div class="subject__item">
+                <div class="form--wrap">
+                    <div class="form__title-inner">
+                        <h3>Данные для входа</h3>
+                    </div>
+                    <div class="form__input">
+                        <label for="email"></label>
+                        <input
+                            [ngClass]="{
+                                error:
+                                    updateForm.controls['email'].errors ||
+                                    errors.includes(
+                                        'Такой E-mail уже существует'
+                                    )
+                            }"
+                            [value]="userData.email"
+                            autocomplete="email"
+                            formControlName="email"
+                            id="email"
+                            name="email"
+                            placeholder="user@example.com"
+                            type="email" />
+                        <ng-container *ngIf="errors">
+                            <span class="info-text error">{{ errors }}</span>
+                        </ng-container>
+                        <ng-container
+                            *ngIf="updateForm.controls['email'].errors">
+                            <div class="input-icon info">
+                                <img
+                                    alt="ошибка"
+                                    src="./assets/img/common/information-circle.svg" />
+                            </div>
+                        </ng-container>
+                    </div>
+                    <div class="form__input password">
+                        <label for="password"></label>
+                        <input
+                            [ngClass]="{
+                                error: updateForm.controls['password'].errors
+                            }"
+                            [type]="typeInputPassword"
+                            autocomplete="password"
+                            formControlName="password"
+                            id="password"
+                            name="password"
+                            placeholder="Пароль" />
+                        <ng-container *ngIf="!showPassword">
+                            <div
+                                (click)="showPasswordInput()"
+                                class="input-icon">
+                                <img
+                                    alt="показать пароль"
+                                    src="../../../assets/img/common/password--show.svg" />
+                            </div>
+                        </ng-container>
+                        <ng-container *ngIf="showPassword">
+                            <div
+                                (click)="showPasswordInput()"
+                                class="input-icon">
+                                <img
+                                    alt="показать пароль"
+                                    src="../../../assets/img/common/password--hidden.svg" />
+                            </div>
+                        </ng-container>
+                        <ng-container
+                            *ngIf="updateForm.controls['password'].errors">
+                            <div class="input-icon info">
+                                <img
+                                    alt="ошибка"
+                                    src="./assets/img/common/information-circle.svg" />
+                            </div>
+                        </ng-container>
+                        <ng-container
+                            *ngIf="updateForm.controls['password'].errors">
+                            <span class="info-text error"
+                                >Не менее 8 символов</span
+                            >
+                        </ng-container>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="subject--bottom wrapper">
+            <div class="form--wrap">
+                <div class="form__title-inner">
+                    <h3>Пол</h3>
+                </div>
+                <div class="form__input checkbox">
+                    <input
+                        formControlName="gender"
+                        id="gender"
+                        name="gender"
+                        type="radio"
+                        value="1" />
+                    <label class="label-checkbox" for="gender">Мужской</label>
+                    <input
+                        checked
+                        formControlName="gender"
+                        id="genderW"
+                        name="gender"
+                        type="radio"
+                        value="2" />
+                    <label class="label-checkbox" for="genderW">Женский</label>
+                </div>
+            </div>
+        </div>
+        <div class="btns wrapper">
+            <div class="btns__item">
+                <button class="btn" type="submit">Изменить</button>
+            </div>
+            <div class="btns__item">
+                <button (click)="change = false" class="btn btn--secondary">
+                    Отменить
+                </button>
+            </div>
+        </div>
+    </form>
+</ng-container>

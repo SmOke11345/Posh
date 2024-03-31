@@ -61,6 +61,18 @@ button.btn {
     position: relative;
     width: 100%;
 
+    &:hover {
+        background-color: $btn-hover;
+    }
+
+    &:focus {
+        outline: 0.5rem solid $gray;
+    }
+
+    &:active {
+        background-color: $btn-active;
+    }
+
     &--icon::before {
         content: "";
         background: url("../img/common/arrow_forward.svg") no-repeat center
@@ -72,16 +84,18 @@ button.btn {
         height: 1.6rem;
     }
 
-    &:hover {
-        background-color: $btn-hover;
-    }
+    &--secondary {
+        background-color: $btn-secondary;
+        color: $btn-secondary-text;
 
-    &:focus {
-        outline: 0.5rem solid $white;
-    }
+        &:hover {
+            background-color: $btn-secondary-text;
+            color: $btn-secondary;
+        }
 
-    &:active {
-        background-color: $btn-active;
+        &:focus {
+            outline: 0.5rem solid $btn-secondary;
+        }
     }
 }
 
