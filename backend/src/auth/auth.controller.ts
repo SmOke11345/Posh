@@ -12,17 +12,22 @@ import { LocalAuthGuard } from "./guard/local-auth.guard";
 
 @Controller("auth")
 export class AuthController {
-    constructor(private readonly authService: AuthService) {}
+    constructor(private authService: AuthService) {}
 
     /**
      * Регистрация пользователя
-     * @param user
+     * @param user - данные пользователя
      */
     @Post("register")
     async register(@Body() user: User) {
         return this.authService.register(user);
     }
 
+    /**
+     * Аутентификация пользователя.
+     * @param request - объект запроса
+     * @param session - данные сессии
+     */
     @UseGuards(LocalAuthGuard)
     @Post("login")
     async login(

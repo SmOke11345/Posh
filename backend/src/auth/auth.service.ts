@@ -6,9 +6,10 @@ import {
 import { PrismaService } from "../utils/prisma.service";
 
 import { User } from "../models/User";
-import * as bcrypt from "bcryptjs";
 import { jwtConstants } from "./utils/jwtConstants";
 import { JwtService } from "@nestjs/jwt";
+
+import * as bcrypt from "bcryptjs";
 
 @Injectable()
 export class AuthService {
@@ -39,7 +40,7 @@ export class AuthService {
 
     /**
      * Регистрация пользователя
-     * @param user
+     * @param user - данные пользователя
      */
     async register(user: User) {
         //Ищем пользователя в базе данных
@@ -52,18 +53,20 @@ export class AuthService {
         // Хешируем пароль
         const hashedPassword = await bcrypt.hash(user.password, 10);
 
-        // Вместо цифр буквы
-        const gender = user.gender === "1" ? "Мужской" : "Женский";
-
         return this.prismaService.user.create({
             data: {
                 ...user,
-                gender,
                 password: hashedPassword,
             },
         });
     }
 
+    /**
+     * Валидация пользователя.
+     * Получение данных пользователя.
+     * @param email
+     * @param password
+     */
     async validateUser(email: string, password: string) {
         const user: any = await this.getEmail(email);
 
@@ -84,7 +87,7 @@ export class AuthService {
 
     /**
      * Аутентификация пользователя.
-     * @param user
+     * @param user - данные пользователя (id, email)
      */
     async singIn(user: User) {
         return this.generateToken({ sub: user.id, email: user.email });

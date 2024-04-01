@@ -10,6 +10,7 @@ import { SessionSerializer } from "./utils/SessionSerializer";
 import { UsersService } from "../users/users.service";
 
 @Module({
+    exports: [AuthService, PrismaService],
     imports: [
         JwtModule.register({
             secret: jwtConstants.secret,
