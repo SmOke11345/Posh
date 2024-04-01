@@ -9,6 +9,8 @@ import {
     ReactiveFormsModule,
     Validators,
 } from "@angular/forms";
+import { Router } from "@angular/router";
+import { AuthService } from "../../services/auth.service";
 
 @Component({
     selector: "app-profile",
@@ -20,18 +22,17 @@ export class ProfileComponent implements OnInit {
     updateForm: FormGroup = new FormGroup({});
 
     errors: string = "";
+
     change: boolean = false;
     showPassword: boolean = false;
     typeInputPassword: string = "password";
 
-    // TODO: получить данные пользователя
     constructor(
         private usersService: UsersService,
+        private authService: AuthService,
         private storeData: StoreDataUserService,
     ) {
         this.userData = {} as User;
-
-        console.log(this.userData.name);
     }
 
     ngOnInit() {
@@ -40,14 +41,10 @@ export class ProfileComponent implements OnInit {
             this.userData = this.storeData.getUserData();
         }
 
-        // TODO: Изменить gender должно отправляться словом
-        // TODO: Сделать, чтобы сразу был выбран пол из представленных галочек
-        // this.userData.gender = this.userData.gender == 'Мужской' ? '1' : '2';
-
         this.updateForm = new FormGroup({
             name: new FormControl(this.userData.name),
             lastname: new FormControl(this.userData.lastname),
-            email: new FormControl(this.userData.email, [Validators.required]),
+            email: new FormControl(this.userData.email),
             gender: new FormControl(this.userData.gender),
             password: new FormControl("", [Validators.minLength(8)]),
         });
@@ -69,15 +66,31 @@ export class ProfileComponent implements OnInit {
      * Изменение данных пользователя.
      */
     onSubmit() {
-        // this.usersService.updateUser(this.userData).subscribe();
-        console.log("this.updateForm", this.userData);
+        const formFieldTouched: { [key: string]: any } = {};
+        for (const control in this.updateForm.controls) {
+            if (this.updateForm.controls[control].touched) {
+                formFieldTouched[control] = this.updateForm.value[control];
+            }
+        }
+        this.usersService.patchUser(formFieldTouched as User).subscribe({
+            next: () => {
+                window.location.reload();
+            },
+            error: (error) => {
+                this.errors = error.error.message;
+            },
+            complete: () => {
+                this.errors = "";
+            },
+        });
     }
 
     /**
      * Выход пользователя из аккаунта.
      */
-    // TODO: Реализовать выход => удаление данный из cookie, localStorage.
-    logout() {}
+    logout() {
+        this.authService.logout();
+    }
 }
 
 @NgModule({

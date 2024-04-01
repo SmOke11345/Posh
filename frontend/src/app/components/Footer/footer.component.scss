@@ -24,7 +24,7 @@
         flex-wrap: wrap;
         justify-content: left;
         background-color: blue;
-        transform: translateY(16rem);
+        transform: translateY(6rem);
 
         padding-bottom: 13.4rem;
 
@@ -52,14 +52,16 @@
             input {
                 margin-right: 1rem;
             }
+
+            button.btn {
+                width: 33%;
+            }
         }
     }
 
-    // TODO: Подумать что-то над нижней частью футера
-
     &--bottom {
         background-color: $dark;
-        transform: translateY(8rem);
+        transform: translateY(-2rem);
         padding-bottom: 38.9rem;
         position: relative;
         overflow: hidden;
@@ -175,7 +177,7 @@
             }
 
             &--top {
-                transform: translateY(8rem);
+                transform: translateY(2rem);
 
                 .form,
                 .subject {
@@ -212,7 +214,6 @@
 
             &--bottom {
                 padding-bottom: 8.5rem;
-                transform: translateY(4rem);
 
                 .list__title.first h3 {
                     font-size: $rubik-sb-24;

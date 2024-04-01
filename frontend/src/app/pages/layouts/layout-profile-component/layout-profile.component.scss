@@ -11,6 +11,7 @@
         background-color: $section-white;
         padding: 2rem 2.5rem;
         border-radius: 2.4rem;
+        height: max-content;
 
         .title {
             margin-bottom: 2rem;
@@ -37,6 +38,13 @@
         background-color: $section-white;
         border-radius: 2.4rem;
         height: max-content;
+    }
+
+    @media screen and (max-width: $tablet) {
+        .section_inner {
+            padding: 0;
+            background-color: transparent;
+        }
     }
 
     .list {
@@ -73,6 +81,62 @@
                 background-color: $yellow;
                 border-radius: 0 2.4rem 0 0;
                 padding: 0 2.5rem;
+            }
+        }
+    }
+}
+
+@media screen and (max-width: $laptop) {
+    .profile--wrap {
+        grid-template-columns: 1fr 4fr;
+    }
+}
+
+@media screen and (max-width: $tablet) {
+    .profile--wrap {
+        grid-template-columns: 1fr 2.6fr;
+    }
+}
+
+@media screen and (max-width: $mobile) {
+    .profile {
+        &--wrap {
+            grid-template-columns: auto;
+            row-gap: 4rem;
+        }
+
+        .aside {
+            padding: 2rem 3rem;
+
+            .title {
+                display: flex;
+                align-items: center;
+
+                &__name h3 {
+                    font-size: $rubik-sb-20;
+                }
+
+                &__img {
+                    margin-right: 2rem;
+
+                    img {
+                        width: 6rem;
+                        height: 6rem;
+                    }
+                }
+            }
+        }
+
+        .list {
+            &__item:not(:last-child) {
+                margin-bottom: 1.5rem;
+            }
+
+            &__item.active {
+                &::after {
+                    left: -3rem;
+                    padding: 0 3rem;
+                }
             }
         }
     }

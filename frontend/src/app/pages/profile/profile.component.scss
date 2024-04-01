@@ -2,14 +2,14 @@
 
 .subject {
     width: 50%;
-    row-gap: 2rem;
 
     .wrapper {
         @extend %wrapper;
+        align-items: flex-start;
     }
 
     &--bottom {
-        margin: 2rem 0 4rem;
+        margin: 2.5rem 0 4rem;
     }
 
     .btns {
@@ -35,9 +35,11 @@
 
 .form.subject {
     width: 100%;
+    row-gap: 0;
 
     .subject__item,
-    .btns {
+    .btns,
+    .subject--bottom {
         width: 46%;
     }
 
@@ -48,5 +50,55 @@
 
     .form__title-inner h3::after {
         display: none;
+    }
+}
+
+@media screen and (max-width: $laptop) {
+    .subject {
+        width: 100%;
+    }
+}
+
+@media screen and (max-width: $tablet) {
+    .form.subject {
+        .subject--top .subject__item:not(:last-child) {
+            margin-bottom: 2.5rem;
+        }
+
+        .subject--top.wrapper {
+            flex-direction: column;
+        }
+
+        .subject__item,
+        .btns,
+        .subject--bottom {
+            width: 100%;
+        }
+    }
+}
+
+@media screen and (max-width: $mobile) {
+    .subject {
+        &--top .subject__item:not(:last-child) {
+            margin-bottom: 2.5rem;
+        }
+
+        &__item {
+            h3 {
+                font-size: $rubik-sb-20;
+            }
+        }
+
+        &--bottom {
+            margin-bottom: 3rem;
+        }
+
+        .wrapper {
+            flex-direction: column;
+        }
+
+        .btns__item:not(:last-child) {
+            margin-bottom: 1.5rem;
+        }
     }
 }

@@ -5,6 +5,7 @@ import { LayoutComponent } from "./pages/layouts/layout.component";
 import { Pages } from "./models/enums/pages";
 import { LayoutProfileComponent } from "./pages/layouts/layout-profile-component/layout-profile.component";
 import { ProfileComponent } from "./pages/profile/profile.component";
+import { AuthGuard } from "./guards/auth.guard";
 
 export const routes: Routes = [
     {
@@ -34,6 +35,8 @@ export const routes: Routes = [
                 path: "",
                 title: "Профиль",
                 component: LayoutProfileComponent,
+                canActivate: [AuthGuard],
+                canActivateChild: [AuthGuard],
                 children: [
                     {
                         path: Pages.PROFILE,

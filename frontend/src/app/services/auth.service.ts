@@ -5,6 +5,7 @@ import { Url } from "../models/enums/RequestUrls";
 import { catchError, tap, throwError } from "rxjs";
 import { Router } from "@angular/router";
 import { StoreDataUserService } from "../utils/storeDataUser.service";
+import { BehaviorSubjectService } from "./behavior-subject.service";
 
 @Injectable({
     providedIn: "root",
@@ -12,6 +13,7 @@ import { StoreDataUserService } from "../utils/storeDataUser.service";
 export class AuthService {
     constructor(
         private storeData: StoreDataUserService,
+        private subject: BehaviorSubjectService,
         private http: HttpClient,
         private router: Router,
     ) {}
@@ -22,11 +24,15 @@ export class AuthService {
      */
     register(payload: User & { rememberMe: boolean }) {
         const { rememberMe, ...data } = payload;
+        this.subject.setRememberMe(rememberMe); // Сохраняем в глобальном хранилище
 
         return this.http.post<User>(`${Url.REGISTER}`, data).pipe(
             catchError((error) => throwError(error)),
             tap(() => {
-                if (!rememberMe) {
+                console.log(rememberMe);
+                if (rememberMe) {
+                    this.login({ ...payload }).subscribe();
+                } else {
                     this.router.navigate(["/login"]);
                 }
             }),
@@ -39,6 +45,7 @@ export class AuthService {
      */
     login(payload: { email: string; password: string; rememberMe: boolean }) {
         const { rememberMe, ...data } = payload;
+        this.subject.setRememberMe(rememberMe); // Сохраняем в глобальном хранилище
 
         return this.http.post<LoginResponse>(`${Url.LOGIN}`, data).pipe(
             catchError((error) => throwError(error)),
@@ -49,10 +56,10 @@ export class AuthService {
                 if (rememberMe) {
                     this.setDataUser({ ...user_data }, access_token);
                 } else {
-                    this.storeData.setToken("sessionCookie", access_token);
-                    this.storeData.setUserData("sessionStorage", user_data);
-                    this.router.navigate(["/catalog"]);
+                    this.storeData.setToken(access_token);
+                    this.storeData.setUserData(user_data);
                 }
+                this.router.navigate(["/catalog"]);
             }),
         );
     }
@@ -63,8 +70,16 @@ export class AuthService {
      * @param token
      */
     setDataUser(payload: User, token: string) {
-        this.storeData.setToken("cookie", token);
-        this.storeData.setUserData("localStorage", payload);
-        this.router.navigate(["/catalog"]);
+        this.storeData.setToken(token);
+        this.storeData.setUserData(payload);
+    }
+
+    /**
+     * Выход пользователя из аккаунта.
+     */
+    logout() {
+        this.storeData.destroyUserData();
+        this.subject.setRememberMe(false);
+        this.router.navigate(["/login"]);
     }
 }

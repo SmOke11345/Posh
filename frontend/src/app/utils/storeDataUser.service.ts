@@ -1,18 +1,27 @@
 import { Injectable } from "@angular/core";
 import { CookieService } from "ngx-cookie-service";
 import { User } from "../models/User";
+import { BehaviorSubjectService } from "../services/behavior-subject.service";
 
 @Injectable({ providedIn: "root" })
 export class StoreDataUserService {
-    constructor(private readonly cookieService: CookieService) {}
+    private rememberMe?: boolean;
+
+    constructor(
+        private readonly cookieService: CookieService,
+        private subject: BehaviorSubjectService,
+    ) {
+        this.subject.rememberMe$.subscribe(
+            (value) => (this.rememberMe = value),
+        );
+    }
 
     /**
      * Установка токена в cookie (30 дней) или в cookie express session.
-     * @param name
      * @param token
      */
-    setToken(name: "cookie" | "sessionCookie", token: string) {
-        name === "cookie"
+    setToken(token: string) {
+        this.rememberMe
             ? this.cookieService.set("access_token", token, {
                   expires: new Date(Date.now() + 30 * 24 * 60 * 60 * 1000), // 30 дней
                   sameSite: "Strict",
@@ -29,11 +38,10 @@ export class StoreDataUserService {
 
     /**
      * Установка данных пользователя в localStorage или sessionStorage.
-     * @param name
      * @param payload
      */
-    setUserData(name: "localStorage" | "sessionStorage", payload: User) {
-        name === "localStorage"
+    setUserData(payload: Omit<User, "password">) {
+        this.rememberMe
             ? localStorage.setItem("user_data", JSON.stringify(payload))
             : sessionStorage.setItem("user_data", JSON.stringify(payload));
     }
@@ -53,5 +61,13 @@ export class StoreDataUserService {
                 );
             }
         }
+    }
+
+    /**
+     * Удаление данных пользователя из localStorage и cookie.
+     */
+    destroyUserData() {
+        this.cookieService.delete("access_token");
+        localStorage.removeItem("user_data");
     }
 }

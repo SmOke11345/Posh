@@ -44,15 +44,14 @@
                         id="gender"
                         name="gender"
                         type="radio"
-                        value="1" />
+                        value="Мужской" />
                     <label class="label-checkbox" for="gender">Мужской</label>
                     <input
-                        checked
                         formControlName="gender"
                         id="genderW"
                         name="gender"
                         type="radio"
-                        value="2" />
+                        value="Женский" />
                     <label class="label-checkbox" for="genderW">Женский</label>
                 </div>
             </div>
@@ -92,7 +91,6 @@
                             error: registerForm.controls['password'].errors
                         }"
                         [type]="typeInputPassword"
-                        autocomplete="password"
                         formControlName="password"
                         id="password"
                         name="password"

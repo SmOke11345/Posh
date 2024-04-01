@@ -25,7 +25,7 @@ export class RegisterComponent {
         this.registerForm = new FormGroup({
             name: new FormControl("", [Validators.required]),
             lastname: new FormControl(""),
-            gender: new FormControl(2, [Validators.required]),
+            gender: new FormControl("Женский", [Validators.required]),
             email: new FormControl("", [Validators.email, Validators.required]),
             password: new FormControl("", [
                 Validators.required,
@@ -46,13 +46,6 @@ export class RegisterComponent {
         }
 
         this.authService.register({ ...this.registerForm.value }).subscribe({
-            next: () => {
-                if (this.registerForm.value.rememberMe) {
-                    this.authService
-                        .login({ ...this.registerForm.value })
-                        .subscribe();
-                }
-            },
             error: (error) => {
                 this.errors = error.error.message;
             },
