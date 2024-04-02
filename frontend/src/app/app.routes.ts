@@ -6,7 +6,9 @@ import { Pages } from "./models/enums/pages";
 import { LayoutProfileComponent } from "./pages/layouts/layout-profile-component/layout-profile.component";
 import { ProfileComponent } from "./pages/profile/profile.component";
 import { AuthGuard } from "./guards/auth.guard";
+import { CartComponent } from "./pages/cart/cart.component";
 
+// TODO: Когда пользователь заходит он попадает в main.
 export const routes: Routes = [
     {
         path: "",
@@ -30,6 +32,11 @@ export const routes: Routes = [
                 path: Pages.REGISTER,
                 title: "Регистрация",
                 component: RegisterComponent,
+            },
+            {
+                path: Pages.CART,
+                title: "Корзина",
+                component: CartComponent,
             },
             {
                 path: "",

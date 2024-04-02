@@ -19,11 +19,6 @@
         @extend %wrapper;
     }
 
-    &__logo img {
-        width: 12.2rem;
-        height: 3.2rem;
-    }
-
     .nav {
         @extend %wrapper;
         width: 30.9rem;
@@ -50,6 +45,57 @@
 
         width: 16.4rem;
         margin-left: 14.5rem;
+    }
+}
+
+.header__logo,
+.menu-burger__logo {
+    img {
+        width: 12.2rem;
+        height: 3.2rem;
+    }
+}
+
+.menu-burger {
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    flex-direction: column;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: $section-white;
+    z-index: 100;
+    overflow: auto;
+    padding: 7.5rem 0 7.5rem;
+
+    &__logo {
+        margin-bottom: 12rem;
+    }
+
+    &__close {
+        position: absolute;
+        top: 3rem;
+        right: 3rem;
+
+        svg {
+            width: 1.3rem;
+            height: 1.3rem;
+        }
+    }
+
+    .burger-nav {
+        &__item {
+            &:not(:last-child) {
+                margin-bottom: 3.5rem;
+            }
+
+            a {
+                font-size: $rubik-sb-24;
+            }
+        }
     }
 }
 

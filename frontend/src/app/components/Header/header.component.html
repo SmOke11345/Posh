@@ -1,17 +1,13 @@
 <header class="header">
     <div class="header--wrap">
         <nav class="nav">
-            <div class="nav__item">
-                <a href="">🔥Новинки</a>
-            </div>
-            <div class="nav__item">
-                <a href="">Мужчинам</a>
-            </div>
-            <div class="nav__item">
-                <a href="">Женщинам</a>
-            </div>
+            <ng-container *ngFor="let link of linkList.slice(0, 3)">
+                <div class="nav__item">
+                    <a [routerLink]="link.url">{{ link.name }}</a>
+                </div>
+            </ng-container>
         </nav>
-        <div class="header__burger">
+        <div (click)="toggleMenu()" class="header__burger">
             <svg
                 fill="none"
                 height="20"
@@ -32,7 +28,7 @@
         </div>
         <nav class="nav">
             <div class="nav__item">
-                <a href="">
+                <a routerLink="">
                     <img alt="поиск" src="./assets/img/header/search.svg" />
                 </a>
             </div>
@@ -44,7 +40,6 @@
             <div class="nav__item">
                 <a routerLink="/cart">
                     <span class="count">
-                        <!--Временно-->
                         {{ cartCount }}
                     </span>
                 </a>
@@ -52,3 +47,38 @@
         </nav>
     </div>
 </header>
+<ng-container *ngIf="showMenu">
+    <div class="menu-burger">
+        <div (click)="toggleMenu()" class="menu-burger__close">
+            <svg
+                fill="none"
+                height="13"
+                viewBox="0 0 13 13"
+                width="13"
+                xmlns="http://www.w3.org/2000/svg">
+                <path
+                    d="M1.00012 1L12.0466 11.9341"
+                    stroke="black"
+                    stroke-linecap="round" />
+                <path
+                    d="M1 11.9344L12.0465 1.00031"
+                    stroke="black"
+                    stroke-linecap="round" />
+            </svg>
+        </div>
+        <div class="menu-burger__logo">
+            <a href="/">
+                <img alt="лого" src="../../../assets/img/header/logo.svg" />
+            </a>
+        </div>
+        <nav class="burger-nav">
+            <ng-container *ngFor="let link of linkList">
+                <div class="burger-nav__item">
+                    <a (click)="hideMenu()" [routerLink]="link.url">{{
+                        link.name
+                    }}</a>
+                </div>
+            </ng-container>
+        </nav>
+    </div>
+</ng-container>
