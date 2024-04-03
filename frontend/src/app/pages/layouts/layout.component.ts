@@ -1,7 +1,7 @@
 import { Component, OnInit } from "@angular/core";
 import { Router, RouterLink, RouterOutlet } from "@angular/router";
-import { HeaderComponent } from "../../components/Header/header.component";
-import { FooterComponent } from "../../components/Footer/footer.component";
+import { HeaderComponent } from "../../components/header/header.component";
+import { FooterComponent } from "../../components/footer/footer.component";
 import { ServiceModule } from "../../services/service.module";
 import { RegisterModule } from "../register/register.component";
 import { LoginModule } from "../login/login.component";

@@ -1,1 +1,17 @@
-<p>cart works!</p>
+<section class="cart">
+    <form (ngSubmit)="onSubmit()" [formGroup]="preparedForm">
+        <div class="cart--wrap">
+            <div class="cart__inner">
+                <!--TODO: Вывод карточек cart_basket-->
+            </div>
+            <div class="cart__inner">
+                <!--TODO: Вывод суммы-->
+                <!--TODO: Кнопка Заказать-->
+            </div>
+        </div>
+    </form>
+    <div class="cart--wrap">
+        <!--TODO: Карусель Подобрано для вас https://keen-slider.io/examples , https://ngx-gallery.netlify.app/#/custom-templates-->
+        <app-card [card_product]="true"></app-card>
+    </div>
+</section>

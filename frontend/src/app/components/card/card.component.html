@@ -1,0 +1,28 @@
+<ng-container *ngIf="card_basket">
+    <div class="card-basket">
+        <div class="card-basket__inner"></div>
+    </div>
+</ng-container>
+<ng-container *ngIf="card_product">
+    <div class="card-product">
+        <div class="card-product__inner">
+            <div class="card-product__img">
+                <!--TODO: Сделать вывод фото-->
+                <img alt="" src="" />
+                <div class="flag">
+                    <!--TODO: Вывод статуса товара (скидки новое и т.п)-->
+                    <!--TODO: Сделать условием, для изменения цвета фона-->
+                    <span [ngClass]="{ discount: false, new: true }">NEW</span>
+                </div>
+            </div>
+        </div>
+        <div class="card-product__title">
+            <h3>Название товара из cartData</h3>
+        </div>
+        <div class="card-product__btn">
+            <!--TODO: Добавить цену-->
+            <!--TODO: Сделать переход на страницу товара по id ([routerLink]="['product', cardData.id]")-->
+            <button class="btn medium">Подробнее - Цена ₽</button>
+        </div>
+    </div>
+</ng-container>
