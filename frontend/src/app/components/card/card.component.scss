@@ -4,7 +4,7 @@
     width: min-content;
 
     &__inner {
-        background-color: $white;
+        background-color: $section-white;
         border-radius: 2.8rem;
         padding: 0.8rem;
     }
@@ -13,7 +13,7 @@
         border-radius: 2.4rem;
         width: 30.2rem;
         height: 33.4rem;
-        background-color: $section-white;
+        background-color: $white;
         position: relative;
 
         .flag {
@@ -44,10 +44,6 @@
 
     &__title {
         margin: 1.5rem 0;
-
-        h3 {
-            font-size: $rubik-sb-24;
-        }
     }
 }
 
@@ -55,12 +51,6 @@
     .card-product {
         &__inner {
             border-radius: 1.6rem;
-        }
-
-        &__img {
-            border-radius: 1.2rem;
-            width: 15.5rem;
-            height: 17.2rem;
         }
 
         &__title h3 {
@@ -79,6 +69,110 @@
 
         button.btn {
             font-size: $rubik-sb-12;
+        }
+    }
+}
+
+.card-basket {
+    width: 100%;
+
+    &__inner {
+        @extend %wrapper;
+        align-items: flex-start;
+        background-color: $section-white;
+        padding: 2.5rem;
+        border-radius: 1.6rem;
+    }
+
+    &--wrap:first-child {
+        display: flex;
+    }
+
+    &__img {
+        border-radius: 2.4rem;
+        margin-right: 2.5rem;
+        background-color: $gray;
+        width: 20.8rem;
+        height: 22.5rem;
+    }
+
+    &--wrap:last-child {
+        display: flex;
+        justify-content: space-between;
+        flex-direction: column;
+    }
+
+    .subject {
+        display: grid;
+        row-gap: 1rem;
+
+        p {
+            font-weight: 600;
+        }
+    }
+
+    .mobile {
+        display: none;
+    }
+
+    &__cost {
+        h3 {
+            color: $blue;
+        }
+    }
+
+    .icon-status {
+        @extend %wrapper;
+        width: 7.4rem;
+
+        &__item img {
+            width: 3.2rem;
+            height: 3.2rem;
+        }
+    }
+}
+
+@media screen and (max-width: $mobile) {
+    .card-product__img,
+    .card-basket__img {
+        border-radius: 1.2rem;
+        width: 15.5rem;
+        height: 17.2rem;
+    }
+    .card-basket {
+        &__inner {
+            padding: 1.5rem;
+            border-radius: 1.2rem;
+        }
+
+        .desktop {
+            display: none;
+        }
+
+        .subject {
+            row-gap: 0.5rem;
+
+            .mobile {
+                display: block;
+                margin-top: 1rem;
+
+                h3 {
+                    font-size: $rubik-sb-16;
+                }
+            }
+
+            p {
+                font-size: $rubik-m-14;
+            }
+        }
+
+        .icon-status {
+            width: 4.1rem;
+
+            &__item img {
+                width: 1.8rem;
+                height: 1.8rem;
+            }
         }
     }
 }

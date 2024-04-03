@@ -1,13 +1,52 @@
 <ng-container *ngIf="card_basket">
     <div class="card-basket">
-        <div class="card-basket__inner"></div>
+        <div class="card-basket__inner">
+            <div class="card-basket--wrap">
+                <div class="card-basket__img">
+                    <img alt="" src="" />
+                </div>
+                <div class="card-basket--wrap">
+                    <div class="subject">
+                        <div class="subject__title">
+                            <h3>Название</h3>
+                        </div>
+                        <div class="subject__subtitle">
+                            <p>Описание</p>
+                        </div>
+                        <div class="subject__color">
+                            <p>Цвет(-а)</p>
+                        </div>
+                        <div class="subject__size">
+                            <p>Размер</p>
+                        </div>
+                        <div class="card-basket__cost mobile">
+                            <h3>12.000₽</h3>
+                        </div>
+                    </div>
+                    <div class="icon-status">
+                        <div class="icon-status__item">
+                            <img
+                                alt="В избранном"
+                                src="../../../assets/img/common/heart.svg" />
+                        </div>
+                        <div class="icon-status__item">
+                            <img
+                                alt="В корзине"
+                                src="../../../assets/img/common/cart.svg" />
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="card-basket__cost desktop">
+                <h3>12.000 ₽</h3>
+            </div>
+        </div>
     </div>
 </ng-container>
 <ng-container *ngIf="card_product">
     <div class="card-product">
         <div class="card-product__inner">
             <div class="card-product__img">
-                <!--TODO: Сделать вывод фото-->
                 <img alt="" src="" />
                 <div class="flag">
                     <!--TODO: Вывод статуса товара (скидки новое и т.п)-->
@@ -20,7 +59,6 @@
             <h3>Название товара из cartData</h3>
         </div>
         <div class="card-product__btn">
-            <!--TODO: Добавить цену-->
             <!--TODO: Сделать переход на страницу товара по id ([routerLink]="['product', cardData.id]")-->
             <button class="btn medium">Подробнее - Цена ₽</button>
         </div>

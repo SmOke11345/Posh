@@ -1,0 +1,77 @@
+@import "../../../assets/scss/variables";
+
+.cart {
+    p {
+        font-size: $opensans-sb-20;
+        font-weight: 600;
+    }
+
+    &--wrap {
+        display: flex;
+        justify-content: space-between;
+    }
+
+    &__inner:first-child {
+        width: 62.5%;
+    }
+
+    &__inner:last-child {
+        width: 33%;
+    }
+
+    &__title {
+        margin-bottom: 2rem;
+
+        h2 {
+            font-size: $rubik-sb-32;
+        }
+    }
+
+    .subject {
+        display: grid;
+        row-gap: 1.5rem;
+        margin-bottom: 2.5rem;
+
+        &__item--wrap {
+            display: flex;
+            justify-content: space-between;
+        }
+    }
+}
+
+@media screen and (max-width: $tablet) {
+    .cart {
+        &--wrap {
+            flex-direction: column;
+        }
+
+        &__inner:first-child,
+        &__inner:last-child {
+            width: 100%;
+        }
+
+        &__inner:first-child {
+            margin-bottom: 2.5rem;
+        }
+
+        &__inner:last-child {
+            border-radius: 1.2rem;
+            background-color: $section-white;
+            padding: 1.5rem;
+        }
+
+        &__title {
+            margin-bottom: 1.5rem;
+
+            h2 {
+                font-size: $rubik-sb-20;
+            }
+        }
+
+        .subject {
+            p {
+                font-size: $rubik-sb-16;
+            }
+        }
+    }
+}

@@ -2,16 +2,60 @@
     <form (ngSubmit)="onSubmit()" [formGroup]="preparedForm">
         <div class="cart--wrap">
             <div class="cart__inner">
+                <div class="cart__title">
+                    <h2>Корзина</h2>
+                </div>
                 <!--TODO: Вывод карточек cart_basket-->
+                <app-card [card_basket]="true"></app-card>
             </div>
             <div class="cart__inner">
-                <!--TODO: Вывод суммы-->
-                <!--TODO: Кнопка Заказать-->
+                <div class="cart__title">
+                    <h2>Ваша Корзина</h2>
+                </div>
+                <div class="subject">
+                    <div class="subject__item--wrap">
+                        <div class="subject__item_name">
+                            <!--TODO: Вывести количество товаров в ()-->
+                            <p>Товары (1)</p>
+                        </div>
+                        <div class="subject__item_price">
+                            <!--TODO: Вывести цену товара-->
+                            <p>12.000 ₽</p>
+                        </div>
+                    </div>
+                    <div class="subject__item--wrap">
+                        <div class="subject__item_name">
+                            <p>Доставка</p>
+                        </div>
+                        <div class="subject__item_price">
+                            <p>500 ₽</p>
+                        </div>
+                    </div>
+                    <div class="subject__item--wrap">
+                        <div class="subject__item_name">
+                            <p>Скидка (%)</p>
+                        </div>
+                        <div class="subject__item_price">
+                            <p>-</p>
+                        </div>
+                    </div>
+                    <div class="subject__item--wrap">
+                        <div class="subject__item_name">
+                            <p>Итого</p>
+                        </div>
+                        <div class="subject__item_price">
+                            <p>12.500 ₽</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="cart__btn">
+                    <button class="btn">Заказать</button>
+                </div>
             </div>
         </div>
     </form>
     <div class="cart--wrap">
-        <!--TODO: Карусель Подобрано для вас https://keen-slider.io/examples , https://ngx-gallery.netlify.app/#/custom-templates-->
-        <app-card [card_product]="true"></app-card>
+        <!--TODO: Карусель "Подобрано для вас" сделать самому-->
+        <!--<app-card [card_product]="true"></app-card>-->
     </div>
 </section>
