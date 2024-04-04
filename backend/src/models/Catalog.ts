@@ -6,6 +6,9 @@ export type Catalog = {
     sizes: string[];
     colors: string[];
     cost: number;
+    isFavorite: boolean;
+    isCart: boolean;
+    countProduct: number;
     createdAt: Date;
     updatedAt: Date;
 };

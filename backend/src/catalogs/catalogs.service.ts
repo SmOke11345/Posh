@@ -22,6 +22,7 @@ export class CatalogsService {
     /**
      * Получение товаров из каталога для слайдеров.
      */
+    // TODO: Сделать рандомное получение 12-ти товаров.
     async getProdCarousel() {
         const prod: Catalog[] = await this.prismaService.catalog.findMany({
             where: {

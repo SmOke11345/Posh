@@ -16,8 +16,11 @@ export class CatalogsController {
         return this.catalogsService.create(request.body);
     }
 
+    /**
+     * Получение товаров из каталога для слайдеров.
+     */
     @Get("get-prods-carousel")
-    async getProd() {
+    async getProdCarousel() {
         return this.catalogsService.getProdCarousel();
     }
 }

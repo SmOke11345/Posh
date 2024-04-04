@@ -18,16 +18,19 @@ model User {
 }
 
 model Catalog {
-  id          Int      @id @default(autoincrement())
-  title       String
-  description String[]
-  images      String[]
-  sizes       String[]
-  colors      String[]
-  cost        Int
-  createdAt   DateTime @default(now())
-  updatedAt   DateTime @updatedAt
-  order       Order[]  @relation("OrderCatalog")
+  id           Int      @id @default(autoincrement())
+  title        String
+  description  String[]
+  images       String[]
+  sizes        String[]
+  colors       String[]
+  cost         Int
+  isFavorite   Boolean  @default(false)
+  isCart       Boolean  @default(false)
+  countProduct Int
+  createdAt    DateTime @default(now())
+  updatedAt    DateTime @updatedAt
+  order        Order[]  @relation("OrderCatalog")
 }
 
 model Order {
@@ -38,4 +41,5 @@ model Order {
   updatedAt DateTime @updatedAt
   orderId   Catalog  @relation("OrderCatalog", fields: [order_id], references: [id])
   userId    User     @relation("OrderUser", fields: [user_id], references: [id])
+  count     Int      @default(1)
 }
