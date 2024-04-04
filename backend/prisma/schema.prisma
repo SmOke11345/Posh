@@ -8,10 +8,34 @@ datasource db {
 }
 
 model User {
-  id       Int    @id @default(autoincrement())
+  id       Int     @id @default(autoincrement())
   name     String
   lastname String
   gender   String
   email    String
   password String
+  order    Order[] @relation("OrderUser")
+}
+
+model Catalog {
+  id          Int      @id @default(autoincrement())
+  title       String
+  description String[]
+  images      String[]
+  sizes       String[]
+  colors      String[]
+  cost        Int
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+  order       Order[]  @relation("OrderCatalog")
+}
+
+model Order {
+  id        Int      @id @default(autoincrement())
+  order_id  Int
+  user_id   Int
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+  orderId   Catalog  @relation("OrderCatalog", fields: [order_id], references: [id])
+  userId    User     @relation("OrderUser", fields: [user_id], references: [id])
 }
