@@ -13,17 +13,32 @@
 
     &__inner:first-child {
         width: 62.5%;
+
+        .cart--wrap {
+            align-items: center;
+            margin-bottom: 2rem;
+        }
     }
 
     &__inner:last-child {
         width: 33%;
+
+        .cart__title {
+            margin-bottom: 2rem;
+        }
     }
 
-    &__title {
-        margin-bottom: 2rem;
+    &__title h2 {
+        font-size: $rubik-sb-32;
+    }
 
-        h2 {
-            font-size: $rubik-sb-32;
+    &__clear {
+        button.clear {
+            font:
+                600 $opensans-r-16 "Open Sans",
+                sans-serif;
+            color: $dark;
+            text-decoration: underline;
         }
     }
 
@@ -45,6 +60,17 @@
             flex-direction: column;
         }
 
+        &__inner:first-child {
+            .cart--wrap {
+                margin-bottom: 1.5rem;
+                flex-direction: initial;
+
+                .clear {
+                    font-size: $opensans-r-14;
+                }
+            }
+        }
+
         &__inner:first-child,
         &__inner:last-child {
             width: 100%;
@@ -58,20 +84,18 @@
             border-radius: 1.2rem;
             background-color: $section-white;
             padding: 1.5rem;
-        }
 
-        &__title {
-            margin-bottom: 1.5rem;
-
-            h2 {
-                font-size: $rubik-sb-20;
+            .cart__title {
+                margin-bottom: 1.5rem;
             }
         }
 
-        .subject {
-            p {
-                font-size: $rubik-sb-16;
-            }
+        &__title h2 {
+            font-size: $rubik-sb-20;
+        }
+
+        .subject p {
+            font-size: $rubik-sb-16;
         }
     }
 }

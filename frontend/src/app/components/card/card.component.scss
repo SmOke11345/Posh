@@ -78,10 +78,22 @@
 
     &__inner {
         @extend %wrapper;
-        align-items: flex-start;
+        align-items: flex-end;
         background-color: $section-white;
         padding: 2.5rem;
-        border-radius: 1.6rem;
+        border-radius: 1.6rem 1.6rem 1.6rem 0;
+        position: relative;
+
+        .close {
+            position: absolute;
+            top: 2.5rem;
+            right: 2.5rem;
+
+            svg {
+                width: 1.3rem;
+                height: 1.3rem;
+            }
+        }
     }
 
     &--wrap:first-child {
@@ -130,6 +142,30 @@
             height: 3.2rem;
         }
     }
+
+    &__counter {
+        @extend %wrapper;
+        width: 25.7rem;
+        padding: 1.5rem 3.5rem;
+        background-color: $section-white;
+        border-radius: 0 0 1.6rem 1.6rem;
+
+        button.counter {
+            width: 2rem;
+            height: 2rem;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+
+            svg {
+                display: block;
+            }
+        }
+
+        .counter-value h4 {
+            font-size: $rubik-sb-20;
+        }
+    }
 }
 
 @media screen and (max-width: $mobile) {
@@ -142,7 +178,13 @@
     .card-basket {
         &__inner {
             padding: 1.5rem;
-            border-radius: 1.2rem;
+            border-radius: 1.2rem 1.2rem 1.2rem 0;
+
+            .close {
+                position: absolute;
+                top: 1.2rem;
+                right: 1.2rem;
+            }
         }
 
         .desktop {
@@ -152,12 +194,16 @@
         .subject {
             row-gap: 0.5rem;
 
+            &__title h3 {
+                font-size: $rubik-sb-16;
+            }
+
             .mobile {
                 display: block;
                 margin-top: 1rem;
 
                 h3 {
-                    font-size: $rubik-sb-16;
+                    font-size: $rubik-sb-20;
                 }
             }
 
@@ -172,6 +218,16 @@
             &__item img {
                 width: 1.8rem;
                 height: 1.8rem;
+            }
+        }
+
+        &__counter {
+            width: 19.5rem;
+            padding: 1.5rem 2.5rem;
+            border-radius: 0 0 1.2rem 1.2rem;
+
+            .counter-value h4 {
+                font-size: $rubik-sb-16;
             }
         }
     }

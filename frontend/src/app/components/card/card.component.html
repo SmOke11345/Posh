@@ -2,6 +2,7 @@
     <div class="card-basket">
         <div class="card-basket__inner">
             <div class="card-basket--wrap">
+                <!--TODO: Может поехать картинка при большой ширине заголовка-->
                 <div class="card-basket__img">
                     <img alt="" src="" />
                 </div>
@@ -40,6 +41,62 @@
             <div class="card-basket__cost desktop">
                 <h3>12.000 ₽</h3>
             </div>
+            <!--TODO: Сделать кнопку (click)="removeFromCart(cartData.id)"-->
+            <button class="close">
+                <svg
+                    fill="none"
+                    height="13"
+                    viewBox="0 0 13 13"
+                    width="13"
+                    xmlns="http://www.w3.org/2000/svg">
+                    <path
+                        d="M0.771729 1.07349L11.8182 12.0075"
+                        stroke="black"
+                        stroke-linecap="round" />
+                    <path
+                        d="M0.771606 12.0079L11.8181 1.07381"
+                        stroke="black"
+                        stroke-linecap="round" />
+                </svg>
+            </button>
+        </div>
+        <div class="card-basket__counter">
+            <!--TODO: Сделать кнопку (click)="decrementProduct(cartData.id)"-->
+            <button class="counter">
+                <svg
+                    fill="none"
+                    height="2"
+                    viewBox="0 0 14 2"
+                    width="14"
+                    xmlns="http://www.w3.org/2000/svg">
+                    <path
+                        d="M1 1.07349L13 1.07349"
+                        stroke="black"
+                        stroke-linecap="round" />
+                </svg>
+            </button>
+            <div class="counter-value">
+                <!--TODO: CartData.count"-->
+                <h4>1</h4>
+            </div>
+            <!--TODO: Сделать кнопку (click)="incrementProduct(cartData.id)"-->
+            <button class="counter">
+                <svg
+                    fill="none"
+                    height="14"
+                    viewBox="0 0 14 14"
+                    width="14"
+                    xmlns="http://www.w3.org/2000/svg">
+                    <path
+                        d="M1 7.07349L13 7.07349"
+                        stroke="black"
+                        stroke-linecap="round" />
+                    <path
+                        d="M7 13.0735L7 1.07349"
+                        stroke="black"
+                        stroke-linecap="round" />
+                </svg>
+            </button>
         </div>
     </div>
 </ng-container>

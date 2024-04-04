@@ -1,6 +1,7 @@
 import { Component, NgModule, OnInit } from "@angular/core";
 import { FormGroup, ReactiveFormsModule } from "@angular/forms";
 import { CardComponent } from "../../components/card/card.component";
+import { SliderComponent } from "../../components/slider/slider.component";
 
 @Component({
     selector: "app-cart",
@@ -28,7 +29,7 @@ export class CartComponent implements OnInit {
 @NgModule({
     declarations: [CartComponent],
     exports: [CartComponent],
-    imports: [ReactiveFormsModule, CardComponent],
+    imports: [ReactiveFormsModule, CardComponent, SliderComponent],
     providers: [],
 })
 export class CartModule {}
