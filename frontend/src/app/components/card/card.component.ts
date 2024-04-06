@@ -12,8 +12,10 @@ import { RouterLink } from "@angular/router";
 export class CardComponent {
     @Input() card_basket: boolean = false;
     @Input() card_product: boolean = false;
-    // TODO: Добавить типы для входящих данных
+
     @Input() cartData: any;
 
-    constructor() {}
+    constructor() {
+        this.cartData = {} as any;
+    }
 }

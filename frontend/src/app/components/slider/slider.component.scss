@@ -1,0 +1,64 @@
+@import "../../../assets/scss/variables";
+
+.slider {
+    &--top {
+        @extend %wrapper;
+    }
+
+    &__inner {
+        margin: 3.5rem 0;
+        display: grid;
+        grid-template-columns: repeat(4, 1fr);
+        column-gap: 1.5rem;
+    }
+
+    &__controls {
+        display: flex;
+        gap: 1.5rem;
+    }
+
+    .navigation {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        width: 17.2rem;
+        margin: 0 auto;
+
+        &__item {
+            width: 4rem;
+            height: 0.6rem;
+            background-color: $btn-secondary;
+            border-radius: 0.8rem;
+        }
+
+        .active {
+            background-color: $blue;
+        }
+    }
+}
+
+@media screen and (max-width: $tablet) {
+    .slider {
+        &__inner {
+            justify-items: center;
+            grid-template-columns: repeat(2, 1fr);
+            row-gap: 1.5rem;
+        }
+    }
+}
+
+@media screen and (max-width: $mobile) {
+    .slider {
+        &__inner {
+            margin: 2.5rem 0;
+        }
+
+        &__title h2 {
+            font-size: $opensans-r-20;
+        }
+
+        button.btn--controls {
+            padding: 0.8rem;
+        }
+    }
+}

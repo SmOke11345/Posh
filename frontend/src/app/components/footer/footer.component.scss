@@ -117,8 +117,6 @@
     @media screen and (max-width: $laptop) {
         .footer {
             &--top {
-                padding-bottom: 8rem;
-
                 .wrapper:first-child {
                     margin-right: 0;
                 }
@@ -143,6 +141,10 @@
     }
     @media screen and (max-width: $tablet) {
         .footer {
+            &--top {
+                padding-bottom: 8rem;
+            }
+
             &--bottom {
                 align-items: normal;
                 flex-direction: column;

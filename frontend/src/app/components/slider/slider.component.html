@@ -1,5 +1,59 @@
 <section class="slider">
+    <div class="slider--top">
+        <div class="slider__title">
+            <h2>Подобрано для вас</h2>
+        </div>
+        <div class="slider__controls">
+            <button
+                (click)="prevSlide()"
+                [disabled]="this.sliderIndex <= 0"
+                class="btn btn--controls">
+                <svg
+                    fill="none"
+                    height="17"
+                    viewBox="0 0 16 17"
+                    width="16"
+                    xmlns="http://www.w3.org/2000/svg">
+                    <path
+                        d="M10 13L5.5 8.5L10 4"
+                        stroke="white"
+                        stroke-linecap="round"
+                        stroke-linejoin="round"
+                        stroke-width="1.5" />
+                </svg>
+            </button>
+            <button
+                (click)="nextSlide()"
+                [disabled]="this.sliderIndex >= this.initSliderItems.length - 4"
+                class="btn btn--controls">
+                <svg
+                    fill="none"
+                    height="17"
+                    viewBox="0 0 16 17"
+                    width="16"
+                    xmlns="http://www.w3.org/2000/svg">
+                    <path
+                        d="M6 4L10.5 8.5L6 13"
+                        stroke="white"
+                        stroke-linecap="round"
+                        stroke-linejoin="round"
+                        stroke-width="1.5" />
+                </svg>
+            </button>
+        </div>
+    </div>
     <div class="slider__inner">
-        <ng-container *ngFor="let item of sliderItems"> </ng-container>
+        <app-card
+            *ngFor="let item of sliderItems"
+            [card_product]="true"
+            [cartData]="item"></app-card>
+    </div>
+    <div class="slider--bottom">
+        <div (click)="trackNavigation()" class="navigation">
+            <div class="navigation__item" data-index="0"></div>
+            <div class="navigation__item" data-index="4"></div>
+            <div class="navigation__item" data-index="8"></div>
+            <div class="navigation__item" data-index="12"></div>
+        </div>
     </div>
 </section>

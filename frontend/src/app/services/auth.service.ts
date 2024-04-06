@@ -1,7 +1,7 @@
 import { Injectable } from "@angular/core";
 import { HttpClient } from "@angular/common/http";
 import { LoginResponse, User } from "../models/User";
-import { Url } from "../models/enums/RequestUrls";
+import { Url } from "../models/enums/requestUrls";
 import { catchError, tap, throwError } from "rxjs";
 import { Router } from "@angular/router";
 import { StoreDataUserService } from "../utils/storeDataUser.service";

@@ -54,12 +54,6 @@ html {
     }
 }
 
-@media screen and (max-width: $laptop) {
-    html {
-        font-size: 1.01vw;
-    }
-}
-
 @media screen and (max-width: $tablet) {
     html {
         font-size: 1.3vw;
