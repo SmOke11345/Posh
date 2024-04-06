@@ -52,6 +52,10 @@
             justify-content: space-between;
         }
     }
+
+    .wrap {
+        margin-top: 7rem;
+    }
 }
 
 @media screen and (max-width: $tablet) {
@@ -89,13 +93,21 @@
                 margin-bottom: 1.5rem;
             }
         }
+    }
+}
 
+@media screen and (max-width: $mobile) {
+    .cart {
         &__title h2 {
             font-size: $rubik-sb-20;
         }
 
         .subject p {
             font-size: $rubik-sb-16;
+        }
+
+        .wrap {
+            margin-top: 4rem;
         }
     }
 }

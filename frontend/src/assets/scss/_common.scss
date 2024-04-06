@@ -18,21 +18,15 @@
     margin: 0 auto;
 }
 
-@media screen and (max-width: $desktop) {
-    .container {
-        width: 130rem;
-    }
-}
-
 @media screen and (max-width: $laptop) {
     .container {
-        width: 96rem;
+        width: 117.6rem;
     }
 }
 
 @media screen and (max-width: $tablet) {
     .container {
-        width: 72rem;
+        width: 75.6rem;
     }
 }
 
@@ -99,6 +93,20 @@ button.btn {
 
         &:focus {
             outline: 0.5rem solid $btn-secondary;
+        }
+    }
+
+    &--controls {
+        padding: 1.2rem;
+
+        svg {
+            width: 1.6rem;
+            height: 1.6rem;
+        }
+
+        &:disabled {
+            cursor: not-allowed;
+            background-color: $btn-secondary;
         }
     }
 }

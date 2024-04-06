@@ -4,24 +4,26 @@
             <div class="card-basket--wrap">
                 <!--TODO: Может поехать картинка при большой ширине заголовка-->
                 <div class="card-basket__img">
-                    <img alt="" src="" />
+                    <img [src]="cartData.images" alt="" />
                 </div>
                 <div class="card-basket--wrap">
                     <div class="subject">
                         <div class="subject__title">
-                            <h3>Название</h3>
+                            <h3>{{ cartData.title }}</h3>
                         </div>
                         <div class="subject__subtitle">
-                            <p>Описание</p>
+                            <p>{{ cartData.description }}</p>
                         </div>
                         <div class="subject__color">
-                            <p>Цвет(-а)</p>
+                            <!--TODO: Приходит один цвет, а не массив-->
+                            <p>{{ cartData.colors }}</p>
                         </div>
                         <div class="subject__size">
-                            <p>Размер</p>
+                            <!--TODO: Приходит один размер, а не массив-->
+                            <p>{{ cartData.sizes }}</p>
                         </div>
                         <div class="card-basket__cost mobile">
-                            <h3>12.000₽</h3>
+                            <h3>{{ cartData.cost }}</h3>
                         </div>
                     </div>
                     <div class="icon-status">
@@ -39,7 +41,7 @@
                 </div>
             </div>
             <div class="card-basket__cost desktop">
-                <h3>12.000 ₽</h3>
+                <h3>{{ cartData.cost }}</h3>
             </div>
             <!--TODO: Сделать кнопку (click)="removeFromCart(cartData.id)"-->
             <button class="close">
@@ -104,7 +106,7 @@
     <div class="card-product">
         <div class="card-product__inner">
             <div class="card-product__img">
-                <img alt="" src="" />
+                <img [src]="cartData.images" alt="" />
                 <div class="flag">
                     <!--TODO: Вывод статуса товара (скидки новое и т.п)-->
                     <!--TODO: Сделать условием, для изменения цвета фона-->
@@ -113,11 +115,13 @@
             </div>
         </div>
         <div class="card-product__title">
-            <h3>Название товара из cartData</h3>
+            <h3>{{ cartData.title }}</h3>
         </div>
         <div class="card-product__btn">
             <!--TODO: Сделать переход на страницу товара по id ([routerLink]="['product', cardData.id]")-->
-            <button class="btn medium">Подробнее - Цена ₽</button>
+            <button class="btn medium">
+                Подробнее - <span>{{ cartData.cost }}₽ </span>
+            </button>
         </div>
     </div>
 </ng-container>

@@ -1,8 +1,6 @@
 @import "../../../assets/scss/variables";
 
 .card-product {
-    width: min-content;
-
     &__inner {
         background-color: $section-white;
         border-radius: 2.8rem;
@@ -11,7 +9,6 @@
 
     &__img {
         border-radius: 2.4rem;
-        width: 30.2rem;
         height: 33.4rem;
         background-color: $white;
         position: relative;
@@ -69,6 +66,10 @@
 
         button.btn {
             font-size: $rubik-sb-12;
+
+            span {
+                color: $yellow;
+            }
         }
     }
 }
