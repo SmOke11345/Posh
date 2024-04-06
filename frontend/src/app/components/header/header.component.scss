@@ -57,7 +57,7 @@
 }
 
 .menu-burger {
-    display: flex;
+    display: none;
     align-items: center;
     justify-content: flex-start;
     flex-direction: column;
@@ -96,6 +96,35 @@
                 font-size: $rubik-sb-24;
             }
         }
+    }
+}
+
+.fadeIn {
+    animation: linear 0.4s burgerFadeIn alternate both;
+}
+
+.fadeOut {
+    animation: linear 0.4s burgerFadeOut alternate both;
+}
+
+@keyframes burgerFadeIn {
+    0% {
+        transform: translateX(-100%);
+    }
+    100% {
+        transform: translateX(0);
+    }
+}
+
+@keyframes burgerFadeOut {
+    0% {
+        transform: translateX(0);
+        opacity: 1;
+    }
+    100% {
+        opacity: 0.2;
+        transform: translateX(-100%);
+        display: none;
     }
 }
 
