@@ -83,12 +83,10 @@ button.btn {
     }
 
     &--secondary {
-        background-color: $btn-secondary;
-        color: $btn-secondary-text;
+        background-color: $blue;
 
         &:hover {
-            background-color: $btn-secondary-text;
-            color: $btn-secondary;
+            background-color: #4a69e2ff;
         }
 
         &:focus {
@@ -291,6 +289,26 @@ input[type="radio"] {
             height: 0.7rem;
             background: url("../img/common/check.svg") no-repeat center center;
             background-size: contain;
+        }
+    }
+}
+
+.slider,
+.favorite {
+    .grid {
+        display: grid;
+        grid-template-columns: repeat(4, 1fr);
+        column-gap: 1.5rem;
+    }
+}
+
+@media screen and (max-width: $tablet) {
+    .slider,
+    .favorite {
+        .grid {
+            justify-items: center;
+            grid-template-columns: repeat(2, 1fr);
+            row-gap: 1.5rem;
         }
     }
 }

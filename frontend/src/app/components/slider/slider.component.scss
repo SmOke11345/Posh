@@ -7,9 +7,6 @@
 
     &__inner {
         margin: 3.5rem 0;
-        display: grid;
-        grid-template-columns: repeat(4, 1fr);
-        column-gap: 1.5rem;
     }
 
     &__controls {
@@ -33,16 +30,6 @@
 
         .active {
             background-color: $blue;
-        }
-    }
-}
-
-@media screen and (max-width: $tablet) {
-    .slider {
-        &__inner {
-            justify-items: center;
-            grid-template-columns: repeat(2, 1fr);
-            row-gap: 1.5rem;
         }
     }
 }

@@ -3,16 +3,18 @@ import { HttpClient } from "@angular/common/http";
 import { Url } from "../models/enums/requestUrls";
 import { shortCatalog } from "../models/Catalog";
 
-@Injectable()
-export class CatalogService {
+@Injectable({
+    providedIn: "root",
+})
+export class FavoriteService {
     constructor(private http: HttpClient) {}
 
     /**
-     * Получение товаров для каруселей.
+     * Получение избранных товаров.
      */
-    getProdCarousel() {
+    getFavoriteItems() {
         return this.http.get<shortCatalog[]>(
-            `${Url.CATALOG}/get-prods-carousel`,
+            `${Url.FAVORITE}/get-favorite-items`,
         );
     }
 }

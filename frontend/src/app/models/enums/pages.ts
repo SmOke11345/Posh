@@ -4,4 +4,5 @@ export enum Pages {
     PROFILE = "profile",
     CATALOG = "catalog",
     CART = "cart",
+    FAVORITE = "favorite",
 }

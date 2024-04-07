@@ -7,6 +7,7 @@ import { LayoutProfileComponent } from "./pages/layouts/layout-profile-component
 import { ProfileComponent } from "./pages/profile/profile.component";
 import { AuthGuard } from "./guards/auth.guard";
 import { CartComponent } from "./pages/cart/cart.component";
+import { FavoriteComponent } from "./pages/favorite/favorite.component";
 
 // TODO: Когда пользователь заходит он попадает в main.
 export const routes: Routes = [
@@ -49,6 +50,11 @@ export const routes: Routes = [
                         path: Pages.PROFILE,
                         title: "Профиль",
                         component: ProfileComponent,
+                    },
+                    {
+                        path: Pages.FAVORITE,
+                        title: "Избранное",
+                        component: FavoriteComponent,
                     },
                 ],
             },

@@ -5,4 +5,5 @@ export enum Url {
     REGISTER = `${host}/auth/register`,
     PROFILE = `${host}/users/profile`,
     CATALOG = `${host}/catalog`,
+    FAVORITE = `${host}/favorite`,
 }

@@ -34,7 +34,7 @@ export class LayoutProfileComponent implements OnInit {
         },
         {
             name: "Избранное",
-            link: "/favorites",
+            link: "/favorite",
         },
     ];
 

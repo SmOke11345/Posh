@@ -105,23 +105,45 @@
 <ng-container *ngIf="card_product">
     <div class="card-product">
         <div class="card-product__inner">
+            <!--TODO: Может быть проблема с отображением картинки-->
             <div class="card-product__img">
                 <img [src]="cartData.images" alt="" />
                 <div class="flag">
                     <!--TODO: Вывод статуса товара (скидки новое и т.п)-->
                     <!--TODO: Сделать условием, для изменения цвета фона-->
-                    <span [ngClass]="{ discount: false, new: true }">NEW</span>
+                    <span [ngClass]="{ discount: false, new: true }">New</span>
                 </div>
+                <ng-container *ngIf="cartData.isFavorite">
+                    <!--TODO: Сделать функцию удаление из избранного-->
+                    <div class="heart">
+                        <img
+                            alt="В избранном"
+                            src="../../../assets/img/common/heart-favorite.svg" />
+                    </div>
+                </ng-container>
             </div>
         </div>
         <div class="card-product__title">
             <h3>{{ cartData.title }}</h3>
         </div>
-        <div class="card-product__btn">
-            <!--TODO: Сделать переход на страницу товара по id ([routerLink]="['product', cardData.id]")-->
-            <button class="btn medium">
-                Подробнее - <span>{{ cartData.cost }}₽ </span>
+        <div
+            [ngClass]="{
+                'btn-flex': cartData.isFavorite
+            }"
+            class="card-product__btn">
+            <button
+                [routerLink]="[
+                    cartData.isFavorite ? '/cart' : '/product/' + cartData.id
+                ]"
+                class="btn medium">
+                <!--TODO: Сделать переход на страницу товара по id ([routerLink]="[cartData.isFavorite ? '/product/' + cardData.id : '/cart']")-->
+                {{ cartData.isFavorite ? "В корзину" : "подробнее" }} -
+                <span> {{ cartData.cost }}₽ </span>
             </button>
+            <ng-container *ngIf="cartData.isFavorite">
+                <!--TODO: Нужно будет сделать функцию которая, отправляет данные на страницу check out-->
+                <button class="btn btn--secondary medium">Купить</button>
+            </ng-container>
         </div>
     </div>
 </ng-container>

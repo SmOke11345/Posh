@@ -37,10 +37,31 @@
                 background-color: $yellow;
             }
         }
+
+        .heart {
+            position: absolute;
+            top: 1rem;
+            right: 1rem;
+            cursor: pointer;
+
+            img {
+                width: 2.4rem;
+                height: 2.4rem;
+            }
+        }
     }
 
     &__title {
         margin: 1.5rem 0;
+    }
+
+    button.btn span {
+        color: $yellow;
+    }
+
+    .btn-favorite {
+        display: grid;
+        gap: 1rem;
     }
 }
 
@@ -60,16 +81,22 @@
             height: 2.2rem;
         }
 
+        .heart {
+            top: 0.5rem;
+            right: 0.5rem;
+
+            img {
+                width: 1.8rem;
+                height: 1.8rem;
+            }
+        }
+
         &__title {
             margin-bottom: 1rem;
         }
 
         button.btn {
             font-size: $rubik-sb-12;
-
-            span {
-                color: $yellow;
-            }
         }
     }
 }

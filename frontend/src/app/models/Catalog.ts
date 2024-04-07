@@ -13,8 +13,9 @@ export type Catalog = {
     updatedAt: Date;
 };
 
-export type Slider = {
+export type shortCatalog = {
     id: number;
+    image: string;
     title: string;
     cost: number;
 };
