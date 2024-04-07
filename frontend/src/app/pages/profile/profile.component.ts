@@ -1,7 +1,7 @@
-import { Component, NgModule, OnInit } from "@angular/core";
-import { UsersService } from "../../services/users.service";
+import { Component, DoCheck, NgModule, OnInit } from "@angular/core";
+import { UsersService } from "./users.service";
 import { User } from "../../models/User";
-import { StoreDataUserService } from "../../utils/storeDataUser.service";
+import { StoreDataUserService } from "../../services/storeDataUser.service";
 import { NgClass, NgIf } from "@angular/common";
 import {
     FormControl,
@@ -9,14 +9,14 @@ import {
     ReactiveFormsModule,
     Validators,
 } from "@angular/forms";
-import { AuthService } from "../../services/auth.service";
+import { AuthService } from "../auth/auth.service";
 
 @Component({
     selector: "app-profile",
     templateUrl: "./profile.component.html",
     styleUrl: "./profile.component.scss",
 })
-export class ProfileComponent implements OnInit {
+export class ProfileComponent implements OnInit, DoCheck {
     userData: User;
     updateForm: FormGroup = new FormGroup({});
 
@@ -49,6 +49,12 @@ export class ProfileComponent implements OnInit {
         });
     }
 
+    ngDoCheck() {
+        if (this.userData !== this.storeData.getUserData()) {
+            this.userData = this.storeData.getUserData();
+        }
+    }
+
     /**
      * Показать пароль
      */
@@ -73,13 +79,10 @@ export class ProfileComponent implements OnInit {
         }
         this.usersService.patchUser(formFieldTouched as User).subscribe({
             next: () => {
-                window.location.reload();
+                this.change = false;
             },
             error: (error) => {
                 this.errors = error.error.message;
-            },
-            complete: () => {
-                this.errors = "";
             },
         });
     }

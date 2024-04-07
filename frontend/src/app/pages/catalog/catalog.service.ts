@@ -1,7 +1,7 @@
 import { Injectable } from "@angular/core";
 import { HttpClient } from "@angular/common/http";
-import { Url } from "../models/enums/requestUrls";
-import { shortCatalog } from "../models/Catalog";
+import { Url } from "../../models/enums/requestUrls";
+import { shortCatalog } from "../../models/Catalog";
 
 @Injectable()
 export class CatalogService {

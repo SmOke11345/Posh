@@ -1,0 +1,51 @@
+@import "../../../assets/scss/variables";
+
+.info {
+    width: 45rem;
+    margin: 0 auto;
+
+    &--wrap {
+        @extend %wrapper;
+    }
+
+    &__img img {
+        width: 15rem;
+        height: 15rem;
+    }
+
+    .subject {
+        &__title h2 {
+            font-size: $rubik-sb-24;
+        }
+
+        &__subtitle {
+            margin: 0.5rem 0 1.5rem;
+
+            p {
+                font-size: $opensans-r-14;
+            }
+        }
+
+        &__btn button.btn {
+            width: max-content;
+        }
+    }
+}
+
+@media screen and (max-width: $mobile) {
+    .info {
+        width: 100%;
+
+        &--wrap {
+            flex-direction: column;
+        }
+
+        .subject {
+            text-align: center;
+
+            &__btn button.btn {
+                width: 100%;
+            }
+        }
+    }
+}

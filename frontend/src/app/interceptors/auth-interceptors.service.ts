@@ -5,7 +5,7 @@ import {
     HttpRequest,
     HttpResponse,
 } from "@angular/common/http";
-import { StoreDataUserService } from "../utils/storeDataUser.service";
+import { StoreDataUserService } from "../services/storeDataUser.service";
 import { tap } from "rxjs";
 
 @Injectable()

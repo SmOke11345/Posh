@@ -1,31 +1,29 @@
 import { Component, NgModule } from "@angular/core";
-import { NgClass, NgIf } from "@angular/common";
 import {
     FormControl,
     FormGroup,
     ReactiveFormsModule,
     Validators,
 } from "@angular/forms";
-import { AuthService } from "../../services/auth.service";
+import { NgClass, NgFor, NgIf, NgStyle } from "@angular/common";
 import { RouterLink } from "@angular/router";
+import { AuthService } from "../auth.service";
+import { StoreDataUserService } from "../../../services/storeDataUser.service";
 
 @Component({
-    selector: "app-register",
-    templateUrl: "./register.component.html",
+    selector: "app-login",
+    templateUrl: "./login.component.html",
 })
-export class RegisterComponent {
+export class LoginComponent {
     showPassword: boolean;
-    registerForm: FormGroup;
+    loginForm: FormGroup;
 
-    errors: string = "";
+    errors: string[] = [];
 
     typeInputPassword: string = "password";
 
     constructor(private authService: AuthService) {
-        this.registerForm = new FormGroup({
-            name: new FormControl("", [Validators.required]),
-            lastname: new FormControl(""),
-            gender: new FormControl("Женский", [Validators.required]),
+        this.loginForm = new FormGroup({
             email: new FormControl("", [Validators.email, Validators.required]),
             password: new FormControl("", [
                 Validators.required,
@@ -38,19 +36,19 @@ export class RegisterComponent {
     }
 
     /**
-     * Регистрация пользователя.
+     * Авторизация пользователя
      */
     onSubmit() {
-        if (this.registerForm.invalid) {
+        if (this.loginForm.invalid) {
             return;
         }
-
-        this.authService.register({ ...this.registerForm.value }).subscribe({
+        this.authService.login({ ...this.loginForm.value }).subscribe({
             error: (error) => {
-                this.errors = error.error.message;
+                console.log(error);
+                this.errors = [`${error.error.message}`];
             },
             complete: () => {
-                this.errors = "";
+                this.errors = [];
             },
         });
     }
@@ -69,9 +67,9 @@ export class RegisterComponent {
 }
 
 @NgModule({
-    imports: [NgIf, ReactiveFormsModule, NgClass, RouterLink],
-    exports: [RegisterComponent],
-    declarations: [RegisterComponent],
-    providers: [AuthService],
+    imports: [ReactiveFormsModule, NgFor, NgIf, NgClass, NgStyle, RouterLink],
+    exports: [LoginComponent],
+    declarations: [LoginComponent],
+    providers: [AuthService, StoreDataUserService],
 })
-export class RegisterModule {}
+export class LoginModule {}

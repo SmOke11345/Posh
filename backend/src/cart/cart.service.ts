@@ -5,7 +5,6 @@ import {
 } from "@nestjs/common";
 import { PrismaService } from "../utils/prisma.service";
 import { Catalog } from "../models/Catalog";
-import { Cart } from "../models/Cart";
 
 @Injectable()
 export class CartService {
@@ -40,7 +39,7 @@ export class CartService {
 
     /**
      * Получение всех товаров пользователя.
-     * @param user_id
+     * @param user_id - id пользователя
      */
     async getCart(user_id: number) {
         return this.prismaService.cart.findMany({
@@ -56,7 +55,7 @@ export class CartService {
      * @param user_id - id пользователя
      */
     async removeFromCart(catalog_id: number, user_id: number) {
-        const prod: Cart = await this.prismaService.cart.deleteMany({
+        const prod = await this.prismaService.cart.deleteMany({
             where: {
                 user_id,
                 catalog_id,
@@ -74,10 +73,10 @@ export class CartService {
 
     /**
      * Удаление всех товаров из корзины.
-     * @param user_id
+     * @param user_id - id пользователя
      */
     async clearCart(user_id: number) {
-        const prods: Cart = await this.prismaService.cart.deleteMany({
+        const prods = await this.prismaService.cart.deleteMany({
             where: {
                 user_id,
             },
@@ -96,7 +95,7 @@ export class CartService {
      * @param user_id - id пользователя
      */
     async incrementProduct(catalog_id: number, user_id: number) {
-        const prod: Cart = await this.prismaService.cart.updateMany({
+        const prod = await this.prismaService.cart.updateMany({
             where: {
                 user_id,
                 catalog_id,
@@ -128,7 +127,7 @@ export class CartService {
      * @param user_id - id пользователя
      */
     async decrementProduct(catalog_id: number, user_id: number) {
-        const prod: Cart = await this.prismaService.cart.updateMany({
+        const prod = await this.prismaService.cart.updateMany({
             where: {
                 user_id,
                 catalog_id,

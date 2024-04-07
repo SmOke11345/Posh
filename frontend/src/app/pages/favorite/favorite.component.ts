@@ -2,7 +2,8 @@ import { Component, NgModule, OnInit } from "@angular/core";
 import { shortCatalog } from "../../models/Catalog";
 import { CardComponent } from "../../components/card/card.component";
 import { NgForOf, NgIf } from "@angular/common";
-import { FavoriteService } from "../../services/favorite.service";
+import { FavoriteService } from "./favorite.service";
+import { EmptyComponent } from "../../components/empty/empty.component";
 
 @Component({
     selector: "app-favorite",
@@ -22,7 +23,7 @@ export class FavoriteComponent implements OnInit {
 }
 
 @NgModule({
-    imports: [CardComponent, NgForOf, NgIf],
+    imports: [CardComponent, NgForOf, NgIf, EmptyComponent],
     exports: [FavoriteComponent],
     declarations: [FavoriteComponent],
     providers: [FavoriteService],

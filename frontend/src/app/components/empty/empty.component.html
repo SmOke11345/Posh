@@ -1,0 +1,32 @@
+<div class="info">
+    <div class="info--wrap">
+        <div class="info__img">
+            <ng-container *ngIf="isCart">
+                <img alt="Корзина" src="../../../assets/img/empty/cart.svg" />
+            </ng-container>
+            <ng-container *ngIf="isFavorite">
+                <img
+                    alt="Избранное"
+                    src="../../../assets/img/empty/favorite.svg" />
+            </ng-container>
+        </div>
+        <div class="subject">
+            <div class="subject__title">
+                <ng-container *ngIf="isCart">
+                    <h2>Ваша корзина пуста</h2>
+                </ng-container>
+                <ng-container *ngIf="isFavorite">
+                    <h2>В избранном пусто</h2>
+                </ng-container>
+            </div>
+            <div class="subject__subtitle">
+                <p>Для выбора вещей перейдите в каталог</p>
+            </div>
+            <div class="subject__btn">
+                <button class="btn medium" routerLink="/catalog">
+                    Перейти в каталог
+                </button>
+            </div>
+        </div>
+    </div>
+</div>

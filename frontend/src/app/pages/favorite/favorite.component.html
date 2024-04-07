@@ -1,7 +1,7 @@
 <div class="favorite">
     <!--TODO: Сделать стили для корзины и избранного, если "в корзине нет товаров" или "в избранном нет товаров" с кнопкой перехода на каталог -->
     <ng-container *ngIf="favoriteItems.length === 0">
-        <h2>В избранном пока ничего нет</h2>
+        <app-empty [isFavorite]="true"></app-empty>
     </ng-container>
     <div class="grid">
         <app-card

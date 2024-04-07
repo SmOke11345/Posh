@@ -1,7 +1,7 @@
 import { Injectable } from "@angular/core";
 import { CookieService } from "ngx-cookie-service";
 import { User } from "../models/User";
-import { BehaviorSubjectService } from "../services/behavior-subject.service";
+import { BehaviorSubjectService } from "./behavior-subject.service";
 
 @Injectable({ providedIn: "root" })
 export class StoreDataUserService {

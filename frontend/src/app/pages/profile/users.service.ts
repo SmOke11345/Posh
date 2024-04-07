@@ -1,9 +1,9 @@
 import { Injectable } from "@angular/core";
 import { HttpClient } from "@angular/common/http";
-import { User } from "../models/User";
-import { Url } from "../models/enums/requestUrls";
+import { User } from "../../models/User";
+import { Url } from "../../models/enums/requestUrls";
 import { catchError, tap, throwError } from "rxjs";
-import { StoreDataUserService } from "../utils/storeDataUser.service";
+import { StoreDataUserService } from "../../services/storeDataUser.service";
 import { Router } from "@angular/router";
 
 @Injectable({ providedIn: "root" })

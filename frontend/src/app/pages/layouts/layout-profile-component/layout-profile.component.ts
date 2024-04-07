@@ -1,8 +1,8 @@
-import { Component, OnInit } from "@angular/core";
+import { Component, DoCheck, OnInit } from "@angular/core";
 import { Router, RouterLink, RouterOutlet } from "@angular/router";
-import { UsersService } from "../../../services/users.service";
+import { UsersService } from "../../profile/users.service";
 import { NgClass, NgForOf } from "@angular/common";
-import { StoreDataUserService } from "../../../utils/storeDataUser.service";
+import { StoreDataUserService } from "../../../services/storeDataUser.service";
 import { User } from "../../../models/User";
 
 @Component({
@@ -13,7 +13,7 @@ import { User } from "../../../models/User";
     imports: [NgClass, NgForOf, RouterLink, RouterOutlet],
     providers: [UsersService, StoreDataUserService],
 })
-export class LayoutProfileComponent implements OnInit {
+export class LayoutProfileComponent implements OnInit, DoCheck {
     // TODO: Дописать links
     navList: { name: string; link: string }[] = [
         {
@@ -52,5 +52,11 @@ export class LayoutProfileComponent implements OnInit {
         // Для SSR
         if (typeof window !== "undefined")
             this.userData = this.storeData.getUserData();
+    }
+
+    ngDoCheck() {
+        if (this.userData !== this.storeData.getUserData()) {
+            this.userData = this.storeData.getUserData();
+        }
     }
 }

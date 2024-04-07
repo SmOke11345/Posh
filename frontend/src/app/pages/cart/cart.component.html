@@ -1,5 +1,8 @@
 <section class="cart">
-    <form (ngSubmit)="onSubmit()" [formGroup]="preparedForm">
+    <ng-container *ngIf="cartData.length === 0">
+        <app-empty [isCart]="true"></app-empty>
+    </ng-container>
+    <ng-container *ngIf="cartData.length > 0">
         <div class="cart--wrap">
             <div class="cart__inner">
                 <div class="cart--wrap">
@@ -24,11 +27,11 @@
                     <div class="subject__item--wrap">
                         <div class="subject__item_name">
                             <!--TODO: Вывести количество товаров в ()-->
-                            <p>Товары (1)</p>
+                            <p>Товары ({{ cartData.length }})</p>
                         </div>
                         <div class="subject__item_price">
-                            <!--TODO: Вывести цену товара-->
-                            <p>12.000 ₽</p>
+                            <!--TODO: Вывести цену товара, сделать функцию для получение общей суммы корзины при помощи reduce-->
+                            <p>12.500 ₽</p>
                         </div>
                     </div>
                     <div class="subject__item--wrap">
@@ -52,6 +55,7 @@
                             <p>Итого</p>
                         </div>
                         <div class="subject__item_price">
+                            <!--TODO: Вывести цену корзины, сделать функцию для получение общей суммы корзины при помощи reduce + доставка-->
                             <p>12.500 ₽</p>
                         </div>
                     </div>
@@ -61,7 +65,7 @@
                 </div>
             </div>
         </div>
-    </form>
+    </ng-container>
     <div class="wrap">
         <!--TODO: Карусель "Подобрано для вас" сделать самому-->
         <app-slider></app-slider>

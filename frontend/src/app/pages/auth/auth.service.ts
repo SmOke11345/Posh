@@ -1,11 +1,11 @@
 import { Injectable } from "@angular/core";
 import { HttpClient } from "@angular/common/http";
-import { LoginResponse, User } from "../models/User";
-import { Url } from "../models/enums/requestUrls";
+import { LoginResponse, User } from "../../models/User";
+import { Url } from "../../models/enums/requestUrls";
 import { catchError, tap, throwError } from "rxjs";
 import { Router } from "@angular/router";
-import { StoreDataUserService } from "../utils/storeDataUser.service";
-import { BehaviorSubjectService } from "./behavior-subject.service";
+import { StoreDataUserService } from "../../services/storeDataUser.service";
+import { BehaviorSubjectService } from "../../services/behavior-subject.service";
 
 @Injectable({
     providedIn: "root",
@@ -24,6 +24,7 @@ export class AuthService {
      */
     register(payload: User & { rememberMe: boolean }) {
         const { rememberMe, ...data } = payload;
+        localStorage.setItem("rememberMe", JSON.stringify(rememberMe));
         this.subject.setRememberMe(rememberMe); // Сохраняем в глобальном хранилище
 
         return this.http.post<User>(`${Url.REGISTER}`, data).pipe(
@@ -45,6 +46,7 @@ export class AuthService {
      */
     login(payload: { email: string; password: string; rememberMe: boolean }) {
         const { rememberMe, ...data } = payload;
+        localStorage.setItem("rememberMe", JSON.stringify(rememberMe));
         this.subject.setRememberMe(rememberMe); // Сохраняем в глобальном хранилище
 
         return this.http.post<LoginResponse>(`${Url.LOGIN}`, data).pipe(

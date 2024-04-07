@@ -5,7 +5,12 @@ import { BehaviorSubject } from "rxjs";
     providedIn: "root",
 })
 export class BehaviorSubjectService {
-    private rememberMe = new BehaviorSubject<boolean>(false);
+    // Сохраняю в localStorage, потому что после перезагрузки значение сбрасываться.
+    // TODO: localStorage not defined.
+    initRememberMe: boolean = JSON.parse(
+        localStorage.getItem("rememberMe") as string,
+    );
+    private rememberMe = new BehaviorSubject<boolean>(this.initRememberMe);
     rememberMe$ = this.rememberMe.asObservable(); // Хранит в себе последние значение
 
     constructor() {}

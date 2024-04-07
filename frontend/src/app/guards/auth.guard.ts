@@ -8,7 +8,7 @@ import {
     Router,
     RouterStateSnapshot,
 } from "@angular/router";
-import { StoreDataUserService } from "../utils/storeDataUser.service";
+import { StoreDataUserService } from "../services/storeDataUser.service";
 
 @Injectable({
     providedIn: "root",

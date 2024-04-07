@@ -1,6 +1,6 @@
 import { Component, ElementRef, OnInit } from "@angular/core";
 import { NgClass, NgForOf } from "@angular/common";
-import { CatalogService } from "../../services/catalog.service";
+import { CatalogService } from "../../pages/catalog/catalog.service";
 import { shortCatalog } from "../../models/Catalog";
 import { CardComponent } from "../card/card.component";
 
