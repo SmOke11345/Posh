@@ -56,6 +56,8 @@ export class CatalogsService {
             take: 12,
         });
 
+        // TODO: переделать в тип Slider
+
         return prod;
     }
 }

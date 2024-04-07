@@ -12,3 +12,10 @@ export type Catalog = {
     createdAt: Date;
     updatedAt: Date;
 };
+
+export type Slider = {
+    id: number;
+    title: string;
+    image: string;
+    cost: number;
+};

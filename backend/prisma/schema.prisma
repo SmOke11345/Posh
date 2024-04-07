@@ -8,38 +8,55 @@ datasource db {
 }
 
 model User {
-  id       Int     @id @default(autoincrement())
+  id       Int        @id @default(autoincrement())
   name     String
   lastname String
   gender   String
   email    String
   password String
-  order    Order[] @relation("OrderUser")
+  cart     Cart[]     @relation("CartUser")
+  favorite Favorite[] @relation("FavoriteUser")
 }
 
+// Кататог товаров
 model Catalog {
-  id           Int      @id @default(autoincrement())
+  id           Int        @id @default(autoincrement())
   title        String
   description  String[]
   images       String[]
   sizes        String[]
   colors       String[]
   cost         Int
-  isFavorite   Boolean  @default(false)
-  isCart       Boolean  @default(false)
+  isFavorite   Boolean    @default(false)
+  isCart       Boolean    @default(false)
   countProduct Int
-  createdAt    DateTime @default(now())
-  updatedAt    DateTime @updatedAt
-  order        Order[]  @relation("OrderCatalog")
+  createdAt    DateTime   @default(now())
+  updatedAt    DateTime   @updatedAt
+  cart         Cart[]     @relation("CartCatalog")
+  favorite     Favorite[] @relation("FavoriteCatalog")
 }
 
-model Order {
-  id        Int      @id @default(autoincrement())
-  order_id  Int
-  user_id   Int
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
-  orderId   Catalog  @relation("OrderCatalog", fields: [order_id], references: [id])
-  userId    User     @relation("OrderUser", fields: [user_id], references: [id])
-  count     Int      @default(1)
+// Корзина пользователей
+model Cart {
+  id         Int      @id @default(autoincrement())
+  catalog_id Int
+  user_id    Int
+  createdAt  DateTime @default(now())
+  updatedAt  DateTime @updatedAt
+  catalogId  Catalog  @relation("CartCatalog", fields: [catalog_id], references: [id])
+  userId     User     @relation("CartUser", fields: [user_id], references: [id])
+  count      Int      @default(1)
 }
+
+// Избранное пользователей
+model Favorite {
+  id         Int     @id @default(autoincrement())
+  user_id    Int
+  userId     User    @relation("FavoriteUser", fields: [user_id], references: [id])
+  catalogId  Catalog @relation("FavoriteCatalog", fields: [catalog_id], references: [id])
+  catalog_id Int
+}
+
+// // Купленные товары
+// model Order {
+// }

@@ -28,11 +28,11 @@ export class CartController {
      * Получение всех товаров пользователя.
      * @param request - данные пользователя
      */
-    @UseGuards(JwtAuthGuard)
-    @Get("")
-    async getCart(@Request() request: any) {
-        return this.cartService.getCart(+request.user.id);
-    }
+    // @UseGuards(JwtAuthGuard)
+    // @Get("")
+    // async getCart(@Request() request: any) {
+    //     return this.cartService.getCart(+request.user.id);
+    // }
 
     /**
      * Удаление товара из корзины.

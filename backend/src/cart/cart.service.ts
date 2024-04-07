@@ -41,13 +41,13 @@ export class CartService {
      * Получение всех товаров пользователя.
      * @param user_id
      */
-    async getCart(user_id: number) {
-        return this.prismaService.order.findMany({
-            where: {
-                user_id,
-            },
-        });
-    }
+    // async getCart(user_id: number) {
+    //     return this.prismaService.order.findMany({
+    //         where: {
+    //             user_id,
+    //         },
+    //     });
+    // }
 
     /**
      * Удаление товара из корзины.
