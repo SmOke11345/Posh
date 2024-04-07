@@ -1,7 +1,6 @@
 import {
     Controller,
     Delete,
-    Get,
     Patch,
     Post,
     Request,

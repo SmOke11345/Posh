@@ -5,6 +5,7 @@ import {
 } from "@nestjs/common";
 import { PrismaService } from "../utils/prisma.service";
 import { Catalog } from "../models/Catalog";
+import { Cart } from "../models/Cart";
 
 @Injectable()
 export class CartService {
@@ -12,13 +13,13 @@ export class CartService {
 
     /**
      * Добавление товара в корзину.
-     * @param order_id - id товара
+     * @param catalog_id - id товара
      * @param user_id - id пользователя
      */
-    async addToCart(order_id: number, user_id: number) {
-        const prod = await this.prismaService.catalog.update({
+    async addToCart(catalog_id: number, user_id: number) {
+        const prod: Catalog = await this.prismaService.catalog.update({
             where: {
-                id: order_id,
+                id: catalog_id,
             },
             data: {
                 isCart: true,
@@ -29,10 +30,10 @@ export class CartService {
             throw new ForbiddenException("Товар не найден");
         }
 
-        return this.prismaService.order.create({
+        return this.prismaService.cart.create({
             data: {
                 user_id,
-                order_id,
+                catalog_id,
             },
         });
     }
@@ -41,24 +42,24 @@ export class CartService {
      * Получение всех товаров пользователя.
      * @param user_id
      */
-    // async getCart(user_id: number) {
-    //     return this.prismaService.order.findMany({
-    //         where: {
-    //             user_id,
-    //         },
-    //     });
-    // }
+    async getCart(user_id: number) {
+        return this.prismaService.cart.findMany({
+            where: {
+                user_id,
+            },
+        });
+    }
 
     /**
      * Удаление товара из корзины.
-     * @param order_id
-     * @param user_id
+     * @param catalog_id - id товара
+     * @param user_id - id пользователя
      */
-    async removeFromCart(order_id: number, user_id: number) {
-        const prod = await this.prismaService.order.deleteMany({
+    async removeFromCart(catalog_id: number, user_id: number) {
+        const prod: Cart = await this.prismaService.cart.deleteMany({
             where: {
                 user_id,
-                order_id,
+                catalog_id,
             },
         });
 
@@ -76,7 +77,7 @@ export class CartService {
      * @param user_id
      */
     async clearCart(user_id: number) {
-        const prods = await this.prismaService.order.deleteMany({
+        const prods: Cart = await this.prismaService.cart.deleteMany({
             where: {
                 user_id,
             },
@@ -91,14 +92,14 @@ export class CartService {
 
     /**
      * Увеличение количества товара.
-     * @param order_id - id товара
+     * @param catalog_id - id товара
      * @param user_id - id пользователя
      */
-    async incrementProduct(order_id: number, user_id: number) {
-        const prod = await this.prismaService.order.updateMany({
+    async incrementProduct(catalog_id: number, user_id: number) {
+        const prod: Cart = await this.prismaService.cart.updateMany({
             where: {
                 user_id,
-                order_id,
+                catalog_id,
             },
             data: {
                 count: {
@@ -110,7 +111,7 @@ export class CartService {
         const { countProduct }: Catalog =
             await this.prismaService.catalog.findFirst({
                 where: {
-                    id: order_id,
+                    id: catalog_id,
                 },
             });
 
@@ -123,14 +124,14 @@ export class CartService {
 
     /**
      * Уменьшение количества товара.
-     * @param order_id - id товара
+     * @param catalog_id - id товара
      * @param user_id - id пользователя
      */
-    async decrementProduct(order_id: number, user_id: number) {
-        const prod = await this.prismaService.order.updateMany({
+    async decrementProduct(catalog_id: number, user_id: number) {
+        const prod: Cart = await this.prismaService.cart.updateMany({
             where: {
                 user_id,
-                order_id,
+                catalog_id,
             },
             data: {
                 count: {
@@ -140,7 +141,7 @@ export class CartService {
         });
 
         if (prod.count === 0) {
-            return await this.removeFromCart(order_id, user_id);
+            return await this.removeFromCart(catalog_id, user_id);
         }
 
         return prod;
