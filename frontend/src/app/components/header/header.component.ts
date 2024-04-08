@@ -1,6 +1,7 @@
-import { Component, ElementRef } from "@angular/core";
+import { Component, DoCheck, ElementRef } from "@angular/core";
 import { RouterLink } from "@angular/router";
 import { NgClass, NgForOf, NgIf } from "@angular/common";
+import { CartService } from "../../pages/cart/cart.service";
 
 @Component({
     selector: "app-header",
@@ -9,8 +10,7 @@ import { NgClass, NgForOf, NgIf } from "@angular/common";
     templateUrl: "./header.component.html",
     styleUrl: "./header.component.scss",
 })
-export class HeaderComponent {
-    cartCount: number;
+export class HeaderComponent implements DoCheck {
     linkList: { name: string; url: string }[] = [
         { name: "🔥Новинки", url: "" },
         {
@@ -20,14 +20,28 @@ export class HeaderComponent {
         { name: "Женщинам", url: "" },
         { name: "🔍Поиск", url: "" },
     ];
-
+    cartCount: number = 0;
     showMenu: boolean = false;
 
-    constructor(private el: ElementRef) {
-        // TODO: Потом получить значение через behaviorSubject.
-        this.cartCount = 0;
+    constructor(
+        private el: ElementRef,
+        private cartService: CartService,
+    ) {
+        this.cartService.getCart().subscribe((data) => {
+            this.cartCount = data.length;
+        });
     }
 
+    // TODO: Сделать динамическое обновление количества корзины.
+    ngDoCheck() {
+        // if (this.cartCount !== this.cartService.getCart()) {
+        //     this.cartCount = this.cartService.getCartCount();
+        // }
+    }
+
+    /**
+     * Показать/скрыть меню.
+     */
     toggleMenu() {
         const menu = this.el.nativeElement.querySelector(".menu-burger");
         this.showMenu = !this.showMenu;
@@ -43,6 +57,9 @@ export class HeaderComponent {
         }
     }
 
+    /**
+     * Скрыть меню при нажатии на ссылку.
+     */
     hideMenu() {
         this.showMenu = false;
         document.body.style.overflow = "auto";

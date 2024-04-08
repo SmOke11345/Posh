@@ -10,8 +10,9 @@
                         <h2>Корзина</h2>
                     </div>
                     <div class="cart__clear">
-                        <!--TODO: Сделать кнопку очистки корзины (click)="clearCart()"-->
-                        <button class="clear">Очистить корзину</button>
+                        <button (click)="clearCart()" class="clear">
+                            Очистить корзину
+                        </button>
                     </div>
                 </div>
                 <div class="content-cart">
@@ -26,12 +27,11 @@
                 <div class="subject">
                     <div class="subject__item--wrap">
                         <div class="subject__item_name">
-                            <!--TODO: Вывести количество товаров в ()-->
                             <p>Товары ({{ cartData.length }})</p>
                         </div>
                         <div class="subject__item_price">
                             <!--TODO: Вывести цену товара, сделать функцию для получение общей суммы корзины при помощи reduce-->
-                            <p>12.500 ₽</p>
+                            <p>{{ getTotalCost() }} ₽</p>
                         </div>
                     </div>
                     <div class="subject__item--wrap">
@@ -56,7 +56,7 @@
                         </div>
                         <div class="subject__item_price">
                             <!--TODO: Вывести цену корзины, сделать функцию для получение общей суммы корзины при помощи reduce + доставка-->
-                            <p>12.500 ₽</p>
+                            <p>{{ getTotalCost() }} ₽</p>
                         </div>
                     </div>
                 </div>

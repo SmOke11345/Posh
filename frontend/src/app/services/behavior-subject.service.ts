@@ -7,7 +7,7 @@ import { BehaviorSubject } from "rxjs";
 export class BehaviorSubjectService {
     // Сохраняю в localStorage, потому что после перезагрузки значение сбрасываться.
     // TODO: localStorage not defined.
-    initRememberMe: boolean = JSON.parse(
+    private initRememberMe: boolean = JSON.parse(
         localStorage.getItem("rememberMe") as string,
     );
     private rememberMe = new BehaviorSubject<boolean>(this.initRememberMe);

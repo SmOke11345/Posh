@@ -1,5 +1,5 @@
-import { Component, NgModule, OnInit } from "@angular/core";
-import { FormGroup, ReactiveFormsModule } from "@angular/forms";
+import { Component, DoCheck, NgModule, OnInit } from "@angular/core";
+import { ReactiveFormsModule } from "@angular/forms";
 import { CardComponent } from "../../components/card/card.component";
 import { SliderComponent } from "../../components/slider/slider.component";
 import { EmptyComponent } from "../../components/empty/empty.component";
@@ -12,8 +12,9 @@ import { Catalog } from "../../models/Catalog";
     templateUrl: "./cart.component.html",
     styleUrl: "./cart.component.scss",
 })
-export class CartComponent implements OnInit {
+export class CartComponent implements OnInit, DoCheck {
     cartData: Catalog[] = [];
+
     // preparedForm: FormGroup;
 
     constructor(private cartService: CartService) {
@@ -31,7 +32,28 @@ export class CartComponent implements OnInit {
         });
     }
 
+    ngDoCheck() {
+        if (this.cartData.length !== this.cartData.length) {
+            this.getTotalCost();
+        }
+    }
+
+    /**
+     * Удаление всех товаров из корзины.
+     */
+    clearCart() {
+        this.cartService.clearCart().subscribe();
+    }
+
+    /**
+     * Получение итоговой суммы корзины.
+     */
+    getTotalCost() {
+        return this.cartData.reduce((acc, val) => acc + val.cost, 0);
+    }
+
     // onSubmit() {
+    // // TODO: Отправить данные корзины на страницу check out
     //     // TODO: Отправка данных формы в behaviorSubject?!
     // }
 }

@@ -43,8 +43,7 @@
             <div class="card-basket__cost desktop">
                 <h3>{{ cartData.cost }}</h3>
             </div>
-            <!--TODO: Сделать кнопку (click)="removeFromCart(cartData.id)"-->
-            <button class="close">
+            <button (click)="removeFromCart(cartData.id)" class="close">
                 <svg
                     fill="none"
                     height="13"
@@ -63,8 +62,7 @@
             </button>
         </div>
         <div class="card-basket__counter">
-            <!--TODO: Сделать кнопку (click)="decrementProduct(cartData.id)"-->
-            <button class="counter">
+            <button (click)="decrementProduct(cartData.id)" class="counter">
                 <svg
                     fill="none"
                     height="2"
@@ -78,11 +76,9 @@
                 </svg>
             </button>
             <div class="counter-value">
-                <!--TODO: CartData.count"-->
-                <h4>1</h4>
+                <h4>CartData.count</h4>
             </div>
-            <!--TODO: Сделать кнопку (click)="incrementProduct(cartData.id)"-->
-            <button class="counter">
+            <button (click)="incrementProduct(cartData.id)" class="counter">
                 <svg
                     fill="none"
                     height="14"
