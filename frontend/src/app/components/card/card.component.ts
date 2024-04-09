@@ -3,6 +3,8 @@ import { NgClass, NgIf, NgStyle } from "@angular/common";
 import { RouterLink } from "@angular/router";
 import { CartService } from "../../pages/cart/cart.service";
 import { CatalogService } from "../../pages/catalog/catalog.service";
+import * as url from "url";
+import { repeat } from "rxjs";
 
 @Component({
     selector: "app-card",
@@ -46,4 +48,7 @@ export class CardComponent {
     decrementProduct(catalog_id: number) {
         this.cartService.decrementProduct(catalog_id).subscribe();
     }
+
+    protected readonly url = url;
+    protected readonly repeat = repeat;
 }

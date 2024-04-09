@@ -14,57 +14,7 @@ import { CardComponent } from "../card/card.component";
 })
 export class SliderComponent implements OnInit {
     // TODO: Данные для теста или можно использовать как промо-товары
-    initSliderItems: shortCatalog[] = [
-        {
-            id: 1,
-            title: "Подобрано для вас id: 1",
-            cost: 12123,
-            image: "",
-        },
-        {
-            id: 2,
-            title: "Подобрано для вас id: 1",
-            cost: 12123,
-            image: "",
-        },
-        {
-            id: 3,
-            title: "Подобрано для вас id: 1",
-            cost: 12123,
-            image: "",
-        },
-        {
-            id: 4,
-            title: "Подобрано для вас id: 1",
-            cost: 12123,
-            image: "",
-        },
-        //
-        {
-            id: 1,
-            title: "Подобрано для вас id: 12",
-            cost: 12123,
-            image: "",
-        },
-        {
-            id: 2,
-            title: "Подобрано для вас id: 21",
-            cost: 12123,
-            image: "",
-        },
-        {
-            id: 3,
-            title: "Подобрано для вас id: 21",
-            cost: 12123,
-            image: "",
-        },
-        {
-            id: 4,
-            title: "Подобрано для вас id: 21",
-            cost: 12123,
-            image: "",
-        },
-    ];
+    initSliderItems: shortCatalog[] = [];
 
     sliderIndex = 0; // Текущий индекс
     sliderItems: shortCatalog[] = [];
@@ -76,10 +26,10 @@ export class SliderComponent implements OnInit {
 
     ngOnInit() {
         this.catalogService.getProdCarousel().subscribe((data) => {
-            // TODO: Отправлять только ...data
-            this.initSliderItems = [...this.initSliderItems, ...data];
+            console.log("data", data);
+            this.initSliderItems = [...data];
+            this.updateSlider();
         });
-        this.updateSlider();
     }
 
     /**

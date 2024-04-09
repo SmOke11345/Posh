@@ -102,12 +102,25 @@
     <div class="card-product">
         <div class="card-product__inner">
             <!--TODO: Может быть проблема с отображением картинки-->
-            <div class="card-product__img">
-                <img [src]="cartData.images" alt="" />
+            <div
+                [style]="{
+                    background:
+                        'url(' +
+                        cartData.image +
+                        ')' +
+                        'no-repeat center center / cover'
+                }"
+                class="card-product__img">
+                <!--                <img [src]="cartData.image" alt="" />-->
                 <div class="flag">
-                    <!--TODO: Вывод статуса товара (скидки новое и т.п)-->
-                    <!--TODO: Сделать условием, для изменения цвета фона-->
-                    <span [ngClass]="{ discount: false, new: true }">New</span>
+                    <!--TODO: Проверить работу discount-->
+                    <span
+                        [ngClass]="{
+                            discount: cartData.status.includes('%'),
+                            new: cartData.status.includes('New')
+                        }"
+                        >{{ cartData.status }}</span
+                    >
                 </div>
                 <ng-container *ngIf="cartData.isFavorite">
                     <!--TODO: Сделать функцию удаление из избранного-->

@@ -9,6 +9,9 @@ export type Catalog = {
     isFavorite: boolean;
     isCart: boolean;
     countProduct: number;
+    gender: string;
+    type: string;
+    chapter: string;
     createdAt: Date;
     updatedAt: Date;
 };
@@ -18,4 +21,5 @@ export type shortCatalog = {
     image: string;
     title: string;
     cost: number;
+    status: string;
 };
