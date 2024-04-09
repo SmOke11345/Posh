@@ -28,12 +28,10 @@ model Catalog {
   type         String
   chapter      String
   gender       String
-  status       String     @default("New")
+  status       String     @default("Новое")
   createdAt    DateTime   @default(now())
   updatedAt    DateTime   @updatedAt
   images       String[]
-  isCart       Boolean    @default(false)
-  isFavorite   Boolean    @default(false)
   countProduct Int
   cart         Cart[]     @relation("CartCatalog")
   favorite     Favorite[] @relation("FavoriteCatalog")

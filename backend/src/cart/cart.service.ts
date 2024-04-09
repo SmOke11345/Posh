@@ -16,12 +16,9 @@ export class CartService {
      * @param user_id - id пользователя
      */
     async addToCart(catalog_id: number, user_id: number) {
-        const prod: Catalog = await this.prismaService.catalog.update({
+        const prod: Catalog = await this.prismaService.catalog.findFirst({
             where: {
                 id: catalog_id,
-            },
-            data: {
-                isCart: true,
             },
         });
 
