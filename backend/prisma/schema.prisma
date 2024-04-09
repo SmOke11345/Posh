@@ -25,6 +25,10 @@ model Catalog {
   sizes        String[]
   colors       String[]
   cost         Int
+  type         String
+  chapter      String
+  gender       String
+  status       String     @default("New")
   createdAt    DateTime   @default(now())
   updatedAt    DateTime   @updatedAt
   images       String[]

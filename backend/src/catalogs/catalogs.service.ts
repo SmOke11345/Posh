@@ -1,6 +1,6 @@
 import { Injectable } from "@nestjs/common";
 import { PrismaService } from "../utils/prisma.service";
-import { Catalog } from "../models/Catalog";
+import { Catalog, shortCatalog } from "../models/Catalog";
 import { Cloud } from "../models/cloud";
 import * as Cloudinary from "cloudinary";
 import * as fs from "fs";
@@ -36,6 +36,8 @@ export class CatalogsService {
             data: {
                 ...payload,
                 images,
+                cost: +payload.cost,
+                countProduct: +payload.countProduct,
             },
         });
 
@@ -51,13 +53,24 @@ export class CatalogsService {
     async getProdCarousel() {
         const prod: Catalog[] = await this.prismaService.catalog.findMany({
             where: {
-                createdAt: "desc",
+                createdAt: {
+                    lt: new Date(), // lt - меньше чем
+                },
             },
             take: 12,
         });
 
-        // TODO: переделать в тип Slider
+        // Превращение типа Catalog в shortCatalog
+        const shortCatalog: shortCatalog[] = prod.map((item) => {
+            return {
+                id: item.id,
+                title: item.title,
+                image: item.images[0],
+                cost: item.cost,
+                status: item.status,
+            };
+        });
 
-        return prod;
+        return shortCatalog;
     }
 }

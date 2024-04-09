@@ -20,7 +20,10 @@ export class CartController {
     @UseGuards(JwtAuthGuard)
     @Post("add")
     async addToCart(@Request() request: any) {
-        return this.cartService.addToCart(+request.body.id, +request.user.id);
+        return this.cartService.addToCart(
+            +request.body.catalog_id,
+            +request.user.id,
+        );
     }
 
     /**
@@ -38,10 +41,10 @@ export class CartController {
      * @param request
      */
     @UseGuards(JwtAuthGuard)
-    @Post("remove")
+    @Delete("remove")
     async removeFromCart(@Request() request: any) {
         return this.cartService.removeFromCart(
-            +request.body.id,
+            +request.body.catalog_id,
             +request.user.id,
         );
     }
@@ -64,7 +67,7 @@ export class CartController {
     @Patch("increment")
     async incrementProduct(@Request() request: any) {
         return this.cartService.incrementProduct(
-            +request.body.id,
+            +request.body.catalog_id,
             +request.user.id,
         );
     }
@@ -77,7 +80,7 @@ export class CartController {
     @Patch("decrement")
     async decrementProduct(@Request() request: any) {
         return this.cartService.decrementProduct(
-            +request.body.id,
+            +request.body.catalog_id,
             +request.user.id,
         );
     }
