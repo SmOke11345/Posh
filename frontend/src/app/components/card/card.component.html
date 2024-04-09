@@ -108,7 +108,7 @@
                         'url(' +
                         cartData.image +
                         ')' +
-                        'no-repeat center center / cover'
+                        'no-repeat bottom center / cover'
                 }"
                 class="card-product__img">
                 <!--                <img [src]="cartData.image" alt="" />-->
@@ -117,7 +117,7 @@
                     <span
                         [ngClass]="{
                             discount: cartData.status.includes('%'),
-                            new: cartData.status.includes('New')
+                            new: cartData.status.includes('Новое')
                         }"
                         >{{ cartData.status }}</span
                     >

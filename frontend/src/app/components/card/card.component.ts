@@ -2,7 +2,6 @@ import { Component, Input } from "@angular/core";
 import { NgClass, NgIf, NgStyle } from "@angular/common";
 import { RouterLink } from "@angular/router";
 import { CartService } from "../../pages/cart/cart.service";
-import { CatalogService } from "../../pages/catalog/catalog.service";
 import * as url from "url";
 import { repeat } from "rxjs";
 
@@ -20,6 +19,10 @@ export class CardComponent {
 
     // TODO: Динамическая типизация!? Catalog | shortCatalog
     @Input() cartData: any;
+    protected readonly url = url;
+
+    // TODO: Переделать отображение с учетом что нет isFavorite и isCart
+    protected readonly repeat = repeat;
 
     constructor(private cartService: CartService) {
         this.cartData = {} as any;
@@ -48,7 +51,4 @@ export class CardComponent {
     decrementProduct(catalog_id: number) {
         this.cartService.decrementProduct(catalog_id).subscribe();
     }
-
-    protected readonly url = url;
-    protected readonly repeat = repeat;
 }

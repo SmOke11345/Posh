@@ -40,6 +40,11 @@
             flex-direction: column;
         }
 
+        &__img img {
+            width: 12rem;
+            height: 12rem;
+        }
+
         .subject {
             text-align: center;
 

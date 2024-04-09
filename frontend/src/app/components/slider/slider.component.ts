@@ -26,7 +26,6 @@ export class SliderComponent implements OnInit {
 
     ngOnInit() {
         this.catalogService.getProdCarousel().subscribe((data) => {
-            console.log("data", data);
             this.initSliderItems = [...data];
             this.updateSlider();
         });
@@ -88,7 +87,8 @@ export class SliderComponent implements OnInit {
         navigation.forEach((item) => {
             item.classList.remove("active");
         });
-        navigation[this.sliderIndex / 4].classList.add("active");
+        if (window.onload)
+            navigation[this.sliderIndex / 4].classList.add("active");
     }
 
     /**
