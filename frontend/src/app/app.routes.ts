@@ -38,6 +38,7 @@ export const routes: Routes = [
                 path: Pages.CART,
                 title: "Корзина",
                 component: CartComponent,
+                canActivate: [AuthGuard],
             },
             {
                 path: "",

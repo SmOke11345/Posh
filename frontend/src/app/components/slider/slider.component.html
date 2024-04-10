@@ -43,10 +43,9 @@
         </div>
     </div>
     <div class="slider__inner grid">
-        <app-card
+        <app-card-product
             *ngFor="let item of sliderItems"
-            [card_product]="true"
-            [cartData]="item"></app-card>
+            [data]="item"></app-card-product>
     </div>
     <div class="slider--bottom">
         <div (click)="trackNavigation()" class="navigation">

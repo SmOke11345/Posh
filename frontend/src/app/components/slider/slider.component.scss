@@ -27,10 +27,10 @@
             background-color: $btn-secondary;
             border-radius: 0.8rem;
         }
+    }
 
-        .active {
-            background-color: $blue;
-        }
+    .navigation__item.active {
+        background-color: $blue;
     }
 }
 

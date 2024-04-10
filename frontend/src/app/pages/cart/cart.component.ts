@@ -1,11 +1,12 @@
 import { Component, DoCheck, NgModule, OnInit } from "@angular/core";
 import { ReactiveFormsModule } from "@angular/forms";
-import { CardComponent } from "../../components/card/card.component";
+import { CardProductComponent } from "../../components/cards/card-product/card-product.component";
 import { SliderComponent } from "../../components/slider/slider.component";
 import { EmptyComponent } from "../../components/empty/empty.component";
-import { NgIf } from "@angular/common";
+import { NgForOf, NgIf } from "@angular/common";
 import { CartService } from "./cart.service";
 import { Catalog } from "../../models/Catalog";
+import { CardBasketComponent } from "../../components/cards/card-basket/card-basket.component";
 
 @Component({
     selector: "app-cart",
@@ -24,10 +25,11 @@ export class CartComponent implements OnInit, DoCheck {
     }
 
     ngOnInit() {
-        // TODO: Получение данных с сервера (корзина).
         this.cartService.getCart().subscribe({
             next: (data) => {
-                this.cartData = data;
+                this.cartData = data.map((item) => {
+                    return { ...item, isCart: true };
+                });
             },
         });
     }
@@ -63,10 +65,12 @@ export class CartComponent implements OnInit, DoCheck {
     exports: [CartComponent],
     imports: [
         ReactiveFormsModule,
-        CardComponent,
+        CardProductComponent,
         SliderComponent,
         EmptyComponent,
         NgIf,
+        CardBasketComponent,
+        NgForOf,
     ],
     providers: [CartService],
 })

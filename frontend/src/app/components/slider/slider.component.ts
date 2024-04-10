@@ -2,12 +2,12 @@ import { Component, ElementRef, OnInit } from "@angular/core";
 import { NgClass, NgForOf } from "@angular/common";
 import { CatalogService } from "../../pages/catalog/catalog.service";
 import { shortCatalog } from "../../models/Catalog";
-import { CardComponent } from "../card/card.component";
+import { CardProductComponent } from "../cards/card-product/card-product.component";
 
 @Component({
     selector: "app-slider",
     standalone: true,
-    imports: [NgForOf, CardComponent, NgClass],
+    imports: [NgForOf, CardProductComponent, NgClass],
     providers: [CatalogService],
     templateUrl: "./slider.component.html",
     styleUrl: "./slider.component.scss",
@@ -87,8 +87,8 @@ export class SliderComponent implements OnInit {
         navigation.forEach((item) => {
             item.classList.remove("active");
         });
-        if (window.onload)
-            navigation[this.sliderIndex / 4].classList.add("active");
+
+        navigation[this.sliderIndex / 4].classList.add("active");
     }
 
     /**

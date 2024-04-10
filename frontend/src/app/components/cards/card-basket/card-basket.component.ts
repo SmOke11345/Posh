@@ -1,31 +1,21 @@
 import { Component, Input } from "@angular/core";
-import { NgClass, NgIf, NgStyle } from "@angular/common";
-import { RouterLink } from "@angular/router";
-import { CartService } from "../../pages/cart/cart.service";
-import * as url from "url";
-import { repeat } from "rxjs";
+import { CartService } from "../../../pages/cart/cart.service";
+import { NgIf, NgStyle } from "@angular/common";
 
 @Component({
-    selector: "app-card",
+    selector: "app-card-basket",
     standalone: true,
-    imports: [NgIf, NgStyle, NgClass, RouterLink],
+    imports: [NgIf, NgStyle],
     providers: [CartService],
-    templateUrl: "./card.component.html",
-    styleUrl: "./card.component.scss",
+    templateUrl: "./card-basket.component.html",
+    styleUrl: "../cards.component.scss",
 })
-export class CardComponent {
-    @Input() card_basket: boolean = false;
-    @Input() card_product: boolean = false;
-
-    // TODO: Динамическая типизация!? Catalog | shortCatalog
-    @Input() cartData: any;
-    protected readonly url = url;
-
-    // TODO: Переделать отображение с учетом что нет isFavorite и isCart
-    protected readonly repeat = repeat;
+export class CardBasketComponent {
+    // TODO: сделать тип
+    @Input() data: any;
 
     constructor(private cartService: CartService) {
-        this.cartData = {} as any;
+        this.data = {} as any;
     }
 
     /**

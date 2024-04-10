@@ -1,0 +1,101 @@
+<div class="card-basket">
+    <div class="card-basket__inner">
+        <div class="card-basket--wrap">
+            <!--TODO: Может поехать картинка при большой ширине заголовка-->
+            <div
+                [ngStyle]="{
+                    background:
+                        'url(' +
+                        data.image +
+                        ') no-repeat bottom center / cover'
+                }"
+                class="card-basket__img"></div>
+            <div class="card-basket--wrap">
+                <div class="subject">
+                    <div class="subject__title">
+                        <h3>{{ data.title }}</h3>
+                    </div>
+                    <div class="subject__subtitle">
+                        <p>{{ data.description }}</p>
+                    </div>
+                    <div class="subject__color">
+                        <p>{{ data.color }}</p>
+                    </div>
+                    <div class="subject__size">
+                        <p>{{ data.size }}</p>
+                    </div>
+                    <div class="card-basket__cost mobile">
+                        <h3>{{ data.cost }}</h3>
+                    </div>
+                </div>
+                <div class="icon-status">
+                    <div class="icon-status__item">
+                        <img
+                            alt="В избранном"
+                            src="../../../../assets/img/common/heart.svg" />
+                    </div>
+                    <div class="icon-status__item">
+                        <img
+                            alt="В корзине"
+                            src="../../../../assets/img/common/cart.svg" />
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="card-basket__cost desktop">
+            <h3>{{ data.cost }} ₽</h3>
+        </div>
+        <button (click)="removeFromCart(data.id)" class="close">
+            <svg
+                fill="none"
+                height="13"
+                viewBox="0 0 13 13"
+                width="13"
+                xmlns="http://www.w3.org/2000/svg">
+                <path
+                    d="M0.771729 1.07349L11.8182 12.0075"
+                    stroke="black"
+                    stroke-linecap="round" />
+                <path
+                    d="M0.771606 12.0079L11.8181 1.07381"
+                    stroke="black"
+                    stroke-linecap="round" />
+            </svg>
+        </button>
+    </div>
+    <div class="card-basket__counter">
+        <button (click)="decrementProduct(data.id)" class="counter">
+            <svg
+                fill="none"
+                height="2"
+                viewBox="0 0 14 2"
+                width="14"
+                xmlns="http://www.w3.org/2000/svg">
+                <path
+                    d="M1 1.07349L13 1.07349"
+                    stroke="black"
+                    stroke-linecap="round" />
+            </svg>
+        </button>
+        <div class="counter-value">
+            <h4>{{ data.count }}</h4>
+        </div>
+        <button (click)="incrementProduct(data.id)" class="counter">
+            <svg
+                fill="none"
+                height="14"
+                viewBox="0 0 14 14"
+                width="14"
+                xmlns="http://www.w3.org/2000/svg">
+                <path
+                    d="M1 7.07349L13 7.07349"
+                    stroke="black"
+                    stroke-linecap="round" />
+                <path
+                    d="M7 13.0735L7 1.07349"
+                    stroke="black"
+                    stroke-linecap="round" />
+            </svg>
+        </button>
+    </div>
+</div>

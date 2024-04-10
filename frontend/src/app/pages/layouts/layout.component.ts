@@ -9,6 +9,7 @@ import { CommonModule } from "@angular/common";
 import { ProfileModule } from "../profile/profile.component";
 import { StoreDataUserService } from "../../services/storeDataUser.service";
 import { CartModule } from "../cart/cart.component";
+import { FavoriteModule } from "../favorite/favorite.component";
 
 @Component({
     selector: "app-layout",
@@ -16,6 +17,7 @@ import { CartModule } from "../cart/cart.component";
     imports: [
         CartModule,
         ProfileModule,
+        FavoriteModule,
         ServiceModule,
         RegisterModule,
         LoginModule,

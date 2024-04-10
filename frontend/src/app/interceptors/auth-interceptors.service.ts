@@ -3,10 +3,8 @@ import {
     HttpHandler,
     HttpInterceptor,
     HttpRequest,
-    HttpResponse,
 } from "@angular/common/http";
 import { StoreDataUserService } from "../services/storeDataUser.service";
-import { tap } from "rxjs";
 
 @Injectable()
 export class AuthInterceptor implements HttpInterceptor {
@@ -29,12 +27,12 @@ export class AuthInterceptor implements HttpInterceptor {
             });
         }
 
-        return next.handle(req).pipe(
-            tap((event) => {
-                if (event instanceof HttpResponse) {
-                    console.log("Intercepted request", event);
-                }
-            }),
-        );
+        return next.handle(req);
+        // .pipe(
+        // tap((event) => {
+        //     if (event instanceof HttpResponse) {
+        //         console.log("Intercepted request", event);
+        //     }
+        // }),
     }
 }

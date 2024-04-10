@@ -4,9 +4,8 @@
         <app-empty [isFavorite]="true"></app-empty>
     </ng-container>
     <div class="grid">
-        <app-card
+        <app-card-product
             *ngFor="let item of favoriteItems"
-            [card_product]="true"
-            [cartData]="item"></app-card>
+            [data]="item"></app-card-product>
     </div>
 </div>

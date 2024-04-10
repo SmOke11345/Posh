@@ -11,20 +11,20 @@ export class CartService {
     constructor(private http: HttpClient) {}
 
     /**
+     * Получение товаров в корзине.
+     */
+    getCart() {
+        return this.http.get<Catalog[]>(`${Url.CART}`);
+    }
+
+    /**
      * Добавление товара в корзину.
      * @param catalog_id
      */
     addToCart(catalog_id: number) {
         return this.http
-            .post<Catalog>(`${Url.CART}`, catalog_id)
+            .post<Catalog>(`${Url.CART}/add`, catalog_id)
             .pipe(catchError((error) => throwError(error)));
-    }
-
-    /**
-     * Получение товаров в корзине.
-     */
-    getCart() {
-        return this.http.get<Catalog[]>(`${Url.CART}`);
     }
 
     /**
