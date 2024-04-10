@@ -20,4 +20,5 @@ export type shortCatalog = {
     title: string;
     image: string;
     cost: number;
+    status: string;
 };

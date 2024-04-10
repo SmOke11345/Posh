@@ -15,26 +15,23 @@ export class CartController {
     constructor(private readonly cartService: CartService) {}
 
     /**
-     * Добавление товара в корзину.
-     * @param request - данные пользователя
-     */
-    @UseGuards(JwtAuthGuard)
-    @Post("add")
-    async addToCart(@Request() request: any) {
-        return this.cartService.addToCart(
-            +request.body.catalog_id,
-            +request.user.id,
-        );
-    }
-
-    /**
      * Получение всех товаров пользователя.
      * @param request - данные пользователя
      */
     @UseGuards(JwtAuthGuard)
     @Get("")
     async getCart(@Request() request: any) {
-        return this.cartService.getCart(request.user.id);
+        return this.cartService.getCart(request.user.sub);
+    }
+
+    /**
+     * Добавление товара в корзину.
+     * @param request - данные пользователя
+     */
+    @UseGuards(JwtAuthGuard)
+    @Post("add")
+    async addToCart(@Request() request: any) {
+        return this.cartService.addToCart(request.body, request.user.sub);
     }
 
     /**
@@ -46,7 +43,7 @@ export class CartController {
     async removeFromCart(@Request() request: any) {
         return this.cartService.removeFromCart(
             +request.body.catalog_id,
-            +request.user.id,
+            +request.user.sub,
         );
     }
 
@@ -57,7 +54,7 @@ export class CartController {
     @UseGuards(JwtAuthGuard)
     @Delete("clear")
     async clearCart(@Request() request: any) {
-        return this.cartService.clearCart(+request.user.id);
+        return this.cartService.clearCart(request.user.sub);
     }
 
     /**
@@ -68,8 +65,8 @@ export class CartController {
     @Patch("increment")
     async incrementProduct(@Request() request: any) {
         return this.cartService.incrementProduct(
-            +request.body.catalog_id,
-            +request.user.id,
+            request.body.catalog_id,
+            request.user.sub,
         );
     }
 
@@ -81,8 +78,8 @@ export class CartController {
     @Patch("decrement")
     async decrementProduct(@Request() request: any) {
         return this.cartService.decrementProduct(
-            +request.body.catalog_id,
-            +request.user.id,
+            request.body.catalog_id,
+            request.user.sub,
         );
     }
 }

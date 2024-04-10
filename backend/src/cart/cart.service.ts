@@ -5,20 +5,52 @@ import {
 } from "@nestjs/common";
 import { PrismaService } from "../utils/prisma.service";
 import { Catalog } from "../models/Catalog";
+import { Cart } from "../models/Cart";
 
 @Injectable()
 export class CartService {
     constructor(private prismaService: PrismaService) {}
 
     /**
-     * Добавление товара в корзину.
-     * @param catalog_id - id товара
+     * Получение всех товаров пользователя.
      * @param user_id - id пользователя
      */
-    async addToCart(catalog_id: number, user_id: number) {
+    async getCart(user_id: number) {
+        const cart: Cart[] = await this.prismaService.cart.findMany({
+            where: {
+                user_id,
+            },
+            include: {
+                catalogId: true,
+            },
+        });
+
+        return cart.map((item) => {
+            return {
+                id: item.catalogId.id,
+                title: item.catalogId.title,
+                image: item.catalogId.images[0],
+                cost: item.catalogId.cost,
+                description: item.catalogId.description,
+                color: item.color,
+                size: item.size,
+                count: item.count,
+            };
+        });
+    }
+
+    /**
+     * Добавление товара в корзину.
+     * @param payload
+     * @param user_id - id пользователя
+     */
+    async addToCart(
+        payload: { catalog_id: number; color: string; size: string },
+        user_id: number,
+    ) {
         const prod: Catalog = await this.prismaService.catalog.findFirst({
             where: {
-                id: catalog_id,
+                id: payload.catalog_id,
             },
         });
 
@@ -28,19 +60,7 @@ export class CartService {
 
         return this.prismaService.cart.create({
             data: {
-                user_id,
-                catalog_id,
-            },
-        });
-    }
-
-    /**
-     * Получение всех товаров пользователя.
-     * @param user_id - id пользователя
-     */
-    async getCart(user_id: number) {
-        return this.prismaService.cart.findMany({
-            where: {
+                ...payload,
                 user_id,
             },
         });
