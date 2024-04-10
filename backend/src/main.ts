@@ -12,7 +12,6 @@ async function bootstrap() {
 
     app.setGlobalPrefix(globalPrefix);
 
-    // TODO: в дальнейшем если нужно будет, реализовать раздельные ошибки в register
     // гарантирует, что все конечные точки защищены от получения не верных данных
     // app.useGlobalPipes(new ValidationPipe());
 

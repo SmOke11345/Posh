@@ -38,16 +38,17 @@ model Catalog {
 }
 
 model Cart {
-  id         Int      @id @default(autoincrement())
-  user_id    Int
-  catalog_id Int
-  size       String
-  color      String
-  count      Int      @default(1)
-  createdAt  DateTime @default(now())
-  updatedAt  DateTime @updatedAt
-  catalogId  Catalog  @relation("CartCatalog", fields: [catalog_id], references: [id])
-  userId     User     @relation("CartUser", fields: [user_id], references: [id])
+  id             Int      @id @default(autoincrement())
+  user_id        Int
+  catalog_id     Int
+  size           String
+  color          String
+  chapterAndType String
+  count          Int      @default(1)
+  createdAt      DateTime @default(now())
+  updatedAt      DateTime @updatedAt
+  catalogId      Catalog  @relation("CartCatalog", fields: [catalog_id], references: [id])
+  userId         User     @relation("CartUser", fields: [user_id], references: [id])
 }
 
 model Favorite {

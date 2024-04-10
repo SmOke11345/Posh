@@ -31,9 +31,9 @@ export class CartService {
                 title: item.catalogId.title,
                 image: item.catalogId.images[0],
                 cost: item.catalogId.cost,
-                description: item.catalogId.description,
                 color: item.color,
                 size: item.size,
+                chapterAndType: item.chapterAndType,
                 count: item.count,
             };
         });
@@ -45,7 +45,7 @@ export class CartService {
      * @param user_id - id пользователя
      */
     async addToCart(
-        payload: { catalog_id: number; color: string; size: string },
+        payload: { catalog_id: number; size: string },
         user_id: number,
     ) {
         const prod: Catalog = await this.prismaService.catalog.findFirst({
@@ -58,10 +58,34 @@ export class CartService {
             throw new ForbiddenException("Товар не найден");
         }
 
+        const cart = await this.prismaService.cart.findFirst({
+            where: {
+                user_id,
+                catalog_id: payload.catalog_id,
+                size: payload.size,
+            },
+        });
+
+        if (cart) {
+            return this.prismaService.cart.update({
+                where: {
+                    id: cart.id,
+                },
+                data: {
+                    count: {
+                        increment: 1,
+                    },
+                },
+            });
+        }
+
         return this.prismaService.cart.create({
             data: {
                 ...payload,
                 user_id,
+                color: prod.description[3], // Сделано так потому что, все равно отсутствует логики отображения товара в зависимости от цвета, нет разного количества товаров для разных цветов и размеров.
+                chapterAndType:
+                    prod.gender + "/" + prod.chapter + "/" + prod.type,
             },
         });
     }
@@ -79,11 +103,13 @@ export class CartService {
             },
         });
 
-        if (!prod) {
+        if (!prod.count) {
             throw new ForbiddenException("Товар не найден");
         }
 
-        return prod;
+        return {
+            status: "Товар удален",
+        };
     }
 
     // TODO: При покупке товара убирать количество купленного товара из countProduct (к примеру , было 20 позиций, пользователь купил 2 => countProduct = 18)
@@ -103,7 +129,9 @@ export class CartService {
             throw new ForbiddenException("Товаров не найдено!");
         }
 
-        return prods;
+        return {
+            status: "Корзина пуста",
+        };
     }
 
     /**
@@ -112,7 +140,25 @@ export class CartService {
      * @param user_id - id пользователя
      */
     async incrementProduct(catalog_id: number, user_id: number) {
-        const prod = await this.prismaService.cart.updateMany({
+        const { count } = await this.prismaService.cart.findFirst({
+            where: {
+                user_id,
+                catalog_id,
+            },
+        });
+
+        const { countProduct }: Catalog =
+            await this.prismaService.catalog.findFirst({
+                where: {
+                    id: catalog_id,
+                },
+            });
+
+        if (count >= countProduct) {
+            throw new NotFoundException("Товар закончился");
+        }
+
+        await this.prismaService.cart.updateMany({
             where: {
                 user_id,
                 catalog_id,
@@ -124,18 +170,9 @@ export class CartService {
             },
         });
 
-        const { countProduct }: Catalog =
-            await this.prismaService.catalog.findFirst({
-                where: {
-                    id: catalog_id,
-                },
-            });
-
-        if (prod.count >= countProduct) {
-            throw new NotFoundException("Товар закончился");
-        }
-
-        return prod;
+        return {
+            status: "Товар увеличен на 1",
+        };
     }
 
     /**
@@ -144,7 +181,18 @@ export class CartService {
      * @param user_id - id пользователя
      */
     async decrementProduct(catalog_id: number, user_id: number) {
-        const prod = await this.prismaService.cart.updateMany({
+        const { count } = await this.prismaService.cart.findFirst({
+            where: {
+                user_id,
+                catalog_id,
+            },
+        });
+
+        if (count === 1) {
+            return await this.removeFromCart(catalog_id, user_id);
+        }
+
+        await this.prismaService.cart.updateMany({
             where: {
                 user_id,
                 catalog_id,
@@ -156,10 +204,8 @@ export class CartService {
             },
         });
 
-        if (prod.count === 0) {
-            return await this.removeFromCart(catalog_id, user_id);
-        }
-
-        return prod;
+        return {
+            status: "Товар уменьшен на 1",
+        };
     }
 }

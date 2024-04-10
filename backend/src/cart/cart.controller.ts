@@ -42,8 +42,8 @@ export class CartController {
     @Delete("remove")
     async removeFromCart(@Request() request: any) {
         return this.cartService.removeFromCart(
-            +request.body.catalog_id,
-            +request.user.sub,
+            request.body.catalog_id,
+            request.user.sub,
         );
     }
 

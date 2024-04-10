@@ -6,6 +6,7 @@ export type Cart = {
     catalog_id: number;
     size: string;
     color: string;
+    chapterAndType: string;
     count: number;
     createdAt: Date;
     updatedAt: Date;
