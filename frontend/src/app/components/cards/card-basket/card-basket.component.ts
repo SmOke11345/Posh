@@ -1,6 +1,7 @@
 import { Component, Input } from "@angular/core";
 import { CartService } from "../../../pages/cart/cart.service";
 import { NgIf, NgStyle } from "@angular/common";
+import { Cart } from "../../../models/Cart";
 
 @Component({
     selector: "app-card-basket",
@@ -9,13 +10,13 @@ import { NgIf, NgStyle } from "@angular/common";
     providers: [CartService],
     templateUrl: "./card-basket.component.html",
     styleUrl: "../cards.component.scss",
+    // changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class CardBasketComponent {
-    // TODO: сделать тип
-    @Input() data: any;
+    @Input() data: Cart;
 
     constructor(private cartService: CartService) {
-        this.data = {} as any;
+        this.data = {} as Cart;
     }
 
     /**

@@ -1,4 +1,4 @@
-import { Component, DoCheck, ElementRef } from "@angular/core";
+import { Component, DoCheck, ElementRef, OnInit } from "@angular/core";
 import { RouterLink } from "@angular/router";
 import { NgClass, NgForOf, NgIf } from "@angular/common";
 import { CartService } from "../../pages/cart/cart.service";
@@ -10,7 +10,7 @@ import { CartService } from "../../pages/cart/cart.service";
     templateUrl: "./header.component.html",
     styleUrl: "./header.component.scss",
 })
-export class HeaderComponent implements DoCheck {
+export class HeaderComponent implements OnInit, DoCheck {
     linkList: { name: string; url: string }[] = [
         { name: "🔥Новинки", url: "" },
         {
@@ -26,17 +26,26 @@ export class HeaderComponent implements DoCheck {
     constructor(
         private el: ElementRef,
         private cartService: CartService,
-    ) {
-        this.cartService.getCart().subscribe((data) => {
-            this.cartCount = data.length;
-        });
+    ) {}
+
+    ngOnInit() {
+        this.getCartCount();
     }
 
     // TODO: Сделать динамическое обновление количества корзины.
     ngDoCheck() {
-        // if (this.cartCount !== this.cartService.getCart()) {
-        //     this.cartCount = this.cartService.getCartCount();
+        // if (this.cartCount !== this.cartCount) {
+        //     this.getCartCount();
         // }
+    }
+
+    /**
+     * Получение количества товаров в корзине.
+     */
+    getCartCount() {
+        this.cartService.getCart().subscribe((data) => {
+            this.cartCount = data.length;
+        });
     }
 
     /**

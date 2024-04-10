@@ -18,6 +18,11 @@
             align-items: center;
             margin-bottom: 2rem;
         }
+
+        .content-cart {
+            display: grid;
+            row-gap: 4rem;
+        }
     }
 
     &__inner:last-child {
@@ -108,6 +113,10 @@
 
         .wrap {
             margin-top: 4rem;
+        }
+
+        &__inner:first-child .content-cart {
+            row-gap: 2.5rem;
         }
     }
 }

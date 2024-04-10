@@ -3,6 +3,7 @@ import { HttpClient } from "@angular/common/http";
 import { Catalog } from "../../models/Catalog";
 import { Url } from "../../models/enums/requestUrls";
 import { catchError, throwError } from "rxjs";
+import { Cart } from "../../models/Cart";
 
 @Injectable({
     providedIn: "root",
@@ -14,7 +15,7 @@ export class CartService {
      * Получение товаров в корзине.
      */
     getCart() {
-        return this.http.get<Catalog[]>(`${Url.CART}`);
+        return this.http.get<Cart[]>(`${Url.CART}`);
     }
 
     /**
@@ -51,8 +52,9 @@ export class CartService {
      * @param catalog_id
      */
     incrementProduct(catalog_id: number) {
+        console.log("catalog_id", catalog_id);
         return this.http
-            .patch(`${Url.CART}/increment`, catalog_id)
+            .patch(`${Url.CART}/increment`, { catalog_id })
             .pipe(catchError((error) => throwError(error)));
     }
 
@@ -61,6 +63,6 @@ export class CartService {
      * @param catalog_id
      */
     decrementProduct(catalog_id: number) {
-        return this.http.patch(`${Url.CART}/decrement`, catalog_id);
+        return this.http.patch(`${Url.CART}/decrement`, { catalog_id });
     }
 }
