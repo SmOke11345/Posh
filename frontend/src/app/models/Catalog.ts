@@ -1,4 +1,4 @@
-export type Catalog = {
+export interface Catalog {
     id: number;
     title: string;
     description: string[];
@@ -12,7 +12,7 @@ export type Catalog = {
     chapter: string;
     createdAt: Date;
     updatedAt: Date;
-};
+}
 
 export type shortCatalog = {
     id: number;

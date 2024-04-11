@@ -8,6 +8,15 @@ export class CatalogService {
     constructor(private http: HttpClient) {}
 
     /**
+     * Получение товара по id.
+     * @param id
+     */
+    getProduct(id: string) {
+        // TODO: добавить тип
+        return this.http.get(`${Url.CATALOG}/${id}`);
+    }
+
+    /**
      * Получение товаров для каруселей.
      */
     getProdCarousel() {

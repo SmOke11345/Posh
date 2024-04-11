@@ -10,14 +10,18 @@ import { ProfileModule } from "../profile/profile.component";
 import { StoreDataUserService } from "../../services/storeDataUser.service";
 import { CartModule } from "../cart/cart.component";
 import { FavoriteModule } from "../favorite/favorite.component";
+import { ProductModule } from "../product/product.component";
+import { OrdersModule } from "../orders/orders.component";
 
 @Component({
     selector: "app-layout",
     standalone: true,
     imports: [
+        OrdersModule,
         CartModule,
         ProfileModule,
         FavoriteModule,
+        ProductModule,
         ServiceModule,
         RegisterModule,
         LoginModule,
