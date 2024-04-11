@@ -20,4 +20,5 @@ export type shortCatalog = {
     title: string;
     cost: number;
     status: string;
+    isFavorite?: boolean;
 };

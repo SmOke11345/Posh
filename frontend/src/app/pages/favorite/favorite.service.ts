@@ -2,7 +2,6 @@ import { Injectable } from "@angular/core";
 import { HttpClient } from "@angular/common/http";
 import { Url } from "../../models/enums/requestUrls";
 import { shortCatalog } from "../../models/Catalog";
-import { map } from "rxjs";
 
 @Injectable({
     providedIn: "root",
@@ -14,15 +13,15 @@ export class FavoriteService {
      * Получение избранных товаров.
      */
     getFavoriteItems() {
-        return this.http.get<shortCatalog[]>(`${Url.FAVORITE}`).pipe(
-            map((data) => {
-                return data.map((item) => {
-                    return {
-                        ...item,
-                        isFavorite: true,
-                    };
-                });
-            }),
-        );
+        return this.http.get<shortCatalog[]>(`${Url.FAVORITE}`);
+    }
+
+    /**
+     * Удаление товара из избранного.
+     */
+    removeFavorite(catalog_id: number) {
+        return this.http.delete(`${Url.FAVORITE}/remove`, {
+            body: { catalog_id },
+        });
     }
 }

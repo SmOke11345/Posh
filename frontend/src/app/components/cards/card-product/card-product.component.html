@@ -20,8 +20,7 @@
                 >
             </div>
             <ng-container *ngIf="data.isFavorite">
-                <!--TODO: Сделать функцию удаление из избранного-->
-                <div class="heart">
+                <div (click)="removeFavorite(data.id)" class="heart">
                     <img
                         alt="В избранном"
                         src="../../../../assets/img/common/heart-favorite.svg" />
@@ -32,23 +31,9 @@
     <div class="card-product__title">
         <h3>{{ data.title }}</h3>
     </div>
-    <div
-        [ngClass]="{
-            'btn-favorite': data.isFavorite
-        }"
-        class="card-product__btn">
-        <button
-            (click)="data.isFavorite && addToCart(data.id)"
-            [routerLink]="[
-                data.isFavorite ? '/favorite' : '/product/' + data.id
-            ]"
-            class="btn medium">
-            {{ data.isFavorite ? "В корзину" : "подробнее" }} -
-            <span> {{ data.cost }}₽ </span>
+    <div class="card-product__btn">
+        <button [routerLink]="['/product/' + data.id]" class="btn medium">
+            подробнее - <span> {{ data.cost }}₽ </span>
         </button>
-        <ng-container *ngIf="data.isFavorite">
-            <!--TODO: Нужно будет сделать функцию которая, отправляет данные на страницу check out-->
-            <button class="btn btn--secondary medium">Купить</button>
-        </ng-container>
     </div>
 </div>

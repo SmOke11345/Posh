@@ -4,20 +4,43 @@ import { CardProductComponent } from "../../components/cards/card-product/card-p
 import { NgForOf, NgIf } from "@angular/common";
 import { FavoriteService } from "./favorite.service";
 import { EmptyComponent } from "../../components/empty/empty.component";
+import { BehaviorSubjectService } from "../../services/behavior-subject.service";
 
 @Component({
     selector: "app-favorite",
     templateUrl: "./favorite.component.html",
-    styleUrl: "./favorite.component.scss",
 })
 export class FavoriteComponent implements OnInit {
     favoriteItems: shortCatalog[] = [];
+    remove_id: number;
 
-    constructor(private favoriteService: FavoriteService) {}
+    constructor(
+        private favoriteService: FavoriteService,
+        private subjectService: BehaviorSubjectService,
+    ) {
+        this.remove_id = 0;
+        this.subjectService.favorite$.subscribe((data) => {
+            this.favoriteItems = data.map((item) => {
+                return { ...item, isFavorite: true };
+            });
+        });
+    }
 
     ngOnInit() {
         this.favoriteService.getFavoriteItems().subscribe((data) => {
-            this.favoriteItems = data;
+            this.subjectService.setFavorite(data);
+        });
+    }
+
+    removeFavorite(catalog_id: number) {
+        this.remove_id = catalog_id; // Получаем id из child-компонента
+        this.favoriteService.removeFavorite(this.remove_id).subscribe({
+            next: () => {
+                this.favoriteItems = this.favoriteItems.filter(
+                    (item) => item.id !== this.remove_id,
+                );
+                this.subjectService.removeFavorite(this.remove_id);
+            },
         });
     }
 }
@@ -26,6 +49,6 @@ export class FavoriteComponent implements OnInit {
     imports: [CardProductComponent, NgForOf, NgIf, EmptyComponent],
     exports: [FavoriteComponent],
     declarations: [FavoriteComponent],
-    providers: [FavoriteService],
+    providers: [FavoriteService, BehaviorSubjectService],
 })
 export class FavoriteModule {}

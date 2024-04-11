@@ -1,12 +1,13 @@
 import { Component, DoCheck, ElementRef, OnInit } from "@angular/core";
 import { RouterLink } from "@angular/router";
 import { NgClass, NgForOf, NgIf } from "@angular/common";
-import { CartService } from "../../pages/cart/cart.service";
+import { BehaviorSubjectService } from "../../services/behavior-subject.service";
 
 @Component({
     selector: "app-header",
     standalone: true,
     imports: [RouterLink, NgIf, NgForOf, NgClass],
+    providers: [BehaviorSubjectService],
     templateUrl: "./header.component.html",
     styleUrl: "./header.component.scss",
 })
@@ -25,27 +26,21 @@ export class HeaderComponent implements OnInit, DoCheck {
 
     constructor(
         private el: ElementRef,
-        private cartService: CartService,
+        private subjectService: BehaviorSubjectService,
     ) {}
 
     ngOnInit() {
-        this.getCartCount();
+        this.setCartCount();
     }
 
-    // TODO: Сделать динамическое обновление количества корзины.
     ngDoCheck() {
-        // if (this.cartCount !== this.cartCount) {
-        //     this.getCartCount();
-        // }
+        if (this.cartCount !== this.subjectService.getCountProductInCart()) {
+            this.setCartCount();
+        }
     }
 
-    /**
-     * Получение количества товаров в корзине.
-     */
-    getCartCount() {
-        this.cartService.getCart().subscribe((data) => {
-            this.cartCount = data.length;
-        });
+    setCartCount() {
+        this.cartCount = this.subjectService.getCountProductInCart();
     }
 
     /**

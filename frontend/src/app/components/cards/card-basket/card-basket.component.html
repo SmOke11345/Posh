@@ -64,7 +64,10 @@
         </button>
     </div>
     <div class="card-basket__counter">
-        <button (click)="decrementProduct(data.id)" class="counter">
+        <button
+            (click)="decrementProduct(data.id)"
+            [disabled]="data.count === 1"
+            class="counter">
             <svg
                 fill="none"
                 height="2"

@@ -3,10 +3,11 @@ import { ReactiveFormsModule } from "@angular/forms";
 import { CardProductComponent } from "../../components/cards/card-product/card-product.component";
 import { SliderComponent } from "../../components/slider/slider.component";
 import { EmptyComponent } from "../../components/empty/empty.component";
-import { NgForOf, NgIf } from "@angular/common";
+import { AsyncPipe, JsonPipe, NgForOf, NgIf } from "@angular/common";
 import { CartService } from "./cart.service";
 import { CardBasketComponent } from "../../components/cards/card-basket/card-basket.component";
 import { Cart } from "../../models/Cart";
+import { BehaviorSubjectService } from "../../services/behavior-subject.service";
 
 @Component({
     selector: "app-cart",
@@ -15,14 +16,37 @@ import { Cart } from "../../models/Cart";
 })
 export class CartComponent implements OnInit {
     cartData: Cart[] = [];
+    remove_id: number;
 
-    // TODO: Сделать динамическое отображение данных
-
-    constructor(private cartService: CartService) {}
+    constructor(
+        private cartService: CartService,
+        private subjectService: BehaviorSubjectService,
+    ) {
+        this.remove_id = 0;
+        this.subjectService.cart$.subscribe((data) => {
+            this.cartData = data;
+        });
+    }
 
     ngOnInit() {
         this.cartService.getCart().subscribe((data) => {
-            this.cartData = data;
+            this.subjectService.setCart(data);
+        });
+    }
+
+    /**
+     * Удаление одного товара из корзины.
+     * @param catalog_id
+     */
+    removeFromCart(catalog_id: number) {
+        this.remove_id = catalog_id; // Устанавливаем полученный catalog_id из child-компонента в переменную remove_id.
+        this.cartService.removeFromCart(this.remove_id).subscribe({
+            next: () => {
+                this.cartData = this.cartData.filter(
+                    (item) => item.id !== this.remove_id,
+                );
+                this.subjectService.removeFromCart(this.remove_id);
+            },
         });
     }
 
@@ -43,6 +67,10 @@ export class CartComponent implements OnInit {
             .map((item) => item.cost * item.count)
             .reduce((a, b) => a + b, 0);
     }
+
+    getTotalCount() {
+        return this.subjectService.getCountProductInCart();
+    }
 }
 
 @NgModule({
@@ -56,7 +84,9 @@ export class CartComponent implements OnInit {
         NgIf,
         CardBasketComponent,
         NgForOf,
+        AsyncPipe,
+        JsonPipe,
     ],
-    providers: [CartService],
+    providers: [CartService, BehaviorSubjectService],
 })
 export class CartModule {}

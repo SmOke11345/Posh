@@ -293,20 +293,22 @@ input[type="radio"] {
     }
 }
 
-.slider,
-.favorite {
-    .grid {
-        display: grid;
-        grid-template-columns: repeat(4, 1fr);
-        column-gap: 1.5rem;
-    }
+.slider .grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 1.5rem;
+}
+
+.favorite .grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1.5rem;
 }
 
 @media screen and (max-width: $tablet) {
     .slider,
     .favorite {
         .grid {
-            justify-items: center;
             grid-template-columns: repeat(2, 1fr);
             row-gap: 1.5rem;
         }

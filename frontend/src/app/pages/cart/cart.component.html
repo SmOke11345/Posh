@@ -17,7 +17,9 @@
                 </div>
                 <div class="content-cart">
                     <ng-container *ngFor="let item of cartData">
-                        <app-card-basket [data]="item"></app-card-basket>
+                        <app-card-basket
+                            (dataChange)="removeFromCart($event)"
+                            [data]="item"></app-card-basket>
                     </ng-container>
                 </div>
             </div>
@@ -28,7 +30,7 @@
                 <div class="subject">
                     <div class="subject__item--wrap">
                         <div class="subject__item_name">
-                            <p>Товары ({{ cartData.length }})</p>
+                            <p>Товары ({{ getTotalCount() }})</p>
                         </div>
                         <div class="subject__item_price">
                             <p>{{ getTotalCost() }} ₽</p>

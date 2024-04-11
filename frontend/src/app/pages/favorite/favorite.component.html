@@ -5,6 +5,7 @@
     </ng-container>
     <div class="grid">
         <app-card-product
+            (dataChange)="removeFavorite($event)"
             *ngFor="let item of favoriteItems"
             [data]="item"></app-card-product>
     </div>
