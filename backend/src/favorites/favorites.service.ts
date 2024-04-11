@@ -22,9 +22,7 @@ export class FavoritesService {
                 },
             });
 
-        if (!favorites) {
-            throw new ForbiddenException("Товар не найден");
-        }
+        if (!favorites) throw new ForbiddenException("Товар не найден");
 
         const shortFavorites: shortCatalog[] = favorites.map((favorite) => {
             return {
@@ -51,9 +49,15 @@ export class FavoritesService {
             },
         });
 
-        if (!prod) {
-            throw new ForbiddenException("Товар не найден");
-        }
+        if (!prod) throw new ForbiddenException("Товар не найден");
+
+        const _favorite = await this.prismaService.favorite.findFirst({
+            where: {
+                catalog_id,
+            },
+        });
+
+        if (_favorite) throw new ForbiddenException("Товар уже в избранном");
 
         return this.prismaService.favorite.create({
             data: {
@@ -76,7 +80,7 @@ export class FavoritesService {
             },
         });
 
-        if (!_favorite) throw new ForbiddenException("Товар не найден");
+        if (_favorite) throw new ForbiddenException("Товар не найден");
 
         await this.prismaService.favorite.deleteMany({
             where: {

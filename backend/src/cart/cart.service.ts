@@ -20,6 +20,9 @@ export class CartService {
             where: {
                 user_id,
             },
+            orderBy: {
+                createdAt: "desc",
+            },
             include: {
                 catalogId: true,
             },
@@ -54,9 +57,7 @@ export class CartService {
             },
         });
 
-        if (!prod) {
-            throw new ForbiddenException("Товар не найден");
-        }
+        if (!prod) throw new ForbiddenException("Товар не найден");
 
         const cart = await this.prismaService.cart.findFirst({
             where: {
@@ -103,9 +104,7 @@ export class CartService {
             },
         });
 
-        if (!prod.count) {
-            throw new ForbiddenException("Товар не найден");
-        }
+        if (!prod.count) throw new ForbiddenException("Товар не найден");
 
         return {
             status: "Товар удален",
@@ -125,9 +124,7 @@ export class CartService {
             },
         });
 
-        if (!prods) {
-            throw new ForbiddenException("Товаров не найдено!");
-        }
+        if (!prods) throw new ForbiddenException("Товаров не найдено!");
 
         return {
             status: "Корзина пуста",
@@ -154,9 +151,8 @@ export class CartService {
                 },
             });
 
-        if (count >= countProduct) {
+        if (count >= countProduct)
             throw new NotFoundException("Товар закончился");
-        }
 
         await this.prismaService.cart.updateMany({
             where: {
@@ -188,9 +184,7 @@ export class CartService {
             },
         });
 
-        if (count === 1) {
-            return await this.removeFromCart(catalog_id, user_id);
-        }
+        if (count === 1) return await this.removeFromCart(catalog_id, user_id);
 
         await this.prismaService.cart.updateMany({
             where: {

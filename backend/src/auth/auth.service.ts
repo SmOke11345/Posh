@@ -46,9 +46,8 @@ export class AuthService {
         //Ищем пользователя в базе данных
         const foundedEmail = await this.getEmail(user.email);
 
-        if (foundedEmail) {
+        if (foundedEmail)
             throw new ForbiddenException("Такой E-mail уже существует");
-        }
 
         // Хешируем пароль
         const hashedPassword = await bcrypt.hash(user.password, 10);
@@ -70,13 +69,10 @@ export class AuthService {
     async validateUser(email: string, password: string) {
         const user: any = await this.getEmail(email);
 
-        if (user === null) {
-            throw new UnauthorizedException("E-mail не найден");
-        }
+        if (user === null) throw new UnauthorizedException("E-mail не найден");
 
-        if (!bcrypt.compareSync(password, user.password)) {
+        if (!bcrypt.compareSync(password, user.password))
             throw new UnauthorizedException("Неверный пароль");
-        }
 
         if (user) {
             const { password, ...result } = user;

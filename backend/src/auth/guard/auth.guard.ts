@@ -16,9 +16,7 @@ export class JwtAuthGuard implements CanActivate {
 
         const token = this.extractTokenFromHeader(request); // Получаем токен
 
-        if (!token) {
-            throw new UnauthorizedException("Необходима авторизация");
-        }
+        if (!token) throw new UnauthorizedException("Необходима авторизация");
 
         try {
             // Для получения доступа в контроллере используя request.user

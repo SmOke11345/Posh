@@ -29,9 +29,8 @@ export class UsersService {
      */
     async patchUserData(id: number, data: User) {
         if (data.password) {
-            if (data.password.length < 8) {
+            if (data.password.length < 8)
                 throw new ForbiddenException("Не менее 8 символов");
-            }
 
             data.password = await bcrypt.hash(data.password, 10);
         }
@@ -39,9 +38,8 @@ export class UsersService {
         if (data.email) {
             const foundedEmail = await this.authService.getEmail(data.email);
 
-            if (foundedEmail) {
+            if (foundedEmail)
                 throw new ForbiddenException("Такой E-mail уже существует");
-            }
         }
 
         return this.prismaService.user.update({
