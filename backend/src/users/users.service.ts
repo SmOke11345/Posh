@@ -5,6 +5,7 @@ import { User } from "../models/User";
 import * as bcrypt from "bcryptjs";
 import { AuthService } from "../auth/auth.service";
 
+// TODO: Получение отзывов пользователя.
 @Injectable()
 export class UsersService {
     constructor(

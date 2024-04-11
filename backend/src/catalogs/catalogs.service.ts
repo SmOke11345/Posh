@@ -47,6 +47,19 @@ export class CatalogsService {
     }
 
     /**
+     * Получение товара по id.
+     * @param id - id товара
+     */
+    // TODO: При получение товара rating должен быть средний по всем отзывам для этого товара.
+    async getProduct(id: number) {
+        return await this.prismaService.catalog.findFirst({
+            where: {
+                id,
+            },
+        });
+    }
+
+    /**
      * Получение товаров из каталога для слайдеров.
      */
     // TODO: Сделать рандомное получение 12-ти товаров.

@@ -1,6 +1,7 @@
 import {
     Controller,
     Get,
+    Param,
     Post,
     Request,
     UploadedFiles,
@@ -48,5 +49,14 @@ export class CatalogsController {
     @Get("get-prods-carousel")
     async getProdCarousel() {
         return this.catalogsService.getProdCarousel();
+    }
+
+    /**
+     * Получение товара по id.
+     * @param id - id товара
+     */
+    @Get("/:id")
+    async getProduct(@Param("id") id: string) {
+        return this.catalogsService.getProduct(+id);
     }
 }
