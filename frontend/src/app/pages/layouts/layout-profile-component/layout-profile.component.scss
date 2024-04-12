@@ -1,7 +1,7 @@
 @import "../../../../styles";
 
 .profile {
-    &--wrap {
+    .profile-wrap {
         display: grid;
         grid-template-columns: 1fr 5.1fr;
         column-gap: 4rem;
@@ -84,20 +84,20 @@
 }
 
 @media screen and (max-width: $laptop) {
-    .profile--wrap {
+    .profile-wrap {
         grid-template-columns: 1fr 4fr;
     }
 }
 
 @media screen and (max-width: $tablet) {
-    .profile--wrap {
+    .profile-wrap {
         grid-template-columns: 1fr 2.6fr;
     }
 }
 
 @media screen and (max-width: $mobile) {
     .profile {
-        &--wrap {
+        .profile-wrap {
             grid-template-columns: auto;
             row-gap: 4rem;
         }

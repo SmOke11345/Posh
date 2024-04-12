@@ -18,6 +18,7 @@ export class CartComponent implements OnInit {
     cartData: Cart[] = [];
     remove_id: number;
 
+    // TODO: Сделать скелитон.
     constructor(
         private cartService: CartService,
         private subjectService: BehaviorSubjectService,

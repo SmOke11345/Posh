@@ -8,7 +8,7 @@
         align-items: flex-start;
     }
 
-    &--bottom {
+    .subject-bottom {
         margin: 2.5rem 0 4rem;
     }
 
@@ -35,12 +35,12 @@
 
     .subject__item,
     .btns,
-    .subject--bottom {
+    .subject-bottom {
         width: 46%;
     }
 
     .form__input,
-    .form--wrap {
+    .form-wrap {
         width: 100%;
     }
 
@@ -57,17 +57,17 @@
 
 @media screen and (max-width: $tablet) {
     .form.subject {
-        .subject--top .subject__item:not(:last-child) {
+        .subject-top .subject__item:not(:last-child) {
             margin-bottom: 2.5rem;
         }
 
-        .subject--top.wrapper {
+        .subject-top.wrapper {
             flex-direction: column;
         }
 
         .subject__item,
         .btns,
-        .subject--bottom {
+        .subject-bottom {
             width: 100%;
         }
     }
@@ -75,7 +75,7 @@
 
 @media screen and (max-width: $mobile) {
     .subject {
-        &--top .subject__item:not(:last-child) {
+        .subject-top .subject__item:not(:last-child) {
             margin-bottom: 2.5rem;
         }
 
@@ -85,7 +85,7 @@
             }
         }
 
-        &--bottom {
+        .subject-bottom {
             margin-bottom: 3rem;
         }
 

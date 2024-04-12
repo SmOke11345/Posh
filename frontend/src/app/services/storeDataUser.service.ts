@@ -69,6 +69,9 @@ export class StoreDataUserService {
     destroyUserData() {
         this.cookieService.delete("access_token");
         localStorage.removeItem("user_data");
+        localStorage.removeItem("cart");
+        localStorage.removeItem("favorite");
+        localStorage.removeItem("rememberMe");
         sessionStorage.removeItem("user_data");
     }
 }

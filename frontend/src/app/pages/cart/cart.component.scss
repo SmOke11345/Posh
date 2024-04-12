@@ -6,7 +6,7 @@
         font-weight: 600;
     }
 
-    &--wrap {
+    .cart-wrap {
         display: flex;
         justify-content: space-between;
     }
@@ -14,7 +14,7 @@
     &__inner:first-child {
         width: 62.5%;
 
-        .cart--wrap {
+        .cart-wrap {
             align-items: center;
             margin-bottom: 2rem;
         }
@@ -57,20 +57,16 @@
             justify-content: space-between;
         }
     }
-
-    .wrap {
-        margin-top: 7rem;
-    }
 }
 
 @media screen and (max-width: $tablet) {
     .cart {
-        &--wrap {
+        .cart-wrap {
             flex-direction: column;
         }
 
         &__inner:first-child {
-            .cart--wrap {
+            .cart-wrap {
                 margin-bottom: 1.5rem;
                 flex-direction: initial;
 
@@ -109,10 +105,6 @@
 
         .subject p {
             font-size: $rubik-sb-16;
-        }
-
-        .wrap {
-            margin-top: 4rem;
         }
 
         &__inner:first-child .content-cart {

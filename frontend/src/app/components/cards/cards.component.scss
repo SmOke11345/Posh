@@ -13,29 +13,10 @@
         background-color: $white;
         position: relative;
 
-        .flag {
-            span {
-                @extend %wrapper;
-                position: absolute;
-                top: 0;
-                left: 0;
-                justify-content: center;
-                font-size: $rubik-sb-12;
-                font-weight: 600;
-                width: 5.8rem;
-                height: 3.8rem;
-                color: $white;
-                border-radius: 2.4rem 0 2.4rem 0;
-            }
-
-            span.new {
-                background-color: $blue;
-            }
-
-            span.discount {
-                color: $dark;
-                background-color: $yellow;
-            }
+        .flag span {
+            position: absolute;
+            top: 0;
+            left: 0;
         }
 
         .heart {
@@ -73,13 +54,6 @@
 
         &__title h3 {
             font-size: $rubik-sb-16;
-        }
-
-        .flag span {
-            border-radius: 1.2rem 0 1.2rem 0;
-            width: 4.2rem;
-            height: 2.2rem;
-            font-size: 1rem;
         }
 
         .heart {
@@ -125,7 +99,7 @@
         }
     }
 
-    &--wrap:first-child {
+    .card-basket-wrap:first-child {
         display: flex;
     }
 
@@ -137,7 +111,7 @@
         height: 22.5rem;
     }
 
-    &--wrap:last-child {
+    .card-basket-wrap:last-child {
         display: flex;
         justify-content: space-between;
         flex-direction: column;
@@ -154,12 +128,6 @@
 
     .mobile {
         display: none;
-    }
-
-    &__cost {
-        h3 {
-            color: $blue;
-        }
     }
 
     .icon-status {

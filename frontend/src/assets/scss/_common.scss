@@ -107,6 +107,41 @@ button.btn {
             background-color: $btn-secondary;
         }
     }
+
+    &--size {
+        background-color: $white;
+        color: $dark;
+
+        &:disabled {
+            cursor: not-allowed;
+            background-color: $btn-secondary;
+            color: $btn-secondary-text;
+        }
+
+        &:hover {
+            color: $white;
+        }
+    }
+
+    &--size.active {
+        background-color: $dark;
+        color: $white;
+    }
+
+    &--icon-heart {
+        width: 4.8rem;
+
+        &:after {
+            content: "";
+            position: absolute;
+            top: 1.6rem;
+            left: 1.6rem;
+            background: url("../../assets/img/common/heart-white.svg") no-repeat
+                center center;
+            width: 1.6rem;
+            height: 1.6rem;
+        }
+    }
 }
 
 label {
@@ -190,7 +225,7 @@ input.error {
         }
     }
 
-    &--wrap {
+    .form-wrap {
         display: grid;
         row-gap: 1.5rem;
     }
@@ -313,4 +348,56 @@ input[type="radio"] {
             row-gap: 1.5rem;
         }
     }
+}
+
+.cart,
+.product {
+    .wrap {
+        margin-top: 7rem;
+    }
+}
+
+@media screen and (max-width: $mobile) {
+    .cart,
+    .product {
+        .wrap {
+            margin-top: 4rem;
+        }
+    }
+}
+
+.flag {
+    span {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        width: 5.8rem;
+        height: 3.8rem;
+        color: $white;
+        border-radius: 2.4rem 0 2.4rem 0;
+        font-weight: 600;
+        font-size: $rubik-sb-12;
+    }
+
+    span.new {
+        background-color: $blue;
+    }
+
+    span.discount {
+        color: $dark;
+        background-color: $yellow;
+    }
+}
+
+@media screen and (max-width: $mobile) {
+    .flag span {
+        border-radius: 1.2rem 0 1.2rem 0;
+        width: 4.2rem;
+        height: 2.2rem;
+        font-size: 1rem;
+    }
+}
+
+.cost h3 {
+    color: $blue;
 }

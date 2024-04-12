@@ -1,6 +1,6 @@
 <ng-container *ngIf="!change">
     <div class="subject">
-        <div class="subject--top wrapper">
+        <div class="subject-top wrapper">
             <div class="subject__item">
                 <p>Личные данные</p>
                 <h3>{{ userData.name }} {{ userData.lastname }}</h3>
@@ -10,7 +10,7 @@
                 <h3>{{ userData.gender }}</h3>
             </div>
         </div>
-        <div class="subject--bottom wrapper">
+        <div class="subject-bottom wrapper">
             <div class="subject__item">
                 <p>Почта</p>
                 <h3>{{ userData.email }}</h3>
@@ -30,9 +30,9 @@
 </ng-container>
 <ng-container *ngIf="change">
     <form (ngSubmit)="onSubmit()" [formGroup]="updateForm" class="form subject">
-        <div class="subject--top wrapper">
+        <div class="subject-top wrapper">
             <div class="subject__item">
-                <div class="form--wrap">
+                <div class="form-wrap">
                     <div class="form__title-inner">
                         <h3>Личные данные</h3>
                     </div>
@@ -59,7 +59,7 @@
                 </div>
             </div>
             <div class="subject__item">
-                <div class="form--wrap">
+                <div class="form-wrap">
                     <div class="form__title-inner">
                         <h3>Данные для входа</h3>
                     </div>
@@ -139,8 +139,8 @@
                 </div>
             </div>
         </div>
-        <div class="subject--bottom wrapper">
-            <div class="form--wrap">
+        <div class="subject-bottom wrapper">
+            <div class="form-wrap">
                 <div class="form__title-inner">
                     <h3>Пол</h3>
                 </div>

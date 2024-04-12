@@ -1,0 +1,109 @@
+<section class="product">
+    <div class="product__inner">
+        <div class="product product--wrap desktop">
+            <ng-container *ngFor="let img of dataProduct.images">
+                <div
+                    [style]="{
+                        background:
+                            'url(' +
+                            img +
+                            ')' +
+                            'no-repeat center center / cover'
+                    }"
+                    class="product__img"></div>
+            </ng-container>
+        </div>
+        <div class="product product--wrap">
+            <div class="subject">
+                <div class="subject subject--wrap">
+                    <div class="subject__status flag">
+                        <span
+                            [ngClass]="{
+                                discount: dataProduct.status === 'Распродажа',
+                                new: dataProduct.status === 'Новое'
+                            }"
+                            >{{ dataProduct.status }}</span
+                        >
+                    </div>
+                    <div class="subject__title">
+                        <h2>{{ dataProduct.title }}</h2>
+                        <!-- TODO: Сделать рейтинг-->
+                        <div class="subject__rating"></div>
+                    </div>
+                    <div class="subject__cost cost">
+                        <h3>{{ dataProduct.cost }} ₽</h3>
+                    </div>
+                </div>
+                <div class="subject__item subject__item-color">
+                    <div class="title">
+                        <p>Цвета</p>
+                    </div>
+                    <div class="subject__item subject__item--wrap">
+                        <ng-container *ngFor="let color of dataProduct.colors">
+                            <span
+                                [ngClass]="{
+                                    active: color === dataProduct.colors[0]
+                                }"
+                                [style]="{ 'background-color': color }"
+                                class="color"></span>
+                        </ng-container>
+                    </div>
+                </div>
+                <div class="subject__item subject__item-size">
+                    <div class="title">
+                        <p>Размеры</p>
+                    </div>
+                    <div class="subject__item subject__item--wrap">
+                        <ng-container *ngFor="let size of dataProduct.sizes">
+                            <button
+                                [ngClass]="{
+                                    active: size === dataProduct.sizes[0]
+                                }"
+                                class="btn btn--size">
+                                {{ size }}
+                            </button>
+                        </ng-container>
+                    </div>
+                </div>
+                <div class="subject__item">
+                    <div class="subject__btn subject__btn--wrap">
+                        <button class="btn">Добавить в корзину</button>
+                        <button class="btn btn--icon-heart"></button>
+                    </div>
+                    <button class="btn btn--secondary">Купить сейчас</button>
+                </div>
+                <div class="subject__description">
+                    <div class="title">
+                        <p>Описаниe:</p>
+                    </div>
+                    <div class="description">
+                        <div class="description__item">
+                            <ng-container
+                                *ngFor="
+                                    let titles of dataProduct.description.titles
+                                ">
+                                <p class="description__title">
+                                    {{ titles }}
+                                    <span
+                                        >.............................................................</span
+                                    >
+                                </p>
+                            </ng-container>
+                        </div>
+                        <div class="description__item">
+                            <ng-container
+                                *ngFor="
+                                    let texts of dataProduct.description.texts
+                                ">
+                                <p class="description__text">{{ texts }}</p>
+                            </ng-container>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="wrap">
+        <app-slider></app-slider>
+    </div>
+</section>

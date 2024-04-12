@@ -81,7 +81,6 @@ export class AuthService {
      */
     logout() {
         this.storeData.destroyUserData();
-        this.subject.setRememberMe(false);
         this.router.navigate(["/login"]);
     }
 }

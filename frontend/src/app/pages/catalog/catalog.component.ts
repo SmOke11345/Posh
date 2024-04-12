@@ -1,12 +1,12 @@
-import { Component } from '@angular/core';
+import { Component } from "@angular/core";
 
 @Component({
-  selector: 'app-catalog',
-  standalone: true,
-  imports: [],
-  templateUrl: './catalog.component.html',
-  styleUrl: './catalog.component.scss'
+    selector: "app-catalog",
+    standalone: true,
+    imports: [],
+    templateUrl: "./catalog.component.html",
+    styleUrl: "./catalog.component.scss",
 })
 export class CatalogComponent {
-
+    // TODO: Сделать скелитон.
 }

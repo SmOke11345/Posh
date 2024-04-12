@@ -1,5 +1,5 @@
 <section class="slider">
-    <div class="slider--top">
+    <div class="slider slider--top">
         <div class="slider__title">
             <h2>Подобрано для вас</h2>
         </div>
@@ -47,7 +47,7 @@
             *ngFor="let item of sliderItems"
             [data]="item"></app-card-product>
     </div>
-    <div class="slider--bottom">
+    <div class="slider slider--bottom">
         <div (click)="trackNavigation()" class="navigation">
             <div class="navigation__item" data-index="0"></div>
             <div class="navigation__item" data-index="4"></div>

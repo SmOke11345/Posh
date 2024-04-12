@@ -14,6 +14,8 @@ export class FavoriteComponent implements OnInit {
     favoriteItems: shortCatalog[] = [];
     remove_id: number;
 
+    // TODO: Сделать скелитон.
+
     constructor(
         private favoriteService: FavoriteService,
         private subjectService: BehaviorSubjectService,

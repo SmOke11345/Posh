@@ -13,7 +13,6 @@ import { CardProductComponent } from "../cards/card-product/card-product.compone
     styleUrl: "./slider.component.scss",
 })
 export class SliderComponent implements OnInit {
-    // TODO: Данные для теста или можно использовать как промо-товары
     initSliderItems: shortCatalog[] = [];
 
     sliderIndex = 0; // Текущий индекс

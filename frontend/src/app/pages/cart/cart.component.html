@@ -3,9 +3,9 @@
         <app-empty [isCart]="true"></app-empty>
     </ng-container>
     <ng-container *ngIf="cartData.length > 0">
-        <div class="cart--wrap">
+        <div class="cart-wrap">
             <div class="cart__inner">
-                <div class="cart--wrap">
+                <div class="cart-wrap">
                     <div class="cart__title">
                         <h2>Корзина</h2>
                     </div>
@@ -28,7 +28,7 @@
                     <h2>Ваша Корзина</h2>
                 </div>
                 <div class="subject">
-                    <div class="subject__item--wrap">
+                    <div class="subject__item subject__item--wrap">
                         <div class="subject__item_name">
                             <p>Товары ({{ getTotalCount() }})</p>
                         </div>
@@ -36,7 +36,7 @@
                             <p>{{ getTotalCost() }} ₽</p>
                         </div>
                     </div>
-                    <div class="subject__item--wrap">
+                    <div class="subject__item subject__item--wrap">
                         <div class="subject__item_name">
                             <p>Доставка</p>
                         </div>
@@ -44,7 +44,7 @@
                             <p>500 ₽</p>
                         </div>
                     </div>
-                    <div class="subject__item--wrap">
+                    <div class="subject__item subject__item--wrap">
                         <div class="subject__item_name">
                             <p>Скидка (%)</p>
                         </div>
@@ -52,7 +52,7 @@
                             <p>-</p>
                         </div>
                     </div>
-                    <div class="subject__item--wrap">
+                    <div class="subject__item subject__item--wrap">
                         <div class="subject__item_name">
                             <p>Итого</p>
                         </div>

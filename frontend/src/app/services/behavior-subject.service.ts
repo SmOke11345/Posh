@@ -9,10 +9,12 @@ import { shortCatalog } from "../models/Catalog";
 export class BehaviorSubjectService {
     // Сохраняю в localStorage, потому что после перезагрузки значение сбрасываться.
     // TODO: localStorage not defined.
-    private initRememberMe: boolean = JSON.parse(
+    private initRememberMe?: boolean = JSON.parse(
         localStorage.getItem("rememberMe") as string,
     );
-    private rememberMe = new BehaviorSubject<boolean>(this.initRememberMe);
+    private rememberMe = new BehaviorSubject<boolean | undefined>(
+        this.initRememberMe,
+    );
     rememberMe$ = this.rememberMe.asObservable(); // Хранит в себе последние значение
 
     private cart = new BehaviorSubject<Cart[]>([]);
@@ -53,9 +55,12 @@ export class BehaviorSubjectService {
      */
     removeFromCart(catalog_id: number) {
         const cart: Cart[] = this.getCart();
-        const newCart = cart.filter((item) => item.id !== catalog_id);
-        localStorage.setItem("cart", JSON.stringify(newCart));
-        this.cart.next(newCart);
+        if (cart) {
+            const newCart = cart.filter((item) => item.id !== catalog_id);
+            localStorage.setItem("cart", JSON.stringify(newCart));
+            this.cart.next(newCart);
+        }
+        return;
     }
 
     /**
@@ -65,18 +70,21 @@ export class BehaviorSubjectService {
      */
     changeCountProduct(catalog_id: number, direction: boolean) {
         const cart: Cart[] = this.getCart();
-        const newCart = cart.map((item) => {
-            if (item.id === catalog_id) {
-                if (direction) {
-                    return { ...item, count: item.count + 1 };
-                } else {
-                    return { ...item, count: item.count - 1 };
+        if (cart) {
+            const newCart = cart.map((item) => {
+                if (item.id === catalog_id) {
+                    if (direction) {
+                        return { ...item, count: item.count + 1 };
+                    } else {
+                        return { ...item, count: item.count - 1 };
+                    }
                 }
-            }
-            return item;
-        });
-        localStorage.setItem("cart", JSON.stringify(newCart));
-        this.cart.next(newCart);
+                return item;
+            });
+            localStorage.setItem("cart", JSON.stringify(newCart));
+            this.cart.next(newCart);
+        }
+        return;
     }
 
     /**
@@ -84,7 +92,10 @@ export class BehaviorSubjectService {
      */
     getCountProductInCart() {
         const cart: Cart[] = this.getCart();
-        return cart.reduce((acc, item) => acc + item.count, 0);
+        if (cart) {
+            return cart.reduce((acc, item) => acc + item.count, 0);
+        }
+        return 0;
     }
 
     /**

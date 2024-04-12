@@ -1,15 +1,19 @@
-export interface Catalog {
+export interface ICatalog {
     id: number;
     title: string;
-    description: string[];
+    description: {
+        titles: string[];
+        texts: string[];
+    };
     images: string[];
     sizes: string[];
     colors: string[];
     cost: number;
     countProduct: number;
-    gender: string;
+    status: string;
     type: string;
     chapter: string;
+    gender: string;
     createdAt: Date;
     updatedAt: Date;
 }
@@ -22,3 +26,8 @@ export type shortCatalog = {
     status: string;
     isFavorite?: boolean;
 };
+
+export interface IProduct extends ICatalog {
+    rating: number;
+    text: string;
+}

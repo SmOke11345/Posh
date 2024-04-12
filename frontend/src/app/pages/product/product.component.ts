@@ -1,8 +1,11 @@
 import { Component, NgModule, OnDestroy, OnInit } from "@angular/core";
 import { ActivatedRoute } from "@angular/router";
-import { IProduct } from "../../models/Product";
 import { Subscription } from "rxjs";
 import { CatalogService } from "../catalog/catalog.service";
+import { SliderComponent } from "../../components/slider/slider.component";
+import { Title } from "@angular/platform-browser";
+import { IProduct } from "../../models/Catalog";
+import { NgClass, NgForOf } from "@angular/common";
 
 @Component({
     selector: "app-product",
@@ -10,14 +13,14 @@ import { CatalogService } from "../catalog/catalog.service";
     styleUrl: "./product.component.scss",
 })
 export class ProductComponent implements OnInit, OnDestroy {
-    // TODO: Сделать тип
-    dataProduct: any;
+    dataProduct: IProduct;
     id: string = "";
     private readonly subRouter: Subscription;
 
     constructor(
         private router: ActivatedRoute,
         private catalogService: CatalogService,
+        private titleService: Title,
     ) {
         this.dataProduct = {} as IProduct;
 
@@ -28,8 +31,8 @@ export class ProductComponent implements OnInit, OnDestroy {
 
     ngOnInit() {
         this.catalogService.getProduct(this.id).subscribe((data) => {
-            console.log(data);
             this.dataProduct = data;
+            this.titleService.setTitle(data.title);
         });
     }
 
@@ -43,7 +46,7 @@ export class ProductComponent implements OnInit, OnDestroy {
 @NgModule({
     declarations: [ProductComponent],
     exports: [ProductComponent],
-    imports: [],
+    imports: [SliderComponent, NgForOf, NgClass],
     providers: [CatalogService],
 })
 export class ProductModule {}

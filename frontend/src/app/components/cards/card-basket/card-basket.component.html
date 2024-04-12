@@ -1,7 +1,6 @@
 <div class="card-basket">
     <div class="card-basket__inner">
-        <div class="card-basket--wrap">
-            <!--TODO: Может поехать картинка при большой ширине заголовка-->
+        <div class="card-basket-wrap">
             <div
                 [ngStyle]="{
                     background:
@@ -10,7 +9,7 @@
                         ') no-repeat bottom center / cover'
                 }"
                 class="card-basket__img"></div>
-            <div class="card-basket--wrap">
+            <div class="card-basket-wrap">
                 <div class="subject">
                     <div class="subject__title">
                         <h3>{{ data.title }}</h3>
@@ -42,7 +41,7 @@
                 </div>
             </div>
         </div>
-        <div class="card-basket__cost desktop">
+        <div class="card-basket__cost cost desktop">
             <h3>{{ data.cost }} ₽</h3>
         </div>
         <button (click)="removeFromCart(data.id)" class="close">
