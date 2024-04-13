@@ -84,13 +84,13 @@
 }
 
 @media screen and (max-width: $laptop) {
-    .profile-wrap {
+    .profile .profile-wrap {
         grid-template-columns: 1fr 4fr;
     }
 }
 
 @media screen and (max-width: $tablet) {
-    .profile-wrap {
+    .profile .profile-wrap {
         grid-template-columns: 1fr 2.6fr;
     }
 }

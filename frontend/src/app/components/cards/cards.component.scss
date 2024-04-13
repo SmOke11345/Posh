@@ -104,6 +104,7 @@
     }
 
     &__img {
+        cursor: pointer;
         border-radius: 2.4rem;
         margin-right: 2.5rem;
         background-color: $gray;
@@ -134,9 +135,17 @@
         @extend %wrapper;
         width: 7.4rem;
 
-        &__item img {
-            width: 3.2rem;
-            height: 3.2rem;
+        &__item {
+            display: none;
+
+            img {
+                width: 3.2rem;
+                height: 3.2rem;
+            }
+        }
+
+        &__item.active {
+            display: block;
         }
     }
 
@@ -202,7 +211,7 @@
 
             .mobile {
                 display: block;
-                margin-top: 1rem;
+                margin-top: 0.5rem;
 
                 h3 {
                     font-size: $rubik-sb-20;

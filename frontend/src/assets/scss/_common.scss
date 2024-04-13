@@ -142,6 +142,10 @@ button.btn {
             height: 1.6rem;
         }
     }
+
+    &--icon-heart.active {
+        background-color: $error;
+    }
 }
 
 label {
@@ -390,11 +394,14 @@ input[type="radio"] {
 }
 
 @media screen and (max-width: $mobile) {
-    .flag span {
-        border-radius: 1.2rem 0 1.2rem 0;
-        width: 4.2rem;
-        height: 2.2rem;
-        font-size: 1rem;
+    .card-product,
+    .card-basket {
+        .flag span {
+            border-radius: 1.2rem 0 1.2rem 0;
+            width: 4.2rem;
+            height: 2.2rem;
+            font-size: 1rem;
+        }
     }
 }
 

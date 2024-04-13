@@ -8,6 +8,7 @@
                         data.image +
                         ') no-repeat bottom center / cover'
                 }"
+                [routerLink]="['/product/' + data.id]"
                 class="card-basket__img"></div>
             <div class="card-basket-wrap">
                 <div class="subject">
@@ -23,17 +24,17 @@
                     <div class="subject__size">
                         <p>Размер {{ data.size }}</p>
                     </div>
-                    <div class="card-basket__cost mobile">
+                    <div class="card-basket__cost cost mobile">
                         <h3>{{ data.cost }} ₽</h3>
                     </div>
                 </div>
                 <div class="icon-status">
-                    <div class="icon-status__item">
+                    <div [class.active]="_isFavorite" class="icon-status__item">
                         <img
                             alt="В избранном"
                             src="../../../../assets/img/common/heart.svg" />
                     </div>
-                    <div class="icon-status__item">
+                    <div [class.active]="_isCart" class="icon-status__item">
                         <img
                             alt="В корзине"
                             src="../../../../assets/img/common/cart.svg" />

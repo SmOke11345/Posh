@@ -17,6 +17,22 @@ export class FavoriteService {
     }
 
     /**
+     * Добавление товара в избранное.
+     * @param catalog_id
+     */
+    addFavorite(catalog_id: number) {
+        return this.http.post(`${Url.FAVORITE}/add`, { catalog_id });
+    }
+
+    /**
+     * Проверка наличия в избранном.
+     * @param catalog_id
+     */
+    isFavorite(catalog_id: number) {
+        return this.http.get<boolean>(`${Url.FAVORITE}/${catalog_id}`);
+    }
+
+    /**
      * Удаление товара из избранного.
      */
     removeFavorite(catalog_id: number) {

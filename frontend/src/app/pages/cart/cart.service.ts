@@ -64,4 +64,12 @@ export class CartService {
     decrementProduct(catalog_id: number) {
         return this.http.patch(`${Url.CART}/decrement`, { catalog_id });
     }
+
+    /**
+     * Проверка наличия в корзине.
+     * @param catalog_id
+     */
+    isCart(catalog_id: number) {
+        return this.http.get<boolean>(`${Url.CART}/${catalog_id}`);
+    }
 }

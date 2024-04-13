@@ -32,7 +32,10 @@
         <h3>{{ data.title }}</h3>
     </div>
     <div class="card-product__btn">
-        <button [routerLink]="['/product/' + data.id]" class="btn medium">
+        <button
+            [routerLink]="['/product/' + data.id]"
+            (click)="up()"
+            class="btn medium">
             подробнее - <span> {{ data.cost }}₽ </span>
         </button>
     </div>

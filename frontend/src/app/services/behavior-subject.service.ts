@@ -26,7 +26,7 @@ export class BehaviorSubjectService {
     constructor() {}
 
     /**
-     * Устанавливаем значение rememberMe глобально
+     * Устанавливаем значение rememberMe.
      * @param value
      */
     setRememberMe(value: boolean) {
@@ -34,12 +34,38 @@ export class BehaviorSubjectService {
     }
 
     /**
-     * Устанавливаем значение cart глобально
+     * Устанавливаем значение cart.
      * @param value
      */
     setCart(value: Cart[]) {
         localStorage.setItem("cart", JSON.stringify(value));
         this.cart.next(value);
+    }
+
+    /**
+     * Добавление одного товара в корзину.
+     * @param value
+     */
+    setCartOneItem(value: Cart) {
+        const cart: Cart[] = this.getCart();
+        if (cart) {
+            const newCart = [...cart, value];
+            localStorage.setItem("cart", JSON.stringify(newCart));
+            this.cart.next(newCart);
+        }
+    }
+
+    /**
+     * Удаление одного товара из корзины.
+     * @param catalog_id
+     */
+    removeCartOneItem(catalog_id: number) {
+        const cart: Cart[] = this.getCart();
+        if (cart) {
+            const newCart = cart.filter((item) => item.id !== catalog_id);
+            localStorage.setItem("cart", JSON.stringify(newCart));
+            this.cart.next(newCart);
+        }
     }
 
     /**

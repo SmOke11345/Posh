@@ -13,6 +13,37 @@
                     class="product__img"></div>
             </ng-container>
         </div>
+        <div class="product product--wrap mobile">
+            <div
+                [style]="{
+                    background:
+                        'url(' +
+                        selectedImage +
+                        ') no-repeat bottom center / cover'
+                }"
+                class="main-img">
+                <div class="dot">
+                    <div class="dot__item active"></div>
+                    <div class="dot__item"></div>
+                    <div class="dot__item"></div>
+                    <div class="dot__item"></div>
+                </div>
+            </div>
+            <div class="grid-images">
+                <ng-container
+                    *ngFor="let img of dataProduct.images; let i = index">
+                    <div
+                        (click)="selectImage(img, i)"
+                        [style]="{
+                            background:
+                                'url(' +
+                                img +
+                                ') no-repeat  bottom center / cover'
+                        }"
+                        class="img"></div>
+                </ng-container>
+            </div>
+        </div>
         <div class="product product--wrap">
             <div class="subject">
                 <div class="subject subject--wrap">
@@ -56,9 +87,8 @@
                     <div class="subject__item subject__item--wrap">
                         <ng-container *ngFor="let size of dataProduct.sizes">
                             <button
-                                [ngClass]="{
-                                    active: size === dataProduct.sizes[0]
-                                }"
+                                (click)="selectSize(size)"
+                                [class.active]="selectedSize === size"
                                 class="btn btn--size">
                                 {{ size }}
                             </button>
@@ -67,20 +97,32 @@
                 </div>
                 <div class="subject__item">
                     <div class="subject__btn subject__btn--wrap">
-                        <button class="btn">Добавить в корзину</button>
-                        <button class="btn btn--icon-heart"></button>
+                        <button
+                            (click)="toggleCart(dataProduct.id)"
+                            class="btn">
+                            {{
+                                _isCart
+                                    ? "Удалить из корзины"
+                                    : "Добавить в корзину"
+                            }}
+                        </button>
+                        <button
+                            (click)="toggleFavorite(dataProduct.id)"
+                            [class.active]="_isFavorite"
+                            class="btn btn--icon-heart"></button>
                     </div>
                     <button class="btn btn--secondary">Купить сейчас</button>
                 </div>
                 <div class="subject__description">
                     <div class="title">
-                        <p>Описаниe:</p>
+                        <p>Описание:</p>
                     </div>
                     <div class="description">
                         <div class="description__item">
                             <ng-container
                                 *ngFor="
-                                    let titles of dataProduct.description.titles
+                                    let titles of dataProduct.description
+                                        ?.titles
                                 ">
                                 <p class="description__title">
                                     {{ titles }}
@@ -93,7 +135,7 @@
                         <div class="description__item">
                             <ng-container
                                 *ngFor="
-                                    let texts of dataProduct.description.texts
+                                    let texts of dataProduct.description?.texts
                                 ">
                                 <p class="description__text">{{ texts }}</p>
                             </ng-container>
