@@ -2,6 +2,7 @@ import {
     Controller,
     Delete,
     Get,
+    Param,
     Post,
     Request,
     UseGuards,
@@ -47,5 +48,16 @@ export class FavoritesController {
             request.user.sub,
             request.body.catalog_id,
         );
+    }
+
+    /**
+     * Проверка является ли товар избранным.
+     * @param request
+     * @param id
+     */
+    @UseGuards(JwtAuthGuard)
+    @Get("/:id")
+    async isFavorite(@Request() request: any, @Param("id") id: string) {
+        return this.favoritesService.isFavorite(request.user.sub, +id);
     }
 }

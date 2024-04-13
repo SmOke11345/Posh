@@ -80,7 +80,7 @@ export class FavoritesService {
             },
         });
 
-        if (_favorite) throw new ForbiddenException("Товар не найден");
+        if (!_favorite) throw new ForbiddenException("Товар не найден");
 
         await this.prismaService.favorite.deleteMany({
             where: {
@@ -92,5 +92,21 @@ export class FavoritesService {
         return {
             status: "Удалено",
         };
+    }
+
+    /**
+     * Проверка является ли товар избранным.
+     * @param user_id - id пользователя
+     * @param catalog_id - id товара
+     */
+    async isFavorite(user_id: number, catalog_id: number) {
+        const condition = await this.prismaService.favorite.findFirst({
+            where: {
+                user_id,
+                catalog_id,
+            },
+        });
+
+        return !!condition;
     }
 }

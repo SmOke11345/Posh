@@ -52,11 +52,40 @@ export class CatalogsService {
      */
     // TODO: При получение товара rating должен быть средний по всем отзывам для этого товара.
     async getProduct(id: number) {
-        return await this.prismaService.catalog.findFirst({
-            where: {
-                id,
-            },
+        // TODO: Добавить тип для отзывов
+        const prod: Catalog & { review: any } =
+            await this.prismaService.catalog.findFirst({
+                where: {
+                    id,
+                },
+                include: { review: true },
+            });
+
+        const preparedDescription = this.preparedDescription(prod.description);
+
+        return {
+            ...prod,
+            description: preparedDescription,
+        };
+    }
+
+    preparedDescription(payload: string[]): {
+        titles: string[];
+        texts: string[];
+    } {
+        const titles: string[] = [];
+        const texts: string[] = [];
+
+        payload.forEach((item) => {
+            let _item = item.split(" - ");
+            titles.push(_item.slice(0, 1).join(" "));
+            texts.push(_item.slice(1, 2).join(" "));
         });
+
+        return {
+            titles,
+            texts,
+        };
     }
 
     /**

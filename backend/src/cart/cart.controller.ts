@@ -2,6 +2,7 @@ import {
     Controller,
     Delete,
     Get,
+    Param,
     Patch,
     Post,
     Request,
@@ -81,5 +82,16 @@ export class CartController {
             request.body.catalog_id,
             request.user.sub,
         );
+    }
+
+    /**
+     * Проверка является ли товар в корзине.
+     * @param request
+     * @param id
+     */
+    @UseGuards(JwtAuthGuard)
+    @Get("/:id")
+    async isCart(@Request() request: any, @Param("id") id: string) {
+        return this.cartService.isCart(request.user.sub, +id);
     }
 }

@@ -202,4 +202,21 @@ export class CartService {
             status: "Товар уменьшен на 1",
         };
     }
+
+    /**
+     * Проверка есть ли товар в корзине.
+     * @param catalog_id
+     * @param user_id
+     */
+    async isCart(user_id: number, catalog_id: number) {
+        console.log(catalog_id);
+        const condition = await this.prismaService.cart.findFirst({
+            where: {
+                user_id,
+                catalog_id,
+            },
+        });
+
+        return !!condition;
+    }
 }
