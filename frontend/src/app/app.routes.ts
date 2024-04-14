@@ -9,6 +9,7 @@ import { AuthGuard } from "./guards/auth.guard";
 import { CartComponent } from "./pages/cart/cart.component";
 import { FavoriteComponent } from "./pages/favorite/favorite.component";
 import { ProductComponent } from "./pages/product/product.component";
+import { CheckoutComponent } from "./pages/checkout/checkout.component";
 
 // TODO: Когда пользователь заходит он попадает в main.
 export const routes: Routes = [
@@ -39,6 +40,12 @@ export const routes: Routes = [
                 path: Pages.CART,
                 title: "Корзина",
                 component: CartComponent,
+                canActivate: [AuthGuard],
+            },
+            {
+                path: Pages.CHECKOUT,
+                title: "Оформление заказа",
+                component: CheckoutComponent,
                 canActivate: [AuthGuard],
             },
             {

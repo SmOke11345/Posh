@@ -125,6 +125,17 @@ export class BehaviorSubjectService {
     }
 
     /**
+     * Получение итоговой суммы корзины.
+     */
+    getTotalCost() {
+        const cart: Cart[] = this.getCart();
+        if (cart) {
+            return cart.reduce((acc, item) => acc + item.cost * item.count, 0);
+        }
+        return 0;
+    }
+
+    /**
      * Установка значения favorite глобально.
      * @param value
      */

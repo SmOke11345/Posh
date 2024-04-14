@@ -5,6 +5,9 @@
         background-color: $section-white;
         border-radius: 2.8rem;
         padding: 0.8rem;
+        @media screen and (max-width: $mobile) {
+            border-radius: 1.6rem;
+        }
     }
 
     &__img {
@@ -24,56 +27,46 @@
             top: 1rem;
             right: 1rem;
             cursor: pointer;
-
-            img {
-                width: 2.4rem;
-                height: 2.4rem;
+            @media screen and (max-width: $mobile) {
+                top: 0.5rem;
+                right: 0.5rem;
             }
+        }
+
+        img {
+            width: 2.4rem;
+            height: 2.4rem;
+            @media screen and (max-width: $mobile) {
+                width: 1.8rem;
+                height: 1.8rem;
+            }
+        }
+    }
+
+    @media screen and (max-width: $mobile) {
+        button.btn {
+            font-size: $rubik-sb-12;
         }
     }
 
     &__title {
         margin: 1.5rem 0;
-    }
-
-    button.btn span {
-        color: $yellow;
-    }
-
-    .btn-favorite {
-        display: grid;
-        gap: 1rem;
+        @media screen and (max-width: $mobile) {
+            margin-bottom: 1rem;
+            h3 {
+                font-size: $rubik-sb-16;
+            }
+        }
     }
 }
 
-@media screen and (max-width: $mobile) {
-    .card-product {
-        &__inner {
-            border-radius: 1.6rem;
-        }
+button.btn span {
+    color: $yellow;
+}
 
-        &__title h3 {
-            font-size: $rubik-sb-16;
-        }
-
-        .heart {
-            top: 0.5rem;
-            right: 0.5rem;
-
-            img {
-                width: 1.8rem;
-                height: 1.8rem;
-            }
-        }
-
-        &__title {
-            margin-bottom: 1rem;
-        }
-
-        button.btn {
-            font-size: $rubik-sb-12;
-        }
-    }
+.btn-favorite {
+    display: grid;
+    gap: 1rem;
 }
 
 .card-basket {
@@ -87,10 +80,20 @@
         border-radius: 1.6rem 1.6rem 1.6rem 0;
         position: relative;
 
+        @media screen and (max-width: $mobile) {
+            padding: 1.5rem;
+            border-radius: 1.2rem 1.2rem 1.2rem 0;
+        }
+
         .close {
             position: absolute;
             top: 2.5rem;
             right: 2.5rem;
+
+            @media screen and (max-width: $mobile) {
+                top: 1.2rem;
+                right: 1.2rem;
+            }
 
             svg {
                 width: 1.3rem;
@@ -121,9 +124,28 @@
     .subject {
         display: grid;
         row-gap: 1rem;
+        @media screen and (max-width: $mobile) {
+            row-gap: 0.5rem;
+
+            &__title h3 {
+                font-size: $rubik-sb-16;
+            }
+
+            .mobile {
+                display: block;
+                margin-top: 0.5rem;
+
+                h3 {
+                    font-size: $rubik-sb-20;
+                }
+            }
+        }
 
         p {
             font-weight: 600;
+            @media screen and (max-width: $mobile) {
+                font-size: $rubik-m-14;
+            }
         }
     }
 
@@ -135,18 +157,26 @@
         @extend %wrapper;
         width: 7.4rem;
 
+        @media screen and (max-width: $mobile) {
+            width: 4.1rem;
+        }
+
         &__item {
             display: none;
 
             img {
                 width: 3.2rem;
                 height: 3.2rem;
+                @media screen and (max-width: $mobile) {
+                    width: 1.8rem;
+                    height: 1.8rem;
+                }
             }
         }
+    }
 
-        &__item.active {
-            display: block;
-        }
+    &__item.active {
+        display: block;
     }
 
     &__counter {
@@ -155,6 +185,11 @@
         padding: 1.5rem 3.5rem;
         background-color: $section-white;
         border-radius: 0 0 1.6rem 1.6rem;
+        @media screen and (max-width: $mobile) {
+            width: 19.5rem;
+            padding: 1.5rem 2.5rem;
+            border-radius: 0 0 1.2rem 1.2rem;
+        }
 
         button.counter {
             width: 2rem;
@@ -175,6 +210,9 @@
 
         .counter-value h4 {
             font-size: $rubik-sb-20;
+            @media screen and (max-width: $mobile) {
+                font-size: $rubik-sb-16;
+            }
         }
     }
 }
@@ -187,59 +225,8 @@
         height: 17.2rem;
     }
     .card-basket {
-        &__inner {
-            padding: 1.5rem;
-            border-radius: 1.2rem 1.2rem 1.2rem 0;
-
-            .close {
-                position: absolute;
-                top: 1.2rem;
-                right: 1.2rem;
-            }
-        }
-
         .desktop {
             display: none;
-        }
-
-        .subject {
-            row-gap: 0.5rem;
-
-            &__title h3 {
-                font-size: $rubik-sb-16;
-            }
-
-            .mobile {
-                display: block;
-                margin-top: 0.5rem;
-
-                h3 {
-                    font-size: $rubik-sb-20;
-                }
-            }
-
-            p {
-                font-size: $rubik-m-14;
-            }
-        }
-
-        .icon-status {
-            width: 4.1rem;
-
-            &__item img {
-                width: 1.8rem;
-                height: 1.8rem;
-            }
-        }
-
-        &__counter {
-            width: 19.5rem;
-            padding: 1.5rem 2.5rem;
-            border-radius: 0 0 1.2rem 1.2rem;
-
-            .counter-value h4 {
-                font-size: $rubik-sb-16;
-            }
         }
     }
 }

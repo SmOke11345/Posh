@@ -64,9 +64,7 @@ export class CartComponent implements OnInit {
      * Получение итоговой суммы корзины.
      */
     getTotalCost() {
-        return this.cartData
-            .map((item) => item.cost * item.count)
-            .reduce((a, b) => a + b, 0);
+        return this.subjectService.getTotalCost();
     }
 
     getTotalCount() {

@@ -1,0 +1,204 @@
+<section class="order">
+    <div class="order__inner">
+        <form
+            (ngSubmit)="onSubmit()"
+            [formGroup]="orderForm"
+            class="order order--wrap form">
+            <div class="order__item form-wrap">
+                <div class="order__title order__title--wrap">
+                    <div class="order__title form__title-inner">
+                        <h3>Контактная информация</h3>
+                    </div>
+                    <div class="order__subtitle">
+                        <p>
+                            Мы будем использовать эту информацию для связи с
+                            вами
+                        </p>
+                    </div>
+                </div>
+                <div class="form__input">
+                    <label for="email"></label>
+                    <input
+                        [ngClass]="{
+                            error: orderForm.controls['email'].errors
+                        }"
+                        autocomplete="email"
+                        formControlName="email"
+                        id="email"
+                        name="email"
+                        placeholder="user@example.com"
+                        type="email" />
+                </div>
+            </div>
+            <div class="order__item form-wrap">
+                <div class="order__title form__title-inner">
+                    <h3>Оформление заказа</h3>
+                </div>
+                <div class="order__input order__input--wrap">
+                    <div class="form__input large">
+                        <label for="name"></label>
+                        <input
+                            [ngClass]="{
+                                error: orderForm.controls['name'].errors
+                            }"
+                            formControlName="name"
+                            id="name"
+                            name="name"
+                            placeholder="Имя"
+                            type="text" />
+                    </div>
+                    <div class="form__input large">
+                        <label for="lastname"></label>
+                        <input
+                            [ngClass]="{
+                                error: orderForm.controls['lastname'].errors
+                            }"
+                            formControlName="lastname"
+                            id="lastname"
+                            name="lastname"
+                            placeholder="Фамилия"
+                            type="text" />
+                    </div>
+                </div>
+                <div class="form__input large">
+                    <label for="address"></label>
+                    <input
+                        [ngClass]="{
+                            error: orderForm.controls['address'].errors
+                        }"
+                        formControlName="address"
+                        id="address"
+                        name="address"
+                        placeholder="Адрес доставки*"
+                        type="text" />
+                </div>
+                <div class="form__input">
+                    <label for="phone"></label>
+                    <input
+                        [ngClass]="{
+                            error: orderForm.controls['phone'].errors
+                        }"
+                        formControlName="phone"
+                        id="phone"
+                        name="phone"
+                        placeholder="+7 (___) ___-__-__*"
+                        type="text" />
+                </div>
+            </div>
+            <div class="order__item form-wrap">
+                <div class="order__title form__title-inner">
+                    <h3>Условия доставки</h3>
+                </div>
+                <ng-container *ngFor="let item of delivery">
+                    <div
+                        (click)="selectDelivery(item.name, item.id)"
+                        [class.active]="item.id === selectedDelivery"
+                        class="order__select">
+                        <div class="order__select--wrap">
+                            <div class="order__title">
+                                <h3>{{ item.name }}</h3>
+                            </div>
+                            <div class="order__subtitle">
+                                <p>{{ item.text }}</p>
+                            </div>
+                        </div>
+                        <div class="order__cost cost">
+                            <h3>{{ item.costDisplay }}</h3>
+                        </div>
+                    </div>
+                </ng-container>
+            </div>
+            <div class="order__item form-wrap">
+                <button class="btn" type="submit">Оплатить</button>
+            </div>
+        </form>
+        <div class="order order--wrap cart">
+            <div class="subject">
+                <div class="subject__title">
+                    <h3>Ваш заказ</h3>
+                </div>
+                <div class="subject__item subject__item--wrap">
+                    <div class="subject__item_name">
+                        <p>Товары ({{ getTotalCount() }})</p>
+                    </div>
+                    <div class="subject__item_price">
+                        <p>{{ getTotalCost() }} ₽</p>
+                    </div>
+                </div>
+                <div class="subject__item subject__item--wrap">
+                    <div class="subject__item_name">
+                        <p>Доставка</p>
+                    </div>
+                    <div class="subject__item_price">
+                        <p>
+                            {{
+                                this.delivery[this.selectedDelivery - 1]
+                                    .costDisplay
+                            }}
+                        </p>
+                    </div>
+                </div>
+                <div class="subject__item subject__item--wrap">
+                    <div class="subject__item_name">
+                        <p>Скидка (%)</p>
+                    </div>
+                    <div class="subject__item_price">
+                        <p>-</p>
+                    </div>
+                </div>
+                <div class="subject__item subject__item--wrap">
+                    <div class="subject__item_name">
+                        <h3>Итого</h3>
+                    </div>
+                    <div class="subject__item_price cost">
+                        <h3>
+                            {{
+                                getTotalCost() +
+                                    this.delivery[this.selectedDelivery - 1]
+                                        .cost
+                            }}
+                            ₽
+                        </h3>
+                    </div>
+                </div>
+            </div>
+            <div class="order__item order__item--wrap">
+                <div class="order__title">
+                    <h3>Описание товаров</h3>
+                </div>
+                <div class="order__grid">
+                    <ng-container *ngFor="let item of cart">
+                        <div class="card">
+                            <div
+                                [style]="{
+                                    background:
+                                        'url(' +
+                                        item.image +
+                                        ') no-repeat center center / cover'
+                                }"
+                                class="card__img"></div>
+                            <div class="card__item card__item--wrap">
+                                <div class="card__item">
+                                    <h4>{{ item.title }}</h4>
+                                </div>
+                                <div class="card__item">
+                                    <p>{{ item.chapterAndType }}</p>
+                                </div>
+                                <div class="card__item">
+                                    <p>{{ item.color }}</p>
+                                </div>
+                                <div class="card__item">
+                                    <p>Размер {{ item.size }}</p>
+                                </div>
+                                <div class="card__item cost">
+                                    <h4>{{ item.cost }} ₽</h4>
+                                    <p>{{ item.count }} шт.</p>
+                                </div>
+                            </div>
+                        </div>
+                    </ng-container>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>

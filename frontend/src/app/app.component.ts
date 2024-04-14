@@ -8,6 +8,4 @@ import { RouterOutlet } from "@angular/router";
     template: "<router-outlet></router-outlet>",
     styleUrls: ["../assets/scss/_normalize.scss"],
 })
-export class AppComponent {
-    title = "frontend";
-}
+export class AppComponent {}

@@ -11,13 +11,15 @@ import { StoreDataUserService } from "../../services/storeDataUser.service";
 import { CartModule } from "../cart/cart.component";
 import { FavoriteModule } from "../favorite/favorite.component";
 import { ProductModule } from "../product/product.component";
-import { OrdersModule } from "../orders/orders.component";
+import { OrderModule } from "../order/order.component";
+import { CheckoutModule } from "../checkout/checkout.component";
 
 @Component({
     selector: "app-layout",
     standalone: true,
     imports: [
-        OrdersModule,
+        OrderModule,
+        CheckoutModule,
         CartModule,
         ProfileModule,
         FavoriteModule,
@@ -51,7 +53,8 @@ export class LayoutComponent implements OnInit {
     ngOnInit() {
         const data = this.storeData.getUserData();
         if (data) {
-            this.router.navigate(["/profile"]);
+            // TODO: Сделать в будущем
+            // this.router.navigate(["/catalog"]);
         }
     }
 }

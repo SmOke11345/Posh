@@ -5,6 +5,12 @@
     width: 135.6rem;
     padding: 0 1.8rem;
     margin: 2rem auto;
+    @media screen and (max-width: $laptop) {
+        width: 117.6rem;
+    }
+    @media screen and (max-width: $tablet) {
+        width: 75.6rem;
+    }
 }
 
 .container-grid {
@@ -16,18 +22,6 @@
 .container-form {
     width: 42.5rem;
     margin: 0 auto;
-}
-
-@media screen and (max-width: $laptop) {
-    .container {
-        width: 117.6rem;
-    }
-}
-
-@media screen and (max-width: $tablet) {
-    .container {
-        width: 75.6rem;
-    }
 }
 
 @media screen and (max-width: $mobile) {
@@ -358,13 +352,7 @@ input[type="radio"] {
 .product {
     .wrap {
         margin-top: 7rem;
-    }
-}
-
-@media screen and (max-width: $mobile) {
-    .cart,
-    .product {
-        .wrap {
+        @media screen and (max-width: $mobile) {
             margin-top: 4rem;
         }
     }
@@ -405,6 +393,29 @@ input[type="radio"] {
     }
 }
 
-.cost h3 {
-    color: $blue;
+.cost {
+    h3,
+    h4 {
+        color: $blue;
+    }
+}
+
+.cart {
+    p {
+        font-size: $opensans-sb-20;
+        @media screen and (max-width: $tablet) {
+            font-size: $opensans-r-16;
+        }
+        font-weight: 600;
+    }
+
+    .subject {
+        display: grid;
+        row-gap: 1.5rem;
+
+        &__item--wrap {
+            display: flex;
+            justify-content: space-between;
+        }
+    }
 }

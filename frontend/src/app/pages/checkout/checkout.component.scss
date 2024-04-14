@@ -1,0 +1,159 @@
+@import "../../../assets/scss/variables";
+
+.order {
+    &__inner {
+        @extend %wrapper;
+        align-items: flex-start;
+        @media screen and (max-width: $tablet) {
+            flex-direction: column-reverse;
+        }
+    }
+
+    &__subtitle {
+        margin-top: 0.5rem;
+
+        p {
+            color: $main-gray;
+        }
+    }
+
+    .form__input,
+    button.btn {
+        width: 50%;
+        @media screen and (max-width: $tablet) {
+            width: 100%;
+        }
+    }
+
+    .form__input.large {
+        width: 100%;
+    }
+
+    &__input--wrap {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 4rem;
+
+        @media screen and (max-width: $tablet) {
+            display: flex;
+            gap: 1.5rem;
+            flex-direction: column;
+        }
+    }
+
+    &__select {
+        @extend %wrapper;
+        align-items: flex-start;
+        padding: 1.5rem;
+        border-radius: 1.6rem;
+        outline: 1px solid $dark;
+    }
+
+    &__select.active {
+        outline: none;
+        background-color: $section-white;
+    }
+
+    &__select--wrap {
+        display: flex;
+        flex-direction: column;
+
+        .order__subtitle p {
+            font-size: $opensans-r-12;
+        }
+    }
+
+    &__select--wrap .order__title,
+    .order__cost {
+        h3 {
+            font-size: $rubik-sb-20;
+            @media screen and (max-width: $tablet) {
+                font-size: $rubik-sb-16;
+            }
+        }
+    }
+
+    .subject {
+        width: 46.8rem;
+        padding: 2.5rem;
+        background-color: $section-white;
+        border-radius: 1.2rem;
+        @media screen and (max-width: $tablet) {
+            width: 100%;
+        }
+
+        h3 {
+            @media screen and (max-width: $tablet) {
+                font-size: $rubik-sb-20;
+            }
+        }
+    }
+
+    &__grid {
+        display: grid;
+        row-gap: 2.5rem;
+    }
+
+    .card {
+        display: flex;
+        background-color: $section-white;
+        border-radius: 1.2rem;
+        padding: 1.5rem;
+
+        p {
+            font-size: $opensans-r-16;
+            @media screen and (max-width: $tablet) {
+                font-size: $opensans-r-14;
+            }
+        }
+
+        h4 {
+            font-size: $rubik-sb-20;
+        }
+
+        &__item--wrap {
+            display: grid;
+            gap: 1rem;
+            width: 59%;
+        }
+
+        &__item.cost {
+            @extend %wrapper;
+        }
+
+        &__img {
+            margin-right: 2.5rem;
+            width: 15.5rem;
+            height: 17.2rem;
+            border-radius: 1.2rem;
+        }
+    }
+
+    .cart .order__title {
+        margin-bottom: 1rem;
+
+        h3 {
+            @media screen and (max-width: $tablet) {
+                font-size: $rubik-sb-20;
+            }
+        }
+    }
+}
+
+.order.order--wrap.cart {
+    display: grid;
+    row-gap: 3rem;
+    @media screen and (max-width: $tablet) {
+        width: 100%;
+        margin-bottom: 4rem;
+        display: flex;
+        flex-direction: column-reverse;
+    }
+}
+
+.order.form {
+    width: 52%;
+    @media screen and (max-width: $tablet) {
+        width: 100%;
+    }
+}

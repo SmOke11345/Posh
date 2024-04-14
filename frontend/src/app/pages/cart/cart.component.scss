@@ -1,11 +1,6 @@
 @import "../../../assets/scss/variables";
 
 .cart {
-    p {
-        font-size: $opensans-sb-20;
-        font-weight: 600;
-    }
-
     .cart-wrap {
         display: flex;
         justify-content: space-between;
@@ -48,14 +43,7 @@
     }
 
     .subject {
-        display: grid;
-        row-gap: 1.5rem;
         margin-bottom: 2.5rem;
-
-        &__item--wrap {
-            display: flex;
-            justify-content: space-between;
-        }
     }
 }
 
