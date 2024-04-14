@@ -1,15 +1,15 @@
-<section class="order">
-    <div class="order__inner">
+<section class="checkout">
+    <div class="checkout__inner">
         <form
             (ngSubmit)="onSubmit()"
             [formGroup]="orderForm"
-            class="order order--wrap form">
-            <div class="order__item form-wrap">
-                <div class="order__title order__title--wrap">
-                    <div class="order__title form__title-inner">
+            class="checkout checkout--wrap form">
+            <div class="checkout__item form-wrap">
+                <div class="checkout__title checkout__title--wrap">
+                    <div class="checkout__title form__title-inner">
                         <h3>Контактная информация</h3>
                     </div>
-                    <div class="order__subtitle">
+                    <div class="checkout__subtitle">
                         <p>
                             Мы будем использовать эту информацию для связи с
                             вами
@@ -30,11 +30,11 @@
                         type="email" />
                 </div>
             </div>
-            <div class="order__item form-wrap">
-                <div class="order__title form__title-inner">
+            <div class="checkout__item form-wrap">
+                <div class="checkout__title form__title-inner">
                     <h3>Оформление заказа</h3>
                 </div>
-                <div class="order__input order__input--wrap">
+                <div class="checkout__input checkout__input--wrap">
                     <div class="form__input large">
                         <label for="name"></label>
                         <input
@@ -85,34 +85,34 @@
                         type="text" />
                 </div>
             </div>
-            <div class="order__item form-wrap">
-                <div class="order__title form__title-inner">
+            <div class="checkout__item form-wrap">
+                <div class="checkout__title form__title-inner">
                     <h3>Условия доставки</h3>
                 </div>
                 <ng-container *ngFor="let item of delivery">
                     <div
                         (click)="selectDelivery(item.name, item.id)"
                         [class.active]="item.id === selectedDelivery"
-                        class="order__select">
-                        <div class="order__select--wrap">
-                            <div class="order__title">
+                        class="checkout__select">
+                        <div class="checkout__select--wrap">
+                            <div class="checkout__title">
                                 <h3>{{ item.name }}</h3>
                             </div>
-                            <div class="order__subtitle">
+                            <div class="checkout__subtitle">
                                 <p>{{ item.text }}</p>
                             </div>
                         </div>
-                        <div class="order__cost cost">
+                        <div class="checkout__cost cost">
                             <h3>{{ item.costDisplay }}</h3>
                         </div>
                     </div>
                 </ng-container>
             </div>
-            <div class="order__item form-wrap">
+            <div class="checkout__item form-wrap">
                 <button class="btn" type="submit">Оплатить</button>
             </div>
         </form>
-        <div class="order order--wrap cart">
+        <div class="checkout checkout--wrap cart">
             <div class="subject">
                 <div class="subject__title">
                     <h3>Ваш заказ</h3>
@@ -162,11 +162,11 @@
                     </div>
                 </div>
             </div>
-            <div class="order__item order__item--wrap">
-                <div class="order__title">
+            <div class="checkout__item checkout__item--wrap">
+                <div class="checkout__title">
                     <h3>Описание товаров</h3>
                 </div>
-                <div class="order__grid">
+                <div class="checkout__grid">
                     <ng-container *ngFor="let item of cart">
                         <div class="card">
                             <div

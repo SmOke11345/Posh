@@ -1,6 +1,6 @@
 @import "../../../assets/scss/variables";
 
-.order {
+.checkout {
     &__inner {
         @extend %wrapper;
         align-items: flex-start;
@@ -58,13 +58,13 @@
         display: flex;
         flex-direction: column;
 
-        .order__subtitle p {
+        .checkout__subtitle p {
             font-size: $opensans-r-12;
         }
     }
 
-    &__select--wrap .order__title,
-    .order__cost {
+    &__select--wrap .checkout__title,
+    .checkout__cost {
         h3 {
             font-size: $rubik-sb-20;
             @media screen and (max-width: $tablet) {
@@ -80,6 +80,7 @@
         border-radius: 1.2rem;
         @media screen and (max-width: $tablet) {
             width: 100%;
+            padding: 1.5rem;
         }
 
         h3 {
@@ -129,7 +130,7 @@
         }
     }
 
-    .cart .order__title {
+    .cart .checkout__title {
         margin-bottom: 1rem;
 
         h3 {
@@ -140,7 +141,7 @@
     }
 }
 
-.order.order--wrap.cart {
+.checkout.checkout--wrap.cart {
     display: grid;
     row-gap: 3rem;
     @media screen and (max-width: $tablet) {
@@ -151,7 +152,7 @@
     }
 }
 
-.order.form {
+.checkout.form {
     width: 52%;
     @media screen and (max-width: $tablet) {
         width: 100%;

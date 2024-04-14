@@ -14,6 +14,8 @@
     }
 
     .subject {
+        row-gap: 0;
+
         &__title h2 {
             font-size: $rubik-sb-24;
         }
