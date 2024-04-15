@@ -5,6 +5,7 @@ import { PassportModule } from "@nestjs/passport";
 import { CartModule } from "./cart/cart.module";
 import { CatalogsModule } from "./catalogs/catalogs.module";
 import { FavoritesModule } from "./favorites/favorites.module";
+import { PrismaService } from "./utils/prisma.service";
 
 @Module({
     imports: [
@@ -17,5 +18,6 @@ import { FavoritesModule } from "./favorites/favorites.module";
         }),
         FavoritesModule,
     ],
+    providers: [PrismaService],
 })
 export class AppModule {}
