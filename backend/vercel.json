@@ -18,8 +18,5 @@
 				"PATCH"
 			]
 		}
-	],
-	"env": {
-		"DATABASE_URL": "@postgres"
-	}
+	]
 }
