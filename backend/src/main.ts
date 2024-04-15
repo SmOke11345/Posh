@@ -7,7 +7,7 @@ import * as passport from "passport";
 import * as session from "express-session";
 
 async function bootstrap() {
-    const app = await NestFactory.create(AppModule, { cors: true });
+    const app = await NestFactory.create(AppModule, { cors: false });
     const globalPrefix = "api";
 
     app.setGlobalPrefix(globalPrefix);
