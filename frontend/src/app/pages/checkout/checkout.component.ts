@@ -11,7 +11,6 @@ import { StoreDataUserService } from "../../services/storeDataUser.service";
 import { BehaviorSubjectService } from "../../services/behavior-subject.service";
 import { CardBasketComponent } from "../../components/cards/card-basket/card-basket.component";
 import { Cart } from "../../models/Cart";
-import * as url from "url";
 
 @Component({
     selector: "app-checkout",
@@ -45,7 +44,6 @@ export class CheckoutComponent implements OnInit {
             cost: 0,
         },
     ];
-    protected readonly url = url;
 
     constructor(
         private storeData: StoreDataUserService,
