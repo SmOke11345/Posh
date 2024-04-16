@@ -8,13 +8,7 @@ import { shortCatalog } from "../models/Catalog";
 })
 export class BehaviorSubjectService {
     // Сохраняю в localStorage, потому что после перезагрузки значение сбрасываться.
-    // TODO: localStorage not defined.
-    private initRememberMe?: boolean = JSON.parse(
-        localStorage.getItem("rememberMe") as string,
-    );
-    private rememberMe = new BehaviorSubject<boolean | undefined>(
-        this.initRememberMe,
-    );
+    private rememberMe = new BehaviorSubject<boolean>(false);
     rememberMe$ = this.rememberMe.asObservable(); // Хранит в себе последние значение
 
     private cart = new BehaviorSubject<Cart[]>([]);
@@ -23,7 +17,14 @@ export class BehaviorSubjectService {
     private favorite = new BehaviorSubject<shortCatalog[]>([]);
     favorite$ = this.favorite.asObservable();
 
-    constructor() {}
+    constructor() {
+        if (typeof localStorage !== "undefined") {
+            const initRememberMe = JSON.parse(
+                localStorage.getItem("rememberMe") as string,
+            );
+            this.rememberMe.next(initRememberMe);
+        }
+    }
 
     /**
      * Устанавливаем значение rememberMe.
@@ -38,8 +39,10 @@ export class BehaviorSubjectService {
      * @param value
      */
     setCart(value: Cart[]) {
-        localStorage.setItem("cart", JSON.stringify(value));
-        this.cart.next(value);
+        if (typeof localStorage !== "undefined") {
+            localStorage.setItem("cart", JSON.stringify(value));
+            this.cart.next(value);
+        }
     }
 
     /**
@@ -54,6 +57,8 @@ export class BehaviorSubjectService {
             this.cart.next(newCart);
         }
     }
+
+    // TODO: Добавить clearCart
 
     /**
      * Удаление одного товара из корзины.
@@ -72,7 +77,9 @@ export class BehaviorSubjectService {
      * Получение корзины.
      */
     getCart() {
-        return JSON.parse(localStorage.getItem("cart") as string);
+        if (typeof localStorage !== "undefined") {
+            return JSON.parse(localStorage.getItem("cart") as string);
+        }
     }
 
     /**
@@ -107,8 +114,10 @@ export class BehaviorSubjectService {
                 }
                 return item;
             });
-            localStorage.setItem("cart", JSON.stringify(newCart));
-            this.cart.next(newCart);
+            if (typeof localStorage !== "undefined") {
+                localStorage.setItem("cart", JSON.stringify(newCart));
+                this.cart.next(newCart);
+            }
         }
         return;
     }
@@ -140,15 +149,19 @@ export class BehaviorSubjectService {
      * @param value
      */
     setFavorite(value: shortCatalog[]) {
-        localStorage.setItem("favorite", JSON.stringify(value));
-        this.favorite.next(value);
+        if (typeof localStorage !== "undefined") {
+            localStorage.setItem("favorite", JSON.stringify(value));
+            this.favorite.next(value);
+        }
     }
 
     /**
      * Получение списка избранных.
      */
     getFavorite() {
-        return JSON.parse(localStorage.getItem("favorite") as string);
+        if (typeof localStorage !== "undefined") {
+            return JSON.parse(localStorage.getItem("favorite") as string);
+        }
     }
 
     /**
