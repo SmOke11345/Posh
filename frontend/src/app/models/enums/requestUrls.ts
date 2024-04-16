@@ -1,5 +1,5 @@
 // const host = "https://posh.vercel.app/api";
-const host = "https://posh-st51.onrender.com/";
+const host = "https://posh-st51.onrender.com/api";
 
 export enum Url {
     LOGIN = `${host}/auth/login`,
