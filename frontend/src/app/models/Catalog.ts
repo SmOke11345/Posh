@@ -1,3 +1,5 @@
+import { Review } from "./Review";
+
 export interface ICatalog {
     id: number;
     title: string;
@@ -16,6 +18,7 @@ export interface ICatalog {
     gender: string;
     createdAt: Date;
     updatedAt: Date;
+    review?: Review[];
 }
 
 export type shortCatalog = {
@@ -26,8 +29,3 @@ export type shortCatalog = {
     status: string;
     isFavorite?: boolean;
 };
-
-export interface IProduct extends ICatalog {
-    rating: number;
-    text: string;
-}

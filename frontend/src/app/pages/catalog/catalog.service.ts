@@ -1,7 +1,7 @@
 import { Injectable } from "@angular/core";
 import { HttpClient } from "@angular/common/http";
 import { Url } from "../../models/enums/requestUrls";
-import { IProduct, shortCatalog } from "../../models/Catalog";
+import { ICatalog, shortCatalog } from "../../models/Catalog";
 
 @Injectable()
 export class CatalogService {
@@ -12,7 +12,7 @@ export class CatalogService {
      * @param id
      */
     getProduct(id: string) {
-        return this.http.get<IProduct>(`${Url.CATALOG}/${id}`);
+        return this.http.get<ICatalog>(`${Url.CATALOG}/${id}`);
     }
 
     /**

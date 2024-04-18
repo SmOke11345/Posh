@@ -145,6 +145,44 @@
             </div>
         </div>
     </div>
+    <div class="review">
+        <div class="review__title">
+            <h2>Отзывы</h2>
+            <h4>
+                {{ dataProduct.review?.length }}
+            </h4>
+        </div>
+        <ng-container *ngIf="!dataProduct.review?.length">
+            <!--TODO: стилизовать-->
+            <div class="review__empty">
+                <p>Нет отзывов</p>
+            </div>
+        </ng-container>
+        <ng-container *ngIf="dataProduct.review?.length">
+            <div class="review__grid">
+                <app-review
+                    *ngFor="let review of dataProduct.review"
+                    [dataReview]="review"></app-review>
+            </div>
+            <div (click)="showMoreReviews()" class="review__more">
+                <button class="review__btn">
+                    <svg
+                        fill="none"
+                        height="24"
+                        viewBox="0 0 25 24"
+                        width="25"
+                        xmlns="http://www.w3.org/2000/svg">
+                        <path
+                            d="M5.75 9L12.5 15.75L19.25 9"
+                            stroke="#232321"
+                            stroke-linecap="round"
+                            stroke-linejoin="round"
+                            stroke-width="1.5" />
+                    </svg>
+                </button>
+            </div>
+        </ng-container>
+    </div>
     <div class="wrap">
         <app-slider></app-slider>
     </div>

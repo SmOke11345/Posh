@@ -4,12 +4,14 @@ import { Subscription } from "rxjs";
 import { CatalogService } from "../catalog/catalog.service";
 import { SliderComponent } from "../../components/slider/slider.component";
 import { Title } from "@angular/platform-browser";
-import { IProduct } from "../../models/Catalog";
-import { NgClass, NgForOf } from "@angular/common";
+import { ICatalog } from "../../models/Catalog";
+import { NgClass, NgForOf, NgIf } from "@angular/common";
 import { CartService } from "../cart/cart.service";
 import { FormsModule } from "@angular/forms";
 import { FavoriteService } from "../favorite/favorite.service";
 import { BehaviorSubjectService } from "../../services/behavior-subject.service";
+import { ReviewComponent } from "../../components/review/review.component";
+import { ReviewService } from "../../services/review.service";
 
 @Component({
     selector: "app-product",
@@ -17,7 +19,8 @@ import { BehaviorSubjectService } from "../../services/behavior-subject.service"
     styleUrl: "./product.component.scss",
 })
 export class ProductComponent implements OnInit, DoCheck, OnDestroy {
-    dataProduct: IProduct;
+    dataProduct: ICatalog;
+    // dataReview: Review[] = [];
     id: string = "";
 
     selectedSize: string = "";
@@ -34,9 +37,10 @@ export class ProductComponent implements OnInit, DoCheck, OnDestroy {
         private cartService: CartService,
         private favoriteService: FavoriteService,
         private subjectService: BehaviorSubjectService,
+        private reviewService: ReviewService,
         private titleService: Title,
     ) {
-        this.dataProduct = {} as IProduct;
+        this.dataProduct = {} as ICatalog;
 
         this.subRouter = this.router.params.subscribe((params) => {
             this.id = params["id"];
@@ -60,7 +64,7 @@ export class ProductComponent implements OnInit, DoCheck, OnDestroy {
     }
 
     setData() {
-        this.catalogService.getProduct(this.id).subscribe((data) => {
+        this.catalogService.getProduct(this.id).subscribe((data: ICatalog) => {
             this.dataProduct = data;
             this.setupDefaultData();
             this.selectedSize = data.sizes[0];
@@ -155,23 +159,37 @@ export class ProductComponent implements OnInit, DoCheck, OnDestroy {
             });
     }
 
+    /**
+     * Проверка наличия в корзине.
+     * @param catalog_id
+     */
     isCart(catalog_id: number) {
         this.cartService.isCart(catalog_id).subscribe((data: boolean) => {
             this._isCart = data;
         });
     }
+
+    showMoreReviews() {}
 }
 
 @NgModule({
     declarations: [ProductComponent],
     exports: [ProductComponent],
-    imports: [SliderComponent, NgForOf, NgClass, FormsModule],
+    imports: [
+        SliderComponent,
+        NgForOf,
+        NgClass,
+        FormsModule,
+        ReviewComponent,
+        NgIf,
+    ],
     providers: [
         CatalogService,
         CartService,
         FavoriteService,
         BehaviorSubjectService,
         CatalogService,
+        ReviewService,
     ],
 })
 export class ProductModule {}

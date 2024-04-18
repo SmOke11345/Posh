@@ -80,10 +80,6 @@
         display: grid;
         row-gap: 3rem;
 
-        &__title h2 {
-            font-size: $rubik-sb-32;
-        }
-
         &--wrap {
             row-gap: 2rem;
         }
@@ -137,6 +133,16 @@
         }
     }
 
+    .subject__title,
+    .review__title {
+        h2 {
+            font-size: $rubik-sb-32;
+            @media screen and (max-width: $mobile) {
+                font-size: $rubik-sb-24;
+            }
+        }
+    }
+
     .description {
         display: flex;
         justify-content: space-between;
@@ -162,6 +168,59 @@
 
         &__title {
             color: $main-gray;
+        }
+    }
+
+    .review {
+        margin-top: 5rem;
+        width: 65%;
+
+        @media screen and (max-width: $tablet) {
+            width: 100%;
+        }
+
+        @media screen and (max-width: $mobile) {
+            margin-top: 4rem;
+        }
+
+        &__title {
+            display: flex;
+            align-items: flex-start;
+            margin-bottom: 3rem;
+
+            @media screen and (max-width: $mobile) {
+                margin-bottom: 2.5rem;
+            }
+
+            h4 {
+                font-size: $rubik-sb-20;
+                color: $main-gray;
+                margin-left: 0.5rem;
+                @media screen and (max-width: $mobile) {
+                    font-size: $rubik-sb-16;
+                }
+            }
+        }
+
+        &__grid {
+            display: grid;
+            row-gap: 2rem;
+            margin-bottom: 1.5rem;
+
+            @media screen and (max-width: $mobile) {
+                row-gap: 1.5rem;
+            }
+        }
+
+        &__more {
+            cursor: pointer;
+            display: flex;
+            justify-content: center;
+        }
+
+        &__btn svg {
+            width: 2.4rem;
+            height: 2.4rem;
         }
     }
 }
@@ -202,10 +261,6 @@
 
             &--wrap {
                 row-gap: 0.5rem;
-            }
-
-            &__title h2 {
-                font-size: $rubik-sb-24;
             }
 
             &__cost h3 {

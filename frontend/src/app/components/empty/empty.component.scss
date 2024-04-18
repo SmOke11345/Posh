@@ -3,18 +3,32 @@
 .info {
     width: 45rem;
     margin: 0 auto;
+    @media screen and (max-width: $mobile) {
+        width: 100%;
+    }
 
     .info-wrap {
         @extend %wrapper;
+        @media screen and (max-width: $mobile) {
+            flex-direction: column;
+        }
     }
 
     &__img img {
         width: 15rem;
         height: 15rem;
+        @media screen and (max-width: $mobile) {
+            width: 12rem;
+            height: 12rem;
+        }
     }
 
     .subject {
         row-gap: 0;
+
+        @media screen and (max-width: $mobile) {
+            text-align: center;
+        }
 
         &__title h2 {
             font-size: $rubik-sb-24;
@@ -30,27 +44,7 @@
 
         &__btn button.btn {
             width: max-content;
-        }
-    }
-}
-
-@media screen and (max-width: $mobile) {
-    .info {
-        width: 100%;
-
-        .info-wrap {
-            flex-direction: column;
-        }
-
-        &__img img {
-            width: 12rem;
-            height: 12rem;
-        }
-
-        .subject {
-            text-align: center;
-
-            &__btn button.btn {
+            @media screen and (max-width: $mobile) {
                 width: 100%;
             }
         }
