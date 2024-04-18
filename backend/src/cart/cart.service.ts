@@ -209,7 +209,6 @@ export class CartService {
      * @param user_id
      */
     async isCart(user_id: number, catalog_id: number) {
-        console.log(catalog_id);
         const condition = await this.prismaService.cart.findFirst({
             where: {
                 user_id,

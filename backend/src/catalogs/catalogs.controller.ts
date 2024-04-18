@@ -18,7 +18,7 @@ import * as multer from "multer";
  * нужно для проверки изображений и отправки их в облачное хранилище
  */
 const storage = multer.diskStorage({
-    destination: "./src/assets/images",
+    destination: "./public/assets/images",
     filename: (req, file, cb) => {
         cb(null, file.originalname);
     },
