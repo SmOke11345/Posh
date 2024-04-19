@@ -13,6 +13,7 @@ import { FavoriteModule } from "../favorite/favorite.component";
 import { ProductModule } from "../product/product.component";
 import { OrderModule } from "../order/order.component";
 import { CheckoutModule } from "../checkout/checkout.component";
+import { ReviewModule } from "../reviews/reviews.component";
 
 @Component({
     selector: "app-layout",
@@ -23,6 +24,7 @@ import { CheckoutModule } from "../checkout/checkout.component";
         CartModule,
         ProfileModule,
         FavoriteModule,
+        ReviewModule,
         ProductModule,
         ServiceModule,
         RegisterModule,

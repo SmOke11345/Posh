@@ -10,10 +10,14 @@ export class BehaviorSubjectService {
     // Сохраняю в localStorage, потому что после перезагрузки значение сбрасываться.
     private rememberMe = new BehaviorSubject<boolean>(false);
     rememberMe$ = this.rememberMe.asObservable(); // Хранит в себе последние значение
-
+    //
+    // TODO: Сделать защиту для checkout.
+    private buttonGuard = new BehaviorSubject<boolean>(false);
+    buttonGuard$ = this.rememberMe.asObservable();
+    //
     private cart = new BehaviorSubject<Cart[]>([]);
     cart$ = this.cart.asObservable();
-
+    //
     private favorite = new BehaviorSubject<shortCatalog[]>([]);
     favorite$ = this.favorite.asObservable();
 
@@ -32,6 +36,16 @@ export class BehaviorSubjectService {
      */
     setRememberMe(value: boolean) {
         this.rememberMe.next(value);
+    }
+
+    // TODO: Сделать защиту для checkout.
+    /**
+     * Для проверки доступа к странице checkout.
+     * @param value
+     */
+    setButtonGuard(value: boolean) {
+        console.log(value);
+        this.buttonGuard.next(value);
     }
 
     /**

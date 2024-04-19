@@ -9,6 +9,9 @@
                     alt="Избранное"
                     src="../../../assets/img/empty/favorite.svg" />
             </ng-container>
+            <ng-container *ngIf="isReview">
+                <img alt="Отзыв" src="../../../assets/img/empty/review.svg" />
+            </ng-container>
         </div>
         <div class="subject">
             <div class="subject__title">
@@ -17,6 +20,9 @@
                 </ng-container>
                 <ng-container *ngIf="isFavorite">
                     <h2>В избранном пусто</h2>
+                </ng-container>
+                <ng-container *ngIf="isReview">
+                    <h2>Еще нет отзывов</h2>
                 </ng-container>
             </div>
             <div class="subject__subtitle">

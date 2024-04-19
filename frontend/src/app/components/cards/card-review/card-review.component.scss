@@ -1,0 +1,32 @@
+@import "../../../../assets/scss/variables";
+
+.card-review {
+    &__inner {
+        display: flex;
+        align-items: flex-start;
+        border-radius: 1.6rem;
+        border: 0.1rem solid $main-gray;
+        padding: 1.5rem;
+    }
+
+    &__inner.active {
+        border: 0.2rem solid $yellow;
+    }
+
+    &__item.stars {
+        margin-right: 14rem;
+        @media screen and (max-width: $mobile) {
+            margin-right: 2.5rem;
+        }
+    }
+
+    &__name h3 {
+        font-size: $rubik-sb-20;
+    }
+
+    &__date {
+        font-size: $opensans-r-14;
+        color: $main-gray;
+        margin: 1rem 0 0.5rem;
+    }
+}

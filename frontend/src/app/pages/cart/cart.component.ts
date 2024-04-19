@@ -8,6 +8,7 @@ import { CartService } from "./cart.service";
 import { CardBasketComponent } from "../../components/cards/card-basket/card-basket.component";
 import { Cart } from "../../models/Cart";
 import { BehaviorSubjectService } from "../../services/behavior-subject.service";
+import { RouterLink } from "@angular/router";
 
 @Component({
     selector: "app-cart",
@@ -67,8 +68,19 @@ export class CartComponent implements OnInit {
         return this.subjectService.getTotalCost();
     }
 
+    /**
+     * Получение итогового количества товаров в корзине.
+     */
     getTotalCount() {
         return this.subjectService.getCountProductInCart();
+    }
+
+    // TODO: Сделать защиту для checkout.
+    /**
+     * Для изменения состояния доступа к странице checkout.
+     */
+    btnGuard() {
+        return this.subjectService.setButtonGuard(true);
     }
 }
 
@@ -85,6 +97,7 @@ export class CartComponent implements OnInit {
         NgForOf,
         AsyncPipe,
         JsonPipe,
+        RouterLink,
     ],
     providers: [CartService, BehaviorSubjectService],
 })

@@ -1,5 +1,10 @@
 import { User } from "./User";
 
+export interface IReview {
+    average_rating: number;
+    reviews: Review[];
+}
+
 export type Review = {
     id: number;
     user_id: number;
@@ -9,4 +14,5 @@ export type Review = {
     rating: number;
     createdAt: Date;
     updatedAt: Date;
+    image?: string;
 };

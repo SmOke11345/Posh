@@ -12,4 +12,5 @@ import { RouterLink } from "@angular/router";
 export class EmptyComponent {
     @Input() isCart: boolean = false;
     @Input() isFavorite: boolean = false;
+    @Input() isReview: boolean = false;
 }

@@ -1,5 +1,3 @@
-import { Review } from "./Review";
-
 export interface ICatalog {
     id: number;
     title: string;
@@ -18,7 +16,6 @@ export interface ICatalog {
     gender: string;
     createdAt: Date;
     updatedAt: Date;
-    review?: Review[];
 }
 
 export type shortCatalog = {

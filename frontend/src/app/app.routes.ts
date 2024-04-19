@@ -10,6 +10,8 @@ import { CartComponent } from "./pages/cart/cart.component";
 import { FavoriteComponent } from "./pages/favorite/favorite.component";
 import { ProductComponent } from "./pages/product/product.component";
 import { CheckoutComponent } from "./pages/checkout/checkout.component";
+import { ReviewsComponent } from "./pages/reviews/reviews.component";
+// import { CheckoutGuard } from "./guards/checkout.guard";
 
 // TODO: Когда пользователь заходит он попадает в main.
 export const routes: Routes = [
@@ -46,6 +48,8 @@ export const routes: Routes = [
                 path: Pages.CHECKOUT,
                 title: "Оформление заказа",
                 component: CheckoutComponent,
+                // TODO: Сделать защиту для checkout.
+                // canActivate: [CheckoutGuard, AuthGuard],
                 canActivate: [AuthGuard],
             },
             {
@@ -63,6 +67,11 @@ export const routes: Routes = [
                         path: Pages.PROFILE,
                         title: "Профиль",
                         component: ProfileComponent,
+                    },
+                    {
+                        path: Pages.REVIEW,
+                        title: "Отзывы",
+                        component: ReviewsComponent,
                     },
                     {
                         path: Pages.FAVORITE,

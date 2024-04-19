@@ -21,10 +21,12 @@
             </ng-container>
         </div>
         <div class="card-review__item">
-            <!--TODO: стилизовать-->
-            <h3 class="card-review__name">
-                {{ dataReview.userId?.name }} {{ dataReview.userId?.lastname }}
-            </h3>
+            <div class="card-review__name">
+                <h3>
+                    {{ dataReview.userId?.name }}
+                    {{ dataReview.userId?.lastname }}
+                </h3>
+            </div>
             <p class="card-review__date">
                 {{ dataReview.createdAt | date: "dd.MM.yyyy" }}
             </p>

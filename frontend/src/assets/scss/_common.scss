@@ -419,3 +419,14 @@ input[type="radio"] {
         }
     }
 }
+
+.stars {
+    display: flex;
+    justify-content: space-between;
+    width: 13.5rem;
+
+    .star svg {
+        width: 2.5rem;
+        height: 2.3rem;
+    }
+}

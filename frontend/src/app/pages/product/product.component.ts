@@ -1,33 +1,36 @@
-import { Component, DoCheck, NgModule, OnDestroy, OnInit } from "@angular/core";
+import { Component, NgModule, OnDestroy } from "@angular/core";
 import { ActivatedRoute } from "@angular/router";
 import { Subscription } from "rxjs";
 import { CatalogService } from "../catalog/catalog.service";
 import { SliderComponent } from "../../components/slider/slider.component";
 import { Title } from "@angular/platform-browser";
 import { ICatalog } from "../../models/Catalog";
-import { NgClass, NgForOf, NgIf } from "@angular/common";
+import { NgClass, NgForOf, NgIf, NgStyle } from "@angular/common";
 import { CartService } from "../cart/cart.service";
 import { FormsModule } from "@angular/forms";
 import { FavoriteService } from "../favorite/favorite.service";
 import { BehaviorSubjectService } from "../../services/behavior-subject.service";
-import { ReviewComponent } from "../../components/review/review.component";
-import { ReviewService } from "../../services/review.service";
+import { CardReviewComponent } from "../../components/cards/card-review/card-review.component";
+import { ReviewsService } from "../reviews/reviews.service";
+import { Review } from "../../models/Review";
 
 @Component({
     selector: "app-product",
     templateUrl: "./product.component.html",
     styleUrl: "./product.component.scss",
 })
-export class ProductComponent implements OnInit, DoCheck, OnDestroy {
+export class ProductComponent implements OnDestroy {
     dataProduct: ICatalog;
-    // dataReview: Review[] = [];
-    id: string = "";
+    dataReview: Review[];
 
     selectedSize: string = "";
     selectedImage: string = "";
+    error: string = "";
+    productRating: number = 0;
 
     _isFavorite: boolean = false;
     _isCart: boolean = false;
+    rating: number[] = [];
 
     private readonly subRouter: Subscription;
 
@@ -37,24 +40,19 @@ export class ProductComponent implements OnInit, DoCheck, OnDestroy {
         private cartService: CartService,
         private favoriteService: FavoriteService,
         private subjectService: BehaviorSubjectService,
-        private reviewService: ReviewService,
+        private reviewService: ReviewsService,
         private titleService: Title,
     ) {
         this.dataProduct = {} as ICatalog;
+        this.dataReview = [] as Review[];
 
         this.subRouter = this.router.params.subscribe((params) => {
-            this.id = params["id"];
+            const id = params["id"];
+
+            if (id) {
+                this.setData(id);
+            }
         });
-    }
-
-    ngOnInit() {
-        this.setData();
-    }
-
-    ngDoCheck() {
-        if (+this.id !== this.dataProduct.id) {
-            this.setData();
-        }
     }
 
     ngOnDestroy() {
@@ -63,13 +61,32 @@ export class ProductComponent implements OnInit, DoCheck, OnDestroy {
         }
     }
 
-    setData() {
-        this.catalogService.getProduct(this.id).subscribe((data: ICatalog) => {
+    setData(id: string) {
+        this.catalogService.getProduct(id).subscribe((data: ICatalog) => {
             this.dataProduct = data;
             this.setupDefaultData();
             this.selectedSize = data.sizes[0];
             this.selectedImage = data.images[0];
             this.titleService.setTitle(data.title);
+        });
+
+        this.reviewService.getReviews(id).subscribe({
+            next: (data) => {
+                const { reviews, average_rating } = data;
+                this.dataReview = reviews;
+                this.productRating = average_rating ?? 0;
+                for (let i = 0; i < average_rating; i++) {
+                    this.rating.push(i);
+                }
+            },
+            error: (error) => {
+                this.error = error.error.message;
+                this.dataReview = [];
+                this.rating = [];
+            },
+            complete: () => {
+                this.error = "";
+            },
         });
     }
 
@@ -169,6 +186,17 @@ export class ProductComponent implements OnInit, DoCheck, OnDestroy {
         });
     }
 
+    countReviews() {
+        if (this.dataReview) {
+            this.dataReview = this.dataReview.map((review) => {
+                return {
+                    ...review,
+                };
+            });
+        }
+        return 0;
+    }
+
     showMoreReviews() {}
 }
 
@@ -180,8 +208,9 @@ export class ProductComponent implements OnInit, DoCheck, OnDestroy {
         NgForOf,
         NgClass,
         FormsModule,
-        ReviewComponent,
+        CardReviewComponent,
         NgIf,
+        NgStyle,
     ],
     providers: [
         CatalogService,
@@ -189,7 +218,7 @@ export class ProductComponent implements OnInit, DoCheck, OnDestroy {
         FavoriteService,
         BehaviorSubjectService,
         CatalogService,
-        ReviewService,
+        ReviewsService,
     ],
 })
 export class ProductModule {}

@@ -58,8 +58,31 @@
                     </div>
                     <div class="subject__title">
                         <h2>{{ dataProduct.title }}</h2>
-                        <!-- TODO: Сделать рейтинг-->
-                        <div class="subject__rating"></div>
+                        <div class="subject__rating review-title">
+                            <div class="stars">
+                                <ng-container
+                                    *ngFor="let star of [0, 1, 2, 3, 4]">
+                                    <div class="star">
+                                        <svg
+                                            [ngStyle]="{
+                                                fill: rating.includes(star)
+                                                    ? '#FFA52F'
+                                                    : 'none'
+                                            }"
+                                            height="21"
+                                            viewBox="0 0 23 21"
+                                            width="23"
+                                            xmlns="http://www.w3.org/2000/svg">
+                                            <path
+                                                d="M21.5 8.30769H13.8214L11.5 1L9.17857 8.30769H1.5L7.75 12.6923L5.33929 20L11.5 15.4327L17.6607 20L15.25 12.6923L21.5 8.30769Z"
+                                                stroke="#FFA52F"
+                                                stroke-linejoin="round"
+                                                stroke-width="2" />
+                                        </svg>
+                                    </div>
+                                </ng-container>
+                            </div>
+                        </div>
                     </div>
                     <div class="subject__cost cost">
                         <h3>{{ dataProduct.cost }} ₽</h3>
@@ -146,41 +169,41 @@
         </div>
     </div>
     <div class="review">
-        <div class="review__title">
+        <div class="review__title review-title">
             <h2>Отзывы</h2>
             <h4>
-                {{ dataProduct.review?.length }}
+                {{ dataReview.length }}
             </h4>
         </div>
-        <ng-container *ngIf="!dataProduct.review?.length">
-            <!--TODO: стилизовать-->
-            <div class="review__empty">
-                <p>Нет отзывов</p>
-            </div>
-        </ng-container>
-        <ng-container *ngIf="dataProduct.review?.length">
+        <!--TODO: стилизовать-->
+        <div class="review__empty">
+            <p>{{ error }}</p>
+        </div>
+        <ng-container *ngIf="dataReview.length > 0">
             <div class="review__grid">
-                <app-review
-                    *ngFor="let review of dataProduct.review"
-                    [dataReview]="review"></app-review>
+                <app-card-review
+                    *ngFor="let review of dataReview"
+                    [dataReview]="review"></app-card-review>
             </div>
-            <div (click)="showMoreReviews()" class="review__more">
-                <button class="review__btn">
-                    <svg
-                        fill="none"
-                        height="24"
-                        viewBox="0 0 25 24"
-                        width="25"
-                        xmlns="http://www.w3.org/2000/svg">
-                        <path
-                            d="M5.75 9L12.5 15.75L19.25 9"
-                            stroke="#232321"
-                            stroke-linecap="round"
-                            stroke-linejoin="round"
-                            stroke-width="1.5" />
-                    </svg>
-                </button>
-            </div>
+            <ng-container *ngIf="dataReview.length > 3">
+                <div (click)="showMoreReviews()" class="review__more">
+                    <button class="review__btn">
+                        <svg
+                            fill="none"
+                            height="24"
+                            viewBox="0 0 25 24"
+                            width="25"
+                            xmlns="http://www.w3.org/2000/svg">
+                            <path
+                                d="M5.75 9L12.5 15.75L19.25 9"
+                                stroke="#232321"
+                                stroke-linecap="round"
+                                stroke-linejoin="round"
+                                stroke-width="1.5" />
+                        </svg>
+                    </button>
+                </div>
+            </ng-container>
         </ng-container>
     </div>
     <div class="wrap">

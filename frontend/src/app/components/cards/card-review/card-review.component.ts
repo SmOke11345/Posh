@@ -1,15 +1,15 @@
 import { Component, Input, OnInit } from "@angular/core";
-import { Review } from "../../models/Review";
+import { Review } from "../../../models/Review";
 import { DatePipe, NgForOf, NgStyle } from "@angular/common";
 
 @Component({
-    selector: "app-review",
+    selector: "app-card-review",
     standalone: true,
     imports: [NgForOf, NgStyle, DatePipe],
-    templateUrl: "./review.component.html",
-    styleUrl: "./review.component.scss",
+    templateUrl: "./card-review.component.html",
+    styleUrls: ["./card-review.component.scss"],
 })
-export class ReviewComponent implements OnInit {
+export class CardReviewComponent implements OnInit {
     @Input() dataReview: Review = {} as Review;
 
     rating: number[] = [];

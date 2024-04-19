@@ -26,11 +26,11 @@ export class LayoutProfileComponent implements OnInit, DoCheck {
         },
         {
             name: "Мои заказы",
-            link: "",
+            link: "/orders",
         },
         {
             name: "Мои отзывы",
-            link: "",
+            link: "/reviews",
         },
         {
             name: "Избранное",

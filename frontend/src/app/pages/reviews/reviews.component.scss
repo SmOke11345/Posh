@@ -1,0 +1,22 @@
+@import "../../../assets/scss/variables";
+
+.reviews {
+    &__inner {
+        display: grid;
+        row-gap: 3rem;
+
+        @media screen and (max-width: $mobile) {
+            row-gap: 2rem;
+        }
+    }
+
+    &__card {
+        background-color: $white;
+    }
+
+    &__img {
+        width: 12.2rem;
+        height: 13.6rem;
+        border-radius: 1.2rem;
+    }
+}

@@ -134,11 +134,25 @@
     }
 
     .subject__title,
-    .review__title {
+    .review-title {
         h2 {
             font-size: $rubik-sb-32;
             @media screen and (max-width: $mobile) {
                 font-size: $rubik-sb-24;
+            }
+        }
+    }
+
+    .subject__rating.review-title {
+        margin-bottom: 0;
+
+        .stars {
+            margin-top: 0.5rem;
+            @media screen and (max-width: $mobile) {
+                .star svg {
+                    width: 1.9rem;
+                    height: 1.8rem;
+                }
             }
         }
     }
@@ -183,25 +197,6 @@
             margin-top: 4rem;
         }
 
-        &__title {
-            display: flex;
-            align-items: flex-start;
-            margin-bottom: 3rem;
-
-            @media screen and (max-width: $mobile) {
-                margin-bottom: 2.5rem;
-            }
-
-            h4 {
-                font-size: $rubik-sb-20;
-                color: $main-gray;
-                margin-left: 0.5rem;
-                @media screen and (max-width: $mobile) {
-                    font-size: $rubik-sb-16;
-                }
-            }
-        }
-
         &__grid {
             display: grid;
             row-gap: 2rem;
@@ -221,6 +216,25 @@
         &__btn svg {
             width: 2.4rem;
             height: 2.4rem;
+        }
+    }
+
+    .review-title {
+        display: flex;
+        align-items: flex-start;
+        margin-bottom: 3rem;
+
+        @media screen and (max-width: $mobile) {
+            margin-bottom: 2.5rem;
+        }
+
+        h4 {
+            font-size: $rubik-sb-20;
+            color: $main-gray;
+            margin-left: 0.5rem;
+            @media screen and (max-width: $mobile) {
+                font-size: $rubik-sb-16;
+            }
         }
     }
 }
