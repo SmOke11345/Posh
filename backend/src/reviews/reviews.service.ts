@@ -21,15 +21,23 @@ export class ReviewsService {
                 user_id,
             },
             include: {
-                userId: true,
-                // catalogId: true,
+                // userId: true,
+                catalogId: true,
             },
         });
 
         if (!reviews)
             throw new ForbiddenException("Вы еще не оставили ни одного отзыва");
 
-        return reviews;
+        return reviews.map((review) => {
+            const { catalogId, ...rest } = review;
+            const image = catalogId.images[0];
+
+            return {
+                ...rest,
+                image,
+            };
+        });
     }
 
     /**

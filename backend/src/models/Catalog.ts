@@ -1,3 +1,5 @@
+import { Review } from "./Review";
+
 export type Catalog = {
     id: number;
     title: string;
@@ -13,6 +15,7 @@ export type Catalog = {
     chapter: string;
     createdAt: Date;
     updatedAt: Date;
+    review?: Review[];
 };
 
 export type shortCatalog = {

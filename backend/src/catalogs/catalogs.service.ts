@@ -38,6 +38,8 @@ export class CatalogsService {
                 images,
                 cost: +payload.cost,
                 countProduct: +payload.countProduct,
+                // TODO: потом пофиксить
+                review: {},
             },
         });
 
@@ -50,16 +52,12 @@ export class CatalogsService {
      * Получение товара по id.
      * @param id - id товара
      */
-    // TODO: При получение товара rating должен быть средний по всем отзывам для этого товара.
     async getProduct(id: number) {
-        // TODO: Добавить тип для отзывов
-        const prod: Catalog & { review: any } =
-            await this.prismaService.catalog.findFirst({
-                where: {
-                    id,
-                },
-                include: { review: true },
-            });
+        const prod: Catalog = await this.prismaService.catalog.findFirst({
+            where: {
+                id,
+            },
+        });
 
         const preparedDescription = this.preparedDescription(prod.description);
 

@@ -17,6 +17,7 @@ model User {
   cart     Cart[]     @relation("CartUser")
   favorite Favorite[] @relation("FavoriteUser")
   review   Review[]   @relation("ReviewUser")
+  order    Order[]    @relation("OrderUser")
 }
 
 model Catalog {
@@ -37,6 +38,7 @@ model Catalog {
   cart         Cart[]     @relation("CartCatalog")
   favorite     Favorite[] @relation("FavoriteCatalog")
   review       Review[]   @relation("ReviewCatalog")
+  order        Order[]    @relation("OrderCatalog")
 }
 
 model Cart {
@@ -74,3 +76,13 @@ model Review {
 }
 
 // TODO: Добавить модель Order
+
+model Order {
+  id         Int     @id @default(autoincrement())
+  tel        String
+  address    String
+  user_id    Int
+  userId     User    @relation("OrderUser", fields: [user_id], references: [id])
+  catalog_id Int
+  catalogId  Catalog @relation("OrderCatalog", fields: [catalog_id], references: [id])
+}
