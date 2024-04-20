@@ -11,12 +11,82 @@
     }
 
     &__card {
-        background-color: $white;
+        display: flex;
+        border-bottom: 0.2rem solid $gray;
+        padding-bottom: 3rem;
+
+        @media screen and (max-width: $tablet) {
+            border-bottom: 0.2rem solid $section-white;
+            padding-bottom: 1.5rem;
+        }
     }
 
     &__img {
-        width: 12.2rem;
+        min-width: 12.2rem;
         height: 13.6rem;
         border-radius: 1.2rem;
+        padding: 1rem;
+        cursor: pointer;
+    }
+
+    &__item--wrap {
+        width: 88%;
+        @extend %wrapper;
+        align-items: flex-start;
+        padding: 2rem 2rem 2rem 3rem;
+
+        @media screen and (max-width: $tablet) {
+            flex-direction: column;
+            padding: 0;
+            margin-left: 3rem;
+            width: auto;
+        }
+    }
+
+    .reviews-wrap {
+        display: flex;
+
+        @media screen and (max-width: $tablet) {
+            flex-direction: column;
+        }
+
+        .reviews__item:first-child {
+            margin-right: 7.5rem;
+            @media screen and (max-width: $tablet) {
+                margin-right: 0;
+            }
+        }
+
+        @media screen and (max-width: $tablet) {
+            .reviews__item:last-child {
+                margin: 1rem 0 2rem;
+            }
+        }
+    }
+
+    &__btn {
+        display: flex;
+
+        button.btn:first-child {
+            width: 3.2rem;
+            height: 3.2rem;
+            margin-right: 1rem;
+        }
+
+        button.btn:last-child {
+            width: 11.3rem;
+            @media screen and (max-width: $mobile) {
+                width: 16rem;
+            }
+        }
+
+        img {
+            width: 1.6rem;
+            height: 1.6rem;
+        }
+    }
+
+    .form {
+        gap: 1rem;
     }
 }

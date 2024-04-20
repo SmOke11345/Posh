@@ -38,6 +38,11 @@ button.btn.medium {
     padding: 1.3rem;
 }
 
+button.btn.small {
+    padding: 0.8rem;
+    font-size: $rubik-sb-12;
+}
+
 button.btn {
     transition: all 0.3s ease-in-out;
     text-transform: uppercase;
@@ -172,7 +177,8 @@ input[type="email"].white {
 
 input[type="text"],
 input[type="password"],
-input[type="email"] {
+input[type="email"],
+textarea {
     padding: 1.5rem 1.6rem;
     border-radius: 0.8rem;
     width: 100%;
@@ -428,5 +434,17 @@ input[type="radio"] {
     .star svg {
         width: 2.5rem;
         height: 2.3rem;
+    }
+}
+
+.card-review {
+    &__name h3 {
+        font-size: $rubik-sb-20;
+    }
+
+    &__date {
+        font-size: $opensans-r-14;
+        color: $main-gray;
+        margin: 1rem 0 0.5rem;
     }
 }

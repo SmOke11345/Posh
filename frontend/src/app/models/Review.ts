@@ -12,6 +12,7 @@ export type Review = {
     catalog_id: number;
     text: string;
     rating: number;
+    ratingStars?: number[];
     createdAt: Date;
     updatedAt: Date;
     image?: string;

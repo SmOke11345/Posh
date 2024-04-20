@@ -46,7 +46,7 @@ export class ReviewsService {
      */
     updateReview(review_id: number, text: string) {
         return this.http
-            .put(`${Url.REVIEW}/update/${review_id}`, { text })
+            .patch(`${Url.REVIEW}/update/${review_id}`, text)
             .pipe(catchError((error) => throwError(error)));
     }
 }
