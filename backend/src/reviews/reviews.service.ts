@@ -21,7 +21,7 @@ export class ReviewsService {
                 user_id,
             },
             include: {
-                // userId: true,
+                userId: true,
                 catalogId: true,
             },
         });
@@ -32,10 +32,14 @@ export class ReviewsService {
         return reviews.map((review) => {
             const { catalogId, ...rest } = review;
             const image = catalogId.images[0];
+            const id = catalogId.id;
+            const { password, ...userId } = review.userId;
 
             return {
                 ...rest,
+                userId,
                 image,
+                catalog_id: id,
             };
         });
     }
