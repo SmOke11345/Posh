@@ -41,6 +41,9 @@ dependencies:
   ngx-cookie-service:
     specifier: ^17.1.0
     version: 17.1.0(@angular/common@17.3.1)(@angular/core@17.3.1)
+  ngx-mask:
+    specifier: ^17.0.7
+    version: 17.0.7(@angular/common@17.3.1)(@angular/core@17.3.1)(@angular/forms@17.3.1)
   prettier:
     specifier: ^3.2.5
     version: 3.2.5
@@ -4964,8 +4967,6 @@ packages:
     peerDependenciesMeta:
       webpack:
         optional: true
-      webpack-sources:
-        optional: true
     dependencies:
       webpack: 5.90.3(esbuild@0.20.1)
       webpack-sources: 3.2.3
@@ -5335,6 +5336,19 @@ packages:
     dependencies:
       '@angular/common': 17.3.1(@angular/core@17.3.1)(rxjs@7.8.1)
       '@angular/core': 17.3.1(rxjs@7.8.1)(zone.js@0.14.4)
+      tslib: 2.6.2
+    dev: false
+
+  /ngx-mask@17.0.7(@angular/common@17.3.1)(@angular/core@17.3.1)(@angular/forms@17.3.1):
+    resolution: {integrity: sha512-pmiCkAIDi5HqWwicHsOThPsJALF3fdMR21aoDJd/boJoEo1HoS34NJNUkqJ11qB2ZBVu5PX8R9KB617OCMkXXQ==}
+    peerDependencies:
+      '@angular/common': '>=14.0.0'
+      '@angular/core': '>=14.0.0'
+      '@angular/forms': '>=14.0.0'
+    dependencies:
+      '@angular/common': 17.3.1(@angular/core@17.3.1)(rxjs@7.8.1)
+      '@angular/core': 17.3.1(rxjs@7.8.1)(zone.js@0.14.4)
+      '@angular/forms': 17.3.1(@angular/common@17.3.1)(@angular/core@17.3.1)(@angular/platform-browser@17.3.1)(rxjs@7.8.1)
       tslib: 2.6.2
     dev: false
 

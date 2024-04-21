@@ -11,6 +11,10 @@ import { StoreDataUserService } from "../../services/storeDataUser.service";
 import { BehaviorSubjectService } from "../../services/behavior-subject.service";
 import { CardBasketComponent } from "../../components/cards/card-basket/card-basket.component";
 import { Cart } from "../../models/Cart";
+import { NgxMaskDirective } from "ngx-mask";
+import { OrderService } from "../order/order.service";
+import { Router } from "@angular/router";
+import { CartService } from "../cart/cart.service";
 
 @Component({
     selector: "app-checkout",
@@ -18,10 +22,13 @@ import { Cart } from "../../models/Cart";
     styleUrl: "./checkout.component.scss",
 })
 export class CheckoutComponent implements OnInit {
-    orderForm: FormGroup = new FormGroup({});
     cart: Cart[];
     userData: User;
-    selectedDelivery: number = 1;
+
+    orderForm: FormGroup = new FormGroup({});
+    isFreeDelivery: boolean = true;
+    selectedDelivery: number = 2;
+
     delivery: {
         id: number;
         name: string;
@@ -48,6 +55,9 @@ export class CheckoutComponent implements OnInit {
     constructor(
         private storeData: StoreDataUserService,
         private subjectService: BehaviorSubjectService,
+        private orderService: OrderService,
+        private cartService: CartService,
+        private router: Router,
     ) {
         this.userData = {} as User;
         this.cart = [] as Cart[];
@@ -56,7 +66,6 @@ export class CheckoutComponent implements OnInit {
     ngOnInit() {
         if (typeof window !== "undefined")
             this.userData = this.storeData.getUserData();
-        console.log(this.userData);
 
         this.orderForm = new FormGroup({
             email: new FormControl(this.userData.email, [
@@ -66,10 +75,8 @@ export class CheckoutComponent implements OnInit {
             name: new FormControl(this.userData.name, [Validators.required]),
             lastname: new FormControl(this.userData.lastname),
             address: new FormControl("", [Validators.required]),
-            phone: new FormControl("", [Validators.required]),
-            delivery: new FormControl("Обычная доставка", [
-                Validators.required,
-            ]),
+            tel: new FormControl("", [Validators.required]),
+            delivery: new FormControl("Бесплатно", [Validators.required]),
         });
 
         this.cart = this.subjectService.getCart();
@@ -78,6 +85,7 @@ export class CheckoutComponent implements OnInit {
     selectDelivery(name: string, id: number) {
         this.selectedDelivery = id;
         this.orderForm.controls["delivery"].setValue(name);
+        this.isFreeDelivery = name === "Забрать в магазине";
     }
 
     getTotalCount() {
@@ -89,14 +97,45 @@ export class CheckoutComponent implements OnInit {
     }
 
     onSubmit() {
-        console.log(this.orderForm.controls["delivery"]);
+        if (this.isFreeDelivery) {
+            this.orderForm.controls["address"].setValue("Забрать в магазине");
+        }
+        if (this.orderForm.valid) {
+            const products = this.cart.map((item) => {
+                return {
+                    catalog_id: item.id,
+                    count: item.count,
+                };
+            });
+            this.orderService
+                .createOrder({ ...this.orderForm.value, products })
+                .subscribe({
+                    next: () => {
+                        this.cartService.clearCart().subscribe();
+                        this.subjectService.setCart([]);
+                        return this.router.navigate(["/orders"]);
+                    },
+                });
+        }
     }
 }
 
 @NgModule({
-    imports: [ReactiveFormsModule, NgForOf, NgIf, NgClass, CardBasketComponent],
+    imports: [
+        ReactiveFormsModule,
+        NgForOf,
+        NgIf,
+        NgClass,
+        CardBasketComponent,
+        NgxMaskDirective,
+    ],
     exports: [CheckoutComponent],
     declarations: [CheckoutComponent],
-    providers: [StoreDataUserService, BehaviorSubjectService],
+    providers: [
+        StoreDataUserService,
+        BehaviorSubjectService,
+        OrderService,
+        CartService,
+    ],
 })
 export class CheckoutModule {}

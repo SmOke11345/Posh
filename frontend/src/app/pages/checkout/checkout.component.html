@@ -28,6 +28,18 @@
                         name="email"
                         placeholder="user@example.com"
                         type="email" />
+                    <ng-container *ngIf="orderForm.controls['email'].errors">
+                        <div class="input-icon info">
+                            <img
+                                alt="ошибка"
+                                src="assets/img/common/information-circle.svg" />
+                        </div>
+                    </ng-container>
+                    <span
+                        *ngIf="orderForm.controls['email'].errors"
+                        class="info-text error"
+                        >Обязательное поле</span
+                    >
                 </div>
             </div>
             <div class="checkout__item form-wrap">
@@ -61,28 +73,56 @@
                     </div>
                 </div>
                 <div class="form__input large">
-                    <label for="address"></label>
-                    <input
-                        [ngClass]="{
-                            error: orderForm.controls['address'].errors
-                        }"
-                        formControlName="address"
-                        id="address"
-                        name="address"
-                        placeholder="Адрес доставки*"
-                        type="text" />
+                    <ng-container *ngIf="!isFreeDelivery">
+                        <label for="address"></label>
+                        <input
+                            [ngClass]="{
+                                error: orderForm.controls['address'].errors
+                            }"
+                            formControlName="address"
+                            id="address"
+                            name="address"
+                            placeholder="Адрес доставки*"
+                            type="text" />
+                        <ng-container
+                            *ngIf="orderForm.controls['address'].errors">
+                            <div class="input-icon info">
+                                <img
+                                    alt="ошибка"
+                                    src="assets/img/common/information-circle.svg" />
+                            </div>
+                        </ng-container>
+                        <span
+                            *ngIf="orderForm.controls['address'].errors"
+                            class="info-text error"
+                            >Обязательное поле</span
+                        >
+                    </ng-container>
                 </div>
                 <div class="form__input">
-                    <label for="phone"></label>
+                    <label for="tel"></label>
                     <input
                         [ngClass]="{
-                            error: orderForm.controls['phone'].errors
+                            error: orderForm.controls['tel'].errors
                         }"
-                        formControlName="phone"
-                        id="phone"
-                        name="phone"
-                        placeholder="+7 (___) ___-__-__*"
+                        formControlName="tel"
+                        id="tel"
+                        mask="(000) 000-00-00"
+                        name="tel"
+                        placeholder="(___) ___-__-__*"
                         type="text" />
+                    <ng-container *ngIf="orderForm.controls['tel'].errors">
+                        <div class="input-icon info">
+                            <img
+                                alt="ошибка"
+                                src="assets/img/common/information-circle.svg" />
+                        </div>
+                    </ng-container>
+                    <span
+                        *ngIf="orderForm.controls['tel'].errors"
+                        class="info-text error"
+                        >Обязательное поле</span
+                    >
                 </div>
             </div>
             <div class="checkout__item form-wrap">

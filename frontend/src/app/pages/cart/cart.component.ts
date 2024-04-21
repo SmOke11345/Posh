@@ -74,14 +74,6 @@ export class CartComponent implements OnInit {
     getTotalCount() {
         return this.subjectService.getCountProductInCart();
     }
-
-    // TODO: Сделать защиту для checkout.
-    /**
-     * Для изменения состояния доступа к странице checkout.
-     */
-    btnGuard() {
-        return this.subjectService.setButtonGuard(true);
-    }
 }
 
 @NgModule({

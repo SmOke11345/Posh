@@ -11,10 +11,6 @@ export class BehaviorSubjectService {
     private rememberMe = new BehaviorSubject<boolean>(false);
     rememberMe$ = this.rememberMe.asObservable(); // Хранит в себе последние значение
     //
-    // TODO: Сделать защиту для checkout.
-    private buttonGuard = new BehaviorSubject<boolean>(false);
-    buttonGuard$ = this.rememberMe.asObservable();
-    //
     private cart = new BehaviorSubject<Cart[]>([]);
     cart$ = this.cart.asObservable();
     //
@@ -36,16 +32,6 @@ export class BehaviorSubjectService {
      */
     setRememberMe(value: boolean) {
         this.rememberMe.next(value);
-    }
-
-    // TODO: Сделать защиту для checkout.
-    /**
-     * Для проверки доступа к странице checkout.
-     * @param value
-     */
-    setButtonGuard(value: boolean) {
-        console.log(value);
-        this.buttonGuard.next(value);
     }
 
     /**
@@ -71,8 +57,6 @@ export class BehaviorSubjectService {
             this.cart.next(newCart);
         }
     }
-
-    // TODO: Добавить clearCart
 
     /**
      * Удаление одного товара из корзины.

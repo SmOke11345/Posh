@@ -149,6 +149,7 @@
         .stars {
             margin-top: 0.5rem;
             @media screen and (max-width: $mobile) {
+                width: 11rem;
                 .star svg {
                     width: 1.9rem;
                     height: 1.8rem;

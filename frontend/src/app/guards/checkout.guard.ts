@@ -1,4 +1,4 @@
-// TODO: Сделать защиту для checkout.
+// TODO: Сделать защиту checkout
 // import {
 //     ActivatedRouteSnapshot,
 //     CanActivate,
@@ -7,25 +7,29 @@
 //     Router,
 //     RouterStateSnapshot,
 // } from "@angular/router";
-// import { Injectable, OnInit } from "@angular/core";
+// import { Injectable } from "@angular/core";
 // import { BehaviorSubjectService } from "../services/behavior-subject.service";
 //
 // @Injectable({
 //     providedIn: "root",
 // })
-// export class CheckoutGuard implements CanActivate, OnInit {
+// export class CheckoutGuard implements CanActivate {
+//     isCheckout: boolean = false;
+//
 //     constructor(
 //         private subjectService: BehaviorSubjectService,
 //         private router: Router,
-//     ) {}
-//
-//     ngOnInit() {}
+//     ) {
+//         this.subjectService.isCheckout$.subscribe((data) => {
+//             this.isCheckout = data;
+//         });
+//     }
 //
 //     canActivate(
 //         route: ActivatedRouteSnapshot,
 //         state: RouterStateSnapshot,
 //     ): MaybeAsync<GuardResult> {
-//         if (this.subjectService.buttonGuard.value) {
+//         if (this.isCheckout) {
 //             return true;
 //         } else {
 //             this.router.navigate(["/cart"]);

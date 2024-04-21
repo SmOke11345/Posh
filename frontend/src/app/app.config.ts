@@ -9,12 +9,15 @@ import {
     withFetch,
 } from "@angular/common/http";
 import { AuthInterceptor } from "./interceptors/auth-interceptors.service";
+import { provideEnvironmentNgxMask } from "ngx-mask";
 
 export const appConfig: ApplicationConfig = {
     providers: [
         provideClientHydration(),
         provideHttpClient(withFetch()),
         provideRouter(routes),
+        provideEnvironmentNgxMask(),
+
         {
             provide: HTTP_INTERCEPTORS,
             useClass: AuthInterceptor,

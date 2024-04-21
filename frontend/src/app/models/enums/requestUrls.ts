@@ -8,6 +8,7 @@ export enum Url {
     PROFILE = `${host}/users/profile`,
     CATALOG = `${host}/catalogs`,
     REVIEW = `${host}/reviews`,
+    ORDER = `${host}/orders`,
     CART = `${host}/cart`,
     FAVORITE = `${host}/favorites`,
 }
