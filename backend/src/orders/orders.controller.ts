@@ -13,7 +13,7 @@ export class OrdersController {
      */
     @UseGuards(JwtAuthGuard)
     @Post("create")
-    async createOrder(@Request() request: any) {
+    async createOrder(@Request() request: any): Promise<Order> {
         return this.ordersService.createOrder(request.user.sub, request.body);
     }
 

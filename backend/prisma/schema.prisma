@@ -16,8 +16,8 @@ model User {
   password String
   cart     Cart[]     @relation("CartUser")
   favorite Favorite[] @relation("FavoriteUser")
-  review   Review[]   @relation("ReviewUser")
   order    Order[]    @relation("OrderUser")
+  review   Review[]   @relation("ReviewUser")
 }
 
 model Catalog {
@@ -58,8 +58,8 @@ model Favorite {
   id         Int     @id @default(autoincrement())
   user_id    Int
   catalog_id Int
-  userId     User    @relation("FavoriteUser", fields: [user_id], references: [id])
   catalogId  Catalog @relation("FavoriteCatalog", fields: [catalog_id], references: [id])
+  userId     User    @relation("FavoriteUser", fields: [user_id], references: [id])
 }
 
 model Review {
@@ -68,30 +68,28 @@ model Review {
   catalog_id Int
   text       String
   rating     Int
-  userId     User     @relation("ReviewUser", fields: [user_id], references: [id])
-  catalogId  Catalog  @relation("ReviewCatalog", fields: [catalog_id], references: [id])
   createdAt  DateTime @default(now())
   updatedAt  DateTime @updatedAt
+  catalogId  Catalog  @relation("ReviewCatalog", fields: [catalog_id], references: [id])
+  userId     User     @relation("ReviewUser", fields: [user_id], references: [id])
 }
 
 model Order {
   id        Int      @id @default(autoincrement())
-  name      String
-  lastname  String
   tel       String
   address   String
-  email     String
-  status_id Int      @default(1)
-  products  String
-  delivery  String
   user_id   Int
-  userId    User     @relation("OrderUser", fields: [user_id], references: [id])
-  statusId  Status   @relation("OrderStatus", fields: [status_id], references: [id])
   createdAt DateTime @default(now())
+  delivery  String
+  email     String
+  lastname  String
+  name      String
+  products  String
+  status_id Int      @default(1)
   updatedAt DateTime @updatedAt
+  statusId  Status   @relation("OrderStatus", fields: [status_id], references: [id])
+  userId    User     @relation("OrderUser", fields: [user_id], references: [id])
 }
-
-// TODO: сделать prisma generate в supabase и добавить данные из базы.
 
 model Status {
   id    Int     @id @default(autoincrement())
