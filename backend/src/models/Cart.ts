@@ -10,5 +10,5 @@ export type Cart = {
     count: number;
     createdAt: Date;
     updatedAt: Date;
-    catalogId: Catalog;
+    catalogId?: Catalog;
 };

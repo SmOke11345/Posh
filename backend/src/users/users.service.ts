@@ -17,7 +17,7 @@ export class UsersService {
      * Поиск пользователя по id.
      * @param id - id пользователя
      */
-    async getUserById(id: number) {
+    async getUserById(id: number): Promise<User> {
         return this.prismaService.user.findFirst({
             where: { id },
         });
@@ -28,7 +28,7 @@ export class UsersService {
      * @param id - id пользователя
      * @param data - данные которые нужно изменить.
      */
-    async patchUserData(id: number, data: User) {
+    async patchUserData(id: number, data: User): Promise<User> {
         if (data.password) {
             if (data.password.length < 8)
                 throw new ForbiddenException("Не менее 8 символов");

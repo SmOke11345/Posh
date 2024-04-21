@@ -9,6 +9,7 @@ import {
 } from "@nestjs/common";
 import { FavoritesService } from "./favorites.service";
 import { JwtAuthGuard } from "../auth/guard/auth.guard";
+import { shortCatalog } from "../models/Catalog";
 
 @Controller("favorites")
 export class FavoritesController {
@@ -20,7 +21,7 @@ export class FavoritesController {
      */
     @UseGuards(JwtAuthGuard)
     @Get("")
-    async getFavorites(@Request() request: any) {
+    async getFavorites(@Request() request: any): Promise<shortCatalog[]> {
         return this.favoritesService.getFavorites(request.user.sub);
     }
 
@@ -43,7 +44,7 @@ export class FavoritesController {
      */
     @UseGuards(JwtAuthGuard)
     @Delete("remove")
-    async removeFavorite(@Request() request: any) {
+    async removeFavorite(@Request() request: any): Promise<{ status: string }> {
         return this.favoritesService.removeFavorite(
             request.user.sub,
             request.body.catalog_id,
@@ -57,7 +58,10 @@ export class FavoritesController {
      */
     @UseGuards(JwtAuthGuard)
     @Get("/:id")
-    async isFavorite(@Request() request: any, @Param("id") id: string) {
+    async isFavorite(
+        @Request() request: any,
+        @Param("id") id: string,
+    ): Promise<boolean> {
         return this.favoritesService.isFavorite(request.user.sub, +id);
     }
 }

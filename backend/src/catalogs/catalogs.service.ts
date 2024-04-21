@@ -23,7 +23,10 @@ export class CatalogsService {
      * @param payload - данные товара
      * @param files - изображения
      */
-    async create(payload: Catalog, files: Array<Express.Multer.File>) {
+    async create(
+        payload: Catalog,
+        files: Array<Express.Multer.File>,
+    ): Promise<Catalog> {
         const images: string[] = [];
 
         for (const file of files) {
@@ -32,7 +35,9 @@ export class CatalogsService {
             images.push(imageUrl.secure_url);
         }
 
-        const catalogItem: Catalog = await this.prismaService.catalog.create({
+        // TODO: Можно добавить валидацию
+
+        return await this.prismaService.catalog.create({
             data: {
                 ...payload,
                 images,
@@ -42,10 +47,6 @@ export class CatalogsService {
                 review: {},
             },
         });
-
-        // TODO: Можно добавить валидацию
-
-        return catalogItem;
     }
 
     /**
@@ -90,7 +91,7 @@ export class CatalogsService {
      * Получение товаров из каталога для слайдеров.
      */
     // TODO: Сделать рандомное получение 12-ти товаров.
-    async getProdCarousel() {
+    async getProdCarousel(): Promise<shortCatalog[]> {
         const prod: Catalog[] = await this.prismaService.catalog.findMany({
             where: {
                 createdAt: {
@@ -101,7 +102,7 @@ export class CatalogsService {
         });
 
         // Превращение типа Catalog в shortCatalog
-        const shortCatalog: shortCatalog[] = prod.map((item) => {
+        return prod.map((item) => {
             return {
                 id: item.id,
                 title: item.title,
@@ -110,7 +111,5 @@ export class CatalogsService {
                 status: item.status,
             };
         });
-
-        return shortCatalog;
     }
 }

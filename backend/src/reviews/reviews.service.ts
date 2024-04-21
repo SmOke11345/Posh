@@ -48,7 +48,9 @@ export class ReviewsService {
      * Получение списка всех отзывов товара.
      * @param catalog_id - id товара
      */
-    async getReviews(catalog_id: number) {
+    async getReviews(
+        catalog_id: number,
+    ): Promise<{ average_rating: number; reviews: Review[] }> {
         const reviews: Review[] = await this.prismaService.review.findMany({
             where: {
                 catalog_id,
@@ -62,7 +64,7 @@ export class ReviewsService {
         if (!reviews.length)
             throw new ForbiddenException("Пока еще нет отзывов");
 
-        const averageRating = reviews.reduce(
+        const averageRating: number = reviews.reduce(
             (acc, review) => acc + review.rating / reviews.length,
             0,
         );
@@ -125,7 +127,10 @@ export class ReviewsService {
      * @param review_id - id отзыва
      * @param user_id - id пользователя
      */
-    async deleteReview(review_id: number, user_id: number) {
+    async deleteReview(
+        review_id: number,
+        user_id: number,
+    ): Promise<{ message: string }> {
         // const review: Review =
         await this.prismaService.review.delete({
             where: {
@@ -149,7 +154,11 @@ export class ReviewsService {
      * @param user_id - id пользователя
      * @param text - новый текст
      */
-    async updateReview(review_id: number, user_id: number, text: string) {
+    async updateReview(
+        review_id: number,
+        user_id: number,
+        text: string,
+    ): Promise<{ message: string }> {
         const review: Review = await this.prismaService.review.update({
             where: {
                 id: review_id,

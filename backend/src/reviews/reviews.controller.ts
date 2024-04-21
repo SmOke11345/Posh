@@ -10,6 +10,7 @@ import {
 } from "@nestjs/common";
 import { ReviewsService } from "./reviews.service";
 import { JwtAuthGuard } from "../auth/guard/auth.guard";
+import { Review } from "../models/Review";
 
 @Controller("reviews")
 export class ReviewsController {
@@ -30,7 +31,9 @@ export class ReviewsController {
      * @param id - id товара
      */
     @Get("/:id")
-    async getReviews(@Param("id") id: string) {
+    async getReviews(
+        @Param("id") id: string,
+    ): Promise<{ average_rating: number; reviews: Review[] }> {
         return this.reviewsService.getReviews(+id);
     }
 
@@ -41,7 +44,10 @@ export class ReviewsController {
      */
     @UseGuards(JwtAuthGuard)
     @Post("create/:id")
-    async createReview(@Param("id") id: string, @Request() request: any) {
+    async createReview(
+        @Param("id") id: string,
+        @Request() request: any,
+    ): Promise<Review> {
         return this.reviewsService.createReview(
             +id,
             request.user.sub,
@@ -56,7 +62,10 @@ export class ReviewsController {
      */
     @UseGuards(JwtAuthGuard)
     @Delete("delete/:id")
-    async deleteReview(@Param("id") id: string, @Request() request: any) {
+    async deleteReview(
+        @Param("id") id: string,
+        @Request() request: any,
+    ): Promise<{ message: string }> {
         return this.reviewsService.deleteReview(+id, request.user.sub);
     }
 
@@ -67,7 +76,10 @@ export class ReviewsController {
      */
     @UseGuards(JwtAuthGuard)
     @Patch("update/:id")
-    async updateReview(@Param("id") id: string, @Request() request: any) {
+    async updateReview(
+        @Param("id") id: string,
+        @Request() request: any,
+    ): Promise<{ message: string }> {
         return this.reviewsService.updateReview(
             +id,
             request.user.sub,

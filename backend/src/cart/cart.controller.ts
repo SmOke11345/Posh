@@ -41,7 +41,7 @@ export class CartController {
      */
     @UseGuards(JwtAuthGuard)
     @Delete("remove")
-    async removeFromCart(@Request() request: any) {
+    async removeFromCart(@Request() request: any): Promise<{ status: string }> {
         return this.cartService.removeFromCart(
             request.body.catalog_id,
             request.user.sub,
@@ -54,7 +54,7 @@ export class CartController {
      */
     @UseGuards(JwtAuthGuard)
     @Delete("clear")
-    async clearCart(@Request() request: any) {
+    async clearCart(@Request() request: any): Promise<{ status: string }> {
         return this.cartService.clearCart(request.user.sub);
     }
 
@@ -64,7 +64,9 @@ export class CartController {
      */
     @UseGuards(JwtAuthGuard)
     @Patch("increment")
-    async incrementProduct(@Request() request: any) {
+    async incrementProduct(
+        @Request() request: any,
+    ): Promise<{ status: string }> {
         return this.cartService.incrementProduct(
             request.body.catalog_id,
             request.user.sub,
@@ -77,7 +79,9 @@ export class CartController {
      */
     @UseGuards(JwtAuthGuard)
     @Patch("decrement")
-    async decrementProduct(@Request() request: any) {
+    async decrementProduct(
+        @Request() request: any,
+    ): Promise<{ status: string }> {
         return this.cartService.decrementProduct(
             request.body.catalog_id,
             request.user.sub,
@@ -91,7 +95,10 @@ export class CartController {
      */
     @UseGuards(JwtAuthGuard)
     @Get("/:id")
-    async isCart(@Request() request: any, @Param("id") id: string) {
+    async isCart(
+        @Request() request: any,
+        @Param("id") id: string,
+    ): Promise<boolean> {
         return this.cartService.isCart(request.user.sub, +id);
     }
 }

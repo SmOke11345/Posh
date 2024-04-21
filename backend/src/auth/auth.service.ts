@@ -22,7 +22,7 @@ export class AuthService {
      * Создание токена.
      * @param payload
      */
-    async generateToken(payload: any) {
+    async generateToken(payload: any): Promise<string> {
         return this.jwtService.signAsync(payload, {
             secret: jwtConstants.secret,
         });
@@ -32,7 +32,7 @@ export class AuthService {
      * Получение email.
      * @param email
      */
-    async getEmail(email: string) {
+    async getEmail(email: string): Promise<User> {
         return await this.prismaService.user.findFirst({
             where: { email },
         });
@@ -42,7 +42,7 @@ export class AuthService {
      * Регистрация пользователя
      * @param user - данные пользователя
      */
-    async register(user: User) {
+    async register(user: User): Promise<User> {
         //Ищем пользователя в базе данных
         const foundedEmail = await this.getEmail(user.email);
 
@@ -85,7 +85,7 @@ export class AuthService {
      * Аутентификация пользователя.
      * @param user - данные пользователя (id, email)
      */
-    async singIn(user: User) {
+    async singIn(user: User): Promise<string> {
         return this.generateToken({ sub: user.id, email: user.email });
     }
 }

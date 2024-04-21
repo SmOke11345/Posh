@@ -59,7 +59,7 @@ export class CartService {
 
         if (!prod) throw new ForbiddenException("Товар не найден");
 
-        const cart = await this.prismaService.cart.findFirst({
+        const cart: Cart = await this.prismaService.cart.findFirst({
             where: {
                 user_id,
                 catalog_id: payload.catalog_id,
@@ -96,7 +96,10 @@ export class CartService {
      * @param catalog_id - id товара
      * @param user_id - id пользователя
      */
-    async removeFromCart(catalog_id: number, user_id: number) {
+    async removeFromCart(
+        catalog_id: number,
+        user_id: number,
+    ): Promise<{ status: string }> {
         const prod = await this.prismaService.cart.deleteMany({
             where: {
                 user_id,
@@ -117,7 +120,7 @@ export class CartService {
      * Удаление всех товаров из корзины.
      * @param user_id - id пользователя
      */
-    async clearCart(user_id: number) {
+    async clearCart(user_id: number): Promise<{ status: string }> {
         const prods = await this.prismaService.cart.deleteMany({
             where: {
                 user_id,
@@ -136,7 +139,10 @@ export class CartService {
      * @param catalog_id - id товара
      * @param user_id - id пользователя
      */
-    async incrementProduct(catalog_id: number, user_id: number) {
+    async incrementProduct(
+        catalog_id: number,
+        user_id: number,
+    ): Promise<{ status: string }> {
         const { count } = await this.prismaService.cart.findFirst({
             where: {
                 user_id,
@@ -176,7 +182,10 @@ export class CartService {
      * @param catalog_id - id товара
      * @param user_id - id пользователя
      */
-    async decrementProduct(catalog_id: number, user_id: number) {
+    async decrementProduct(
+        catalog_id: number,
+        user_id: number,
+    ): Promise<{ status: string }> {
         const { count } = await this.prismaService.cart.findFirst({
             where: {
                 user_id,
@@ -208,7 +217,7 @@ export class CartService {
      * @param catalog_id
      * @param user_id
      */
-    async isCart(user_id: number, catalog_id: number) {
+    async isCart(user_id: number, catalog_id: number): Promise<boolean> {
         const condition = await this.prismaService.cart.findFirst({
             where: {
                 user_id,

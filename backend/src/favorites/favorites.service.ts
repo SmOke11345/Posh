@@ -11,7 +11,7 @@ export class FavoritesService {
      * Получение избранных товаров.
      * @param user_id - id пользователя
      */
-    async getFavorites(user_id: number) {
+    async getFavorites(user_id: number): Promise<shortCatalog[]> {
         const favorites: Favorite[] =
             await this.prismaService.favorite.findMany({
                 where: {
@@ -24,7 +24,7 @@ export class FavoritesService {
 
         if (!favorites) throw new ForbiddenException("Товар не найден");
 
-        const shortFavorites: shortCatalog[] = favorites.map((favorite) => {
+        return favorites.map((favorite) => {
             return {
                 id: favorite.catalogId.id,
                 title: favorite.catalogId.title,
@@ -33,8 +33,6 @@ export class FavoritesService {
                 status: favorite.catalogId.status,
             };
         });
-
-        return shortFavorites;
     }
 
     /**
@@ -72,7 +70,10 @@ export class FavoritesService {
      * @param user_id - id пользователя
      * @param catalog_id - id товара
      */
-    async removeFavorite(user_id: number, catalog_id: number) {
+    async removeFavorite(
+        user_id: number,
+        catalog_id: number,
+    ): Promise<{ status: string }> {
         const _favorite = await this.prismaService.favorite.findFirst({
             where: {
                 user_id,
@@ -99,7 +100,7 @@ export class FavoritesService {
      * @param user_id - id пользователя
      * @param catalog_id - id товара
      */
-    async isFavorite(user_id: number, catalog_id: number) {
+    async isFavorite(user_id: number, catalog_id: number): Promise<boolean> {
         const condition = await this.prismaService.favorite.findFirst({
             where: {
                 user_id,

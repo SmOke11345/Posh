@@ -38,7 +38,6 @@ model Catalog {
   cart         Cart[]     @relation("CartCatalog")
   favorite     Favorite[] @relation("FavoriteCatalog")
   review       Review[]   @relation("ReviewCatalog")
-  order        Order[]    @relation("OrderCatalog")
 }
 
 model Cart {
@@ -75,14 +74,27 @@ model Review {
   updatedAt  DateTime @updatedAt
 }
 
-// TODO: Добавить модель Order
-
 model Order {
-  id         Int     @id @default(autoincrement())
-  tel        String
-  address    String
-  user_id    Int
-  userId     User    @relation("OrderUser", fields: [user_id], references: [id])
-  catalog_id Int
-  catalogId  Catalog @relation("OrderCatalog", fields: [catalog_id], references: [id])
+  id        Int      @id @default(autoincrement())
+  name      String
+  lastname  String
+  tel       String
+  address   String
+  email     String
+  status_id Int      @default(1)
+  products  String
+  delivery  String
+  user_id   Int
+  userId    User     @relation("OrderUser", fields: [user_id], references: [id])
+  statusId  Status   @relation("OrderStatus", fields: [status_id], references: [id])
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+// TODO: сделать prisma generate в supabase и добавить данные из базы.
+
+model Status {
+  id    Int     @id @default(autoincrement())
+  name  String
+  order Order[] @relation("OrderStatus")
 }

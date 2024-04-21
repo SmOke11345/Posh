@@ -12,6 +12,7 @@ import { CatalogsService } from "./catalogs.service";
 import { JwtAuthGuard } from "../auth/guard/auth.guard";
 import { FilesInterceptor } from "@nestjs/platform-express";
 import * as multer from "multer";
+import { Catalog, shortCatalog } from "../models/Catalog";
 
 /**
  * Локальное хранилище данных.
@@ -39,7 +40,7 @@ export class CatalogsController {
     async create(
         @Request() request: any,
         @UploadedFiles() files: Array<Express.Multer.File>,
-    ) {
+    ): Promise<Catalog> {
         return this.catalogsService.create(request.body, files);
     }
 
@@ -47,7 +48,7 @@ export class CatalogsController {
      * Получение товаров из каталога для слайдеров.
      */
     @Get("get-prods-carousel")
-    async getProdCarousel() {
+    async getProdCarousel(): Promise<shortCatalog[]> {
         return this.catalogsService.getProdCarousel();
     }
 
