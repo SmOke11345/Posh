@@ -79,13 +79,14 @@ model Order {
   tel       String
   address   String
   user_id   Int
-  createdAt DateTime @default(now())
   delivery  String
   email     String
   lastname  String
   name      String
   products  String
   status_id Int      @default(1)
+  summary   Int
+  createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
   statusId  Status   @relation("OrderStatus", fields: [status_id], references: [id])
   userId    User     @relation("OrderUser", fields: [user_id], references: [id])

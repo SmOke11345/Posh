@@ -26,7 +26,7 @@ export class OrdersService {
         for (const product of products) {
             await this.prismaService.catalog.update({
                 where: {
-                    id: product.catalog_id,
+                    id: product.id,
                 },
                 data: {
                     countProduct: {
@@ -43,8 +43,8 @@ export class OrdersService {
      * Получение всех заказов пользователя.
      * @param user_id
      */
-    async getOrders(user_id: number): Promise<Order[]> {
-        return await this.prismaService.order.findMany({
+    async getUserOrders(user_id: number): Promise<Order[]> {
+        const orders: Order[] = await this.prismaService.order.findMany({
             where: {
                 user_id,
             },
@@ -56,6 +56,44 @@ export class OrdersService {
                 },
             },
         });
+
+        return orders.map((order) => {
+            const { statusId, status_id, createdAt, ...rest } = order;
+            const date = this.prepareDate(createdAt);
+            return {
+                ...rest,
+                products: JSON.parse(rest.products),
+                status: statusId.name,
+                date,
+            };
+        });
+    }
+
+    /**
+     * Преобразование типа Date в string;
+     * @param date
+     */
+    prepareDate(date: Date): string {
+        const months = [
+            "января",
+            "февраля",
+            "марта",
+            "апреля",
+            "мая",
+            "июня",
+            "июля",
+            "августа",
+            "сентября",
+            "октября",
+            "ноября",
+            "декабря",
+        ];
+
+        const _date = new Date(date);
+        const day = date.getDate();
+        const month = months[_date.getMonth()];
+
+        return `${day} ${month}`;
     }
 
     // async deleteOrder(user_id: number, order_id: number) {

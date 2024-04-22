@@ -22,8 +22,8 @@ export class OrdersController {
      * @param request - id пользователя
      */
     @UseGuards(JwtAuthGuard)
-    @Get("get")
-    async getOrders(@Request() request: any): Promise<Order[]> {
-        return this.ordersService.getOrders(request.user.sub);
+    @Get("get-user-orders")
+    async getUserOrders(@Request() request: any): Promise<Order[]> {
+        return this.ordersService.getUserOrders(request.user.sub);
     }
 }
