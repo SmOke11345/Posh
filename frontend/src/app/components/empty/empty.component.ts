@@ -13,4 +13,5 @@ export class EmptyComponent {
     @Input() isCart: boolean = false;
     @Input() isFavorite: boolean = false;
     @Input() isReview: boolean = false;
+    @Input() isOrders: boolean = false;
 }

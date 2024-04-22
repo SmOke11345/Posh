@@ -11,7 +11,7 @@ import { StoreDataUserService } from "../../services/storeDataUser.service";
 import { CartModule } from "../cart/cart.component";
 import { FavoriteModule } from "../favorite/favorite.component";
 import { ProductModule } from "../product/product.component";
-import { OrderModule } from "../order/order.component";
+import { OrderModule } from "../orders/orders.component";
 import { CheckoutModule } from "../checkout/checkout.component";
 import { ReviewModule } from "../reviews/reviews.component";
 

@@ -11,6 +11,7 @@ import { FavoriteComponent } from "./pages/favorite/favorite.component";
 import { ProductComponent } from "./pages/product/product.component";
 import { CheckoutComponent } from "./pages/checkout/checkout.component";
 import { ReviewsComponent } from "./pages/reviews/reviews.component";
+import { OrdersComponent } from "./pages/orders/orders.component";
 // import { CheckoutGuard } from "./guards/checkout.guard";
 
 // TODO: Когда пользователь заходит он попадает в main.
@@ -70,13 +71,18 @@ export const routes: Routes = [
                     },
                     {
                         path: Pages.REVIEW,
-                        title: "Отзывы",
+                        title: "Мои отзывы",
                         component: ReviewsComponent,
                     },
                     {
                         path: Pages.FAVORITE,
                         title: "Избранное",
                         component: FavoriteComponent,
+                    },
+                    {
+                        path: Pages.ORDER,
+                        title: "Мои заказы",
+                        component: OrdersComponent,
                     },
                 ],
             },

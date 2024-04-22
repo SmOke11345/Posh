@@ -1,0 +1,114 @@
+@import "../../../assets/scss/variables";
+
+.orders {
+    p {
+        font-size: $opensans-r-14;
+        color: $main-gray;
+    }
+
+    &__inner {
+        display: grid;
+        row-gap: 3rem;
+    }
+
+    &__img {
+        width: 12.2rem;
+        height: 13.6rem;
+        border-radius: 1.2rem;
+        border: 0.1rem solid $white;
+    }
+
+    &__item {
+        display: flex;
+    }
+
+    .orders__item--inner {
+        .orders__item:last-child {
+            flex-direction: column;
+            justify-content: space-between;
+        }
+    }
+
+    &__item--inner {
+        padding-bottom: 3rem;
+        border-bottom: 0.2rem solid $gray;
+        display: flex;
+        justify-content: space-between;
+    }
+
+    &__item--wrap-img {
+        display: flex;
+        align-items: center;
+        margin-right: 6rem;
+
+        //@media screen and (max-width:) {}
+    }
+
+    &__subtitle {
+        margin-top: 1rem;
+    }
+
+    &__address {
+        p {
+            span {
+                color: $dark;
+            }
+        }
+    }
+
+    &__status {
+        @extend %wrapper;
+        justify-content: normal;
+    }
+
+    &__status-info {
+        margin-left: 0.5rem;
+        padding: 1.2rem 1.6rem;
+        border-radius: 2.4rem;
+
+        h4 {
+            font-size: $rubik-sb-12;
+            color: $white;
+        }
+    }
+
+    &__status-info--default {
+        background-color: $yellow;
+    }
+
+    &__status-info--active {
+        background-color: $yellow;
+    }
+
+    &__status-info--completed {
+        background-color: $gray;
+
+        h4 {
+            color: $main-gray;
+        }
+    }
+
+    &__summary {
+        display: flex;
+        align-items: baseline;
+
+        p {
+            margin-right: 0.5rem;
+        }
+    }
+
+    &__item--wrap {
+        display: grid;
+        row-gap: 1.5rem;
+    }
+
+    &__count {
+        margin-left: 1rem;
+
+        p {
+            font:
+                600 $rubik-sb-16 "Rubik",
+                sans-serif;
+        }
+    }
+}

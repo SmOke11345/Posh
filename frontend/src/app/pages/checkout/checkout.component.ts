@@ -12,8 +12,8 @@ import { BehaviorSubjectService } from "../../services/behavior-subject.service"
 import { CardBasketComponent } from "../../components/cards/card-basket/card-basket.component";
 import { Cart } from "../../models/Cart";
 import { NgxMaskDirective } from "ngx-mask";
-import { OrderService } from "../order/order.service";
-import { Router } from "@angular/router";
+import { OrdersService } from "../orders/orders.service";
+import { Router, RouterLink } from "@angular/router";
 import { CartService } from "../cart/cart.service";
 
 @Component({
@@ -55,7 +55,7 @@ export class CheckoutComponent implements OnInit {
     constructor(
         private storeData: StoreDataUserService,
         private subjectService: BehaviorSubjectService,
-        private orderService: OrderService,
+        private orderService: OrdersService,
         private cartService: CartService,
         private router: Router,
     ) {
@@ -76,7 +76,9 @@ export class CheckoutComponent implements OnInit {
             lastname: new FormControl(this.userData.lastname),
             address: new FormControl("", [Validators.required]),
             tel: new FormControl("", [Validators.required]),
-            delivery: new FormControl("Бесплатно", [Validators.required]),
+            delivery: new FormControl("Забрать в магазине", [
+                Validators.required,
+            ]),
         });
 
         this.cart = this.subjectService.getCart();
@@ -101,14 +103,10 @@ export class CheckoutComponent implements OnInit {
             this.orderForm.controls["address"].setValue("Забрать в магазине");
         }
         if (this.orderForm.valid) {
-            const products = this.cart.map((item) => {
-                return {
-                    catalog_id: item.id,
-                    count: item.count,
-                };
-            });
+            const products = this.cart;
+            const summary = this.getTotalCost();
             this.orderService
-                .createOrder({ ...this.orderForm.value, products })
+                .createOrder({ ...this.orderForm.value, products, summary })
                 .subscribe({
                     next: () => {
                         this.cartService.clearCart().subscribe();
@@ -128,13 +126,14 @@ export class CheckoutComponent implements OnInit {
         NgClass,
         CardBasketComponent,
         NgxMaskDirective,
+        RouterLink,
     ],
     exports: [CheckoutComponent],
     declarations: [CheckoutComponent],
     providers: [
         StoreDataUserService,
         BehaviorSubjectService,
-        OrderService,
+        OrdersService,
         CartService,
     ],
 })

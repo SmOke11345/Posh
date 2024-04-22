@@ -1,0 +1,91 @@
+<section class="orders">
+    <ng-container *ngIf="dataOrders.length === 0">
+        <app-empty [isOrders]="true"></app-empty>
+    </ng-container>
+    <ng-container *ngIf="dataOrders.length > 0">
+        <div class="orders__inner">
+            <ng-container *ngFor="let order of dataOrders">
+                <div class="orders__item orders__item--inner">
+                    <div class="orders__item">
+                        <div class="orders__item orders__item--wrap-img">
+                            <div
+                                [ngStyle]="{
+                                    'margin-right':
+                                        order.products.length === 1
+                                            ? '2rem'
+                                            : ''
+                                }"
+                                [style]="{
+                                    background:
+                                        'url(' +
+                                        order.products[0].image +
+                                        ')' +
+                                        'no-repeat center center / cover'
+                                }"
+                                class="orders__img"></div>
+                            <div class="orders__count">
+                                <p *ngIf="order.products.length > 1">
+                                    +{{ order.products.length }}
+                                </p>
+                            </div>
+                        </div>
+                        <div class="orders__item orders__item--wrap">
+                            <div>
+                                <div class="orders__date">
+                                    <h3>Заказ от {{ order.date }}</h3>
+                                </div>
+                                <div class="orders__subtitle">
+                                    <p>#88231231-{{ order.id }}</p>
+                                </div>
+                            </div>
+                            <div>
+                                <div class="orders__address">
+                                    <p
+                                        *ngIf="
+                                            order.address !==
+                                            'Забрать в магазине'
+                                        ">
+                                        <span>Адрес:</span> {{ order.address }}
+                                    </p>
+                                </div>
+                            </div>
+                            <div class="orders__status">
+                                <div class="orders__status-name">
+                                    <p>
+                                        {{ order.delivery }}
+                                    </p>
+                                </div>
+                                <!-- TODO: Проверить статусы-->
+                                <div
+                                    [ngClass]="{
+                                        'orders__status-info--default':
+                                            order.status === 'Ожидайте звонка',
+                                        'orders__status-info--active':
+                                            order.status ===
+                                            'В процессе доставки',
+                                        'orders__status-info--completed':
+                                            order.status === 'Получено'
+                                    }"
+                                    class="orders__status-info">
+                                    <h4>{{ order.status }}</h4>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="orders__item">
+                        <div class="orders__summary cost">
+                            <p>Оплачено</p>
+                            <h3>{{ order.summary }} ₽</h3>
+                        </div>
+                        <!-- TODO: Переход на страницу определенного заказа-->
+                        <div class="orders__btn-review">
+                            <button class="btn btn--primary small">
+                                Перейти к заказу
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </ng-container>
+        </div>
+    </ng-container>
+</section>

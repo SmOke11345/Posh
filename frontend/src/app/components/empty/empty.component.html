@@ -12,6 +12,9 @@
             <ng-container *ngIf="isReview">
                 <img alt="Отзыв" src="../../../assets/img/empty/review.svg" />
             </ng-container>
+            <ng-container *ngIf="isOrders">
+                <img alt="Отзыв" src="../../../assets/img/empty/orders.svg" />
+            </ng-container>
         </div>
         <div class="subject">
             <div class="subject__title">
@@ -23,6 +26,9 @@
                 </ng-container>
                 <ng-container *ngIf="isReview">
                     <h2>Еще нет отзывов</h2>
+                </ng-container>
+                <ng-container *ngIf="isOrders">
+                    <h2>Список заказов пуст</h2>
                 </ng-container>
             </div>
             <div class="subject__subtitle">
