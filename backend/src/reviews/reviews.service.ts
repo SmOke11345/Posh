@@ -1,8 +1,4 @@
-import {
-    ForbiddenException,
-    Injectable,
-    NotFoundException,
-} from "@nestjs/common";
+import { ForbiddenException, Injectable } from "@nestjs/common";
 import { PrismaService } from "../utils/prisma.service";
 import { User } from "../models/User";
 import { Review } from "../models/Review";
@@ -94,8 +90,9 @@ export class ReviewsService {
 
         if (!prod) throw new ForbiddenException("Такого товара не существует");
 
-        if (payload.text === undefined || payload.rating === undefined)
-            throw new NotFoundException("Введите данные для отправки отзыва");
+        // TODO: Сделать проверку на заполнение полей.
+        // if (payload.text === "" || payload.rating === 0)
+        //     throw new NotFoundException("Введите данные для отправки отзыва");
 
         // TODO: Проверить у разных пользователей
         const reviewExists = await this.prismaService.review.findFirst({

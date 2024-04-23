@@ -11,6 +11,8 @@ export type Order = {
     products: string;
     delivery: string;
     summary: number;
+    date?: string;
+    status?: string;
     createdAt?: Date;
     updatedAt: Date;
     statusId?: {

@@ -1,4 +1,4 @@
-import { Injectable } from "@nestjs/common";
+import { ForbiddenException, Injectable } from "@nestjs/common";
 import { PrismaService } from "../utils/prisma.service";
 import { Order } from "../models/Order";
 
@@ -57,6 +57,10 @@ export class OrdersService {
             },
         });
 
+        if (!orders) {
+            throw new ForbiddenException("Еще нет заказов");
+        }
+
         return orders.map((order) => {
             const { statusId, status_id, createdAt, ...rest } = order;
             const date = this.prepareDate(createdAt);
@@ -67,6 +71,40 @@ export class OrdersService {
                 date,
             };
         });
+    }
+
+    async getOrder(user_id: number, order_id: number) {
+        const order: Order = await this.prismaService.order.findFirst({
+            where: {
+                id: order_id,
+                user_id,
+            },
+            include: {
+                statusId: {
+                    select: {
+                        name: true,
+                    },
+                },
+            },
+        });
+
+        if (!order) {
+            throw new ForbiddenException("Еще нет заказов");
+        }
+
+        const { statusId, status_id, createdAt, ...rest } = order;
+        const date = this.prepareDate(createdAt);
+        const tel = this.preparedTel(rest.tel);
+        const costDelivery = rest.delivery === "Обычная доставка" ? 500 : 0;
+
+        return {
+            ...rest,
+            products: JSON.parse(rest.products),
+            status: statusId.name,
+            date,
+            tel,
+            costDelivery,
+        };
     }
 
     /**
@@ -94,6 +132,14 @@ export class OrdersService {
         const month = months[_date.getMonth()];
 
         return `${day} ${month}`;
+    }
+
+    /**
+     * Определение формата телефона.
+     * @param tel
+     */
+    preparedTel(tel: string) {
+        return tel.replace(/(\d{3})(\d{3})(\d{2})(\d{2})/, "+7 ($1) $2-$3-$4");
     }
 
     // async deleteOrder(user_id: number, order_id: number) {
