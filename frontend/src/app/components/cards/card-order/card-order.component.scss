@@ -1,0 +1,55 @@
+@import "../../../../assets/scss/variables";
+
+.card {
+    display: flex;
+    background-color: $section-white;
+    border-radius: 1.2rem;
+    padding: 1.5rem;
+
+    p {
+        font-size: $opensans-r-16;
+        @media screen and (max-width: $tablet) {
+            font-size: $opensans-r-14;
+        }
+    }
+
+    &__item--wrap {
+        display: flex;
+        justify-content: space-between;
+        width: 59%;
+        @media screen and (max-width: $tablet) {
+            width: 100%;
+        }
+    }
+
+    h4 {
+        font-size: $rubik-sb-20;
+    }
+
+    &__wrapper:first-child {
+        display: grid;
+        gap: 1rem;
+    }
+
+    &__wrapper:last-child {
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+        align-items: flex-end;
+    }
+
+    &__item.cost {
+        @extend %wrapper;
+    }
+
+    &__img {
+        margin-right: 2.5rem;
+        width: 15.5rem;
+        height: 17.2rem;
+        border-radius: 1.2rem;
+    }
+
+    button.btn {
+        width: 15.5rem;
+    }
+}

@@ -1,0 +1,127 @@
+<section class="order">
+    <div class="order__link-prev">
+        <a routerLink="/orders">К списку заказов</a>
+    </div>
+    <div class="order__inner">
+        <div class="order__wrapper">
+            <div class="order__title">
+                <h2>Заказ №88231231-{{ dataOrder.id }}</h2>
+            </div>
+            <div class="order__subtitle">
+                <p>от {{ dataOrder.date }}</p>
+            </div>
+        </div>
+        <div class="order__wrapper">
+            <div>
+                <div class="order__item">
+                    <div class="order__item-img">
+                        <img
+                            alt="Место"
+                            src="../../../assets/img/pages/order/Location.svg" />
+                    </div>
+                    <div class="order__list">
+                        <ul class="order__list-items">
+                            <li class="title">
+                                <h4>{{ dataOrder.delivery }}</h4>
+                            </li>
+                            <ng-container
+                                *ngIf="
+                                    dataOrder.address !== 'Забрать в магазине'
+                                ">
+                                <li>
+                                    <p>{{ dataOrder.address }}</p>
+                                </li>
+                            </ng-container>
+                        </ul>
+                    </div>
+                </div>
+                <div class="order__item">
+                    <div class="order__item-img">
+                        <img
+                            alt="Пользователь"
+                            src="../../../assets/img/pages/order/User.svg" />
+                    </div>
+                    <div class="order__list">
+                        <ul class="order__list-items">
+                            <li class="title">
+                                <h4>Получатель</h4>
+                            </li>
+                            <li>
+                                <p>
+                                    {{ dataOrder.lastname }}
+                                    {{ dataOrder.name }}
+                                </p>
+                            </li>
+                            <li>
+                                <p>{{ dataOrder.email }}</p>
+                            </li>
+                            <li>
+                                <p>{{ dataOrder.tel }}</p>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            <div>
+                <div class="order__item">
+                    <div class="order__item-img">
+                        <img
+                            alt="Оплата"
+                            src="../../../assets/img/pages/order/card.svg" />
+                    </div>
+                    <div class="order__price">
+                        <div class="order__list">
+                            <ul class="order__list-items">
+                                <li class="title">
+                                    <h4>Оплачено</h4>
+                                </li>
+                                <li>
+                                    <p>Товары</p>
+                                </li>
+                                <li>
+                                    <p>Доставка</p>
+                                </li>
+                            </ul>
+                        </div>
+                        <div class="order__list price-list">
+                            <ul class="order__list-items">
+                                <li class="cost">
+                                    <h4>{{ dataOrder.summary }} ₽</h4>
+                                </li>
+                                <li>
+                                    <p>{{ dataOrder.summary }} ₽</p>
+                                </li>
+                                <li>
+                                    <p>
+                                        {{
+                                            dataOrder.costDelivery === 0
+                                                ? "Бесплатно"
+                                                : dataOrder.costDelivery
+                                        }}
+                                        <ng-container
+                                            *ngIf="dataOrder.costDelivery"
+                                            >₽
+                                        </ng-container>
+                                    </p>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="order__wrapper">
+            <div class="order__title order__title-list">
+                <h3>Товары</h3>
+            </div>
+            <div class="order__grid">
+                <ng-container *ngFor="let product of dataOrder.products">
+                    <app-card-order
+                        [item]="product"
+                        [status]="dataOrder.status"
+                        (createReview)="createReview($event)"></app-card-order>
+                </ng-container>
+            </div>
+        </div>
+    </div>
+</section>

@@ -15,6 +15,7 @@ import { NgxMaskDirective } from "ngx-mask";
 import { OrdersService } from "../orders/orders.service";
 import { Router, RouterLink } from "@angular/router";
 import { CartService } from "../cart/cart.service";
+import { CardOrderComponent } from "../../components/cards/card-order/card-order.component";
 
 @Component({
     selector: "app-checkout",
@@ -127,6 +128,7 @@ export class CheckoutComponent implements OnInit {
         CardBasketComponent,
         NgxMaskDirective,
         RouterLink,
+        CardOrderComponent,
     ],
     exports: [CheckoutComponent],
     declarations: [CheckoutComponent],

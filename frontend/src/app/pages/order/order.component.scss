@@ -1,0 +1,98 @@
+@import "../../../assets/scss/variables";
+
+.order {
+    &__link-prev a {
+        font:
+            600 1.4rem "Open Sans",
+            sans-serif;
+        text-decoration: underline;
+    }
+
+    &__inner {
+        margin-top: 2rem;
+        display: grid;
+        row-gap: 3rem;
+    }
+
+    &__item {
+        display: flex;
+        align-items: flex-start;
+    }
+
+    &__item-img img {
+        width: 2.4rem;
+        height: 2.4rem;
+    }
+
+    &__wrapper:nth-child(2) {
+        display: flex;
+        justify-content: space-between;
+
+        @media screen and (max-width: $tablet) {
+            flex-direction: column;
+            gap: 2.5rem;
+        }
+
+        .order__item:first-child {
+            margin-bottom: 5rem;
+            @media screen and (max-width: $tablet) {
+                margin-bottom: 2.5rem;
+            }
+        }
+    }
+
+    &__title {
+        margin-bottom: 1rem;
+
+        h2 {
+            font-size: $rubik-sb-32;
+            @media screen and (max-width: $mobile) {
+                font-size: $rubik-sb-30;
+            }
+        }
+    }
+
+    &__title-list {
+        margin-bottom: 3rem;
+    }
+
+    &__price {
+        @extend %wrapper;
+        align-items: baseline;
+        width: 29rem;
+        @media screen and (max-width: $mobile) {
+            width: 100%;
+        }
+    }
+
+    &__list.price-list {
+        text-align: right;
+
+        h4 {
+            font-size: $rubik-sb-16;
+        }
+    }
+
+    &__list {
+        margin-left: 2rem;
+
+        li:not(:last-child) {
+            margin-bottom: 1rem;
+        }
+    }
+
+    &__list-items {
+        .title {
+            margin: 0.4rem 0 1.5rem;
+
+            h4 {
+                font-size: $rubik-sb-16;
+            }
+        }
+    }
+
+    &__grid {
+        display: grid;
+        row-gap: 3rem;
+    }
+}

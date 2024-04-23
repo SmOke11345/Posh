@@ -9,6 +9,7 @@ export type Order = {
     status: string;
     products: OrderProduct[];
     delivery: string;
+    costDelivery?: number | string;
     summary: number;
     date: string;
     updatedAt: Date;
@@ -20,6 +21,7 @@ export type OrderProduct = {
     image: string;
     color: string;
     size: string;
+    cost: number;
     chapterAndType: string;
     count: number;
 };

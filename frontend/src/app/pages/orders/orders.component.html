@@ -5,7 +5,7 @@
     <ng-container *ngIf="dataOrders.length > 0">
         <div class="orders__inner">
             <ng-container *ngFor="let order of dataOrders">
-                <div class="orders__item orders__item--inner">
+                <div class="orders__item orders__item--inner border-bottom">
                     <div class="orders__item">
                         <div class="orders__item orders__item--wrap-img">
                             <div
@@ -29,13 +29,19 @@
                                 </p>
                             </div>
                         </div>
-                        <div class="orders__item orders__item--wrap">
+                        <div
+                            [ngStyle]="{
+                                'row-gap':
+                                    order.address === 'Забрать в магазине' &&
+                                    '0'
+                            }"
+                            class="orders__item orders__item--wrap">
                             <div>
                                 <div class="orders__date">
                                     <h3>Заказ от {{ order.date }}</h3>
                                 </div>
                                 <div class="orders__subtitle">
-                                    <p>#88231231-{{ order.id }}</p>
+                                    <p>№88231231-{{ order.id }}</p>
                                 </div>
                             </div>
                             <div>
@@ -77,9 +83,10 @@
                             <p>Оплачено</p>
                             <h3>{{ order.summary }} ₽</h3>
                         </div>
-                        <!-- TODO: Переход на страницу определенного заказа-->
                         <div class="orders__btn-review">
-                            <button class="btn btn--primary small">
+                            <button
+                                [routerLink]="['/orders/' + order.id]"
+                                class="btn btn--primary small">
                                 Перейти к заказу
                             </button>
                         </div>

@@ -448,3 +448,25 @@ input[type="radio"] {
         margin: 1rem 0 0.5rem;
     }
 }
+
+.order .card {
+    padding: 0 0 3rem 0 !important;
+    border-radius: 0 !important;
+
+    .card__item--wrap {
+        width: 81%;
+    }
+
+    @media screen and (max-width: $tablet) {
+        background-color: transparent !important;
+    }
+}
+
+.border-bottom {
+    border-bottom: 0.2rem solid $gray;
+    padding-bottom: 3rem;
+
+    @media screen and (max-width: $tablet) {
+        border-bottom: 0.2rem solid $section-white;
+    }
+}

@@ -24,4 +24,12 @@ export class OrdersService {
     getUserOrders(): Observable<Order[]> {
         return this.http.get<Order[]>(`${Url.ORDER}/get-user-orders`);
     }
+
+    /**
+     * Получение заказа.
+     * @param id
+     */
+    getOrder(id: string): Observable<Order> {
+        return this.http.get<Order>(`${Url.ORDER}/${id}`);
+    }
 }

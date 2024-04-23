@@ -14,11 +14,7 @@
             <div class="aside__list">
                 <ul class="list">
                     <ng-container *ngFor="let list of navList">
-                        <li
-                            [ngClass]="{
-                                active: list.link === router.url
-                            }"
-                            class="list__item">
+                        <li class="list__item" routerLinkActive="active">
                             <a [routerLink]="list.link">{{ list.name }}</a>
                         </li>
                     </ng-container>

@@ -33,6 +33,7 @@ import { ReviewModule } from "../reviews/reviews.component";
         RouterOutlet,
         HeaderComponent,
         FooterComponent,
+        OrderModule,
     ],
     providers: [RouterLink],
     template: `

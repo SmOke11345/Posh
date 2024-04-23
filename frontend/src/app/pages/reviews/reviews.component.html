@@ -5,7 +5,7 @@
     <ng-container *ngIf="dataReviews.length > 0">
         <div class="reviews__inner">
             <ng-container *ngFor="let review of dataReviews; let i = index">
-                <div class="reviews__card">
+                <div class="reviews__card border-bottom">
                     <div
                         [routerLink]="['/product', review.catalog_id]"
                         [style]="{

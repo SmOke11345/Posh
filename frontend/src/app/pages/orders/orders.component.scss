@@ -20,6 +20,9 @@
 
     &__item {
         display: flex;
+        @media screen and (max-width: $tablet) {
+            flex-direction: column;
+        }
     }
 
     .orders__item--inner {
@@ -30,8 +33,6 @@
     }
 
     &__item--inner {
-        padding-bottom: 3rem;
-        border-bottom: 0.2rem solid $gray;
         display: flex;
         justify-content: space-between;
     }
@@ -41,7 +42,9 @@
         align-items: center;
         margin-right: 6rem;
 
-        //@media screen and (max-width:) {}
+        @media screen and (max-width: $tablet) {
+            flex-direction: row;
+        }
     }
 
     &__subtitle {
@@ -59,6 +62,10 @@
     &__status {
         @extend %wrapper;
         justify-content: normal;
+
+        @media screen and (max-width: $tablet) {
+            margin-top: 0.5rem;
+        }
     }
 
     &__status-info {
@@ -83,6 +90,10 @@
     &__status-info--completed {
         background-color: $gray;
 
+        @media screen and (max-width: $tablet) {
+            background-color: $section-white;
+        }
+
         h4 {
             color: $main-gray;
         }
@@ -92,6 +103,14 @@
         display: flex;
         align-items: baseline;
 
+        @media screen and (max-width: $tablet) {
+            justify-content: flex-end;
+            margin-bottom: 1rem;
+            h3 {
+                font-size: $rubik-sb-20;
+            }
+        }
+
         p {
             margin-right: 0.5rem;
         }
@@ -100,6 +119,10 @@
     &__item--wrap {
         display: grid;
         row-gap: 1.5rem;
+
+        @media screen and (max-width: $tablet) {
+            margin: 1.5rem 0 2rem;
+        }
     }
 
     &__count {
@@ -109,6 +132,12 @@
             font:
                 600 $rubik-sb-16 "Rubik",
                 sans-serif;
+        }
+    }
+
+    &__btn-review .small {
+        @media screen and (max-width: $tablet) {
+            padding: 1.3rem;
         }
     }
 }
