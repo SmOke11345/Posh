@@ -1,10 +1,16 @@
 @import "../../../../assets/scss/variables";
 
 .card {
-    display: flex;
-    background-color: $section-white;
-    border-radius: 1.2rem;
     padding: 1.5rem;
+    border-radius: 1.2rem;
+    background-color: $section-white;
+
+    &__inner {
+        display: flex;
+        @media screen and (max-width: $mobile) {
+            margin-bottom: 2rem;
+        }
+    }
 
     p {
         font-size: $opensans-r-16;
@@ -47,9 +53,32 @@
         width: 15.5rem;
         height: 17.2rem;
         border-radius: 1.2rem;
+        @media screen and (max-width: $mobile) {
+            margin-right: 2rem;
+        }
     }
 
     button.btn {
         width: 15.5rem;
+        @media screen and (max-width: $mobile) {
+            width: 100%;
+        }
+    }
+
+    button.btn.mobile {
+        display: none;
+        @media screen and (max-width: $mobile) {
+            display: block;
+        }
+    }
+
+    @media screen and (max-width: $mobile) {
+        button.btn.desktop {
+            display: none;
+        }
+
+        button.btn.small {
+            padding: 1.3rem;
+        }
     }
 }

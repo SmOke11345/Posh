@@ -3,9 +3,16 @@ import { OrdersService } from "../orders/orders.service";
 import { Subscription } from "rxjs";
 import { ActivatedRoute, RouterLink } from "@angular/router";
 import { Order } from "../../models/Order";
-import { NgForOf, NgIf } from "@angular/common";
+import { NgForOf, NgIf, NgStyle } from "@angular/common";
 import { CardOrderComponent } from "../../components/cards/card-order/card-order.component";
 import { ReviewsService } from "../reviews/reviews.service";
+import {
+    FormControl,
+    FormGroup,
+    FormsModule,
+    ReactiveFormsModule,
+    Validators,
+} from "@angular/forms";
 
 @Component({
     selector: "app-order",
@@ -13,7 +20,21 @@ import { ReviewsService } from "../reviews/reviews.service";
     styleUrl: "./order.component.scss",
 })
 export class OrderComponent implements OnDestroy {
+    reviewForm: FormGroup;
     dataOrder: Order;
+
+    modalData: {
+        catalogId: number;
+        isModal: boolean;
+        title: string;
+    } = {
+        title: "",
+        catalogId: 0,
+        isModal: false,
+    };
+    rating: number[] = [0];
+    error: string = "";
+
     private readonly subRouter: Subscription;
 
     constructor(
@@ -28,6 +49,11 @@ export class OrderComponent implements OnDestroy {
             if (id) {
                 this.setData(id);
             }
+        });
+
+        this.reviewForm = new FormGroup({
+            rating: new FormControl(1, Validators.required),
+            text: new FormControl("", Validators.required),
         });
     }
 
@@ -45,19 +71,71 @@ export class OrderComponent implements OnDestroy {
 
     /**
      * Добавление отзыва.
-     * @param catalog_id
+     * @param payload
      */
     // payload: {rating: number, text: string}
-    createReview(catalog_id: number) {
-        // TODO: данные из модального окна передать сюда
-        const payload = {
-            text: "Не очень товар",
-            rating: 2,
+    collectModalData(payload: {
+        catalog_id: number;
+        isModal: boolean;
+        title: string;
+    }) {
+        this.modalData = {
+            catalogId: payload.catalog_id,
+            isModal: payload.isModal,
+            title: payload.title,
         };
-        this.reviewsService.createReview(catalog_id, payload).subscribe({
-            next: () => {},
-            error: () => {},
-        });
+        console.log(payload);
+    }
+
+    /**
+     * Выбор рейтинга.
+     * @param star
+     */
+    selectStar(star: number) {
+        this.rating = [0];
+        for (let i = 0; i <= star; i++) {
+            this.rating.push(i);
+        }
+        this.reviewForm.controls["rating"].setValue(star + 1);
+    }
+
+    /**
+     * Добавление отзыва.
+     */
+    createReview() {
+        const { catalogId } = this.modalData;
+        this.reviewsService
+            .createReview(catalogId, { ...this.reviewForm.value })
+            .subscribe({
+                next: () => {
+                    this.reviewForm.reset();
+                    this.modalData = {
+                        catalogId: 0,
+                        isModal: false,
+                        title: "",
+                    };
+                },
+                error: (error) => {
+                    this.error = error.error.message;
+                },
+                complete: () => {
+                    this.error = "";
+                },
+            });
+    }
+
+    /**
+     * Закрытие модального окна.
+     * @param event
+     */
+    closeModal(event: MouseEvent) {
+        if (event.target === event.currentTarget) {
+            this.modalData = {
+                catalogId: 0,
+                isModal: false,
+                title: "",
+            };
+        }
     }
 
     ngOnDestroy() {
@@ -70,7 +148,15 @@ export class OrderComponent implements OnDestroy {
 @NgModule({
     declarations: [OrderComponent],
     exports: [OrderComponent],
-    imports: [RouterLink, NgIf, NgForOf, CardOrderComponent],
+    imports: [
+        RouterLink,
+        NgIf,
+        NgForOf,
+        CardOrderComponent,
+        NgStyle,
+        FormsModule,
+        ReactiveFormsModule,
+    ],
     providers: [OrdersService, ReviewsService],
 })
 export class OrderModule {}

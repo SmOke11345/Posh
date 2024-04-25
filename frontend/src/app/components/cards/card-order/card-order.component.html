@@ -1,38 +1,48 @@
 <div class="card border-bottom">
-    <div
-        [style]="{
-            background:
-                'url(' + item.image + ') no-repeat center center / cover'
-        }"
-        class="card__img"></div>
-    <div class="card__item card__item--wrap">
-        <div class="card__wrapper">
-            <div class="card__item">
-                <h4>{{ item.title }}</h4>
+    <div class="card__inner">
+        <div
+            [routerLink]="['/product/' + item.id]"
+            [style]="{
+                background:
+                    'url(' + item.image + ') no-repeat center center / cover'
+            }"
+            class="card__img"></div>
+        <div class="card__item card__item--wrap">
+            <div class="card__wrapper">
+                <div class="card__item">
+                    <h4>{{ item.title }}</h4>
+                </div>
+                <div class="card__item">
+                    <p>{{ item.chapterAndType }}</p>
+                </div>
+                <div class="card__item">
+                    <p>{{ item.color }}</p>
+                </div>
+                <div class="card__item">
+                    <p>Размер {{ item.size }}</p>
+                </div>
+                <div class="card__item cost">
+                    <h4>{{ item.cost }} ₽</h4>
+                </div>
             </div>
-            <div class="card__item">
-                <p>{{ item.chapterAndType }}</p>
+            <!-- TODO: Сделать проверку, есть уже комментарий или нет-->
+            <div class="card__wrapper">
+                <ng-container *ngIf="status === 'Получено' && isReview">
+                    <button
+                        (click)="getCatalogId(item.id)"
+                        class="btn btn-primary small desktop">
+                        Оценить товар
+                    </button>
+                </ng-container>
+                <p>{{ item.count }} шт.</p>
             </div>
-            <div class="card__item">
-                <p>{{ item.color }}</p>
-            </div>
-            <div class="card__item">
-                <p>Размер {{ item.size }}</p>
-            </div>
-            <div class="card__item cost">
-                <h4>{{ item.cost }} ₽</h4>
-            </div>
-        </div>
-        <!-- TODO: Сделать проверку, есть уже комментарий или нет-->
-        <div class="card__wrapper">
-            <ng-container *ngIf="status === 'Получено'">
-                <button
-                    (click)="getCatalogId(item.id)"
-                    class="btn btn-primary small">
-                    Оценить товар
-                </button>
-            </ng-container>
-            <p>{{ item.count }} шт.</p>
         </div>
     </div>
+    <ng-container *ngIf="status === 'Получено' && isReview">
+        <button
+            (click)="getCatalogId(item.id)"
+            class="btn btn-primary small mobile">
+            Оценить товар
+        </button>
+    </ng-container>
 </div>

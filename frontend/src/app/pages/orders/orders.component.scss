@@ -136,7 +136,9 @@
     }
 
     &__btn-review .small {
+        width: 17.6rem;
         @media screen and (max-width: $tablet) {
+            width: 100%;
             padding: 1.3rem;
         }
     }

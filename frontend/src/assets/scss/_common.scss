@@ -455,6 +455,9 @@ input[type="radio"] {
 
     .card__item--wrap {
         width: 81%;
+        @media screen and (max-width: $mobile) {
+            width: 55%;
+        }
     }
 
     @media screen and (max-width: $tablet) {
