@@ -1,1 +1,45 @@
-<p>catalog works!</p>
+<section class="catalog">
+    <div class="catalog__wrapper">
+        <div class="catalog__item catalog__item--wrap">
+            <div class="catalog__title">
+                <h2>Каталог</h2>
+            </div>
+            <div class="catalog__subtitle">
+                <p>{{ dataCatalog.length }} товаров</p>
+            </div>
+        </div>
+        <div class="catalog__item catalog__item--wrap">
+            <div
+                (click)="isOpen = !isOpen"
+                [class.active]="isOpen"
+                class="catalog__select">
+                <h4>{{ selectedSort }}</h4>
+            </div>
+            <div [class.active]="isOpen" class="catalog__select-wrap">
+                <ng-container *ngFor="let option of optionList">
+                    <div
+                        (click)="selectedSort = option.name; isOpen = false"
+                        [queryParams]="{
+                            sort: option.value,
+                            orderBy: option.value[0] === '-' ? 'asc' : 'desc'
+                        }"
+                        [routerLink]="['/catalog']"
+                        class="catalog__select-item">
+                        <p>{{ option.name }}</p>
+                    </div>
+                </ng-container>
+            </div>
+        </div>
+    </div>
+    <div class="catalog__wrapper">
+        <aside class="catalog__filter"></aside>
+        <div class="catalog__item catalog__item--wrap">
+            <div class="catalog__grid">
+                <app-card-product
+                    *ngFor="let item of dataCatalog"
+                    [data]="item"></app-card-product>
+            </div>
+            <div class="catalog__pagination"></div>
+        </div>
+    </div>
+</section>

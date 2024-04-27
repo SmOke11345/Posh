@@ -14,6 +14,7 @@ import { ProductModule } from "../product/product.component";
 import { OrderModule } from "../orders/orders.component";
 import { CheckoutModule } from "../checkout/checkout.component";
 import { ReviewModule } from "../reviews/reviews.component";
+import { CatalogModule } from "../catalog/catalog.component";
 
 @Component({
     selector: "app-layout",
@@ -34,6 +35,7 @@ import { ReviewModule } from "../reviews/reviews.component";
         HeaderComponent,
         FooterComponent,
         OrderModule,
+        CatalogModule,
     ],
     providers: [RouterLink],
     template: `

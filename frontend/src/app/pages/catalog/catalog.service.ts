@@ -2,6 +2,7 @@ import { Injectable } from "@angular/core";
 import { HttpClient } from "@angular/common/http";
 import { Url } from "../../models/enums/requestUrls";
 import { ICatalog, shortCatalog } from "../../models/Catalog";
+import { Params } from "@angular/router";
 
 @Injectable()
 export class CatalogService {
@@ -21,6 +22,35 @@ export class CatalogService {
     getProdCarousel() {
         return this.http.get<shortCatalog[]>(
             `${Url.CATALOG}/get-prods-carousel`,
+        );
+    }
+
+    /**
+     * Получение отфильтрованного каталога.
+     * @param query
+     * @param payload
+     */
+    getFilteredCatalog(
+        query: Params,
+        payload: { colors: string[]; sizes: string[] },
+    ) {
+        const _query = Object.entries(query);
+
+        // TODO: осталось лишь убрать - перед asc sort, back на него ругается.
+        const preparedQuery = _query
+            .map((key) => {
+                // if (key[0] === "-") {
+                //     key.slice(1);
+                // }
+                return `${key[0]}=${key[1]}`;
+            })
+            .join("&");
+
+        return this.http.post<{ countPage: number; items: shortCatalog[] }>(
+            `${Url.CATALOG}?${preparedQuery}`,
+            {
+                ...payload,
+            },
         );
     }
 }

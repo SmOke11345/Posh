@@ -1,0 +1,98 @@
+@import "../../../assets/scss/variables";
+
+.catalog {
+    &__wrapper {
+        display: flex;
+    }
+
+    &__wrapper:nth-child(1) {
+        justify-content: space-between;
+        align-items: center;
+    }
+
+    &__title {
+        h2 {
+            font-size: $rubik-sb-32;
+        }
+    }
+
+    &__subtitle {
+        p {
+            color: $main-gray;
+        }
+    }
+
+    &__item {
+    }
+
+    &__item--wrap {
+        position: relative;
+    }
+
+    &__select,
+    &__select-wrap {
+        width: 27rem;
+        background-color: $section-white;
+    }
+
+    &__select,
+    &__select-item {
+        padding: 1.5rem;
+    }
+
+    &__select {
+        h4 {
+            font-size: $rubik-sb-16;
+            text-transform: uppercase;
+        }
+
+        border: none;
+        border-radius: 1.6rem;
+
+        &::after {
+            content: "";
+            position: absolute;
+            right: 1.5rem;
+            top: 1.4rem;
+            background: url("../../../assets/img/common/arrow_down.svg")
+                no-repeat center center / contain;
+            width: 2.4rem;
+            height: 2.4rem;
+        }
+    }
+
+    &__select.active {
+        border-radius: 1.6rem 1.6rem 0 0;
+
+        &::after {
+            transform: rotate(180deg);
+        }
+    }
+
+    &__select-wrap {
+        display: none;
+        position: absolute;
+        z-index: 10;
+        border-radius: 0 0 1.6rem 1.6rem;
+    }
+
+    &__select-item {
+        cursor: pointer;
+    }
+
+    &__select-wrap.active {
+        display: block;
+    }
+
+    &__filter {
+    }
+
+    &__grid {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        gap: 1.5rem;
+    }
+
+    &__pagination {
+    }
+}

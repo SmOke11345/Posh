@@ -13,6 +13,7 @@ import { CheckoutComponent } from "./pages/checkout/checkout.component";
 import { ReviewsComponent } from "./pages/reviews/reviews.component";
 import { OrdersComponent } from "./pages/orders/orders.component";
 import { OrderComponent } from "./pages/order/order.component";
+import { CatalogComponent } from "./pages/catalog/catalog.component";
 // import { CheckoutGuard } from "./guards/checkout.guard";
 
 // TODO: Когда пользователь заходит он попадает в main.
@@ -57,6 +58,10 @@ export const routes: Routes = [
             {
                 path: `${Pages.PRODUCT}/:id`,
                 component: ProductComponent,
+            },
+            {
+                path: Pages.CATALOG,
+                component: CatalogComponent,
             },
             {
                 path: "",
