@@ -1,8 +1,10 @@
 import {
+    Body,
     Controller,
     Get,
     Param,
     Post,
+    Query,
     Request,
     UploadedFiles,
     UseGuards,
@@ -59,5 +61,33 @@ export class CatalogsController {
     @Get("/:id")
     async getProduct(@Param("id") id: string) {
         return this.catalogsService.getProduct(+id);
+    }
+
+    /**
+     * Фильтрация/Сортировка товаров.
+     * @param gender - пол
+     * @param chapter - раздел
+     * @param type - тип
+     * @param sort - название поля сортировки
+     * @param orderBy - desc|asc
+     * @param payload - colors, sizes
+     */
+    @Post()
+    async filter(
+        @Query("gender") gender: string,
+        @Query("chapter") chapter: string,
+        @Query("type") type: string,
+        @Query("sort") sort: string,
+        @Query("orderBy") orderBy: string,
+        @Body() payload: any,
+    ) {
+        return this.catalogsService.filter(
+            gender,
+            chapter,
+            type,
+            sort,
+            orderBy,
+            payload,
+        );
     }
 }

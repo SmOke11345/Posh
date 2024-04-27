@@ -35,6 +35,7 @@ model Catalog {
   updatedAt    DateTime   @updatedAt
   images       String[]
   countProduct Int
+  rating       Int        @default(0)
   cart         Cart[]     @relation("CartCatalog")
   favorite     Favorite[] @relation("FavoriteCatalog")
   review       Review[]   @relation("ReviewCatalog")

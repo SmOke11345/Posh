@@ -11,4 +11,5 @@ export type Review = {
     rating: number;
     createdAt: Date;
     updatedAt: Date;
+    count?: number;
 };

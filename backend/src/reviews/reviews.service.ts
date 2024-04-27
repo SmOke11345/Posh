@@ -82,13 +82,22 @@ export class ReviewsService {
         user_id: number,
         payload: { text: string; rating: number } & User,
     ) {
-        const prod = await this.prismaService.catalog.findFirst({
+        const prod = await this.prismaService.catalog.update({
             where: {
                 id: catalog_id,
             },
+            data: {
+                rating: {
+                    increment: payload.rating,
+                },
+            },
         });
 
+        // TODO: Сделать проверку на существование товара.
         if (!prod) throw new ForbiddenException("Такого товара не существует");
+
+        if (payload.text.trim() === "")
+            throw new ForbiddenException("Текст отзыва не может быть пустым");
 
         // TODO: Сделать проверку на заполнение полей.
         // if (payload.text === "" || payload.rating === 0)
@@ -128,17 +137,44 @@ export class ReviewsService {
         review_id: number,
         user_id: number,
     ): Promise<{ message: string }> {
-        // const review: Review =
+        const findReview = await this.prismaService.review.findFirst({
+            where: {
+                id: review_id,
+            },
+            include: {
+                catalogId: {
+                    select: {
+                        id: true,
+                    },
+                },
+            },
+        });
+
+        if (!findReview)
+            throw new ForbiddenException("Такого отзыва не существует");
+
+        const {
+            rating,
+            catalogId: { id },
+        } = findReview;
+
+        await this.prismaService.catalog.update({
+            where: {
+                id,
+            },
+            data: {
+                rating: {
+                    decrement: rating,
+                },
+            },
+        });
+
         await this.prismaService.review.delete({
             where: {
                 id: review_id,
                 user_id,
             },
         });
-
-        // TODO: Добавить проверку на то есть или нет отзыва
-        // if (!review === null)
-        //     throw new ForbiddenException("Не удалось удалить отзыв");
 
         return {
             message: "Отзыв удален",

@@ -1,4 +1,4 @@
-import { Injectable } from "@nestjs/common";
+import { ForbiddenException, Injectable } from "@nestjs/common";
 import { PrismaService } from "../utils/prisma.service";
 import { Catalog, shortCatalog } from "../models/Catalog";
 import { Cloud } from "../models/cloud";
@@ -111,5 +111,69 @@ export class CatalogsService {
                 status: item.status,
             };
         });
+    }
+
+    // TODO: Добавить поиск
+    /**
+     * Фильтрация/сортировка товаров
+     * @param gender - пол
+     * @param chapter - раздел
+     * @param type - тип
+     * @param sort - название поля сортировки
+     * @param orderBy - desc|asc
+     * @param payload - colors, sizes
+     */
+    async filter(
+        gender: string,
+        chapter: string,
+        type: string,
+        sort: string,
+        orderBy: string,
+        payload: { colors: string[]; sizes: string[] },
+    ) {
+        const limit = 8;
+
+        if (!payload.sizes) payload.sizes = [];
+        if (!payload.colors) payload.colors = [];
+        if (!sort) sort = "rating";
+        if (!orderBy) orderBy = "desc";
+
+        // TODO: Переделать в тип shortCatalog как на frontend
+        const filtered: Catalog[] = await this.prismaService.catalog.findMany({
+            where: {
+                gender,
+                OR: [
+                    {
+                        chapter,
+                    },
+                    {
+                        type,
+                    },
+                    {
+                        sizes: {
+                            hasEvery: [...payload.sizes], // hasEvery - eсли элемент содержит как минимум одно значение,
+                        },
+                    },
+                    {
+                        colors: {
+                            hasEvery: [...payload.colors],
+                        },
+                    },
+                ],
+            },
+            orderBy: {
+                [sort]: orderBy,
+            },
+        });
+
+        if (filtered.length === 0)
+            throw new ForbiddenException("По вашему запросу ничего не найдено");
+
+        const pagination = Math.round(filtered.length / limit);
+
+        return {
+            countPage: pagination,
+            items: [...filtered],
+        };
     }
 }

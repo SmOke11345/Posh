@@ -63,12 +63,13 @@ export class OrdersService {
 
         return orders.map((order) => {
             const { statusId, status_id, createdAt, ...rest } = order;
+
             const date = this.prepareDate(createdAt);
             return {
                 ...rest,
+                date,
                 products: JSON.parse(rest.products),
                 status: statusId.name,
-                date,
             };
         });
     }

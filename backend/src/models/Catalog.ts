@@ -15,6 +15,7 @@ export type Catalog = {
     chapter: string;
     createdAt: Date;
     updatedAt: Date;
+    rating: number;
     review?: Review[];
 };
 
