@@ -104,20 +104,31 @@
         position: relative;
     }
 
-    &__filter-select {
-        &::after {
-            right: 0;
-            top: 0;
-        }
+    &__filter-select::after {
+        right: 0;
+        top: 0;
+    }
+
+    &__filter-select.active::after {
+        transform: rotate(180deg);
+    }
+
+    &__filter-item {
+        display: none;
+    }
+
+    &__filter-item.active {
+        display: block;
     }
 
     &__filter-link {
         margin-top: 1.5rem;
+        display: flex;
+        align-items: center;
 
-        a {
-            font:
-                400 $opensans-r-14 "Open Sans",
-                sans-serif;
+        .label-checkbox {
+            margin-left: 1.5rem;
+            font-weight: 600;
         }
     }
 

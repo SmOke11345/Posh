@@ -37,7 +37,6 @@ export class CatalogService {
     ) {
         const _query = Object.entries(query);
 
-        // TODO: осталось лишь убрать - перед asc sort, back на него ругается.
         const preparedQuery = _query
             .map((key) => `${key[0]}=${key[1]}`)
             .join("&");
