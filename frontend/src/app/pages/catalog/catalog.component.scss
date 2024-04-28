@@ -3,11 +3,12 @@
 .catalog {
     &__wrapper {
         display: flex;
+        justify-content: space-between;
     }
 
     &__wrapper:nth-child(1) {
-        justify-content: space-between;
         align-items: center;
+        margin-bottom: 3.5rem;
     }
 
     &__title {
@@ -40,24 +41,32 @@
         padding: 1.5rem;
     }
 
-    &__select {
+    &__select,
+    &__filter-select {
+        cursor: pointer;
+
         h4 {
             font-size: $rubik-sb-16;
             text-transform: uppercase;
         }
 
+        &::after {
+            content: "";
+            position: absolute;
+            background: url("../../../assets/img/common/arrow.svg") no-repeat
+                center center / contain;
+            width: 2.4rem;
+            height: 2.4rem;
+        }
+    }
+
+    &__select {
         border: none;
         border-radius: 1.6rem;
 
         &::after {
-            content: "";
-            position: absolute;
             right: 1.5rem;
             top: 1.4rem;
-            background: url("../../../assets/img/common/arrow_down.svg")
-                no-repeat center center / contain;
-            width: 2.4rem;
-            height: 2.4rem;
         }
     }
 
@@ -85,14 +94,77 @@
     }
 
     &__filter {
+        display: grid;
+        row-gap: 2.5rem;
+        width: 23%;
+        height: 100%;
+    }
+
+    &__filter-wrap {
+        position: relative;
+    }
+
+    &__filter-select {
+        &::after {
+            right: 0;
+            top: 0;
+        }
+    }
+
+    &__filter-link {
+        margin-top: 1.5rem;
+
+        a {
+            font:
+                400 $opensans-r-14 "Open Sans",
+                sans-serif;
+        }
+    }
+
+    &__grid-wrap {
+        width: 75%;
     }
 
     &__grid {
         display: grid;
         grid-template-columns: repeat(3, 1fr);
         gap: 1.5rem;
+        margin-bottom: 3rem;
     }
 
-    &__pagination {
+    &__pagination-wrap {
+        display: flex;
+        justify-content: center;
+    }
+
+    &__pagination ::ng-deep {
+        .ngx-pagination {
+            margin-bottom: 0;
+
+            li {
+                border: 0.1rem solid $dark;
+                text-transform: uppercase;
+                border-radius: 0.8rem;
+                padding: 0.75rem 1.6rem;
+
+                &:not(:last-child) {
+                    margin-right: 1.6rem;
+                }
+
+                a {
+                    font:
+                        500 $opensans-r-14 "Inter",
+                        sans-serif;
+                    padding: 0;
+                    letter-spacing: 0.025rem;
+                }
+            }
+
+            .current {
+                color: $section-white;
+                background-color: $dark;
+                font-size: $opensans-r-14;
+            }
+        }
     }
 }

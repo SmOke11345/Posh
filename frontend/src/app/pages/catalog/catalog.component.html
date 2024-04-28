@@ -32,14 +32,47 @@
         </div>
     </div>
     <div class="catalog__wrapper">
-        <aside class="catalog__filter"></aside>
-        <div class="catalog__item catalog__item--wrap">
+        <aside class="catalog__filter">
+            <div class="catalog__filter-title">
+                <h3>Фильтр</h3>
+            </div>
+            <ng-container *ngFor="let category of categoryList">
+                <div class="catalog__filter-wrap">
+                    <div class="catalog__filter-select">
+                        <h4>{{ category.title }}</h4>
+                    </div>
+                    <div class="catalog__filter-item">
+                        <ng-container *ngFor="let type of category.type">
+                            <div class="catalog__filter-link">
+                                <a
+                                    [queryParams]="{
+                                        chapter: type.chapter,
+                                        type: type.type
+                                    }"
+                                    routerLink="/catalog"
+                                    >{{ type.title }}</a
+                                >
+                            </div>
+                        </ng-container>
+                    </div>
+                </div>
+            </ng-container>
+        </aside>
+        <div class="catalog__grid-wrap">
+            <!--TODO: Сделать скелетон-->
             <div class="catalog__grid">
                 <app-card-product
-                    *ngFor="let item of dataCatalog"
+                    *ngFor="
+                        let item of dataCatalog
+                            | paginate: { itemsPerPage: 9, currentPage }
+                    "
                     [data]="item"></app-card-product>
             </div>
-            <div class="catalog__pagination"></div>
+            <div class="catalog__pagination-wrap">
+                <pagination-controls
+                    (pageChange)="onChangePage($event)"
+                    class="catalog__pagination"></pagination-controls>
+            </div>
         </div>
     </div>
 </section>

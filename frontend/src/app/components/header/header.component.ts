@@ -12,14 +12,29 @@ import { BehaviorSubjectService } from "../../services/behavior-subject.service"
     styleUrl: "./header.component.scss",
 })
 export class HeaderComponent implements OnInit, DoCheck {
-    linkList: { name: string; url: string }[] = [
-        { name: "🔥Новинки", url: "" },
+    linkList: { name: string; url: string; params: any }[] = [
+        { name: "🔥Новинки", url: "/catalog", params: { sort: "rating" } },
         {
             name: "Мужчинам",
-            url: "/cart",
+            url: "/catalog",
+            params: {
+                gender: "Мужские",
+            },
         },
-        { name: "Женщинам", url: "" },
-        { name: "🔍Поиск", url: "" },
+        {
+            name: "Женщинам",
+            url: "/catalog",
+            params: {
+                gender: "Женские",
+            },
+        },
+        {
+            name: "🔍Поиск",
+            url: "",
+            params: {
+                search: "",
+            },
+        },
     ];
     cartCount: number = 0;
     showMenu: boolean = false;

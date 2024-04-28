@@ -3,6 +3,7 @@ import { HttpClient } from "@angular/common/http";
 import { Url } from "../../models/enums/requestUrls";
 import { ICatalog, shortCatalog } from "../../models/Catalog";
 import { Params } from "@angular/router";
+import { catchError, throwError } from "rxjs";
 
 @Injectable()
 export class CatalogService {
@@ -38,19 +39,16 @@ export class CatalogService {
 
         // TODO: осталось лишь убрать - перед asc sort, back на него ругается.
         const preparedQuery = _query
-            .map((key) => {
-                // if (key[0] === "-") {
-                //     key.slice(1);
-                // }
-                return `${key[0]}=${key[1]}`;
-            })
+            .map((key) => `${key[0]}=${key[1]}`)
             .join("&");
 
-        return this.http.post<{ countPage: number; items: shortCatalog[] }>(
-            `${Url.CATALOG}?${preparedQuery}`,
-            {
-                ...payload,
-            },
-        );
+        return this.http
+            .post<{ countPage: number; items: shortCatalog[] }>(
+                `${Url.CATALOG}?${preparedQuery}`,
+                {
+                    ...payload,
+                },
+            )
+            .pipe(catchError((error) => throwError(error)));
     }
 }

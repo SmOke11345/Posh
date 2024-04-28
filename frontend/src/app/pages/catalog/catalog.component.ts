@@ -5,6 +5,7 @@ import { CatalogService } from "./catalog.service";
 import { CardProductComponent } from "../../components/cards/card-product/card-product.component";
 import { NgForOf } from "@angular/common";
 import { Subscription } from "rxjs";
+import { NgxPaginationModule } from "ngx-pagination";
 
 @Component({
     selector: "app-catalog",
@@ -13,18 +14,17 @@ import { Subscription } from "rxjs";
 })
 export class CatalogComponent implements OnDestroy {
     dataCatalog: shortCatalog[];
-
-    selectedSort = "По популярности";
-    isOpen = false;
-    optionList = [
+    selectedSort: string = "По популярности";
+    isOpen: boolean = false;
+    optionList: { name: string; value: string }[] = [
         { name: "По популярности", value: "rating" },
         {
             name: "По возрастанию цены",
-            value: "cost",
+            value: "-cost",
         },
         {
             name: "По убыванию цены",
-            value: "-cost",
+            value: "cost",
         },
         {
             name: "По новинкам",
@@ -32,9 +32,31 @@ export class CatalogComponent implements OnDestroy {
         },
     ];
 
+    categoryList: {
+        title: string;
+        type: { title: string; chapter: string; type: string }[];
+    }[] = [
+        {
+            title: "Одежда",
+            type: [
+                { title: "Футболки", chapter: "Одежда", type: "Футболки" },
+                { title: "Джинсы", chapter: "Одежда", type: "Джинсы" },
+            ],
+        },
+        {
+            title: "Обувь",
+            type: [
+                { title: "Кеды", chapter: "Обувь", type: "Кеды" },
+                { title: "Кроссовки", chapter: "Обувь", type: "Кроссовки" },
+            ],
+        },
+    ];
+
+    currentPage: number = 1;
+
     private readonly subRouter: Subscription;
 
-    // TODO: Сделать скелитон.
+    // TODO: Сделать скелетон.
 
     constructor(
         private router: ActivatedRoute,
@@ -45,6 +67,7 @@ export class CatalogComponent implements OnDestroy {
         this.subRouter = this.router.queryParams.subscribe((query) => {
             if (query) {
                 this.dataCatalog = [];
+                this.currentPage = 1;
                 this.getData(query);
             }
         });
@@ -55,10 +78,15 @@ export class CatalogComponent implements OnDestroy {
         this.catalogService
             .getFilteredCatalog(query, { colors: [], sizes: [] })
             .subscribe({
-                next: (data) => {
+                next: (data: { countPage: number; items: shortCatalog[] }) => {
                     this.dataCatalog.push(...data.items);
                 },
             });
+    }
+
+    onChangePage(event: any) {
+        window.scrollTo(0, 0);
+        this.currentPage = event;
     }
 
     ngOnDestroy() {
@@ -71,7 +99,7 @@ export class CatalogComponent implements OnDestroy {
 @NgModule({
     declarations: [CatalogComponent],
     exports: [CatalogComponent],
-    imports: [CardProductComponent, NgForOf, RouterLink],
-    providers: [CatalogService],
+    imports: [CardProductComponent, NgForOf, RouterLink, NgxPaginationModule],
+    providers: [CatalogService, NgxPaginationModule],
 })
 export class CatalogModule {}

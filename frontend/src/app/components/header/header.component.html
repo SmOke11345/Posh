@@ -3,7 +3,9 @@
         <nav class="nav">
             <ng-container *ngFor="let link of linkList.slice(0, 3)">
                 <div class="nav__item">
-                    <a [routerLink]="link.url">{{ link.name }}</a>
+                    <a [queryParams]="link.params" [routerLink]="link.url">{{
+                        link.name
+                    }}</a>
                 </div>
             </ng-container>
         </nav>
