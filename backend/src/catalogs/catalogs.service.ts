@@ -145,9 +145,9 @@ export class CatalogsService {
         // TODO: Переделать в тип shortCatalog как на frontend
         const filtered: Catalog[] = await this.prismaService.catalog.findMany({
             where: {
-                gender,
                 chapter,
                 type,
+                ...(gender ? { gender } : {}),
                 OR: [
                     {
                         sizes: {
@@ -189,9 +189,53 @@ export class CatalogsService {
 
         const pagination = Math.round(filtered.length / limit);
 
+        const colors = await this.getColors();
+        const sizes = await this.getSizes();
+
         return {
             countPage: pagination,
+            colors,
+            sizes,
             items: [...preparedItems],
         };
+    }
+
+    /**
+     * Получение всех имеющихся цветов в каталоге.
+     */
+    async getColors() {
+        const colors = await this.prismaService.catalog.findMany({
+            select: {
+                colors: true,
+            },
+        });
+
+        const prepareColors = colors
+            .map((item) => {
+                return item.colors;
+            })
+            .flat();
+
+        return [...new Set(prepareColors)];
+    }
+
+    // TODO: есть это не обувь, то будут другие цифры.
+    /**
+     * Получение всех имеющихся размеров в каталоге.
+     */
+    async getSizes() {
+        const sizes = await this.prismaService.catalog.findMany({
+            select: {
+                sizes: true,
+            },
+        });
+
+        const prepareSizes = sizes
+            .map((item) => {
+                return item.sizes;
+            })
+            .flat();
+
+        return [...new Set(prepareSizes)];
     }
 }
