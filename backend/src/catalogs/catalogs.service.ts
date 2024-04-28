@@ -138,17 +138,17 @@ export class CatalogsService {
         if (!sort) sort = "rating";
         if (!orderBy) orderBy = "desc";
 
+        if (sort[0] === "-") {
+            sort = sort.replace("-", "");
+        }
+
         // TODO: Переделать в тип shortCatalog как на frontend
         const filtered: Catalog[] = await this.prismaService.catalog.findMany({
             where: {
                 gender,
+                chapter,
+                type,
                 OR: [
-                    {
-                        chapter,
-                    },
-                    {
-                        type,
-                    },
                     {
                         sizes: {
                             hasEvery: [...payload.sizes], // hasEvery - eсли элемент содержит как минимум одно значение,
@@ -169,11 +169,29 @@ export class CatalogsService {
         if (filtered.length === 0)
             throw new ForbiddenException("По вашему запросу ничего не найдено");
 
+        const preparedItems: shortCatalog[] = filtered.map((item) => {
+            const {
+                description,
+                sizes,
+                colors,
+                type,
+                chapter,
+                gender,
+                images,
+                ...rest
+            } = item;
+
+            return {
+                ...rest,
+                image: images[0],
+            };
+        });
+
         const pagination = Math.round(filtered.length / limit);
 
         return {
             countPage: pagination,
-            items: [...filtered],
+            items: [...preparedItems],
         };
     }
 }
