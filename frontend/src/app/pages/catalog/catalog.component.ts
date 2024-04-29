@@ -1,9 +1,9 @@
 import { Component, NgModule, OnDestroy } from "@angular/core";
-import { shortCatalog } from "../../models/Catalog";
+import { catalogQuery, shortCatalog } from "../../models/Catalog";
 import { ActivatedRoute, Params, RouterLink } from "@angular/router";
 import { CatalogService } from "./catalog.service";
 import { CardProductComponent } from "../../components/cards/card-product/card-product.component";
-import { NgForOf, NgIf } from "@angular/common";
+import { NgForOf, NgIf, NgStyle } from "@angular/common";
 import { Subscription } from "rxjs";
 import { NgxPaginationModule } from "ngx-pagination";
 import { FormsModule, ReactiveFormsModule } from "@angular/forms";
@@ -15,10 +15,18 @@ import { FormsModule, ReactiveFormsModule } from "@angular/forms";
 })
 export class CatalogComponent implements OnDestroy {
     dataCatalog: shortCatalog[];
+    sizesList: string[];
+    colorsList: string[];
+    isLoading: boolean;
+
     selectedSort: string = "По популярности";
     isOpen: boolean = false;
+    isFilter: boolean = false;
+    isSelected: boolean[] = [false, false, false, false, false];
 
-    isSelected: boolean[] = [false, false, false, false];
+    selectedSizes: string[] = [];
+    selectedColors: string[] = [];
+
     optionList: { name: string; value: string }[] = [
         { name: "По популярности", value: "rating" },
         {
@@ -73,6 +81,8 @@ export class CatalogComponent implements OnDestroy {
         chapter: "Обувь",
         type: "Кеды",
         gender: "",
+        sizes: "",
+        colors: "",
     };
 
     private readonly subRouter: Subscription;
@@ -84,10 +94,14 @@ export class CatalogComponent implements OnDestroy {
         private catalogService: CatalogService,
     ) {
         this.dataCatalog = [] as shortCatalog[];
+        this.sizesList = [] as string[];
+        this.colorsList = [] as string[];
+        this.isLoading = true;
 
         this.subRouter = this.router.queryParams.subscribe((query) => {
             this.defaultQuery = { ...this.defaultQuery, ...query };
             if (query) {
+                this.isLoading = true;
                 this.dataCatalog = [];
                 this.currentPage = 1;
                 this.getData(this.defaultQuery);
@@ -97,13 +111,16 @@ export class CatalogComponent implements OnDestroy {
 
     // TODO: Добавить множественный выбор цветов и размеров.
     getData(query: Params) {
-        this.catalogService
-            .getFilteredCatalog(query, { colors: [], sizes: [] })
-            .subscribe({
-                next: (data: { countPage: number; items: shortCatalog[] }) => {
-                    this.dataCatalog.push(...data.items);
-                },
-            });
+        this.catalogService.getFilteredCatalog(query).subscribe({
+            next: (data: catalogQuery) => {
+                this.dataCatalog.push(...data.items);
+                this.sizesList = data.sizes;
+                this.colorsList = data.colors;
+            },
+            complete: () => {
+                this.isLoading = false;
+            },
+        });
     }
 
     onChangePage(event: any) {
@@ -111,8 +128,70 @@ export class CatalogComponent implements OnDestroy {
         this.currentPage = event;
     }
 
+    /**
+     * Функция для открытия и закрытия списка фильтров.
+     * @param i
+     */
     toggleSelect(i: number) {
         this.isSelected[i] = !this.isSelected[i];
+    }
+
+    /**
+     * Выбор размера.
+     * @param size
+     */
+    selectSize(size: string) {
+        if (this.selectedSizes.includes(size)) {
+            this.selectedSizes = this.selectedSizes.filter(
+                (item) => item !== size,
+            );
+        } else {
+            this.selectedSizes.push(size);
+        }
+    }
+
+    /**
+     * Выбор цвета.
+     * @param color
+     */
+    selectColor(color: string) {
+        if (this.selectedColors.includes(color)) {
+            this.selectedColors = this.selectedColors.filter(
+                (item) => item !== color,
+            );
+            console.log(this.selectedColors);
+        } else {
+            this.selectedColors.push(color);
+            console.log(this.selectedColors);
+        }
+    }
+
+    /**
+     * Очистка выбранных цветов и размеров.
+     */
+    clearFilters() {
+        this.defaultQuery = {
+            sort: "rating",
+            orderBy: "desc",
+            chapter: "Обувь",
+            type: "Кеды",
+            gender: "",
+            sizes: "",
+            colors: "",
+        };
+        this.isFilter = false;
+        this.selectedColors = [];
+        this.selectedSizes = [];
+    }
+
+    toggleIsFilter() {
+        this.isFilter = !this.isFilter;
+
+        if (this.isFilter) {
+            document.body.style.overflowY = "scroll";
+        } else {
+            document.body.style.overflow = "auto";
+        }
     }
 
     ngOnDestroy() {
@@ -133,6 +212,7 @@ export class CatalogComponent implements OnDestroy {
         NgIf,
         FormsModule,
         ReactiveFormsModule,
+        NgStyle,
     ],
     providers: [CatalogService, NgxPaginationModule],
 })

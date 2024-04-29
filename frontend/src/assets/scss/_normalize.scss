@@ -109,3 +109,16 @@ input[type="password"] {
         transition: background-color 5000s ease-in-out 0s;
     }
 }
+
+::-webkit-scrollbar {
+    width: 1rem; /* ширина scrollbar */
+}
+
+::-webkit-scrollbar-track {
+    background: $gray; /* цвет дорожки */
+}
+
+::-webkit-scrollbar-thumb {
+    background-color: $main-gray; /* цвет плашки */
+    border-radius: 1.2rem; /* закругления плашки */
+}

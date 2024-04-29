@@ -9,30 +9,36 @@
             </div>
         </div>
         <div class="catalog__item catalog__item--wrap">
-            <div
-                (click)="isOpen = !isOpen"
-                [class.active]="isOpen"
-                class="catalog__select">
-                <h4>{{ selectedSort }}</h4>
+            <div (click)="toggleIsFilter()" class="catalog__select mobile">
+                <h4>Фильтрация</h4>
             </div>
-            <div [class.active]="isOpen" class="catalog__select-wrap">
-                <ng-container *ngFor="let option of optionList">
-                    <div
-                        (click)="selectedSort = option.name; isOpen = false"
-                        [queryParams]="{
-                            sort: option.value,
-                            orderBy: option.value[0] === '-' ? 'asc' : 'desc'
-                        }"
-                        [routerLink]="['/catalog']"
-                        class="catalog__select-item">
-                        <p>{{ option.name }}</p>
-                    </div>
-                </ng-container>
+            <div class="catalog__select-sort">
+                <div
+                    (click)="isOpen = !isOpen"
+                    [class.active]="isOpen"
+                    class="catalog__select">
+                    <h4>{{ selectedSort }}</h4>
+                </div>
+                <div [class.active]="isOpen" class="catalog__select-wrap">
+                    <ng-container *ngFor="let option of optionList">
+                        <div
+                            (click)="selectedSort = option.name; isOpen = false"
+                            [queryParams]="{
+                                sort: option.value,
+                                orderBy:
+                                    option.value[0] === '-' ? 'asc' : 'desc'
+                            }"
+                            [routerLink]="['/catalog']"
+                            class="catalog__select-item">
+                            <p>{{ option.name }}</p>
+                        </div>
+                    </ng-container>
+                </div>
             </div>
         </div>
     </div>
     <div class="catalog__wrapper">
-        <aside class="catalog__filter">
+        <aside [class.active]="isFilter" class="catalog__filter responsive">
             <div class="catalog__filter-title">
                 <h3>Фильтр</h3>
             </div>
@@ -68,6 +74,80 @@
                     </div>
                 </div>
             </ng-container>
+            <div class="catalog__filter-wrap">
+                <div
+                    (click)="toggleSelect(3)"
+                    [class.active]="isSelected[3]"
+                    class="catalog__filter-select">
+                    <h4>Размеры</h4>
+                </div>
+                <div
+                    [class.active]="isSelected[3]"
+                    class="catalog__filter-item">
+                    <div class="scroll">
+                        <div class="scroll-inner">
+                            <ng-container *ngFor="let size of sizesList">
+                                <button
+                                    (click)="selectSize(size)"
+                                    [class.active]="
+                                        selectedSizes.includes(size)
+                                    "
+                                    class="btn btn--size size">
+                                    {{ size }}
+                                </button>
+                            </ng-container>
+                        </div>
+                    </div>
+                    <ng-container *ngIf="selectedSizes.length > 0">
+                        <div class="catalog__filter-wrap">
+                            <button
+                                [queryParams]="{ sizes: selectedSizes }"
+                                class="btn btn--primary medium"
+                                routerLink="/catalog">
+                                Примерить
+                            </button>
+                        </div>
+                    </ng-container>
+                </div>
+            </div>
+            <div class="catalog__filter-wrap">
+                <div
+                    (click)="toggleSelect(4)"
+                    [class.active]="isSelected[4]"
+                    class="catalog__filter-select">
+                    <h4>Цвета</h4>
+                </div>
+                <div
+                    [class.active]="isSelected[4]"
+                    class="catalog__filter-item">
+                    <div class="scroll">
+                        <div class="scroll-inner color-btn">
+                            <ng-container *ngFor="let color of colorsList">
+                                <button
+                                    (click)="selectColor(color.slice(1))"
+                                    [class.active]="
+                                        selectedColors.includes(color)
+                                    "
+                                    [ngStyle]="{
+                                        'background-color': color,
+                                        height: '4.8rem'
+                                    }"
+                                    class="btn btn--size"></button>
+                            </ng-container>
+                        </div>
+                    </div>
+                    <ng-container *ngIf="selectedColors.length > 0">
+                        <div class="catalog__filter-wrap">
+                            <button
+                                [queryParams]="{ colors: selectedColors }"
+                                class="btn btn--primary medium"
+                                routerLink="/catalog">
+                                Примерить
+                            </button>
+                        </div>
+                    </ng-container>
+                </div>
+            </div>
             <div class="catalog__filter-wrap">
                 <div
                     (click)="toggleSelect(2)"
@@ -125,25 +205,56 @@
                     </div>
                 </div>
             </div>
+            <button
+                (click)="clearFilters()"
+                [routerLink]="['/catalog']"
+                class="btn btn--secondary medium">
+                Сбросить
+            </button>
         </aside>
         <div class="catalog__grid-wrap">
-            <!--TODO: Сделать скелетон-->
-            <div class="catalog__grid">
-                <app-card-product
-                    *ngFor="
-                        let item of dataCatalog
-                            | paginate: { itemsPerPage: 9, currentPage }
-                    "
-                    [data]="item"></app-card-product>
-            </div>
-            <ng-container
-                *ngIf="dataCatalog.length === 0 || dataCatalog.length > 9">
+            <ng-container *ngIf="isLoading">
+                <!--TODO: Сделать скелетон-->
+                <p>Загрузка...</p>
+            </ng-container>
+            <ng-container *ngIf="!isLoading">
+                <div class="catalog__grid">
+                    <app-card-product
+                        *ngFor="
+                            let item of dataCatalog
+                                | paginate: { itemsPerPage: 9, currentPage }
+                        "
+                        [data]="item"></app-card-product>
+                </div>
                 <div class="catalog__pagination-wrap">
                     <pagination-controls
                         (pageChange)="onChangePage($event)"
+                        [autoHide]="true"
+                        [responsive]="true"
                         class="catalog__pagination"></pagination-controls>
                 </div>
             </ng-container>
+        </div>
+    </div>
+    <div
+        [ngStyle]="{ display: isFilter ? 'block' : 'none' }"
+        class="background">
+        <div (click)="toggleIsFilter()" class="close-btn">
+            <svg
+                fill="none"
+                height="13"
+                viewBox="0 0 13 13"
+                width="13"
+                xmlns="http://www.w3.org/2000/svg">
+                <path
+                    d="M0.771484 1.07324L11.8179 12.0073"
+                    stroke="black"
+                    stroke-linecap="round" />
+                <path
+                    d="M0.771484 12.0078L11.8179 1.07375"
+                    stroke="black"
+                    stroke-linecap="round" />
+            </svg>
         </div>
     </div>
 </section>

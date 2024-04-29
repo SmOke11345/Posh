@@ -1,7 +1,7 @@
 import { Injectable } from "@angular/core";
 import { HttpClient } from "@angular/common/http";
 import { Url } from "../../models/enums/requestUrls";
-import { ICatalog, shortCatalog } from "../../models/Catalog";
+import { catalogQuery, ICatalog, shortCatalog } from "../../models/Catalog";
 import { Params } from "@angular/router";
 import { catchError, throwError } from "rxjs";
 
@@ -29,12 +29,8 @@ export class CatalogService {
     /**
      * Получение отфильтрованного каталога.
      * @param query
-     * @param payload
      */
-    getFilteredCatalog(
-        query: Params,
-        payload: { colors: string[]; sizes: string[] },
-    ) {
+    getFilteredCatalog(query: Params) {
         const _query = Object.entries(query);
 
         const preparedQuery = _query
@@ -42,12 +38,7 @@ export class CatalogService {
             .join("&");
 
         return this.http
-            .post<{ countPage: number; items: shortCatalog[] }>(
-                `${Url.CATALOG}?${preparedQuery}`,
-                {
-                    ...payload,
-                },
-            )
+            .post<catalogQuery>(`${Url.CATALOG}?${preparedQuery}`, {})
             .pipe(catchError((error) => throwError(error)));
     }
 }

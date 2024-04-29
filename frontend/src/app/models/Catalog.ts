@@ -26,3 +26,10 @@ export type shortCatalog = {
     status: string;
     isFavorite?: boolean;
 };
+
+export type catalogQuery = {
+    countPage: number;
+    colors: string[];
+    sizes: string[];
+    items: shortCatalog[];
+};
