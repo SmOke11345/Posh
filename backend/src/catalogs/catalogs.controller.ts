@@ -1,5 +1,4 @@
 import {
-    Body,
     Controller,
     Get,
     Param,
@@ -70,7 +69,8 @@ export class CatalogsController {
      * @param type - тип
      * @param sort - название поля сортировки
      * @param orderBy - desc|asc
-     * @param payload - colors, sizes
+     * @param colors
+     * @param sizes
      */
     @Post()
     async filter(
@@ -79,7 +79,8 @@ export class CatalogsController {
         @Query("type") type: string,
         @Query("sort") sort: string,
         @Query("orderBy") orderBy: string,
-        @Body() payload: any,
+        @Query("colors") colors: string,
+        @Query("sizes") sizes: string,
     ) {
         return this.catalogsService.filter(
             gender,
@@ -87,7 +88,8 @@ export class CatalogsController {
             type,
             sort,
             orderBy,
-            payload,
+            colors,
+            sizes,
         );
     }
 }

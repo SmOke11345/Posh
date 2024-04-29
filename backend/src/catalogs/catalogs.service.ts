@@ -121,7 +121,8 @@ export class CatalogsService {
      * @param type - тип
      * @param sort - название поля сортировки
      * @param orderBy - desc|asc
-     * @param payload - colors, sizes
+     * @param colors
+     * @param sizes
      */
     async filter(
         gender: string,
@@ -129,12 +130,13 @@ export class CatalogsService {
         type: string,
         sort: string,
         orderBy: string,
-        payload: { colors: string[]; sizes: string[] },
+        colors: string,
+        sizes: string,
     ) {
-        const limit = 8;
+        const limit: number = 8;
 
-        if (!payload.sizes) payload.sizes = [];
-        if (!payload.colors) payload.colors = [];
+        if (!sizes) sizes = "";
+        if (!colors) colors = "";
         if (!sort) sort = "rating";
         if (!orderBy) orderBy = "desc";
 
@@ -142,24 +144,25 @@ export class CatalogsService {
             sort = sort.replace("-", "");
         }
 
+        console.log(sizes.split(","));
+        console.log(colors);
+
         // TODO: Переделать в тип shortCatalog как на frontend
         const filtered: Catalog[] = await this.prismaService.catalog.findMany({
             where: {
                 chapter,
                 type,
                 ...(gender ? { gender } : {}),
-                OR: [
-                    {
-                        sizes: {
-                            hasEvery: [...payload.sizes], // hasEvery - eсли элемент содержит как минимум одно значение,
-                        },
-                    },
-                    {
-                        colors: {
-                            hasEvery: [...payload.colors],
-                        },
-                    },
-                ],
+                ...(sizes ? { sizes: { hasEvery: sizes.split(",") } } : {}),
+                ...(colors
+                    ? {
+                          colors: {
+                              hasEvery: colors
+                                  .split(",")
+                                  .map((item) => "#" + item),
+                          },
+                      }
+                    : {}),
             },
             orderBy: {
                 [sort]: orderBy,
@@ -169,8 +172,8 @@ export class CatalogsService {
         if (filtered.length === 0)
             throw new ForbiddenException("По вашему запросу ничего не найдено");
 
-        const preparedItems: shortCatalog[] = filtered.map((item) => {
-            const {
+        const preparedItems = filtered.map((item) => {
+            let {
                 description,
                 sizes,
                 colors,
@@ -189,13 +192,10 @@ export class CatalogsService {
 
         const pagination = Math.round(filtered.length / limit);
 
-        const colors = await this.getColors();
-        const sizes = await this.getSizes();
-
         return {
             countPage: pagination,
-            colors,
-            sizes,
+            colors: await this.getColors(filtered),
+            sizes: await this.getSizes(filtered),
             items: [...preparedItems],
         };
     }
@@ -203,14 +203,8 @@ export class CatalogsService {
     /**
      * Получение всех имеющихся цветов в каталоге.
      */
-    async getColors() {
-        const colors = await this.prismaService.catalog.findMany({
-            select: {
-                colors: true,
-            },
-        });
-
-        const prepareColors = colors
+    async getColors(data: Catalog[]) {
+        const prepareColors = data
             .map((item) => {
                 return item.colors;
             })
@@ -223,19 +217,13 @@ export class CatalogsService {
     /**
      * Получение всех имеющихся размеров в каталоге.
      */
-    async getSizes() {
-        const sizes = await this.prismaService.catalog.findMany({
-            select: {
-                sizes: true,
-            },
-        });
-
-        const prepareSizes = sizes
+    async getSizes(data: Catalog[]) {
+        const prepareSizes = data
             .map((item) => {
                 return item.sizes;
             })
             .flat();
 
-        return [...new Set(prepareSizes)];
+        return [...new Set(prepareSizes)].sort((a, b) => +a - +b);
     }
 }
