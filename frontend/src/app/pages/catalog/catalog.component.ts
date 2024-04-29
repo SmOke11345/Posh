@@ -188,7 +188,7 @@ export class CatalogComponent implements OnDestroy {
         this.isFilter = !this.isFilter;
 
         if (this.isFilter) {
-            document.body.style.overflowY = "scroll";
+            document.body.style.overflow = "hidden";
         } else {
             document.body.style.overflow = "auto";
         }
