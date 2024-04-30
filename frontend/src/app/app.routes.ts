@@ -14,6 +14,7 @@ import { ReviewsComponent } from "./pages/reviews/reviews.component";
 import { OrdersComponent } from "./pages/orders/orders.component";
 import { OrderComponent } from "./pages/order/order.component";
 import { CatalogComponent } from "./pages/catalog/catalog.component";
+import { NotFoundComponent } from "./pages/not-found/not-found.component";
 // import { CheckoutGuard } from "./guards/checkout.guard";
 
 // TODO: Когда пользователь заходит он попадает в main.
@@ -61,6 +62,7 @@ export const routes: Routes = [
             },
             {
                 path: Pages.CATALOG,
+                title: "Каталог",
                 component: CatalogComponent,
             },
             {
@@ -96,6 +98,11 @@ export const routes: Routes = [
                         component: OrderComponent,
                     },
                 ],
+            },
+            {
+                path: "**",
+                title: "Страница не найдена",
+                component: NotFoundComponent,
             },
         ],
     },

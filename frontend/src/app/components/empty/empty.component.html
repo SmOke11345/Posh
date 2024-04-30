@@ -1,4 +1,8 @@
-<div class="info">
+<div
+    [ngStyle]="{
+        width: isNotFound && '50rem'
+    }"
+    class="info">
     <div class="info-wrap">
         <div class="info__img">
             <ng-container *ngIf="isCart">
@@ -14,6 +18,9 @@
             </ng-container>
             <ng-container *ngIf="isOrders">
                 <img alt="Отзыв" src="../../../assets/img/empty/orders.svg" />
+            </ng-container>
+            <ng-container *ngIf="isNotFound">
+                <h1>404</h1>
             </ng-container>
         </div>
         <div class="subject">
@@ -31,9 +38,20 @@
                     <h2>Список заказов пуст</h2>
                 </ng-container>
             </div>
-            <div class="subject__subtitle">
-                <p>Для выбора вещей перейдите в каталог</p>
-            </div>
+            <ng-container *ngIf="!isNotFound">
+                <div class="subject__subtitle">
+                    <p>Для выбора вещей перейдите в каталог</p>
+                </div>
+            </ng-container>
+            <ng-container *ngIf="isNotFound">
+                <p
+                    [ngStyle]="{
+                        width: isNotFound && '24rem',
+                        'margin-bottom': isNotFound && '1.5rem'
+                    }">
+                    Мы не смогли найти страницу по вашей ссылке
+                </p>
+            </ng-container>
             <div class="subject__btn">
                 <button class="btn medium" routerLink="/catalog">
                     Перейти в каталог

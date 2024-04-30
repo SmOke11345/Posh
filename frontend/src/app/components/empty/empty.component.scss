@@ -49,4 +49,12 @@
             }
         }
     }
+
+    h1 {
+        font-size: 12rem;
+        color: $blue;
+        @media screen and (max-width: $mobile) {
+            font-size: 10rem;
+        }
+    }
 }
