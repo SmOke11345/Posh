@@ -1,14 +1,13 @@
 import { Component, ElementRef, OnInit } from "@angular/core";
 import { NgClass, NgForOf } from "@angular/common";
-import { CatalogService } from "../../pages/catalog/catalog.service";
 import { shortCatalog } from "../../models/Catalog";
 import { CardProductComponent } from "../cards/card-product/card-product.component";
+import { BehaviorSubjectService } from "../../services/behavior-subject.service";
 
 @Component({
     selector: "app-slider",
     standalone: true,
     imports: [NgForOf, CardProductComponent, NgClass],
-    providers: [CatalogService],
     templateUrl: "./slider.component.html",
     styleUrl: "./slider.component.scss",
 })
@@ -19,12 +18,13 @@ export class SliderComponent implements OnInit {
     sliderItems: shortCatalog[] = [];
 
     constructor(
-        private catalogService: CatalogService,
+        // private catalogService: CatalogService,
+        private subject: BehaviorSubjectService,
         private el: ElementRef,
     ) {}
 
     ngOnInit() {
-        this.catalogService.getProdCarousel().subscribe((data) => {
+        this.subject.slider$.subscribe((data) => {
             this.initSliderItems = [...data];
             this.updateSlider();
         });

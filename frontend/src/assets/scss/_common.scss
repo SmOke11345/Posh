@@ -107,6 +107,14 @@ button.btn {
         }
     }
 
+    .categories__controls &--controls {
+        background-color: $gray;
+
+        &:disabled {
+            background-color: $main-gray;
+        }
+    }
+
     &--size {
         background-color: $white;
         color: $dark;
@@ -332,21 +340,28 @@ input[type="radio"] {
     }
 }
 
-.slider .grid {
-    display: grid;
-    grid-template-columns: repeat(4, 1fr);
-    gap: 1.5rem;
+.slider,
+.main {
+    .grid {
+        display: grid;
+        grid-template-columns: repeat(4, 1fr);
+        gap: 1.5rem;
+    }
 }
 
-.favorite .grid {
-    display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    gap: 1.5rem;
+.favorite,
+.reviews {
+    .grid {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        gap: 1.5rem;
+    }
 }
 
 @media screen and (max-width: $tablet) {
     .slider,
-    .favorite {
+    .favorite,
+    .main {
         .grid {
             grid-template-columns: repeat(2, 1fr);
             row-gap: 1.5rem;

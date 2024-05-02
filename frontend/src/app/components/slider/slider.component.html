@@ -6,7 +6,7 @@
         <div class="slider__controls">
             <button
                 (click)="prevSlide()"
-                [disabled]="this.sliderIndex <= 0"
+                [disabled]="sliderIndex <= 0"
                 class="btn btn--controls">
                 <svg
                     fill="none"
@@ -24,7 +24,7 @@
             </button>
             <button
                 (click)="nextSlide()"
-                [disabled]="this.sliderIndex >= this.initSliderItems.length - 4"
+                [disabled]="sliderIndex >= initSliderItems.length - 4"
                 class="btn btn--controls">
                 <svg
                     fill="none"

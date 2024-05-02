@@ -15,6 +15,7 @@ import { OrdersComponent } from "./pages/orders/orders.component";
 import { OrderComponent } from "./pages/order/order.component";
 import { CatalogComponent } from "./pages/catalog/catalog.component";
 import { NotFoundComponent } from "./pages/not-found/not-found.component";
+import { MainComponent } from "./pages/main/main.component";
 // import { CheckoutGuard } from "./guards/checkout.guard";
 
 // TODO: Когда пользователь заходит он попадает в main.
@@ -64,6 +65,11 @@ export const routes: Routes = [
                 path: Pages.CATALOG,
                 title: "Каталог",
                 component: CatalogComponent,
+            },
+            {
+                path: Pages.MAIN,
+                title: "Главная",
+                component: MainComponent,
             },
             {
                 path: "",

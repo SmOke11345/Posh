@@ -1,0 +1,185 @@
+@import "../../../assets/scss/variables";
+
+.main {
+    display: grid;
+    row-gap: 7.5rem;
+    @media screen and (max-width: $mobile) {
+        row-gap: 4rem;
+    }
+}
+
+// HERO
+.section_hero {
+}
+
+.hero {
+    &__grid {
+        display: flex;
+        column-gap: 4rem;
+    }
+
+    &__img-big img {
+        width: 106rem;
+        max-width: 100%;
+    }
+
+    &__wrapper {
+    }
+
+    @media screen and (max-width: $laptop) {
+        &__wrapper:last-child {
+            display: none;
+        }
+    }
+
+    &__wrapper:last-child &__item:first-child {
+        margin-bottom: 1.5rem;
+    }
+
+    &__item {
+    }
+
+    &__img {
+    }
+
+    &__subtitle {
+        margin-top: 1rem;
+
+        p {
+            font-size: 2.4rem;
+        }
+    }
+}
+
+// NOVELTY
+.section_novelty {
+}
+
+.novelty {
+    &__title {
+    }
+
+    &__btn {
+    }
+
+    .grid {
+        margin-top: 4rem;
+    }
+}
+
+.section_categories {
+    position: relative;
+    padding-top: 9rem;
+
+    .title h2 {
+        color: $white;
+    }
+
+    .background {
+        background-color: $dark;
+        position: absolute;
+        width: calc(100% + 11.5rem);
+        bottom: 0;
+        top: 0;
+        left: -6rem;
+        right: 6rem;
+        z-index: -1;
+    }
+}
+
+.categories {
+    &__wrapper:first-child {
+        margin-bottom: 7rem;
+    }
+
+    &__wrapper:last-child {
+        display: flex;
+
+        .categories__item {
+            width: 50%;
+            height: 60rem;
+
+            &:first-child {
+                border-radius: 6.4rem 0 0 0;
+            }
+        }
+    }
+
+    &__item--wrap {
+        @extend %wrapper;
+        align-items: flex-end;
+        height: 100%;
+        width: 100%;
+        padding: 3rem;
+    }
+
+    &__item-title {
+        h3 {
+            font-size: $rubik-sb-36;
+        }
+    }
+
+    &__link button.btn svg {
+        width: 3.2rem;
+        height: 3.2rem;
+    }
+
+    &__controls {
+        display: flex;
+        column-gap: 1.5rem;
+    }
+}
+
+// REVIEWS
+
+.section_reviews {
+}
+
+.reviews {
+    &__wrapper {
+        @extend %wrapper;
+        align-items: flex-start;
+        padding: 3rem;
+    }
+
+    &__inner--wrap {
+        display: grid;
+        row-gap: 1rem;
+    }
+
+    &__title h4 {
+        font-size: $rubik-sb-24;
+    }
+
+    &__author-img img {
+        width: 6rem;
+    }
+
+    .grid {
+        margin-top: 4rem;
+    }
+
+    &__item--wrap {
+        border-radius: 3.2rem;
+        background-color: $section-white;
+    }
+
+    &__img {
+        height: 32.5rem;
+    }
+}
+
+.title {
+    width: 61rem;
+
+    h2 {
+        line-height: 95%;
+        font-size: $rubik-sb-68;
+        text-transform: uppercase;
+    }
+}
+
+.wrapper {
+    @extend %wrapper;
+    align-items: flex-end;
+}

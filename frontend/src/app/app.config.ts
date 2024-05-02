@@ -10,6 +10,7 @@ import {
 } from "@angular/common/http";
 import { AuthInterceptor } from "./interceptors/auth-interceptors.service";
 import { provideEnvironmentNgxMask } from "ngx-mask";
+import { CatalogService } from "./pages/catalog/catalog.service";
 
 export const appConfig: ApplicationConfig = {
     providers: [
@@ -17,7 +18,7 @@ export const appConfig: ApplicationConfig = {
         provideHttpClient(withFetch()),
         provideRouter(routes),
         provideEnvironmentNgxMask(),
-
+        CatalogService,
         {
             provide: HTTP_INTERCEPTORS,
             useClass: AuthInterceptor,

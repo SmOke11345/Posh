@@ -2,6 +2,7 @@ import { Injectable } from "@angular/core";
 import { BehaviorSubject } from "rxjs";
 import { Cart } from "../models/Cart";
 import { shortCatalog } from "../models/Catalog";
+import { CatalogService } from "../pages/catalog/catalog.service";
 
 @Injectable({
     providedIn: "root",
@@ -11,18 +12,24 @@ export class BehaviorSubjectService {
     private rememberMe = new BehaviorSubject<boolean>(false);
     rememberMe$ = this.rememberMe.asObservable(); // Хранит в себе последние значение
     //
+    private slider = new BehaviorSubject<shortCatalog[]>([]);
+    slider$ = this.slider.asObservable();
+    //
     private cart = new BehaviorSubject<Cart[]>([]);
     cart$ = this.cart.asObservable();
     //
     private favorite = new BehaviorSubject<shortCatalog[]>([]);
     favorite$ = this.favorite.asObservable();
 
-    constructor() {
+    constructor(private catalogService: CatalogService) {
         if (typeof localStorage !== "undefined") {
             const initRememberMe = JSON.parse(
                 localStorage.getItem("rememberMe") as string,
             );
             this.rememberMe.next(initRememberMe);
+            this.catalogService.getProdCarousel().subscribe((data) => {
+                this.setSlider(data);
+            });
         }
     }
 
@@ -32,6 +39,14 @@ export class BehaviorSubjectService {
      */
     setRememberMe(value: boolean) {
         this.rememberMe.next(value);
+    }
+
+    /**
+     * Устанавливаем значение для slider.
+     * @param value
+     */
+    setSlider(value: shortCatalog[]) {
+        this.slider.next(value);
     }
 
     /**

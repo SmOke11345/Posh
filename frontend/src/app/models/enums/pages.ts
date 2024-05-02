@@ -3,6 +3,7 @@ export enum Pages {
     REGISTER = "register",
     PROFILE = "profile",
     CATALOG = "catalog",
+    MAIN = "main",
     ORDER = "orders",
     REVIEW = "reviews",
     CHECKOUT = "checkout",

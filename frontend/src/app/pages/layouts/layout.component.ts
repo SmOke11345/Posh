@@ -15,6 +15,7 @@ import { OrderModule } from "../orders/orders.component";
 import { CheckoutModule } from "../checkout/checkout.component";
 import { ReviewModule } from "../reviews/reviews.component";
 import { CatalogModule } from "../catalog/catalog.component";
+import { MainModule } from "../main/main.component";
 
 @Component({
     selector: "app-layout",
@@ -36,6 +37,7 @@ import { CatalogModule } from "../catalog/catalog.component";
         FooterComponent,
         OrderModule,
         CatalogModule,
+        MainModule,
     ],
     providers: [RouterLink],
     template: `
@@ -59,7 +61,7 @@ export class LayoutComponent implements OnInit {
         const data = this.storeData.getUserData();
         if (data) {
             // TODO: Сделать в будущем
-            // this.router.navigate(["/catalog"]);
+            this.router.navigate(["/main"]);
         }
     }
 }
