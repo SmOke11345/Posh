@@ -38,7 +38,17 @@ export class CatalogService {
             .join("&");
 
         return this.http
-            .post<catalogQuery>(`${Url.CATALOG}?${preparedQuery}`, {})
+            .get<catalogQuery>(`${Url.CATALOG}?${preparedQuery}`)
+            .pipe(catchError((error) => throwError(error)));
+    }
+
+    /**
+     * Поиск товара.
+     * @param value
+     */
+    search(value: string) {
+        return this.http
+            .get<{ title: string }[]>(`${Url.CATALOG}/search?search=${value}`)
             .pipe(catchError((error) => throwError(error)));
     }
 }
