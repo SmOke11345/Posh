@@ -50,8 +50,20 @@
         <div class="wrapper-inner">
             <ul class="list">
                 <li class="list__title"><h3>Категории</h3></li>
-                <li><a routerLink=""> Женщинам </a></li>
-                <li><a routerLink=""> Мужчинам </a></li>
+                <li>
+                    <a
+                        [queryParams]="{ gender: 'Женские' }"
+                        routerLink="/catalog">
+                        Женщинам
+                    </a>
+                </li>
+                <li>
+                    <a
+                        [queryParams]="{ gender: 'Мужские' }"
+                        routerLink="/catalog">
+                        Мужчинам
+                    </a>
+                </li>
             </ul>
             <ul class="list">
                 <li class="list__title"><h3>Компания</h3></li>

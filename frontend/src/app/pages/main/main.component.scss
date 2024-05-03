@@ -36,12 +36,6 @@
         margin-bottom: 1.5rem;
     }
 
-    &__item {
-    }
-
-    &__img {
-    }
-
     &__subtitle {
         margin-top: 1rem;
 
@@ -56,10 +50,12 @@
 }
 
 .novelty {
-    &__title {
-    }
-
-    &__btn {
+    @media screen and (max-width: $tablet) {
+        &__wrapper.wrapper {
+            flex-direction: column;
+            gap: 1.5rem;
+            align-items: flex-start;
+        }
     }
 
     .grid {
@@ -70,6 +66,10 @@
 .section_categories {
     position: relative;
     padding-top: 9rem;
+
+    @media screen and (max-width: $mobile) {
+        padding-top: 3rem;
+    }
 
     .title h2 {
         color: $white;
@@ -82,22 +82,38 @@
         bottom: 0;
         top: 0;
         left: -6rem;
-        right: 6rem;
         z-index: -1;
+
+        @media screen and (max-width: $mobile) {
+            width: calc(100% + 5.4rem);
+            left: -4rem;
+        }
     }
 }
 
 .categories {
     &__wrapper:first-child {
         margin-bottom: 7rem;
+        @media screen and (max-width: $mobile) {
+            margin-bottom: 5.5rem;
+        }
     }
 
     &__wrapper:last-child {
         display: flex;
 
+        @media screen and (max-width: $mobile) {
+            flex-direction: column;
+        }
+
         .categories__item {
             width: 50%;
             height: 60rem;
+
+            @media screen and (max-width: $mobile) {
+                width: 100%;
+                height: 34.8rem;
+            }
 
             &:first-child {
                 border-radius: 6.4rem 0 0 0;
@@ -116,17 +132,31 @@
     &__item-title {
         h3 {
             font-size: $rubik-sb-36;
+
+            @media screen and (max-width: $mobile) {
+                font-size: $rubik-sb-24;
+            }
         }
     }
 
     &__link button.btn svg {
         width: 3.2rem;
         height: 3.2rem;
+        @media screen and (max-width: $mobile) {
+            width: 1.6rem;
+            height: 1.6rem;
+        }
     }
 
     &__controls {
         display: flex;
         column-gap: 1.5rem;
+
+        @media screen and (max-width: $mobile) {
+            button.btn--controls {
+                padding: 0.8rem;
+            }
+        }
     }
 }
 
@@ -157,9 +187,14 @@
 
     .grid {
         margin-top: 4rem;
+
+        @media screen and (max-width: $mobile) {
+            grid-template-columns: 1fr;
+        }
     }
 
     &__item--wrap {
+        overflow: hidden;
         border-radius: 3.2rem;
         background-color: $section-white;
     }
@@ -172,10 +207,20 @@
 .title {
     width: 61rem;
 
+    @media screen and (max-width: $tablet) {
+        width: 100%;
+    }
+
     h2 {
         line-height: 95%;
         font-size: $rubik-sb-68;
         text-transform: uppercase;
+        @media screen and (max-width: $tablet) {
+            font-size: $rubik-sb-36;
+        }
+        @media screen and (max-width: $mobile) {
+            font-size: $rubik-sb-20;
+        }
     }
 }
 
