@@ -123,6 +123,7 @@ export class CatalogsService {
      * @param orderBy - desc|asc
      * @param colors
      * @param sizes
+     * @param search
      */
     async filter(
         gender: string,
@@ -132,6 +133,7 @@ export class CatalogsService {
         orderBy: string,
         colors: string,
         sizes: string,
+        search: string,
     ) {
         const limit: number = 8;
 
@@ -143,9 +145,6 @@ export class CatalogsService {
         if (sort[0] === "-") {
             sort = sort.replace("-", "");
         }
-
-        console.log(sizes.split(","));
-        console.log(colors);
 
         // TODO: Переделать в тип shortCatalog как на frontend
         const filtered: Catalog[] = await this.prismaService.catalog.findMany({
@@ -161,6 +160,18 @@ export class CatalogsService {
                                   .split(",")
                                   .map((item) => "#" + item),
                           },
+                      }
+                    : {}),
+                ...(search
+                    ? {
+                          OR: [
+                              {
+                                  title: {
+                                      contains: search,
+                                      mode: "insensitive",
+                                  },
+                              },
+                          ],
                       }
                     : {}),
             },
@@ -225,5 +236,25 @@ export class CatalogsService {
             .flat();
 
         return [...new Set(prepareSizes)].sort((a, b) => +a - +b);
+    }
+
+    async search(value: string) {
+        const searchProd = await this.prismaService.catalog.findMany({
+            where: {
+                title: {
+                    contains: value,
+                    mode: "insensitive", // без учета регистра
+                },
+            },
+            distinct: ["title"], // Только уникальные значения
+        });
+
+        if (searchProd.length === 0)
+            throw new ForbiddenException("По вашему запросу ничего не найдено");
+
+        return searchProd.map((item) => {
+            let { title } = item;
+            return { title };
+        });
     }
 }

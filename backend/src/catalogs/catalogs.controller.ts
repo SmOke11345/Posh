@@ -54,6 +54,15 @@ export class CatalogsController {
     }
 
     /**
+     * Функция для "Предложение товара" при поиске товара в каталоге.
+     * @param search
+     */
+    @Get("search")
+    async search(@Query("search") search: string) {
+        return this.catalogsService.search(search);
+    }
+
+    /**
      * Получение товара по id.
      * @param id - id товара
      */
@@ -71,8 +80,9 @@ export class CatalogsController {
      * @param orderBy - desc|asc
      * @param colors
      * @param sizes
+     * @param search
      */
-    @Post()
+    @Get()
     async filter(
         @Query("gender") gender: string,
         @Query("chapter") chapter: string,
@@ -81,6 +91,7 @@ export class CatalogsController {
         @Query("orderBy") orderBy: string,
         @Query("colors") colors: string,
         @Query("sizes") sizes: string,
+        @Query("search") search: string,
     ) {
         return this.catalogsService.filter(
             gender,
@@ -90,6 +101,7 @@ export class CatalogsController {
             orderBy,
             colors,
             sizes,
+            search,
         );
     }
 }
