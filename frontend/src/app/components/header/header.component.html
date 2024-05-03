@@ -30,7 +30,7 @@
         </div>
         <nav class="nav">
             <div class="nav__item">
-                <a routerLink="">
+                <a (click)="toggleSearch()" routerLink="/catalog">
                     <img alt="поиск" src="./assets/img/header/search.svg" />
                 </a>
             </div>
@@ -49,7 +49,7 @@
         </nav>
     </div>
 </header>
-
+<!-- Burger-menu-->
 <div
     [ngClass]="{
         fadeIn: showMenu,
@@ -74,17 +74,52 @@
         </svg>
     </div>
     <div class="menu-burger__logo">
-        <a href="/">
+        <a href="/main">
             <img alt="лого" src="../../../assets/img/header/logo.svg" />
         </a>
     </div>
     <nav class="burger-nav">
         <ng-container *ngFor="let link of linkList">
             <div class="burger-nav__item">
-                <a (click)="hideMenu()" [routerLink]="link.url">{{
+                <a (click)="hideMenu(link.name)" [routerLink]="link.url">{{
                     link.name
                 }}</a>
             </div>
         </ng-container>
     </nav>
+</div>
+<!-- Search -->
+<div [class.active]="isSearch" class="search overlay">
+    <div class="search__inner">
+        <div class="search__wrapper">
+            <div class="search__input">
+                <input
+                    (input)="getSearchValue()"
+                    [(ngModel)]="searchValue"
+                    placeholder="Поиск по каталогу"
+                    type="text" />
+            </div>
+            <div class="search__close">
+                <button
+                    (click)="toggleSearch()"
+                    class="btn btn--primary medium">
+                    закрыть
+                </button>
+            </div>
+        </div>
+        <div class="search__hints">
+            <ng-container *ngIf="error">
+                <div class="search__hint">
+                    {{ error }}
+                </div>
+            </ng-container>
+            <ng-container *ngIf="!error">
+                <ng-container *ngFor="let item of dataHint">
+                    <div (click)="search(item.title)" class="search__hint">
+                        {{ item.title }}
+                    </div>
+                </ng-container>
+            </ng-container>
+        </div>
+    </div>
 </div>
