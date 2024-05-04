@@ -16,9 +16,7 @@ import { OrderComponent } from "./pages/order/order.component";
 import { CatalogComponent } from "./pages/catalog/catalog.component";
 import { NotFoundComponent } from "./pages/not-found/not-found.component";
 import { MainComponent } from "./pages/main/main.component";
-// import { CheckoutGuard } from "./guards/checkout.guard";
 
-// TODO: Когда пользователь заходит он попадает в main.
 export const routes: Routes = [
     {
         path: "",
@@ -53,8 +51,6 @@ export const routes: Routes = [
                 path: Pages.CHECKOUT,
                 title: "Оформление заказа",
                 component: CheckoutComponent,
-                // TODO: Сделать защиту для checkout.
-                // canActivate: [CheckoutGuard, AuthGuard],
                 canActivate: [AuthGuard],
             },
             {

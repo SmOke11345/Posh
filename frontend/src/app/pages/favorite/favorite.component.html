@@ -2,10 +2,15 @@
     <ng-container *ngIf="favoriteItems.length === 0">
         <app-empty [isFavorite]="true"></app-empty>
     </ng-container>
-    <div class="grid">
-        <app-card-product
-            (dataChange)="removeFavorite($event)"
-            *ngFor="let item of favoriteItems"
-            [data]="item"></app-card-product>
-    </div>
+    <ng-container *ngIf="isLoading">
+        <p>Загрузка...</p>
+    </ng-container>
+    <ng-container *ngIf="!isLoading">
+        <div class="grid">
+            <app-card-product
+                (dataChange)="removeFavorite($event)"
+                *ngFor="let item of favoriteItems"
+                [data]="item"></app-card-product>
+        </div>
+    </ng-container>
 </div>

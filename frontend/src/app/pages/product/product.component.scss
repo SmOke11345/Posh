@@ -171,13 +171,11 @@
 
             span {
                 position: absolute;
-                // TODO: нужно как то по-другому убрать точки
                 z-index: -1;
             }
         }
 
         &__item:last-child {
-            // TODO: нужно как то по-другому убрать точки
             background-color: $gray;
         }
 

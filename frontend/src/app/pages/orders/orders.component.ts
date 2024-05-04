@@ -12,17 +12,21 @@ import { RouterLink } from "@angular/router";
     styleUrl: "./orders.component.scss",
 })
 export class OrdersComponent implements OnInit {
-    // TODO: Когда пользователь нажимает кнопку оставить отзыв появляется модальное окно.
     dataOrders: Order[];
+    isLoading: boolean;
 
     constructor(private ordersService: OrdersService) {
         this.dataOrders = [] as Order[];
+        this.isLoading = true;
     }
 
     ngOnInit() {
         this.ordersService.getUserOrders().subscribe({
             next: (data) => {
                 this.dataOrders = data;
+            },
+            complete: () => {
+                this.isLoading = false;
             },
         });
     }

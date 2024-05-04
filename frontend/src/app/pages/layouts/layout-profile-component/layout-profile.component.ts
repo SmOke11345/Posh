@@ -19,7 +19,6 @@ import { User } from "../../../models/User";
     providers: [UsersService, StoreDataUserService],
 })
 export class LayoutProfileComponent implements OnInit, DoCheck {
-    // TODO: Дописать links
     navList: { name: string; link: string }[] = [
         {
             name: "Личные данные",

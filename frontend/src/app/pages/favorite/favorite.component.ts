@@ -12,15 +12,16 @@ import { BehaviorSubjectService } from "../../services/behavior-subject.service"
 })
 export class FavoriteComponent implements OnInit {
     favoriteItems: shortCatalog[] = [];
-    remove_id: number;
 
-    // TODO: Сделать скелитон.
+    remove_id: number;
+    isLoading: boolean;
 
     constructor(
         private favoriteService: FavoriteService,
         private subjectService: BehaviorSubjectService,
     ) {
         this.remove_id = 0;
+        this.isLoading = true;
         this.subjectService.favorite$.subscribe((data) => {
             this.favoriteItems = data.map((item) => {
                 return { ...item, isFavorite: true };
@@ -29,8 +30,13 @@ export class FavoriteComponent implements OnInit {
     }
 
     ngOnInit() {
-        this.favoriteService.getFavoriteItems().subscribe((data) => {
-            this.subjectService.setFavorite(data);
+        this.favoriteService.getFavoriteItems().subscribe({
+            next: (data) => {
+                this.subjectService.setFavorite(data);
+            },
+            complete: () => {
+                this.isLoading = false;
+            },
         });
     }
 

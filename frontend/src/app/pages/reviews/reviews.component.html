@@ -4,117 +4,130 @@
     </ng-container>
     <ng-container *ngIf="dataReviews.length > 0">
         <div class="reviews__inner">
-            <ng-container *ngFor="let review of dataReviews; let i = index">
-                <div class="reviews__card border-bottom">
-                    <div
-                        [routerLink]="['/product', review.catalog_id]"
-                        [style]="{
-                            background:
-                                'url(' +
-                                review.image +
-                                ')' +
-                                'no-repeat center center / cover'
-                        }"
-                        class="reviews__img"></div>
-                    <div class="reviews__item reviews__item--wrap">
-                        <div class="reviews-wrap">
-                            <div class="reviews__item">
-                                <div class="stars">
+            <ng-container *ngIf="isLoading">
+                <p>Загрузка...</p>
+            </ng-container>
+            <ng-container *ngIf="!isLoading">
+                <ng-container *ngFor="let review of dataReviews; let i = index">
+                    <div class="reviews__card border-bottom">
+                        <div
+                            [routerLink]="['/product', review.catalog_id]"
+                            [style]="{
+                                background:
+                                    'url(' +
+                                    review.image +
+                                    ')' +
+                                    'no-repeat center center / cover'
+                            }"
+                            class="reviews__img"></div>
+                        <div class="reviews__item reviews__item--wrap">
+                            <div class="reviews-wrap">
+                                <div class="reviews__item">
+                                    <div class="stars">
+                                        <ng-container
+                                            *ngFor="
+                                                let star of [0, 1, 2, 3, 4]
+                                            ">
+                                            <div class="star">
+                                                <svg
+                                                    [ngStyle]="{
+                                                        fill: review.ratingStars?.includes(
+                                                            star
+                                                        )
+                                                            ? '#FFA52F'
+                                                            : 'none'
+                                                    }"
+                                                    height="21"
+                                                    viewBox="0 0 23 21"
+                                                    width="23"
+                                                    xmlns="http://www.w3.org/2000/svg">
+                                                    <path
+                                                        d="M21.5 8.30769H13.8214L11.5 1L9.17857 8.30769H1.5L7.75 12.6923L5.33929 20L11.5 15.4327L17.6607 20L15.25 12.6923L21.5 8.30769Z"
+                                                        stroke="#FFA52F"
+                                                        stroke-linejoin="round"
+                                                        stroke-width="2" />
+                                                </svg>
+                                            </div>
+                                        </ng-container>
+                                    </div>
+                                </div>
+                                <div class="reviews__item">
+                                    <div class="card-review__name">
+                                        <h3>
+                                            {{ review.userId?.name }}
+                                            {{ review.userId?.lastname }}
+                                        </h3>
+                                    </div>
+                                    <p class="card-review__date">
+                                        {{
+                                            review.createdAt
+                                                | date: "dd.MM.yyyy"
+                                        }}
+                                    </p>
                                     <ng-container
-                                        *ngFor="let star of [0, 1, 2, 3, 4]">
-                                        <div class="star">
-                                            <svg
-                                                [ngStyle]="{
-                                                    fill: review.ratingStars?.includes(
-                                                        star
-                                                    )
-                                                        ? '#FFA52F'
-                                                        : 'none'
-                                                }"
-                                                height="21"
-                                                viewBox="0 0 23 21"
-                                                width="23"
-                                                xmlns="http://www.w3.org/2000/svg">
-                                                <path
-                                                    d="M21.5 8.30769H13.8214L11.5 1L9.17857 8.30769H1.5L7.75 12.6923L5.33929 20L11.5 15.4327L17.6607 20L15.25 12.6923L21.5 8.30769Z"
-                                                    stroke="#FFA52F"
-                                                    stroke-linejoin="round"
-                                                    stroke-width="2" />
-                                            </svg>
-                                        </div>
+                                        *ngIf="
+                                            !isChangeText ||
+                                            review.id !== currentChange
+                                        ">
+                                        <p class="card-review__text">
+                                            {{ review.text }}
+                                        </p>
+                                    </ng-container>
+                                    <ng-container
+                                        *ngIf="
+                                            isChangeText &&
+                                            review.id === currentChange
+                                        ">
+                                        <form
+                                            (ngSubmit)="onSubmit(review.id)"
+                                            [formGroup]="reviewForm"
+                                            class="form">
+                                            <textarea
+                                                class="form__input"
+                                                cols="30"
+                                                formControlName="text"
+                                                rows="2">
+                                            </textarea>
+                                            <button
+                                                class="btn btn--primary small"
+                                                type="submit">
+                                                Сохранить
+                                            </button>
+                                            <button
+                                                (click)="isChangeText = false"
+                                                class="btn btn--secondary small">
+                                                Отменить
+                                            </button>
+                                        </form>
                                     </ng-container>
                                 </div>
                             </div>
-                            <div class="reviews__item">
-                                <div class="card-review__name">
-                                    <h3>
-                                        {{ review.userId?.name }}
-                                        {{ review.userId?.lastname }}
-                                    </h3>
-                                </div>
-                                <p class="card-review__date">
-                                    {{ review.createdAt | date: "dd.MM.yyyy" }}
-                                </p>
-                                <ng-container
-                                    *ngIf="
-                                        !isChangeText ||
-                                        review.id !== currentChange
-                                    ">
-                                    <p class="card-review__text">
-                                        {{ review.text }}
-                                    </p>
-                                </ng-container>
-                                <ng-container
-                                    *ngIf="
-                                        isChangeText &&
-                                        review.id === currentChange
-                                    ">
-                                    <form
-                                        (ngSubmit)="onSubmit(review.id)"
-                                        [formGroup]="reviewForm"
-                                        class="form">
-                                        <textarea
-                                            class="form__input"
-                                            cols="30"
-                                            formControlName="text"
-                                            rows="2">
-                                        </textarea>
+                            <ng-container *ngIf="!isChangeText">
+                                <div class="reviews-wrap">
+                                    <div class="reviews__btn">
                                         <button
-                                            class="btn btn--primary small"
-                                            type="submit">
-                                            Сохранить
+                                            (click)="deleteReview(review.id)"
+                                            class="btn btn--primary small">
+                                            <img
+                                                alt="Удалить"
+                                                src="../../../assets/img/pages/reviews/uil_trash.svg" />
                                         </button>
                                         <button
-                                            (click)="isChangeText = false"
+                                            (click)="
+                                                changeStatus(
+                                                    review.text,
+                                                    review.id
+                                                )
+                                            "
                                             class="btn btn--secondary small">
-                                            Отменить
+                                            Изменить
                                         </button>
-                                    </form>
-                                </ng-container>
-                            </div>
-                        </div>
-                        <ng-container *ngIf="!isChangeText">
-                            <div class="reviews-wrap">
-                                <div class="reviews__btn">
-                                    <button
-                                        (click)="deleteReview(review.id)"
-                                        class="btn btn--primary small">
-                                        <img
-                                            alt="Удалить"
-                                            src="../../../assets/img/pages/reviews/uil_trash.svg" />
-                                    </button>
-                                    <button
-                                        (click)="
-                                            changeStatus(review.text, review.id)
-                                        "
-                                        class="btn btn--secondary small">
-                                        Изменить
-                                    </button>
+                                    </div>
                                 </div>
-                            </div>
-                        </ng-container>
+                            </ng-container>
+                        </div>
                     </div>
-                </div>
+                </ng-container>
             </ng-container>
         </div>
     </ng-container>

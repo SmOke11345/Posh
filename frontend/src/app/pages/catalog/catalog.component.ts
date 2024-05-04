@@ -1,4 +1,4 @@
-import { Component, NgModule, OnDestroy } from "@angular/core";
+import { Component, ElementRef, NgModule, OnDestroy } from "@angular/core";
 import { catalogQuery, shortCatalog } from "../../models/Catalog";
 import { ActivatedRoute, Params, RouterLink } from "@angular/router";
 import { CatalogService } from "./catalog.service";
@@ -74,12 +74,13 @@ export class CatalogComponent implements OnDestroy {
     ];
 
     currentPage: number = 1;
+    error: string = "";
 
     defaultQuery: Params = {
         sort: "rating",
         orderBy: "desc",
-        chapter: "Обувь",
-        type: "Кеды",
+        chapter: "",
+        type: "",
         gender: "",
         sizes: "",
         colors: "",
@@ -87,11 +88,10 @@ export class CatalogComponent implements OnDestroy {
 
     private readonly subRouter: Subscription;
 
-    // TODO: Сделать скелетон.
-
     constructor(
         private router: ActivatedRoute,
         private catalogService: CatalogService,
+        private el: ElementRef,
     ) {
         this.dataCatalog = [] as shortCatalog[];
         this.sizesList = [] as string[];
@@ -109,7 +109,6 @@ export class CatalogComponent implements OnDestroy {
         });
     }
 
-    // TODO: Добавить множественный выбор цветов и размеров.
     getData(query: Params) {
         this.catalogService.getFilteredCatalog(query).subscribe({
             next: (data: catalogQuery) => {
@@ -117,8 +116,12 @@ export class CatalogComponent implements OnDestroy {
                 this.sizesList = data.sizes;
                 this.colorsList = data.colors;
             },
+            error: (error) => {
+                this.error = error.error.message;
+            },
             complete: () => {
                 this.isLoading = false;
+                this.error = "";
             },
         });
     }
@@ -159,22 +162,26 @@ export class CatalogComponent implements OnDestroy {
             this.selectedColors = this.selectedColors.filter(
                 (item) => item !== color,
             );
-            console.log(this.selectedColors);
         } else {
             this.selectedColors.push(color);
-            console.log(this.selectedColors);
         }
     }
 
     /**
-     * Очистка выбранных цветов и размеров.
+     * Очистка параметров фильтрации.
      */
     clearFilters() {
+        const inputs = this.el.nativeElement.querySelectorAll(
+            "input[type='radio']",
+        );
+        for (let i = 0; i < inputs.length; i++) {
+            inputs[i].checked = false;
+        }
         this.defaultQuery = {
             sort: "rating",
             orderBy: "desc",
-            chapter: "Обувь",
-            type: "Кеды",
+            chapter: "",
+            type: "",
             gender: "",
             sizes: "",
             colors: "",

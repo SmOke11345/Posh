@@ -212,28 +212,31 @@
                 Сбросить
             </button>
         </aside>
-        <div class="catalog__grid-wrap">
-            <ng-container *ngIf="isLoading">
-                <!--TODO: Сделать скелетон-->
-                <p>Загрузка...</p>
-            </ng-container>
-            <ng-container *ngIf="!isLoading">
-                <div class="catalog__grid">
+        <div
+            [ngStyle]="{
+                opacity: isLoading ? 0.5 : 1
+            }"
+            class="catalog__grid-wrap">
+            <div class="catalog__grid">
+                <ng-container *ngIf="error">
+                    <p>{{ error }}</p>
+                </ng-container>
+                <ng-container *ngIf="!error">
                     <app-card-product
                         *ngFor="
                             let item of dataCatalog
                                 | paginate: { itemsPerPage: 9, currentPage }
                         "
                         [data]="item"></app-card-product>
-                </div>
-                <div class="catalog__pagination-wrap">
-                    <pagination-controls
-                        (pageChange)="onChangePage($event)"
-                        [autoHide]="true"
-                        [responsive]="true"
-                        class="catalog__pagination"></pagination-controls>
-                </div>
-            </ng-container>
+                </ng-container>
+            </div>
+            <div class="catalog__pagination-wrap">
+                <pagination-controls
+                    (pageChange)="onChangePage($event)"
+                    [autoHide]="true"
+                    [responsive]="true"
+                    class="catalog__pagination"></pagination-controls>
+            </div>
         </div>
     </div>
     <div

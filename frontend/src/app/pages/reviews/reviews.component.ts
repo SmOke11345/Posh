@@ -16,26 +16,34 @@ export class ReviewsComponent implements OnInit {
 
     dataReviews: Review[] = [];
     isChangeText: boolean = false;
+
     currentChange: number;
+    isLoading: boolean;
 
     constructor(private reviewsService: ReviewsService) {
         this.currentChange = 0;
+        this.isLoading = true;
         this.reviewForm = new FormGroup({
             text: new FormControl(""),
         });
     }
 
     ngOnInit() {
-        this.reviewsService.getUserReviews().subscribe((data) => {
-            data.map((review) => {
-                return this.dataReviews.push({
-                    ...review,
-                    ratingStars: Array.from(
-                        { length: review.rating },
-                        (_, i) => i,
-                    ),
+        this.reviewsService.getUserReviews().subscribe({
+            next: (data) => {
+                data.map((review) => {
+                    return this.dataReviews.push({
+                        ...review,
+                        ratingStars: Array.from(
+                            { length: review.rating },
+                            (_, i) => i,
+                        ),
+                    });
                 });
-            });
+            },
+            complete: () => {
+                this.isLoading = false;
+            },
         });
     }
 

@@ -60,7 +60,6 @@ export class LayoutComponent implements OnInit {
     ngOnInit() {
         const data = this.storeData.getUserData();
         if (data) {
-            // TODO: Сделать в будущем
             this.router.navigate(["/main"]);
         }
     }
