@@ -149,8 +149,8 @@ export class CatalogsService {
         // TODO: Переделать в тип shortCatalog как на frontend
         const filtered: Catalog[] = await this.prismaService.catalog.findMany({
             where: {
-                chapter,
-                type,
+                ...(chapter ? { chapter } : {}),
+                ...(type ? { type } : {}),
                 ...(gender ? { gender } : {}),
                 ...(sizes ? { sizes: { hasEvery: sizes.split(",") } } : {}),
                 ...(colors
