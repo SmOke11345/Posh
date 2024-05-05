@@ -84,7 +84,7 @@ export class CartService {
             data: {
                 ...payload,
                 user_id,
-                color: prod.description[3], // Сделано так потому что, все равно отсутствует логики отображения товара в зависимости от цвета, нет разного количества товаров для разных цветов и размеров.
+                color: prod.description[prod.description.length - 2], // Сделано так потому что, все равно отсутствует логики отображения товара в зависимости от цвета, нет разного количества товаров для разных цветов и размеров.
                 chapterAndType:
                     prod.gender + "/" + prod.chapter + "/" + prod.type,
             },

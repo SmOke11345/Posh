@@ -86,7 +86,7 @@ model Order {
   name      String
   products  String
   status_id Int      @default(1)
-  summary   Int
+  summary   Int      @default(0)
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
   statusId  Status   @relation("OrderStatus", fields: [status_id], references: [id])
