@@ -1,5 +1,5 @@
 import { Component, NgModule, OnDestroy } from "@angular/core";
-import { ActivatedRoute } from "@angular/router";
+import { ActivatedRoute, Router } from "@angular/router";
 import { Subscription } from "rxjs";
 import { CatalogService } from "../catalog/catalog.service";
 import { SliderComponent } from "../../components/slider/slider.component";
@@ -36,6 +36,7 @@ export class ProductComponent implements OnDestroy {
 
     constructor(
         private router: ActivatedRoute,
+        private route: Router,
         private catalogService: CatalogService,
         private cartService: CartService,
         private favoriteService: FavoriteService,
@@ -109,6 +110,10 @@ export class ProductComponent implements OnDestroy {
         this.updateDotSlider(index);
     }
 
+    /**
+     * Обновление точек слайдера.
+     * @param index
+     */
     updateDotSlider(index: number) {
         const dots = document.querySelectorAll(".dot__item");
 
@@ -119,6 +124,9 @@ export class ProductComponent implements OnDestroy {
         dots[index].classList.add("active");
     }
 
+    /**
+     * Установка значений по умолчанию для избранного и корзины.
+     */
     setupDefaultData() {
         this.isFavorite(this.dataProduct.id);
         this.isCart(this.dataProduct.id);
@@ -186,18 +194,28 @@ export class ProductComponent implements OnDestroy {
         });
     }
 
-    countReviews() {
-        if (this.dataReview) {
-            this.dataReview = this.dataReview.map((review) => {
-                return {
-                    ...review,
-                };
-            });
-        }
-        return 0;
-    }
-
+    // TODO: Доделать в будущем.
     showMoreReviews() {}
+
+    /**
+     * Добавление в корзину и перенаправление на страницу оформления заказа.
+     * @param catalog_id
+     */
+    addToCheckout(catalog_id: number) {
+        const size = this.selectedSize;
+        this.cartService.addToCart(catalog_id, size).subscribe({
+            next: (data) => {
+                this.subjectService.setCartOneItem(data);
+            },
+            complete: () => {
+                // TODO: Поменять логику в будущем.
+                this.route.navigate(["/cart"]);
+                setTimeout(() => {
+                    this.route.navigate(["/checkout"]);
+                }, 100);
+            },
+        });
+    }
 }
 
 @NgModule({

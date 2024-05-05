@@ -159,28 +159,38 @@
     }
 
     .description {
-        display: flex;
-        justify-content: space-between;
-        position: relative;
-        overflow: hidden;
+        display: grid;
+        row-gap: 1rem;
 
-        &__item {
+        &__wrap {
             display: flex;
-            flex-direction: column;
-            row-gap: 1rem;
-
-            span {
-                position: absolute;
-                z-index: -1;
-            }
+            justify-content: space-between;
+            position: relative;
         }
 
-        &__item:last-child {
+        &__title,
+        &__text {
             background-color: $gray;
         }
 
         &__title {
+            display: flex;
+            align-items: flex-end;
+            position: relative;
             color: $main-gray;
+        }
+
+        span.dots {
+            width: 100%;
+            height: 90%;
+            z-index: -1;
+            position: absolute;
+            border-bottom: 0.2rem dotted $main-gray;
+        }
+
+        &__text {
+            width: 35%;
+            text-align: left;
         }
     }
 

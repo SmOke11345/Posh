@@ -20,6 +20,9 @@ export class OrdersComponent implements OnInit {
         this.isLoading = true;
     }
 
+    // TODO: Сделать window.scrollTo(0, 0); при нажатии на кнопки.
+    // TODO: Изменить баннер на странице main.
+
     ngOnInit() {
         this.ordersService.getUserOrders().subscribe({
             next: (data) => {

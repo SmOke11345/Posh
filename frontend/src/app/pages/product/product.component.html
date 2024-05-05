@@ -134,35 +134,34 @@
                             [class.active]="_isFavorite"
                             class="btn btn--icon-heart"></button>
                     </div>
-                    <button class="btn btn--secondary">Купить сейчас</button>
+                    <button
+                        class="btn btn--secondary"
+                        (click)="addToCheckout(dataProduct.id)">
+                        Купить сейчас
+                    </button>
                 </div>
                 <div class="subject__description">
                     <div class="title">
                         <p>Описание:</p>
                     </div>
                     <div class="description">
-                        <div class="description__item">
+                        <ng-container *ngIf="dataProduct.description">
                             <ng-container
                                 *ngFor="
-                                    let titles of dataProduct.description
-                                        ?.titles
+                                    let item of dataProduct.description.titles;
+                                    let i = index
                                 ">
-                                <p class="description__title">
-                                    {{ titles }}
-                                    <span
-                                        >.............................................................</span
-                                    >
-                                </p>
+                                <div class="description__wrap">
+                                    <p class="description__title">
+                                        {{ item }}
+                                    </p>
+                                    <span class="dots"></span>
+                                    <p class="description__text">
+                                        {{ dataProduct.description.texts[i] }}
+                                    </p>
+                                </div>
                             </ng-container>
-                        </div>
-                        <div class="description__item">
-                            <ng-container
-                                *ngFor="
-                                    let texts of dataProduct.description?.texts
-                                ">
-                                <p class="description__text">{{ texts }}</p>
-                            </ng-container>
-                        </div>
+                        </ng-container>
                     </div>
                 </div>
             </div>
