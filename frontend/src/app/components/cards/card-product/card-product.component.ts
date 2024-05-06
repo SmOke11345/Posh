@@ -25,8 +25,4 @@ export class CardProductComponent {
     removeFavorite(catalog_id: number) {
         this.dataChange.emit(catalog_id);
     }
-
-    up() {
-        window.scrollTo(0, 0);
-    }
 }
