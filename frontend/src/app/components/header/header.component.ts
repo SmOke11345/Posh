@@ -1,9 +1,15 @@
-import { Component, DoCheck, ElementRef, OnInit } from "@angular/core";
-import { Router, RouterLink } from "@angular/router";
-import { NgClass, NgForOf, NgIf } from "@angular/common";
+import {
+    Component,
+    DoCheck,
+    ElementRef,
+    OnDestroy,
+    OnInit,
+} from "@angular/core";
+import { NavigationEnd, Router, RouterLink } from "@angular/router";
+import { Location, NgClass, NgForOf, NgIf } from "@angular/common";
 import { BehaviorSubjectService } from "../../services/behavior-subject.service";
 import { FormsModule } from "@angular/forms";
-import { debounceTime, Subject } from "rxjs";
+import { debounceTime, Subject, Subscription } from "rxjs";
 import { CatalogService } from "../../pages/catalog/catalog.service";
 
 @Component({
@@ -14,7 +20,7 @@ import { CatalogService } from "../../pages/catalog/catalog.service";
     templateUrl: "./header.component.html",
     styleUrl: "./header.component.scss",
 })
-export class HeaderComponent implements OnInit, DoCheck {
+export class HeaderComponent implements OnInit, DoCheck, OnDestroy {
     linkList: { name: string; url: string; params: any }[] = [
         { name: "🔥Новинки", url: "/catalog", params: { sort: "rating" } },
         {
@@ -42,17 +48,29 @@ export class HeaderComponent implements OnInit, DoCheck {
     cartCount: number = 0;
     showMenu: boolean = false;
     isSearch: boolean = false;
+    isMainPage: boolean;
+
     searchValue: string = "";
     dataHint: { title: string }[] = [];
     error: string = "";
     debouncedSearchValue = new Subject<string>();
 
+    protected subRouter: Subscription;
+
     constructor(
         private el: ElementRef,
         private router: Router,
+        private location: Location,
         private subjectService: BehaviorSubjectService,
         private catalogService: CatalogService,
-    ) {}
+    ) {
+        this.isMainPage = false;
+        this.subRouter = this.router.events.subscribe((event) => {
+            if (event instanceof NavigationEnd) {
+                this.isMainPage = event.url === "/main";
+            }
+        });
+    }
 
     ngOnInit() {
         this.setCartCount();
@@ -67,6 +85,12 @@ export class HeaderComponent implements OnInit, DoCheck {
     ngDoCheck() {
         if (this.cartCount !== this.subjectService.getCountProductInCart()) {
             this.setCartCount();
+        }
+    }
+
+    ngOnDestroy() {
+        if (this.subRouter) {
+            this.subRouter.unsubscribe();
         }
     }
 
@@ -150,5 +174,9 @@ export class HeaderComponent implements OnInit, DoCheck {
             this.dataHint = [];
             document.body.style.overflow = "auto";
         }
+    }
+
+    back() {
+        this.location.back();
     }
 }

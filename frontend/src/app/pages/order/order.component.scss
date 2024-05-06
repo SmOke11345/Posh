@@ -1,13 +1,6 @@
 @import "../../../assets/scss/variables";
 
 .order {
-    &__link-prev a {
-        font:
-            600 1.4rem "Open Sans",
-            sans-serif;
-        text-decoration: underline;
-    }
-
     &__inner {
         margin-top: 2rem;
         display: grid;

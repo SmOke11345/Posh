@@ -71,7 +71,8 @@ export class ProfileComponent implements OnInit, DoCheck {
      * Изменение данных пользователя.
      */
     onSubmit() {
-        const formFieldTouched: { [key: string]: any } = {};
+        console.log(this.updateForm["controls"]);
+        let formFieldTouched: { [key: string]: any } = {};
         for (const control in this.updateForm.controls) {
             if (this.updateForm.controls[control].touched) {
                 formFieldTouched[control] = this.updateForm.value[control];
@@ -80,9 +81,14 @@ export class ProfileComponent implements OnInit, DoCheck {
         this.usersService.patchUser(formFieldTouched as User).subscribe({
             next: () => {
                 this.change = false;
+                this.updateForm.markAsUntouched();
+                formFieldTouched = {};
             },
             error: (error) => {
                 this.errors = error.error.message;
+            },
+            complete: () => {
+                this.errors = "";
             },
         });
     }
@@ -92,6 +98,15 @@ export class ProfileComponent implements OnInit, DoCheck {
      */
     logout() {
         this.authService.logout();
+    }
+
+    /**
+     * Завершить изменение данный.
+     */
+    cancelChange() {
+        this.change = false;
+        this.errors = "";
+        this.updateForm.markAsUntouched();
     }
 }
 

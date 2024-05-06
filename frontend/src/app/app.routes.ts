@@ -20,7 +20,7 @@ import { MainComponent } from "./pages/main/main.component";
 export const routes: Routes = [
     {
         path: "",
-        redirectTo: Pages.LOGIN,
+        redirectTo: Pages.MAIN,
         pathMatch: "full",
     },
     {
@@ -28,7 +28,7 @@ export const routes: Routes = [
         redirectTo: `${Pages.PROFILE}`,
     },
     {
-        path: "",
+        path: "auth",
         component: LayoutComponent,
         children: [
             {
@@ -41,6 +41,12 @@ export const routes: Routes = [
                 title: "Регистрация",
                 component: RegisterComponent,
             },
+        ],
+    },
+    {
+        path: "",
+        component: LayoutComponent,
+        children: [
             {
                 path: Pages.CART,
                 title: "Корзина",

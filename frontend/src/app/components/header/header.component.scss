@@ -1,13 +1,14 @@
 @import "../../../styles";
 
 .header {
-    padding: 3.2rem 6rem;
-    border-radius: 2.4rem;
-    background-color: $section-white;
-
     &__burger {
         display: none;
         margin-right: 2.6rem;
+
+        @media screen and (max-width: $tablet) {
+            display: flex;
+            justify-content: center;
+        }
 
         svg {
             width: 2rem;
@@ -17,6 +18,13 @@
 
     .header-wrap {
         @extend %wrapper;
+        padding: 3.2rem 6rem;
+        border-radius: 2.4rem;
+        background-color: $section-white;
+
+        @media screen and (max-width: $mobile) {
+            padding: 1.6rem;
+        }
     }
 
     .nav {
@@ -38,13 +46,48 @@
     }
 
     .nav:last-child {
+        width: 16.4rem;
+        margin-left: 14.5rem;
+
+        @media screen and (max-width: $tablet) {
+            width: 7.6rem;
+            margin-left: 0;
+        }
+
         img {
             width: 3.2rem;
             height: 3.2rem;
         }
+    }
 
-        width: 16.4rem;
-        margin-left: 14.5rem;
+    &__link-prev {
+        margin: 2rem 0 0;
+        padding-left: 2.5rem;
+        position: relative;
+
+        @media screen and (max-width: $mobile) {
+            margin: 1rem 0 0;
+        }
+
+        &::before {
+            content: "";
+            background: url("../../../assets/img/common/arrow_forward--main-gray.svg")
+                no-repeat center center / contain;
+            -webkit-text-stroke-color: $main-gray;
+            position: absolute;
+            width: 1.5rem;
+            height: 1.5rem;
+            top: 0.2rem;
+            left: 0;
+            transform: rotate(180deg);
+        }
+    }
+
+    @media screen and (max-width: $tablet) {
+        .nav:first-child,
+        .nav:last-child .nav__item:first-child {
+            display: none;
+        }
     }
 }
 
@@ -53,6 +96,13 @@
     img {
         width: 12.2rem;
         height: 3.2rem;
+    }
+}
+
+@media screen and (max-width: $mobile) {
+    .header__logo img {
+        width: 7.6rem;
+        height: 2rem;
     }
 }
 
@@ -128,34 +178,8 @@
     }
 }
 
-@media screen and (max-width: $tablet) {
-    .header {
-        &__burger {
-            display: flex;
-            justify-content: center;
-        }
-
-        .nav:first-child,
-        .nav:last-child .nav__item:first-child {
-            display: none;
-        }
-
-        .nav:last-child {
-            width: 7.6rem;
-            margin-left: 0;
-        }
-    }
-}
-
 @media screen and (max-width: $mobile) {
     .header {
-        padding: 1.6rem;
-
-        &__logo img {
-            width: 7.6rem;
-            height: 2rem;
-        }
-
         .nav {
             &__item span.count {
                 padding: 0 0.6rem;

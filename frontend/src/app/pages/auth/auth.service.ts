@@ -34,7 +34,7 @@ export class AuthService {
                 if (rememberMe) {
                     this.login({ ...payload }).subscribe();
                 } else {
-                    this.router.navigate(["/login"]);
+                    this.router.navigate(["/auth/login"]);
                 }
             }),
         );
@@ -81,6 +81,6 @@ export class AuthService {
      */
     logout() {
         this.storeData.destroyUserData();
-        this.router.navigate(["/login"]);
+        this.router.navigate(["/auth/login"]);
     }
 }

@@ -23,10 +23,9 @@ export class AuthGuard implements CanActivate, CanActivateChild {
         _next: ActivatedRouteSnapshot,
         _state: RouterStateSnapshot,
     ): MaybeAsync<GuardResult> {
-        //!!this.storeData.getToken()
         return !!this.storeData.getUserData()
             ? true
-            : this.router.navigate(["/login"]);
+            : this.router.navigate(["/auth/login"]);
     }
 
     canActivateChild(

@@ -488,3 +488,12 @@ input[type="radio"] {
         border-bottom: 0.2rem solid $section-white;
     }
 }
+
+.link {
+    font:
+        600 1.4rem "Open Sans",
+        sans-serif;
+    text-decoration: underline;
+    color: $main-gray;
+    cursor: pointer;
+}

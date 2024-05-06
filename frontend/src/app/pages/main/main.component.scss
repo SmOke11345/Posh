@@ -23,9 +23,6 @@
         max-width: 100%;
     }
 
-    &__wrapper {
-    }
-
     @media screen and (max-width: $laptop) {
         &__wrapper:last-child {
             display: none;
@@ -194,6 +191,9 @@
     }
 
     &__item--wrap {
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
         overflow: hidden;
         border-radius: 3.2rem;
         background-color: $section-white;
