@@ -99,10 +99,6 @@ export class ReviewsService {
         if (payload.text.trim() === "")
             throw new ForbiddenException("Текст отзыва не может быть пустым");
 
-        // TODO: Сделать проверку на заполнение полей.
-        // if (payload.text === "" || payload.rating === 0)
-        //     throw new NotFoundException("Введите данные для отправки отзыва");
-
         // TODO: Проверить у разных пользователей
         const reviewExists = await this.prismaService.review.findFirst({
             where: {

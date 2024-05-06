@@ -43,7 +43,6 @@ export class CatalogsService {
                 images,
                 cost: +payload.cost,
                 countProduct: +payload.countProduct,
-                // TODO: потом пофиксить
                 review: {},
             },
         });
@@ -90,15 +89,12 @@ export class CatalogsService {
     /**
      * Получение товаров из каталога для слайдеров.
      */
-    // TODO: Сделать рандомное получение 12-ти товаров.
     async getProdCarousel(): Promise<shortCatalog[]> {
+        const randomNumbers = this.randomCatalogsId(12);
         const prod: Catalog[] = await this.prismaService.catalog.findMany({
             where: {
-                createdAt: {
-                    lt: new Date(), // lt - меньше чем
-                },
+                id: { in: randomNumbers },
             },
-            take: 12,
         });
 
         // Превращение типа Catalog в shortCatalog
@@ -113,7 +109,17 @@ export class CatalogsService {
         });
     }
 
-    // TODO: Добавить поиск
+    randomCatalogsId(count: number): number[] {
+        const numbers: number[] = [];
+        for (let i = 0; i <= count; i++) {
+            if (numbers.length <= count) {
+                const random = Math.floor(Math.random() * 48) + 1;
+                if (!numbers.includes(random)) numbers.push(random);
+            }
+        }
+        return numbers;
+    }
+
     /**
      * Фильтрация/сортировка товаров
      * @param gender - пол
@@ -146,7 +152,6 @@ export class CatalogsService {
             sort = sort.replace("-", "");
         }
 
-        // TODO: Переделать в тип shortCatalog как на frontend
         const filtered: Catalog[] = await this.prismaService.catalog.findMany({
             where: {
                 ...(chapter ? { chapter } : {}),
@@ -224,7 +229,6 @@ export class CatalogsService {
         return [...new Set(prepareColors)];
     }
 
-    // TODO: есть это не обувь, то будут другие цифры.
     /**
      * Получение всех имеющихся размеров в каталоге.
      */
