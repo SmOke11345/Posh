@@ -18,20 +18,29 @@ import { RouterLink } from "@angular/router";
 export class CartComponent implements OnInit {
     cartData: Cart[] = [];
     remove_id: number;
+    isLoading: boolean;
 
     constructor(
         private cartService: CartService,
         private subjectService: BehaviorSubjectService,
     ) {
         this.remove_id = 0;
+        this.isLoading = true;
         this.subjectService.cart$.subscribe((data) => {
             this.cartData = data;
         });
     }
 
     ngOnInit() {
-        this.cartService.getCart().subscribe((data) => {
-            this.subjectService.setCart(data);
+        this.cartService.getCart().subscribe({
+            next: (data) => {
+                this.subjectService.setCart(data);
+            },
+            complete: () => {
+                setTimeout(() => {
+                    this.isLoading = false;
+                }, 200);
+            },
         });
     }
 

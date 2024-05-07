@@ -140,34 +140,32 @@
     }
 
     &__filter {
-        row-gap: 2.5rem;
         width: 23%;
-        height: 100%;
     }
 
-    &__filter.mobile {
-        display: none;
-        @media screen and (max-width: $tablet) {
-            width: 100%;
-        }
+    &__filter-inner {
+        display: flex;
+        flex-direction: column;
+        gap: 2.5rem;
     }
 
     &__filter.responsive {
-        display: grid;
+        display: block;
         @media screen and (max-width: $tablet) {
             display: none;
         }
     }
 
     &__filter.responsive.active {
-        display: grid;
         position: fixed;
+        display: block;
         top: 4.5rem;
         left: 1.7rem;
         right: 1.7rem;
         z-index: 10;
         width: 92%;
-        height: 40%;
+        height: 75%;
+        overflow-y: auto;
 
         button.btn.medium {
             padding: 0.8rem;
@@ -203,6 +201,12 @@
         button.btn:not(.btn--size) {
             margin-top: 1rem;
         }
+    }
+
+    &__filter-btn.active {
+        position: fixed;
+        bottom: 2rem;
+        width: 92%;
     }
 
     &__filter-select::after {

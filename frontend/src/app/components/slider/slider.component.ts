@@ -18,7 +18,6 @@ export class SliderComponent implements OnInit {
     sliderItems: shortCatalog[] = [];
 
     constructor(
-        // private catalogService: CatalogService,
         private subject: BehaviorSubjectService,
         private el: ElementRef,
     ) {}

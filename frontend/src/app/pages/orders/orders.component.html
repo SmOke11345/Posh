@@ -1,12 +1,12 @@
 <section class="orders">
-    <ng-container *ngIf="dataOrders.length === 0">
+    <ng-container *ngIf="isLoading">
+        <p>Загрузка...</p>
+    </ng-container>
+    <ng-container *ngIf="dataOrders.length === 0 && !isLoading">
         <app-empty [isOrders]="true"></app-empty>
     </ng-container>
     <ng-container *ngIf="dataOrders.length > 0">
         <div class="orders__inner">
-            <ng-container *ngIf="isLoading">
-                <p>Загрузка...</p>
-            </ng-container>
             <ng-container *ngIf="!isLoading">
                 <ng-container *ngFor="let order of dataOrders">
                     <div class="orders__item orders__item--inner border-bottom">

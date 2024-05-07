@@ -1,5 +1,5 @@
 import { Component } from "@angular/core";
-import { RouterLink, RouterOutlet } from "@angular/router";
+import { Router, RouterLink, RouterOutlet } from "@angular/router";
 import { HeaderComponent } from "../../components/header/header.component";
 import { FooterComponent } from "../../components/footer/footer.component";
 import { ServiceModule } from "../../services/service.module";
@@ -15,6 +15,7 @@ import { CheckoutModule } from "../checkout/checkout.component";
 import { ReviewModule } from "../reviews/reviews.component";
 import { CatalogModule } from "../catalog/catalog.component";
 import { MainModule } from "../main/main.component";
+import { StoreDataUserService } from "../../services/storeDataUser.service";
 
 @Component({
     selector: "app-layout",
@@ -51,5 +52,14 @@ import { MainModule } from "../main/main.component";
     styleUrls: ["../../../styles.scss"],
 })
 export class LayoutComponent {
-    constructor() {}
+    constructor(
+        private router: Router,
+        private storeData: StoreDataUserService,
+    ) {
+        const condition = this.storeData.getUserData();
+
+        if (condition) {
+            this.router.navigate(["/main"]);
+        }
+    }
 }

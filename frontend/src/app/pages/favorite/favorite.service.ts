@@ -25,14 +25,6 @@ export class FavoriteService {
     }
 
     /**
-     * Проверка наличия в избранном.
-     * @param catalog_id
-     */
-    isFavorite(catalog_id: number) {
-        return this.http.get<boolean>(`${Url.FAVORITE}/${catalog_id}`);
-    }
-
-    /**
      * Удаление товара из избранного.
      */
     removeFavorite(catalog_id: number) {

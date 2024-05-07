@@ -128,8 +128,7 @@ export class ProductComponent implements OnDestroy {
      * Установка значений по умолчанию для избранного и корзины.
      */
     setupDefaultData() {
-        this.isFavorite(this.dataProduct.id);
-        this.isCart(this.dataProduct.id);
+        this.getStatusCartItem(this.dataProduct.id);
     }
 
     /**
@@ -173,24 +172,13 @@ export class ProductComponent implements OnDestroy {
     }
 
     /**
-     * Проверка наличия в избранном.
+     * Проверка статусов товара.
      * @param catalog_id
      */
-    isFavorite(catalog_id: number) {
-        this.favoriteService
-            .isFavorite(catalog_id)
-            .subscribe((data: boolean) => {
-                this._isFavorite = data;
-            });
-    }
-
-    /**
-     * Проверка наличия в корзине.
-     * @param catalog_id
-     */
-    isCart(catalog_id: number) {
-        this.cartService.isCart(catalog_id).subscribe((data: boolean) => {
-            this._isCart = data;
+    getStatusCartItem(catalog_id: number) {
+        this.cartService.getStatusCartItem(catalog_id).subscribe((data) => {
+            this._isCart = data.isCart;
+            this._isFavorite = data.isFavorite;
         });
     }
 

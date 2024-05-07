@@ -24,7 +24,7 @@
             </svg>
         </div>
         <div class="header__logo">
-            <a href="/main">
+            <a routerLink="/main">
                 <img alt="лого" src="../../../assets/img/header/logo.svg" />
             </a>
         </div>
@@ -98,9 +98,11 @@
     <div class="search__inner">
         <div class="search__wrapper">
             <div class="search__input">
+                <label for="search"></label>
                 <input
                     (input)="getSearchValue()"
                     [(ngModel)]="searchValue"
+                    id="search"
                     placeholder="Поиск по каталогу"
                     type="text" />
             </div>

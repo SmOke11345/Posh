@@ -1,8 +1,9 @@
 <section class="cart">
-    <ng-container *ngIf="cartData.length === 0">
+    <ng-container *ngIf="cartData.length === 0 && !isLoading">
         <app-empty [isCart]="true"></app-empty>
     </ng-container>
-    <ng-container *ngIf="cartData.length > 0">
+    <ng-container *ngIf="isLoading"><p>Загрузка...</p></ng-container>
+    <ng-container *ngIf="cartData.length > 0 && !isLoading">
         <div class="cart-wrap">
             <div class="cart__inner">
                 <div class="cart-wrap">

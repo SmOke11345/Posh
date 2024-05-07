@@ -69,7 +69,9 @@ export class CartService {
      * Проверка наличия в корзине.
      * @param catalog_id
      */
-    isCart(catalog_id: number) {
-        return this.http.get<boolean>(`${Url.CART}/${catalog_id}`);
+    getStatusCartItem(catalog_id: number) {
+        return this.http.get<{ isCart: boolean; isFavorite: boolean }>(
+            `${Url.CART}/${catalog_id}`,
+        );
     }
 }

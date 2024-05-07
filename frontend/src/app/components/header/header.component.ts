@@ -22,7 +22,7 @@ import { CatalogService } from "../../pages/catalog/catalog.service";
 })
 export class HeaderComponent implements OnInit, DoCheck, OnDestroy {
     linkList: { name: string; url: string; params: any }[] = [
-        { name: "🔥Новинки", url: "/catalog", params: { sort: "rating" } },
+        { name: "🔥Новинки", url: "/catalog", params: { sort: "createdAt" } },
         {
             name: "Мужчинам",
             url: "/catalog",

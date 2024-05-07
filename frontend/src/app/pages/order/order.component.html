@@ -1,194 +1,200 @@
-<section class="order">
-    <div class="order__link-prev">
-        <a class="link" routerLink="/orders">К списку заказов</a>
-    </div>
-    <div class="order__inner">
-        <div class="order__wrapper">
-            <div class="order__title">
-                <h2>Заказ №88231231-{{ dataOrder.id }}</h2>
-            </div>
-            <div class="order__subtitle">
-                <p>от {{ dataOrder.date }}</p>
-            </div>
+<ng-container *ngIf="isLoading">
+    <p>Загрузка...</p>
+</ng-container>
+<ng-container *ngIf="dataOrder.id > 0">
+    <section class="order">
+        <div class="order__link-prev">
+            <a class="link" routerLink="/orders">К списку заказов</a>
         </div>
-        <div class="order__wrapper">
-            <div>
-                <div class="order__item">
-                    <div class="order__item-img">
-                        <img
-                            alt="Место"
-                            src="../../../assets/img/pages/order/Location.svg" />
-                    </div>
-                    <div class="order__list">
-                        <ul class="order__list-items">
-                            <li class="title">
-                                <h4>{{ dataOrder.delivery }}</h4>
-                            </li>
-                            <ng-container
-                                *ngIf="
-                                    dataOrder.address !== 'Забрать в магазине'
-                                ">
-                                <li>
-                                    <p>{{ dataOrder.address }}</p>
-                                </li>
-                            </ng-container>
-                        </ul>
-                    </div>
+        <div class="order__inner">
+            <div class="order__wrapper">
+                <div class="order__title">
+                    <h2>Заказ №88231231-{{ dataOrder.id }}</h2>
                 </div>
-                <div class="order__item">
-                    <div class="order__item-img">
-                        <img
-                            alt="Пользователь"
-                            src="../../../assets/img/pages/order/User.svg" />
-                    </div>
-                    <div class="order__list">
-                        <ul class="order__list-items">
-                            <li class="title">
-                                <h4>Получатель</h4>
-                            </li>
-                            <li>
-                                <p>
-                                    {{ dataOrder.lastname }}
-                                    {{ dataOrder.name }}
-                                </p>
-                            </li>
-                            <li>
-                                <p>{{ dataOrder.email }}</p>
-                            </li>
-                            <li>
-                                <p>{{ dataOrder.tel }}</p>
-                            </li>
-                        </ul>
-                    </div>
+                <div class="order__subtitle">
+                    <p>от {{ dataOrder.date }}</p>
                 </div>
             </div>
-            <div>
-                <div class="order__item">
-                    <div class="order__item-img">
-                        <img
-                            alt="Оплата"
-                            src="../../../assets/img/pages/order/card.svg" />
-                    </div>
-                    <div class="order__price">
+            <div class="order__wrapper">
+                <div>
+                    <div class="order__item">
+                        <div class="order__item-img">
+                            <img
+                                alt="Место"
+                                src="../../../assets/img/pages/order/Location.svg" />
+                        </div>
                         <div class="order__list">
                             <ul class="order__list-items">
                                 <li class="title">
-                                    <h4>Оплачено</h4>
+                                    <h4>{{ dataOrder.delivery }}</h4>
                                 </li>
-                                <li>
-                                    <p>Товары</p>
-                                </li>
-                                <li>
-                                    <p>Доставка</p>
-                                </li>
+                                <ng-container
+                                    *ngIf="
+                                        dataOrder.address !==
+                                        'Забрать в магазине'
+                                    ">
+                                    <li>
+                                        <p>{{ dataOrder.address }}</p>
+                                    </li>
+                                </ng-container>
                             </ul>
                         </div>
-                        <div class="order__list price-list">
+                    </div>
+                    <div class="order__item">
+                        <div class="order__item-img">
+                            <img
+                                alt="Пользователь"
+                                src="../../../assets/img/pages/order/User.svg" />
+                        </div>
+                        <div class="order__list">
                             <ul class="order__list-items">
-                                <li class="cost">
-                                    <h4>{{ dataOrder.summary }} ₽</h4>
-                                </li>
-                                <li>
-                                    <p>{{ dataOrder.summary }} ₽</p>
+                                <li class="title">
+                                    <h4>Получатель</h4>
                                 </li>
                                 <li>
                                     <p>
-                                        {{
-                                            dataOrder.costDelivery === 0
-                                                ? "Бесплатно"
-                                                : dataOrder.costDelivery
-                                        }}
-                                        <ng-container
-                                            *ngIf="dataOrder.costDelivery"
-                                            >₽
-                                        </ng-container>
+                                        {{ dataOrder.lastname }}
+                                        {{ dataOrder.name }}
                                     </p>
+                                </li>
+                                <li>
+                                    <p>{{ dataOrder.email }}</p>
+                                </li>
+                                <li>
+                                    <p>{{ dataOrder.tel }}</p>
                                 </li>
                             </ul>
                         </div>
                     </div>
                 </div>
-            </div>
-        </div>
-        <div class="order__wrapper">
-            <div class="order__title order__title-list">
-                <h3>Товары</h3>
-            </div>
-            <div class="order__grid">
-                <ng-container *ngFor="let product of dataOrder.products">
-                    <app-card-order
-                        (createReview)="collectModalData($event)"
-                        [item]="product"
-                        [status]="dataOrder.status"></app-card-order>
-                </ng-container>
-            </div>
-        </div>
-    </div>
-</section>
-<div
-    (click)="closeModal($event)"
-    [class.active]="modalData.isModal"
-    class="overlay">
-    <div class="modal">
-        <div class="modal__inner">
-            <div class="modal__wrapper">
-                <div class="modal__title">
-                    <h3>Заказ №88231231-{{ dataOrder.id }}</h3>
-                </div>
-                <p>
-                    {{ modalData.title }}
-                </p>
-            </div>
-            <div class="modal__wrapper">
-                <div class="stars">
-                    <ng-container *ngFor="let star of [0, 1, 2, 3, 4]">
-                        <div (click)="selectStar(star)" class="star">
-                            <svg
-                                [ngStyle]="{
-                                    fill: rating.includes(star)
-                                        ? '#FFA52F'
-                                        : 'none'
-                                }"
-                                height="21"
-                                viewBox="0 0 23 21"
-                                width="23"
-                                xmlns="http://www.w3.org/2000/svg">
-                                <path
-                                    d="M21.5 8.30769H13.8214L11.5 1L9.17857 8.30769H1.5L7.75 12.6923L5.33929 20L11.5 15.4327L17.6607 20L15.25 12.6923L21.5 8.30769Z"
-                                    stroke="#FFA52F"
-                                    stroke-linejoin="round"
-                                    stroke-width="2" />
-                            </svg>
+                <div>
+                    <div class="order__item">
+                        <div class="order__item-img">
+                            <img
+                                alt="Оплата"
+                                src="../../../assets/img/pages/order/card.svg" />
                         </div>
-                    </ng-container>
-                </div>
-                <div class="modal__text">
-                    <p>Насколько вам понравился заказ?</p>
+                        <div class="order__price">
+                            <div class="order__list">
+                                <ul class="order__list-items">
+                                    <li class="title">
+                                        <h4>Оплачено</h4>
+                                    </li>
+                                    <li>
+                                        <p>Товары</p>
+                                    </li>
+                                    <li>
+                                        <p>Доставка</p>
+                                    </li>
+                                </ul>
+                            </div>
+                            <div class="order__list price-list">
+                                <ul class="order__list-items">
+                                    <li class="cost">
+                                        <h4>{{ dataOrder.summary }} ₽</h4>
+                                    </li>
+                                    <li>
+                                        <p>{{ dataOrder.summary }} ₽</p>
+                                    </li>
+                                    <li>
+                                        <p>
+                                            {{
+                                                dataOrder.costDelivery === 0
+                                                    ? "Бесплатно"
+                                                    : dataOrder.costDelivery
+                                            }}
+                                            <ng-container
+                                                *ngIf="dataOrder.costDelivery"
+                                                >₽
+                                            </ng-container>
+                                        </p>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </div>
-            <form
-                (ngSubmit)="createReview()"
-                [formGroup]="reviewForm"
-                class="modal__wrapper form">
-                <div class="form__input">
-                    <label for="text">Ваш отзыв</label>
-                    <textarea
-                        formControlName="text"
-                        id="text"
-                        name="text"
-                        placeholder="Ваш отзыв"
-                        rows="5"
-                        type="text"></textarea>
-                    <ng-container *ngIf="error">
-                        <span class="info-text error">{{ error }}</span>
+            <div class="order__wrapper">
+                <div class="order__title order__title-list">
+                    <h3>Товары</h3>
+                </div>
+                <div class="order__grid">
+                    <ng-container *ngFor="let product of dataOrder.products">
+                        <app-card-order
+                            (createReview)="collectModalData($event)"
+                            [item]="product"
+                            [status]="dataOrder.status"></app-card-order>
                     </ng-container>
                 </div>
-                <div class="form__input">
-                    <button class="btn btn--primary medium" type="submit">
-                        Оценить товар
-                    </button>
+            </div>
+        </div>
+    </section>
+    <div
+        (click)="closeModal($event)"
+        [class.active]="modalData.isModal"
+        class="overlay">
+        <div class="modal">
+            <div class="modal__inner">
+                <div class="modal__wrapper">
+                    <div class="modal__title">
+                        <h3>Заказ №88231231-{{ dataOrder.id }}</h3>
+                    </div>
+                    <p>
+                        {{ modalData.title }}
+                    </p>
                 </div>
-            </form>
+                <div class="modal__wrapper">
+                    <div class="stars">
+                        <ng-container *ngFor="let star of [0, 1, 2, 3, 4]">
+                            <div (click)="selectStar(star)" class="star">
+                                <svg
+                                    [ngStyle]="{
+                                        fill: rating.includes(star)
+                                            ? '#FFA52F'
+                                            : 'none'
+                                    }"
+                                    height="21"
+                                    viewBox="0 0 23 21"
+                                    width="23"
+                                    xmlns="http://www.w3.org/2000/svg">
+                                    <path
+                                        d="M21.5 8.30769H13.8214L11.5 1L9.17857 8.30769H1.5L7.75 12.6923L5.33929 20L11.5 15.4327L17.6607 20L15.25 12.6923L21.5 8.30769Z"
+                                        stroke="#FFA52F"
+                                        stroke-linejoin="round"
+                                        stroke-width="2" />
+                                </svg>
+                            </div>
+                        </ng-container>
+                    </div>
+                    <div class="modal__text">
+                        <p>Насколько вам понравился заказ?</p>
+                    </div>
+                </div>
+                <form
+                    (ngSubmit)="createReview()"
+                    [formGroup]="reviewForm"
+                    class="modal__wrapper form">
+                    <div class="form__input">
+                        <label for="text">Ваш отзыв</label>
+                        <textarea
+                            formControlName="text"
+                            id="text"
+                            name="text"
+                            placeholder="Ваш отзыв"
+                            rows="5"
+                            type="text"></textarea>
+                        <ng-container *ngIf="error">
+                            <span class="info-text error">{{ error }}</span>
+                        </ng-container>
+                    </div>
+                    <div class="form__input">
+                        <button class="btn btn--primary medium" type="submit">
+                            Оценить товар
+                        </button>
+                    </div>
+                </form>
+            </div>
         </div>
     </div>
-</div>
+</ng-container>

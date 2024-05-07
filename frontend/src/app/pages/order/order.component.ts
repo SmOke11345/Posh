@@ -22,6 +22,7 @@ import {
 export class OrderComponent implements OnDestroy {
     reviewForm: FormGroup;
     dataOrder: Order;
+    isLoading: boolean;
 
     modalData: {
         catalogId: number;
@@ -43,6 +44,7 @@ export class OrderComponent implements OnDestroy {
         private router: ActivatedRoute,
     ) {
         this.dataOrder = {} as Order;
+        this.isLoading = true;
         this.subRouter = this.router.params.subscribe((params) => {
             const id = params["id"];
 
@@ -65,6 +67,9 @@ export class OrderComponent implements OnDestroy {
         this.ordersService.getOrder(id).subscribe({
             next: (data) => {
                 this.dataOrder = data;
+            },
+            complete: () => {
+                this.isLoading = false;
             },
         });
     }

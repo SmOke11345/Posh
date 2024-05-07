@@ -39,188 +39,203 @@
     </div>
     <div class="catalog__wrapper">
         <aside [class.active]="isFilter" class="catalog__filter responsive">
-            <div class="catalog__filter-title">
-                <h3>Фильтр</h3>
-            </div>
-            <ng-container *ngFor="let category of categoryList; let i = index">
+            <div class="catalog__filter-inner">
+                <div class="catalog__filter-title">
+                    <h3>Фильтр</h3>
+                </div>
+                <ng-container
+                    *ngFor="let category of categoryList; let i = index">
+                    <div class="catalog__filter-wrap">
+                        <div
+                            (click)="toggleSelect(i)"
+                            [class.active]="isSelected[i]"
+                            class="catalog__filter-select">
+                            <h4>{{ category.title }}</h4>
+                        </div>
+                        <div
+                            [class.active]="isSelected[i]"
+                            class="catalog__filter-item">
+                            <ng-container *ngFor="let type of category.type">
+                                <div
+                                    [queryParams]="{
+                                        chapter: type.chapter,
+                                        type: type.type
+                                    }"
+                                    class="catalog__filter-link"
+                                    routerLink="/catalog">
+                                    <input
+                                        [id]="type.id"
+                                        name="same_category_name"
+                                        type="radio"
+                                        value="false" />
+                                    <label
+                                        [for]="type.id"
+                                        class="label-checkbox"
+                                        >{{ type.title }}</label
+                                    >
+                                </div>
+                            </ng-container>
+                        </div>
+                    </div>
+                </ng-container>
                 <div class="catalog__filter-wrap">
                     <div
-                        (click)="toggleSelect(i)"
-                        [class.active]="isSelected[i]"
+                        (click)="toggleSelect(3)"
+                        [class.active]="isSelected[3]"
                         class="catalog__filter-select">
-                        <h4>{{ category.title }}</h4>
+                        <h4>Размеры</h4>
                     </div>
                     <div
-                        [class.active]="isSelected[i]"
+                        [class.active]="isSelected[3]"
                         class="catalog__filter-item">
-                        <ng-container *ngFor="let type of category.type">
-                            <div
-                                [queryParams]="{
-                                    chapter: type.chapter,
-                                    type: type.type
-                                }"
-                                class="catalog__filter-link"
-                                routerLink="/catalog">
-                                <input
-                                    [id]="type.id"
-                                    name="same_category_name"
-                                    type="radio"
-                                    value="false" />
-                                <label [for]="type.id" class="label-checkbox">{{
-                                    type.title
-                                }}</label>
+                        <div class="scroll">
+                            <div class="scroll-inner">
+                                <ng-container *ngFor="let size of sizesList">
+                                    <button
+                                        (click)="selectSize(size)"
+                                        [class.active]="
+                                            selectedSizes.includes(size)
+                                        "
+                                        class="btn btn--size size">
+                                        {{ size }}
+                                    </button>
+                                </ng-container>
+                            </div>
+                        </div>
+                        <ng-container *ngIf="selectedSizes.length > 0">
+                            <div class="catalog__filter-wrap">
+                                <button
+                                    [queryParams]="{ sizes: selectedSizes }"
+                                    class="btn btn--primary medium"
+                                    routerLink="/catalog">
+                                    Примерить
+                                </button>
                             </div>
                         </ng-container>
                     </div>
                 </div>
-            </ng-container>
-            <div class="catalog__filter-wrap">
-                <div
-                    (click)="toggleSelect(3)"
-                    [class.active]="isSelected[3]"
-                    class="catalog__filter-select">
-                    <h4>Размеры</h4>
-                </div>
-                <div
-                    [class.active]="isSelected[3]"
-                    class="catalog__filter-item">
-                    <div class="scroll">
-                        <div class="scroll-inner">
-                            <ng-container *ngFor="let size of sizesList">
+                <div class="catalog__filter-wrap">
+                    <div
+                        (click)="toggleSelect(4)"
+                        [class.active]="isSelected[4]"
+                        class="catalog__filter-select">
+                        <h4>Цвета</h4>
+                    </div>
+                    <div
+                        [class.active]="isSelected[4]"
+                        class="catalog__filter-item">
+                        <div class="scroll">
+                            <div class="scroll-inner color-btn">
+                                <ng-container *ngFor="let color of colorsList">
+                                    <button
+                                        (click)="selectColor(color.slice(1))"
+                                        [class.active]="
+                                            selectedColors.includes(color)
+                                        "
+                                        [ngStyle]="{
+                                            'background-color': color,
+                                            height: '4.8rem'
+                                        }"
+                                        class="btn btn--size"></button>
+                                </ng-container>
+                            </div>
+                        </div>
+                        <ng-container *ngIf="selectedColors.length > 0">
+                            <div class="catalog__filter-wrap">
                                 <button
-                                    (click)="selectSize(size)"
-                                    [class.active]="
-                                        selectedSizes.includes(size)
-                                    "
-                                    class="btn btn--size size">
-                                    {{ size }}
+                                    [queryParams]="{ colors: selectedColors }"
+                                    class="btn btn--primary medium"
+                                    routerLink="/catalog">
+                                    Примерить
                                 </button>
-                            </ng-container>
+                            </div>
+                        </ng-container>
+                    </div>
+                </div>
+                <div class="catalog__filter-wrap">
+                    <div
+                        (click)="toggleSelect(2)"
+                        [class.active]="isSelected[2]"
+                        class="catalog__filter-select">
+                        <h4>Пол</h4>
+                    </div>
+                    <div
+                        [class.active]="isSelected[2]"
+                        class="catalog__filter-item">
+                        <div
+                            [queryParams]="{
+                                gender: 'Мужские'
+                            }"
+                            class="catalog__filter-link"
+                            routerLink="/catalog">
+                            <input
+                                id="gender"
+                                name="gender"
+                                type="radio"
+                                value="false" />
+                            <label class="label-checkbox" for="gender">
+                                Мужские
+                            </label>
+                        </div>
+                        <div
+                            [queryParams]="{
+                                gender: 'Женские'
+                            }"
+                            class="catalog__filter-link"
+                            routerLink="/catalog">
+                            <input
+                                id="genderW"
+                                name="gender"
+                                type="radio"
+                                value="false" />
+                            <label class="label-checkbox" for="genderW">
+                                Женские
+                            </label>
+                        </div>
+                        <div
+                            [queryParams]="{
+                                gender: ''
+                            }"
+                            class="catalog__filter-link"
+                            routerLink="/catalog">
+                            <input
+                                id="genderAny"
+                                name="gender"
+                                type="radio"
+                                value="false" />
+                            <label class="label-checkbox" for="genderAny">
+                                Любой
+                            </label>
                         </div>
                     </div>
-                    <ng-container *ngIf="selectedSizes.length > 0">
-                        <div class="catalog__filter-wrap">
-                            <button
-                                [queryParams]="{ sizes: selectedSizes }"
-                                class="btn btn--primary medium"
-                                routerLink="/catalog">
-                                Примерить
-                            </button>
-                        </div>
+                </div>
+                <div
+                    [class.active]="isFilter"
+                    class="catalog__filter-wrap catalog__filter-btn">
+                    <ng-container *ngIf="isFilter">
+                        <button
+                            (click)="toggleIsFilter()"
+                            class="btn btn--primary">
+                            Показать
+                        </button>
                     </ng-container>
+                    <button
+                        (click)="clearFilters()"
+                        [routerLink]="['/catalog']"
+                        class="btn btn--secondary medium">
+                        Сбросить
+                    </button>
                 </div>
             </div>
-            <div class="catalog__filter-wrap">
-                <div
-                    (click)="toggleSelect(4)"
-                    [class.active]="isSelected[4]"
-                    class="catalog__filter-select">
-                    <h4>Цвета</h4>
-                </div>
-                <div
-                    [class.active]="isSelected[4]"
-                    class="catalog__filter-item">
-                    <div class="scroll">
-                        <div class="scroll-inner color-btn">
-                            <ng-container *ngFor="let color of colorsList">
-                                <button
-                                    (click)="selectColor(color.slice(1))"
-                                    [class.active]="
-                                        selectedColors.includes(color)
-                                    "
-                                    [ngStyle]="{
-                                        'background-color': color,
-                                        height: '4.8rem'
-                                    }"
-                                    class="btn btn--size"></button>
-                            </ng-container>
-                        </div>
-                    </div>
-                    <ng-container *ngIf="selectedColors.length > 0">
-                        <div class="catalog__filter-wrap">
-                            <button
-                                [queryParams]="{ colors: selectedColors }"
-                                class="btn btn--primary medium"
-                                routerLink="/catalog">
-                                Примерить
-                            </button>
-                        </div>
-                    </ng-container>
-                </div>
-            </div>
-            <div class="catalog__filter-wrap">
-                <div
-                    (click)="toggleSelect(2)"
-                    [class.active]="isSelected[2]"
-                    class="catalog__filter-select">
-                    <h4>Пол</h4>
-                </div>
-                <div
-                    [class.active]="isSelected[2]"
-                    class="catalog__filter-item">
-                    <div
-                        [queryParams]="{
-                            gender: 'Мужские'
-                        }"
-                        class="catalog__filter-link"
-                        routerLink="/catalog">
-                        <input
-                            id="gender"
-                            name="gender"
-                            type="radio"
-                            value="false" />
-                        <label class="label-checkbox" for="gender">
-                            Мужские
-                        </label>
-                    </div>
-                    <div
-                        [queryParams]="{
-                            gender: 'Женские'
-                        }"
-                        class="catalog__filter-link"
-                        routerLink="/catalog">
-                        <input
-                            id="genderW"
-                            name="gender"
-                            type="radio"
-                            value="false" />
-                        <label class="label-checkbox" for="genderW">
-                            Женские
-                        </label>
-                    </div>
-                    <div
-                        [queryParams]="{
-                            gender: ''
-                        }"
-                        class="catalog__filter-link"
-                        routerLink="/catalog">
-                        <input
-                            id="genderAny"
-                            name="gender"
-                            type="radio"
-                            value="false" />
-                        <label class="label-checkbox" for="genderAny">
-                            Любой
-                        </label>
-                    </div>
-                </div>
-            </div>
-            <button
-                (click)="clearFilters()"
-                [routerLink]="['/catalog']"
-                class="btn btn--secondary medium">
-                Сбросить
-            </button>
         </aside>
-        <div
-            [ngStyle]="{
-                opacity: isLoading ? 0.5 : 1
-            }"
-            class="catalog__grid-wrap">
+        <div class="catalog__grid-wrap">
+            <ng-container *ngIf="isLoading">
+                <p>Загрузка...</p>
+            </ng-container>
+            <ng-container *ngIf="error">
+                <p>{{ error }}</p>
+            </ng-container>
             <div class="catalog__grid">
-                <ng-container *ngIf="error">
-                    <p>{{ error }}</p>
-                </ng-container>
                 <ng-container *ngIf="!error">
                     <app-card-product
                         *ngFor="

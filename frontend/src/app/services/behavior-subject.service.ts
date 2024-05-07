@@ -2,7 +2,6 @@ import { Injectable } from "@angular/core";
 import { BehaviorSubject } from "rxjs";
 import { Cart } from "../models/Cart";
 import { shortCatalog } from "../models/Catalog";
-import { CatalogService } from "../pages/catalog/catalog.service";
 
 @Injectable({
     providedIn: "root",
@@ -21,15 +20,12 @@ export class BehaviorSubjectService {
     private favorite = new BehaviorSubject<shortCatalog[]>([]);
     favorite$ = this.favorite.asObservable();
 
-    constructor(private catalogService: CatalogService) {
+    constructor() {
         if (typeof localStorage !== "undefined") {
             const initRememberMe = JSON.parse(
                 localStorage.getItem("rememberMe") as string,
             );
             this.rememberMe.next(initRememberMe);
-            this.catalogService.getProdCarousel().subscribe((data) => {
-                this.setSlider(data);
-            });
         }
     }
 
