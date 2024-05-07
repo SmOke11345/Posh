@@ -215,14 +215,27 @@ export class CartService {
      * @param catalog_id
      * @param user_id
      */
-    async isCart(user_id: number, catalog_id: number): Promise<boolean> {
-        const condition = await this.prismaService.cart.findFirst({
+    async getStatusCartItem(
+        user_id: number,
+        catalog_id: number,
+    ): Promise<{ isCart: boolean; isFavorite: boolean }> {
+        const isCart = await this.prismaService.cart.findFirst({
             where: {
                 user_id,
                 catalog_id,
             },
         });
 
-        return !!condition;
+        const isFavorite = await this.prismaService.favorite.findFirst({
+            where: {
+                user_id,
+                catalog_id,
+            },
+        });
+
+        return {
+            isCart: !!isCart,
+            isFavorite: !!isFavorite,
+        };
     }
 }

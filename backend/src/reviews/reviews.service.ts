@@ -53,7 +53,6 @@ export class ReviewsService {
             },
             include: {
                 userId: true,
-                // catalogId: true,
             },
         });
 
@@ -82,24 +81,18 @@ export class ReviewsService {
         user_id: number,
         payload: { text: string; rating: number } & User,
     ) {
-        const prod = await this.prismaService.catalog.update({
+        const findReview = await this.prismaService.catalog.findFirst({
             where: {
                 id: catalog_id,
             },
-            data: {
-                rating: {
-                    increment: payload.rating,
-                },
-            },
         });
 
-        // TODO: Сделать проверку на существование товара.
-        if (!prod) throw new ForbiddenException("Такого товара не существует");
+        if (!findReview)
+            throw new ForbiddenException("Такого товара не существует");
 
         if (payload.text.trim() === "")
             throw new ForbiddenException("Текст отзыва не может быть пустым");
 
-        // TODO: Проверить у разных пользователей
         const reviewExists = await this.prismaService.review.findFirst({
             where: {
                 user_id,
@@ -120,6 +113,17 @@ export class ReviewsService {
         });
 
         if (!review) throw new ForbiddenException("Не удалось оставить отзыв");
+
+        await this.prismaService.catalog.update({
+            where: {
+                id: catalog_id,
+            },
+            data: {
+                rating: {
+                    increment: payload.rating,
+                },
+            },
+        });
 
         return review;
     }

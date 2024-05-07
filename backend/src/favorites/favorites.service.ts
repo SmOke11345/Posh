@@ -94,20 +94,4 @@ export class FavoritesService {
             status: "Удалено",
         };
     }
-
-    /**
-     * Проверка является ли товар избранным.
-     * @param user_id - id пользователя
-     * @param catalog_id - id товара
-     */
-    async isFavorite(user_id: number, catalog_id: number): Promise<boolean> {
-        const condition = await this.prismaService.favorite.findFirst({
-            where: {
-                user_id,
-                catalog_id,
-            },
-        });
-
-        return !!condition;
-    }
 }

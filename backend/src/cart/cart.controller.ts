@@ -95,10 +95,10 @@ export class CartController {
      */
     @UseGuards(JwtAuthGuard)
     @Get("/:id")
-    async isCart(
+    async getStatusCartItem(
         @Request() request: any,
         @Param("id") id: string,
-    ): Promise<boolean> {
-        return this.cartService.isCart(request.user.sub, +id);
+    ): Promise<{ isCart: boolean; isFavorite: boolean }> {
+        return this.cartService.getStatusCartItem(request.user.sub, +id);
     }
 }
