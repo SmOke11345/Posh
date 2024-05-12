@@ -11,11 +11,12 @@ import { BehaviorSubjectService } from "../../services/behavior-subject.service"
 import { FormsModule } from "@angular/forms";
 import { debounceTime, Subject, Subscription } from "rxjs";
 import { CatalogService } from "../../pages/catalog/catalog.service";
+import { FixedDirective } from "../../directives/fixed.directive";
 
 @Component({
     selector: "app-header",
     standalone: true,
-    imports: [RouterLink, NgIf, NgForOf, NgClass, FormsModule],
+    imports: [RouterLink, NgIf, NgForOf, NgClass, FormsModule, FixedDirective],
     providers: [BehaviorSubjectService, CatalogService],
     templateUrl: "./header.component.html",
     styleUrl: "./header.component.scss",
@@ -159,9 +160,10 @@ export class HeaderComponent implements OnInit, DoCheck, OnDestroy {
     hideMenu(name: string) {
         if (name === "🔍Поиск") {
             this.toggleSearch();
+        } else {
+            document.body.style.overflow = "auto";
         }
         this.showMenu = false;
-        document.body.style.overflow = "auto";
     }
 
     toggleSearch() {

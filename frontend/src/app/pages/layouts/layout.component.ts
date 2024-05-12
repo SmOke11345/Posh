@@ -16,6 +16,7 @@ import { ReviewModule } from "../reviews/reviews.component";
 import { CatalogModule } from "../catalog/catalog.component";
 import { MainModule } from "../main/main.component";
 import { StoreDataUserService } from "../../services/storeDataUser.service";
+import { FixedDirective } from "../../directives/fixed.directive";
 
 @Component({
     selector: "app-layout",
@@ -38,6 +39,7 @@ import { StoreDataUserService } from "../../services/storeDataUser.service";
         OrderModule,
         CatalogModule,
         MainModule,
+        FixedDirective,
     ],
     providers: [RouterLink],
     template: `
@@ -47,6 +49,7 @@ import { StoreDataUserService } from "../../services/storeDataUser.service";
                 <router-outlet></router-outlet>
                 <app-footer></app-footer>
             </div>
+            <div class="scroll-up" fixed (click)="scrollTop()"></div>
         </div>
     `,
     styleUrls: ["../../../styles.scss"],
@@ -61,5 +64,9 @@ export class LayoutComponent {
         if (condition) {
             this.router.navigate(["/main"]);
         }
+    }
+
+    scrollTop() {
+        window.scrollTo({ top: 0, behavior: "smooth" });
     }
 }

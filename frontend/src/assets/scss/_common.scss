@@ -497,3 +497,32 @@ input[type="radio"] {
     color: $main-gray;
     cursor: pointer;
 }
+
+.scroll-up {
+    display: none;
+}
+
+.scroll-up.fixed {
+    display: block;
+    position: fixed;
+    right: 5%;
+    bottom: 5%;
+    width: 5rem;
+    height: 5rem;
+    background-color: $dark;
+    border-radius: 50%;
+    cursor: pointer;
+    z-index: 10;
+
+    &::after {
+        content: "";
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%) rotate(-90deg);
+        width: 2.4rem;
+        height: 2.4rem;
+        background: url("../img/common/arrow_forward--white.svg") no-repeat
+            center center / contain;
+    }
+}
