@@ -11,9 +11,11 @@ import {
 } from "@nestjs/common";
 import { CatalogsService } from "./catalogs.service";
 import { JwtAuthGuard } from "../auth/guard/auth.guard";
-import { FilesInterceptor } from "@nestjs/platform-express";
-import * as multer from "multer";
+import { FilterDto } from "./dto/FilterDto";
 import { Catalog, shortCatalog } from "../models/Catalog";
+import * as multer from "multer";
+// TODO: Если что может быть ошибка тут
+import { FilesInterceptor } from "@nestjs/platform-express/multer/interceptors";
 
 /**
  * Локальное хранилище данных.
@@ -73,35 +75,10 @@ export class CatalogsController {
 
     /**
      * Фильтрация/Сортировка товаров.
-     * @param gender - пол
-     * @param chapter - раздел
-     * @param type - тип
-     * @param sort - название поля сортировки
-     * @param orderBy - desc|asc
-     * @param colors
-     * @param sizes
-     * @param search
+     * @param filterDto - объект содержащий данные для фильтрации
      */
     @Get()
-    async filter(
-        @Query("gender") gender: string,
-        @Query("chapter") chapter: string,
-        @Query("type") type: string,
-        @Query("sort") sort: string,
-        @Query("orderBy") orderBy: string,
-        @Query("colors") colors: string,
-        @Query("sizes") sizes: string,
-        @Query("search") search: string,
-    ) {
-        return this.catalogsService.filter(
-            gender,
-            chapter,
-            type,
-            sort,
-            orderBy,
-            colors,
-            sizes,
-            search,
-        );
+    async filter(@Query() filterDto: FilterDto) {
+        return this.catalogsService.filter(filterDto);
     }
 }

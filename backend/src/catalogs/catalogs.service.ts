@@ -4,6 +4,7 @@ import { Catalog, shortCatalog } from "../models/Catalog";
 import { Cloud } from "../models/cloud";
 import * as Cloudinary from "cloudinary";
 import * as fs from "fs";
+import { FilterDto } from "./dto/FilterDto";
 
 @Injectable()
 export class CatalogsService {
@@ -122,25 +123,11 @@ export class CatalogsService {
 
     /**
      * Фильтрация/сортировка товаров
-     * @param gender - пол
-     * @param chapter - раздел
-     * @param type - тип
-     * @param sort - название поля сортировки
-     * @param orderBy - desc|asc
-     * @param colors
-     * @param sizes
-     * @param search
+     * @param filterDto
      */
-    async filter(
-        gender: string,
-        chapter: string,
-        type: string,
-        sort: string,
-        orderBy: string,
-        colors: string,
-        sizes: string,
-        search: string,
-    ) {
+    async filter(filterDto: FilterDto) {
+        let { sizes, sort, orderBy, colors, gender, type, chapter, search } =
+            filterDto;
         const limit: number = 8;
 
         if (!sizes) sizes = "";
@@ -148,9 +135,7 @@ export class CatalogsService {
         if (!sort) sort = "rating";
         if (!orderBy) orderBy = "desc";
 
-        if (sort[0] === "-") {
-            sort = sort.replace("-", "");
-        }
+        if (sort[0] === "-") sort = sort.replace("-", "");
 
         const filtered: Catalog[] = await this.prismaService.catalog.findMany({
             where: {
@@ -180,9 +165,7 @@ export class CatalogsService {
                       }
                     : {}),
             },
-            orderBy: {
-                [sort]: orderBy,
-            },
+            orderBy: { [sort]: orderBy },
         });
 
         if (filtered.length === 0)
