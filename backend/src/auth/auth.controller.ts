@@ -41,4 +41,15 @@ export class AuthController {
             data: session,
         };
     }
+
+    /**
+     * Восстановление пароля по почте e-mail
+     * @param email - e-mail пользователя
+     */
+    @Post("reset-password")
+    async resetPassword(
+        @Body("email") email: string,
+    ): Promise<{ message: string }> {
+        return this.authService.resetPassword(email);
+    }
 }

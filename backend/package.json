@@ -22,6 +22,7 @@
 		"prisma:generate": "prisma generate"
 	},
 	"dependencies": {
+		"@nestjs-modules/mailer": "^2.0.2",
 		"@nestjs/axios": "^3.0.2",
 		"@nestjs/class-validator": "^0.13.4",
 		"@nestjs/common": "^10.0.0",
@@ -35,6 +36,8 @@
 		"bcryptjs": "^2.4.3",
 		"cloudinary": "^2.1.0",
 		"express-session": "^1.18.0",
+		"handlebars": "^4.7.8",
+		"nodemailer": "^6.9.13",
 		"passport": "^0.7.0",
 		"passport-jwt": "^4.0.1",
 		"passport-local": "^1.0.0",

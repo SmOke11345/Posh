@@ -1,9 +1,9 @@
 import { ForbiddenException, Injectable } from "@nestjs/common";
 import { PrismaService } from "../utils/prisma.service";
 import { User } from "../models/User";
+import { AuthService } from "../auth/auth.service";
 
 import * as bcrypt from "bcryptjs";
-import { AuthService } from "../auth/auth.service";
 
 @Injectable()
 export class UsersService {
@@ -46,6 +46,28 @@ export class UsersService {
             where: { id },
             data: {
                 ...data,
+            },
+        });
+    }
+
+    /**
+     * Изменение пароля пользователя.
+     * @param email - e-mail пользователя
+     * @param password - новый пароль
+     */
+    async patchUserPassword(email: string, password: string): Promise<User> {
+        console.log(password);
+        if (password.length < 8)
+            throw new ForbiddenException("Не менее 8 символов");
+
+        const { id } = await this.prismaService.user.findFirst({
+            where: { email },
+        });
+
+        return this.prismaService.user.update({
+            where: { id },
+            data: {
+                password: await bcrypt.hash(password, 10),
             },
         });
     }

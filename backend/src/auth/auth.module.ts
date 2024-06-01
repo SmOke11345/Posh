@@ -8,6 +8,7 @@ import { JwtStrategy } from "./strategy/jwt.strategy";
 import { LocalStrategy } from "./strategy/local.strategy";
 import { SessionSerializer } from "./utils/SessionSerializer";
 import { UsersService } from "../users/users.service";
+import { MailService } from "../mail/mail.service";
 
 @Module({
     imports: [
@@ -26,6 +27,7 @@ import { UsersService } from "../users/users.service";
         JwtStrategy,
         LocalStrategy,
         SessionSerializer,
+        MailService,
     ],
 })
 export class AuthModule {}

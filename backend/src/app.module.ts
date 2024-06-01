@@ -7,7 +7,8 @@ import { CatalogsModule } from "./catalogs/catalogs.module";
 import { FavoritesModule } from "./favorites/favorites.module";
 import { PrismaService } from "./utils/prisma.service";
 import { ReviewsModule } from "./reviews/reviews.module";
-import { OrdersModule } from './orders/orders.module';
+import { OrdersModule } from "./orders/orders.module";
+import { MailModule } from "./mail/mail.module";
 
 @Module({
     imports: [
@@ -21,6 +22,7 @@ import { OrdersModule } from './orders/orders.module';
         FavoritesModule,
         ReviewsModule,
         OrdersModule,
+        MailModule,
     ],
     providers: [PrismaService],
 })

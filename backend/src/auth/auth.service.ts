@@ -10,12 +10,14 @@ import { jwtConstants } from "./utils/jwtConstants";
 import { JwtService } from "@nestjs/jwt";
 
 import * as bcrypt from "bcryptjs";
+import { MailService } from "../mail/mail.service";
 
 @Injectable()
 export class AuthService {
     constructor(
         private jwtService: JwtService,
         private prismaService: PrismaService,
+        private mailService: MailService,
     ) {}
 
     /**
@@ -87,5 +89,20 @@ export class AuthService {
      */
     async singIn(user: User): Promise<string> {
         return this.generateToken({ sub: user.id, email: user.email });
+    }
+
+    /**
+     * Отправка письма с кодом восстановления пароля.
+     * @param email - e-mail пользователя
+     */
+    async resetPassword(email: string) {
+        const foundedEmail = await this.getEmail(email);
+
+        if (!foundedEmail)
+            throw new ForbiddenException("Такой E-mail не существует");
+
+        const token = this.jwtService.sign({ email }, { expiresIn: "1h" });
+
+        return await this.mailService.resetPassword(email, token);
     }
 }
