@@ -88,10 +88,6 @@
                         </ng-container>
                     </ng-container>
                 </div>
-                <!-- TODO: Предложение о восстановление пароля появляется после неудачного входа и ошибки валидации пароля-->
-                <!--<div class="form__link">-->
-                <!--<a routerLink="/register">Регистрация</a>-->
-                <!--</div>-->
             </div>
             <div class="form-wrap">
                 <div class="form__input checkbox">
@@ -109,6 +105,9 @@
                 <button class="btn btn--icon" type="submit">
                     Авторизоваться
                 </button>
+                <div class="form__reset">
+                    <a routerLink="/auth/reset-password">Восстановить пароль</a>
+                </div>
             </div>
         </form>
     </div>

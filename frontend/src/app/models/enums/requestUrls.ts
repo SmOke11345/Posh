@@ -1,11 +1,12 @@
 // TODO: НЕ ТРОГАТЬ!!!!!!
-const host = "https://posh-8oha.onrender.com/api";
-// const host = "http://localhost:3000/api";
+// const host = "https://posh-8oha.onrender.com/api";
+const host = "http://localhost:3000/api";
 
 export enum Url {
     LOGIN = `${host}/auth/login`,
     REGISTER = `${host}/auth/register`,
-    PROFILE = `${host}/users/profile`,
+    RESTORE = `${host}/auth/reset-password`,
+    USERS = `${host}/users`,
     CATALOG = `${host}/catalogs`,
     REVIEW = `${host}/reviews`,
     ORDER = `${host}/orders`,

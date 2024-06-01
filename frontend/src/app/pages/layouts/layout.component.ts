@@ -1,5 +1,5 @@
-import { Component } from "@angular/core";
-import { Router, RouterLink, RouterOutlet } from "@angular/router";
+import { Component, OnInit } from "@angular/core";
+import { RouterLink, RouterOutlet } from "@angular/router";
 import { HeaderComponent } from "../../components/header/header.component";
 import { FooterComponent } from "../../components/footer/footer.component";
 import { ServiceModule } from "../../services/service.module";
@@ -15,8 +15,9 @@ import { CheckoutModule } from "../checkout/checkout.component";
 import { ReviewModule } from "../reviews/reviews.component";
 import { CatalogModule } from "../catalog/catalog.component";
 import { MainModule } from "../main/main.component";
-import { StoreDataUserService } from "../../services/storeDataUser.service";
 import { FixedDirective } from "../../directives/fixed.directive";
+import { CatalogService } from "../catalog/catalog.service";
+import { BehaviorSubjectService } from "../../services/behavior-subject.service";
 
 @Component({
     selector: "app-layout",
@@ -54,16 +55,16 @@ import { FixedDirective } from "../../directives/fixed.directive";
     `,
     styleUrls: ["../../../styles.scss"],
 })
-export class LayoutComponent {
+export class LayoutComponent implements OnInit {
     constructor(
-        private router: Router,
-        private storeData: StoreDataUserService,
-    ) {
-        const condition = this.storeData.getUserData();
+        private subject: BehaviorSubjectService,
+        private catalogService: CatalogService,
+    ) {}
 
-        if (condition) {
-            this.router.navigate(["/main"]);
-        }
+    ngOnInit() {
+        this.catalogService.getProdCarousel().subscribe((data) => {
+            this.subject.setSlider(data);
+        });
     }
 
     scrollTop() {

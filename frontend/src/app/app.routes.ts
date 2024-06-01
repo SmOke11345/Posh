@@ -16,6 +16,7 @@ import { OrderComponent } from "./pages/order/order.component";
 import { CatalogComponent } from "./pages/catalog/catalog.component";
 import { NotFoundComponent } from "./pages/not-found/not-found.component";
 import { MainComponent } from "./pages/main/main.component";
+import { ResetPasswordComponent } from "./pages/auth/reset-password/reset-password.component";
 
 export const routes: Routes = [
     {
@@ -40,6 +41,11 @@ export const routes: Routes = [
                 path: Pages.REGISTER,
                 title: "Регистрация",
                 component: RegisterComponent,
+            },
+            {
+                path: Pages.RESET,
+                title: "Восстановление пароля",
+                component: ResetPasswordComponent,
             },
         ],
     },

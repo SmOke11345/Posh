@@ -4,7 +4,6 @@ import { shortCatalog } from "../../models/Catalog";
 import { NgForOf, NgIf, NgStyle } from "@angular/common";
 import { CardProductComponent } from "../../components/cards/card-product/card-product.component";
 import { RouterLink } from "@angular/router";
-import { CatalogService } from "../catalog/catalog.service";
 
 @Component({
     selector: "app-main",
@@ -81,17 +80,13 @@ export class MainComponent implements OnInit {
         },
     ];
 
-    constructor(
-        private subject: BehaviorSubjectService,
-        private catalogService: CatalogService,
-    ) {
+    constructor(private subject: BehaviorSubjectService) {
         this.dataProducts = [] as shortCatalog[];
         this.initSliderItems = this.sliderItems.slice(0, 2);
     }
 
     ngOnInit() {
-        this.catalogService.getProdCarousel().subscribe((data) => {
-            this.subject.setSlider(data);
+        this.subject.slider$.subscribe((data) => {
             const prepareData = data.slice(0, 4);
             this.dataProducts.push(...prepareData);
         });

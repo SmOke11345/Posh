@@ -287,6 +287,17 @@ input.error {
             400 1.2rem "Inter",
             sans-serif;
     }
+
+    &__reset {
+        margin-top: 1rem;
+
+        a {
+            font:
+                500 $opensans-r-14 "Open Sans",
+                sans-serif;
+            text-decoration: underline;
+        }
+    }
 }
 
 @media screen and (max-width: $mobile) {

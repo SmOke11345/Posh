@@ -67,13 +67,13 @@ export class AuthService {
     }
 
     /**
-     * Установка данных пользователя в cookies (30 дней) и localStorage.
-     * @param payload
-     * @param token
+     * Восстановление пароля пользователя по e-mail.
+     * @param email
      */
-    setDataUser(payload: User, token: string) {
-        this.storeData.setToken(token);
-        this.storeData.setUserData(payload);
+    resetPassword(email: string) {
+        return this.http
+            .post(`${Url.RESTORE}`, { email })
+            .pipe(catchError((error) => throwError(error)));
     }
 
     /**
@@ -82,5 +82,15 @@ export class AuthService {
     logout() {
         this.storeData.destroyUserData();
         this.router.navigate(["/auth/login"]);
+    }
+
+    /**
+     * Установка данных пользователя в cookies (30 дней) и localStorage.
+     * @param payload
+     * @param token
+     */
+    setDataUser(payload: User, token: string) {
+        this.storeData.setToken(token);
+        this.storeData.setUserData(payload);
     }
 }

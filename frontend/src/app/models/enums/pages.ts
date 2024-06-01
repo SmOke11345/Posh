@@ -1,6 +1,7 @@
 export enum Pages {
     LOGIN = "login",
     REGISTER = "register",
+    RESET = "reset-password",
     PROFILE = "profile",
     CATALOG = "catalog",
     MAIN = "main",
