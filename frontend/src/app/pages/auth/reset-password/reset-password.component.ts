@@ -12,6 +12,7 @@ import { AuthService } from "../auth.service";
 import { Subscription } from "rxjs";
 import { StoreDataUserService } from "../../../services/storeDataUser.service";
 import { UsersService } from "../../profile/users.service";
+import { ModalComponent } from "../../../components/modal/modal.component";
 
 @Component({
     selector: "app-reset-password",
@@ -23,6 +24,7 @@ import { UsersService } from "../../profile/users.service";
         ReactiveFormsModule,
         RouterLink,
         NgClass,
+        ModalComponent,
     ],
     templateUrl: "./reset-password.component.html",
     styles: `
@@ -41,6 +43,11 @@ export class ResetPasswordComponent implements OnDestroy {
     condition: boolean = false;
     showPassword: boolean;
     typeInputPassword: string = "password";
+    dataModal: { isSend: boolean; title: string; content: string } = {
+        isSend: false,
+        title: "",
+        content: "",
+    };
     private readonly subRouter: Subscription;
 
     constructor(
@@ -52,14 +59,8 @@ export class ResetPasswordComponent implements OnDestroy {
     ) {
         this.showPassword = false;
         this.resetForm = new FormGroup({
-            email: new FormControl<string>("", [
-                // Validators.required,
-                Validators.email,
-            ]),
-            password: new FormControl<string>("", [
-                // Validators.required,
-                Validators.minLength(8),
-            ]),
+            email: new FormControl<string>("", [Validators.email]),
+            password: new FormControl<string>("", [Validators.minLength(8)]),
         });
 
         this.subRouter = this.router.queryParams.subscribe((params) => {
@@ -106,8 +107,14 @@ export class ResetPasswordComponent implements OnDestroy {
             this.authService
                 .resetPassword(this.resetForm.controls["email"].value)
                 .subscribe({
-                    next: () => {
-                        this.resetForm.reset();
+                    next: (response: any) => {
+                        this.dataModal = {
+                            isSend: true,
+                            title:
+                                "Письмо отправлено на почту: " +
+                                this.resetForm.controls["email"].value,
+                            content: response.message,
+                        };
                         this.error = "";
                     },
                     error: (error) => {

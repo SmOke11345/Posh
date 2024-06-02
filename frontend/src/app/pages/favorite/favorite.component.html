@@ -3,7 +3,7 @@
         <app-empty [isFavorite]="true"></app-empty>
     </ng-container>
     <ng-container *ngIf="isLoading">
-        <p>Загрузка...</p>
+        <p class="loading">Загрузка...</p>
     </ng-container>
     <ng-container *ngIf="!isLoading">
         <div class="grid">

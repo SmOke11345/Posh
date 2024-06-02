@@ -9,6 +9,7 @@ import { CardBasketComponent } from "../../components/cards/card-basket/card-bas
 import { Cart } from "../../models/Cart";
 import { BehaviorSubjectService } from "../../services/behavior-subject.service";
 import { RouterLink } from "@angular/router";
+import { ModalComponent } from "../../components/modal/modal.component";
 
 @Component({
     selector: "app-cart",
@@ -19,6 +20,7 @@ export class CartComponent implements OnInit {
     cartData: Cart[] = [];
     remove_id: number;
     isLoading: boolean;
+    isClear: boolean = false;
 
     constructor(
         private cartService: CartService,
@@ -50,23 +52,25 @@ export class CartComponent implements OnInit {
      */
     removeFromCart(catalog_id: number) {
         this.remove_id = catalog_id; // Устанавливаем полученный catalog_id из child-компонента в переменную remove_id.
-        this.cartService.removeFromCart(this.remove_id).subscribe({
-            next: () => {
-                this.cartData = this.cartData.filter(
-                    (item) => item.id !== this.remove_id,
-                );
-                this.subjectService.removeFromCart(this.remove_id);
-            },
+        this.cartService.removeFromCart(this.remove_id).subscribe(() => {
+            this.cartData = this.cartData.filter(
+                (item) => item.id !== this.remove_id,
+            );
+            this.subjectService.removeFromCart(this.remove_id);
         });
     }
 
     /**
      * Удаление всех товаров из корзины.
      */
-    clearCart() {
-        this.cartService.clearCart().subscribe(() => {
-            this.cartData = [];
-        });
+    clearCart(condition: boolean) {
+        if (condition) {
+            this.cartService.clearCart().subscribe(() => {
+                this.subjectService.clearCart();
+                this.cartData = [];
+            });
+        }
+        this.isClear = false;
     }
 
     /**
@@ -98,6 +102,7 @@ export class CartComponent implements OnInit {
         AsyncPipe,
         JsonPipe,
         RouterLink,
+        ModalComponent,
     ],
     providers: [CartService, BehaviorSubjectService],
 })

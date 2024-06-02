@@ -1,6 +1,6 @@
 <section class="orders">
     <ng-container *ngIf="isLoading">
-        <p>Загрузка...</p>
+        <p class="loading">Загрузка...</p>
     </ng-container>
     <ng-container *ngIf="dataOrders.length === 0 && !isLoading">
         <app-empty [isOrders]="true"></app-empty>

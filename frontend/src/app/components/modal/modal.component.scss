@@ -1,0 +1,18 @@
+@import "../../../assets/scss/variables.scss";
+
+.overlay .modal {
+    &__title h3 {
+        font-size: $rubik-sb-20;
+        @media screen and (max-width: $mobile) {
+            //font-size: $rubik-sb-16;
+        }
+    }
+
+    &__content {
+        margin-bottom: 3rem;
+    }
+
+    &__btns {
+        display: flex;
+    }
+}

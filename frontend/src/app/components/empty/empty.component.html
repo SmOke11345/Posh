@@ -6,18 +6,28 @@
     <div class="info-wrap">
         <div class="info__img">
             <ng-container *ngIf="isCart">
-                <img alt="Корзина" src="../../../assets/img/empty/cart.svg" />
+                <img
+                    alt="Корзина"
+                    loading="lazy"
+                    src="../../../assets/img/empty/cart.svg" />
             </ng-container>
             <ng-container *ngIf="isFavorite">
                 <img
                     alt="Избранное"
+                    loading="lazy"
                     src="../../../assets/img/empty/favorite.svg" />
             </ng-container>
             <ng-container *ngIf="isReview">
-                <img alt="Отзыв" src="../../../assets/img/empty/review.svg" />
+                <img
+                    alt="Отзыв"
+                    loading="lazy"
+                    src="../../../assets/img/empty/review.svg" />
             </ng-container>
             <ng-container *ngIf="isOrders">
-                <img alt="Отзыв" src="../../../assets/img/empty/orders.svg" />
+                <img
+                    alt="Отзыв"
+                    loading="lazy"
+                    src="../../../assets/img/empty/orders.svg" />
             </ng-container>
             <ng-container *ngIf="isNotFound">
                 <h1>404</h1>

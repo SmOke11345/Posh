@@ -57,6 +57,16 @@ export class BehaviorSubjectService {
     }
 
     /**
+     * Очистка корзины.
+     */
+    clearCart() {
+        if (typeof localStorage !== "undefined") {
+            localStorage.setItem("cart", JSON.stringify([]));
+            this.cart.next([]);
+        }
+    }
+
+    /**
      * Добавление одного товара в корзину.
      * @param value
      */

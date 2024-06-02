@@ -1,0 +1,28 @@
+<div (click)="close($event)" [class.active]="isShow" class="overlay">
+    <div class="modal">
+        <div class="modal__title">
+            <h3>{{ title }}</h3>
+        </div>
+        <div class="modal__content">
+            <p>{{ content }}</p>
+        </div>
+        <div class="modal__btns wrap-btn">
+            <ng-container *ngIf="!isReset">
+                <div class="modal__item-btn">
+                    <button
+                        (click)="changeStatus(true)"
+                        class="btn btn--primary medium">
+                        {{ btnActionText }}
+                    </button>
+                </div>
+            </ng-container>
+            <div class="modal__item-btn">
+                <button
+                    (click)="close($event)"
+                    class="btn btn--secondary medium">
+                    {{ isReset ? "Закрыть" : "Отмена" }}
+                </button>
+            </div>
+        </div>
+    </div>
+</div>

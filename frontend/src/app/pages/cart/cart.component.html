@@ -2,7 +2,9 @@
     <ng-container *ngIf="cartData.length === 0 && !isLoading">
         <app-empty [isCart]="true"></app-empty>
     </ng-container>
-    <ng-container *ngIf="isLoading"><p>Загрузка...</p></ng-container>
+    <ng-container *ngIf="isLoading"
+        ><p class="loading">Загрузка...</p></ng-container
+    >
     <ng-container *ngIf="cartData.length > 0 && !isLoading">
         <div class="cart-wrap">
             <div class="cart__inner">
@@ -11,7 +13,7 @@
                         <h2>Корзина</h2>
                     </div>
                     <div class="cart__clear">
-                        <button (click)="clearCart()" class="clear">
+                        <button (click)="isClear = true" class="clear">
                             Очистить корзину
                         </button>
                     </div>
@@ -72,3 +74,11 @@
         <app-slider></app-slider>
     </div>
 </section>
+<app-modal
+    (statusChange)="clearCart($event)"
+    [btnActionText]="'Удалить'"
+    [content]="
+        'Вы точно хотите удалить все товары из корзины? Отменить данное действие будет невозможно.'
+    "
+    [isShow]="isClear"
+    [title]="'Удалить все товары из корзины?'"></app-modal>

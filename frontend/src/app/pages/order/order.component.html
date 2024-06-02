@@ -1,5 +1,5 @@
 <ng-container *ngIf="isLoading">
-    <p>Загрузка...</p>
+    <p class="loading">Загрузка...</p>
 </ng-container>
 <ng-container *ngIf="dataOrder.id > 0">
     <section class="order">
@@ -21,6 +21,7 @@
                         <div class="order__item-img">
                             <img
                                 alt="Место"
+                                loading="lazy"
                                 src="../../../assets/img/pages/order/Location.svg" />
                         </div>
                         <div class="order__list">
@@ -44,6 +45,7 @@
                         <div class="order__item-img">
                             <img
                                 alt="Пользователь"
+                                loading="lazy"
                                 src="../../../assets/img/pages/order/User.svg" />
                         </div>
                         <div class="order__list">
@@ -72,6 +74,7 @@
                         <div class="order__item-img">
                             <img
                                 alt="Оплата"
+                                loading="lazy"
                                 src="../../../assets/img/pages/order/card.svg" />
                         </div>
                         <div class="order__price">
@@ -188,9 +191,15 @@
                             <span class="info-text error">{{ error }}</span>
                         </ng-container>
                     </div>
-                    <div class="form__input">
+                    <div class="form__input wrap-btn">
                         <button class="btn btn--primary medium" type="submit">
                             Оценить товар
+                        </button>
+                        <button
+                            (click)="closeModal($event)"
+                            class="btn btn--secondary medium"
+                            type="reset">
+                            Отменить
                         </button>
                     </div>
                 </form>

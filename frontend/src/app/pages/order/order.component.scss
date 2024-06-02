@@ -90,66 +90,24 @@
     }
 }
 
-.overlay {
-    display: none;
-    justify-content: center;
-    align-items: center;
-    position: fixed;
-    background-color: rgba($dark, 0.3);
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    z-index: 10;
+.overlay .modal {
+    &__wrapper:nth-child(2) {
+        margin: 5rem 0;
+        display: flex;
+        align-items: center;
+        flex-direction: column;
+        gap: 1rem;
+    }
 
-    .modal {
-        padding: 2.5rem;
-        background-color: $section-white;
-        border-radius: 2.4rem;
-        z-index: 100;
-        width: 30%;
+    .stars {
+        justify-content: center;
 
-        @media screen and (max-width: $tablet) {
-            width: 90%;
-        }
-
-        p {
-            font-size: $opensans-r-14;
-        }
-
-        &__title {
-            margin-bottom: 1rem;
-
-            h3 {
-                font-size: $rubik-sb-32;
-                @media screen and (max-width: $mobile) {
-                    font-size: $rubik-sb-24;
-                }
-            }
-        }
-
-        &__wrapper:nth-child(2) {
-            margin: 5rem 0;
-            display: flex;
-            align-items: center;
-            flex-direction: column;
-            gap: 1rem;
-        }
-
-        .stars {
-            justify-content: center;
-
-            .star {
-                cursor: pointer;
-            }
-        }
-
-        &__text p {
-            color: $main-gray;
+        .star {
+            cursor: pointer;
         }
     }
-}
 
-.overlay.active {
-    display: flex;
+    &__text p {
+        color: $main-gray;
+    }
 }

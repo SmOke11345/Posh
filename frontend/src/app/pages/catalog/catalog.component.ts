@@ -117,6 +117,7 @@ export class CatalogComponent implements OnDestroy {
                 this.colorsList = data.colors;
             },
             error: (error) => {
+                this.isLoading = false;
                 this.error = error.error.message;
             },
             complete: () => {

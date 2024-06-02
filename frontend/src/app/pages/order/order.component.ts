@@ -1,7 +1,7 @@
 import { Component, NgModule, OnDestroy } from "@angular/core";
 import { OrdersService } from "../orders/orders.service";
 import { Subscription } from "rxjs";
-import { ActivatedRoute, RouterLink } from "@angular/router";
+import { ActivatedRoute, Router, RouterLink } from "@angular/router";
 import { Order } from "../../models/Order";
 import { NgForOf, NgIf, NgStyle } from "@angular/common";
 import { CardOrderComponent } from "../../components/cards/card-order/card-order.component";
@@ -42,6 +42,7 @@ export class OrderComponent implements OnDestroy {
         private ordersService: OrdersService,
         private reviewsService: ReviewsService,
         private router: ActivatedRoute,
+        private route: Router,
     ) {
         this.dataOrder = {} as Order;
         this.isLoading = true;
@@ -89,7 +90,6 @@ export class OrderComponent implements OnDestroy {
             isModal: payload.isModal,
             title: payload.title,
         };
-        console.log(payload);
     }
 
     /**
@@ -119,6 +119,7 @@ export class OrderComponent implements OnDestroy {
                         isModal: false,
                         title: "",
                     };
+                    this.route.navigate(["/reviews"]);
                 },
                 error: (error) => {
                     this.error = error.error.message;
