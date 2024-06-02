@@ -56,7 +56,6 @@ export class UsersService {
      * @param password - новый пароль
      */
     async patchUserPassword(email: string, password: string): Promise<User> {
-        console.log(password);
         if (password.length < 8)
             throw new ForbiddenException("Не менее 8 символов");
 
