@@ -24,7 +24,7 @@ export class JwtAuthGuard implements CanActivate {
                 secret: jwtConstants.secret,
             });
         } catch {
-            throw new UnauthorizedException();
+            throw new UnauthorizedException("Необходима авторизация");
         }
 
         return true;

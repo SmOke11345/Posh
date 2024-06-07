@@ -18,6 +18,7 @@ model User {
   favorite Favorite[] @relation("FavoriteUser")
   order    Order[]    @relation("OrderUser")
   review   Review[]   @relation("ReviewUser")
+  promo    Promo[]    @relation("PromoUser")
 }
 
 model Catalog {
@@ -97,4 +98,11 @@ model Status {
   id    Int     @id @default(autoincrement())
   name  String
   order Order[] @relation("OrderStatus")
+}
+
+model Promo {
+  id          Int    @id @default(autoincrement())
+  email_promo String
+  user_id     Int
+  userId      User   @relation("PromoUser", fields: [user_id], references: [id])
 }

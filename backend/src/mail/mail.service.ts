@@ -1,25 +1,60 @@
-import { Injectable } from "@nestjs/common";
+import { ForbiddenException, Injectable } from "@nestjs/common";
 import { MailerService } from "@nestjs-modules/mailer";
+import { PrismaService } from "../utils/prisma.service";
 
 @Injectable()
 export class MailService {
-    constructor(private mailerService: MailerService) {}
+    constructor(
+        private mailerService: MailerService,
+        private prismaService: PrismaService,
+    ) {}
 
     /**
      * Отправляет письмо о подписке на введенную почту.
-     * @param email - введенная почта
+     * @param email_promo - полученная почта
+     * @param user_id - id пользователя
      */
-    async subscribeToDiscount(email: string) {
+    async subscribeToDiscount(
+        email_promo: string,
+        user_id: number,
+    ): Promise<{ message: string }> {
+        const user = await this.prismaService.user.findUnique({
+            where: {
+                id: user_id,
+            },
+        });
+
+        if (!user) throw new ForbiddenException("Пользователь не найден");
+
+        const isExist = await this.prismaService.promo.findFirst({
+            where: {
+                OR: [{ email_promo }, { user_id }],
+            },
+        });
+
+        if (isExist) throw new ForbiddenException("Вы уже состоите в клубе");
+
         await this.mailerService.sendMail({
-            to: email,
-            subject: "Подписка на рассылку",
+            to: email_promo,
+            subject: "Поздравляем вы вступили в сообщество POSH!",
             template: "./subscribe",
             // Нужен для .hbs
             context: {
-                name: "Пользователь",
+                name: user.name,
                 url: "https://posh-clothes.vercel.app/",
             },
         });
+
+        await this.prismaService.promo.create({
+            data: {
+                email_promo,
+                user_id,
+            },
+        });
+
+        return {
+            message: `Письмо отправлено на ${email_promo}`,
+        };
     }
 
     /**
