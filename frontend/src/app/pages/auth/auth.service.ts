@@ -77,6 +77,16 @@ export class AuthService {
     }
 
     /**
+     * Подписка на скидку.
+     * @param email
+     */
+    subscribeToDiscount(email: string) {
+        return this.http
+            .post(`${Url.SUBSCRIBE}`, { email })
+            .pipe(catchError((error) => throwError(error)));
+    }
+
+    /**
      * Выход пользователя из аккаунта.
      */
     logout() {

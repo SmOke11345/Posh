@@ -12,7 +12,7 @@ export class FixedDirective {
 
     @HostListener("window:scroll", ["$event"]) onWindowScroll() {
         const scrollUp = this.el.nativeElement;
-        if (window.scrollY > 100) {
+        if (window.scrollY > 500) {
             return this.renderer.addClass(scrollUp, "fixed");
         } else {
             return this.renderer.removeClass(scrollUp, "fixed");

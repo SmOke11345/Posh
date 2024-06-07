@@ -5,7 +5,7 @@ import {
     OnDestroy,
     OnInit,
 } from "@angular/core";
-import { NavigationEnd, Router, RouterLink } from "@angular/router";
+import { NavigationStart, Router, RouterLink } from "@angular/router";
 import { Location, NgClass, NgForOf, NgIf } from "@angular/common";
 import { BehaviorSubjectService } from "../../services/behavior-subject.service";
 import { FormsModule } from "@angular/forms";
@@ -46,15 +46,24 @@ export class HeaderComponent implements OnInit, DoCheck, OnDestroy {
             },
         },
     ];
+    notShowPages: string[] = [
+        "catalog",
+        "product",
+        "profile",
+        "checkout",
+        "cart",
+    ];
+
     cartCount: number = 0;
     showMenu: boolean = false;
     isSearch: boolean = false;
-    isMainPage: boolean;
-
     searchValue: string = "";
     dataHint: { title: string }[] = [];
     error: string = "";
     debouncedSearchValue = new Subject<string>();
+
+    isMainPage: boolean;
+    isNotShowPage: boolean;
 
     protected subRouter: Subscription;
 
@@ -65,10 +74,14 @@ export class HeaderComponent implements OnInit, DoCheck, OnDestroy {
         private subjectService: BehaviorSubjectService,
         private catalogService: CatalogService,
     ) {
-        this.isMainPage = false;
+        this.isMainPage = true;
+        this.isNotShowPage = false;
         this.subRouter = this.router.events.subscribe((event) => {
-            if (event instanceof NavigationEnd) {
+            if (event instanceof NavigationStart) {
                 this.isMainPage = event.url === "/main";
+                this.isNotShowPage = this.notShowPages.some((page) =>
+                    event.url.includes(page),
+                );
             }
         });
     }

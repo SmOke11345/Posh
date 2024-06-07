@@ -13,6 +13,7 @@ import {
     ReactiveFormsModule,
     Validators,
 } from "@angular/forms";
+import { Review } from "../../models/Review";
 
 @Component({
     selector: "app-order",
@@ -23,8 +24,9 @@ export class OrderComponent implements OnDestroy {
     reviewForm: FormGroup;
     dataOrder: Order;
     isLoading: boolean;
+    dataReview: Review[];
 
-    modalData: {
+    dataModal: {
         catalogId: number;
         isModal: boolean;
         title: string;
@@ -45,6 +47,7 @@ export class OrderComponent implements OnDestroy {
         private route: Router,
     ) {
         this.dataOrder = {} as Order;
+        this.dataReview = [] as Review[];
         this.isLoading = true;
         this.subRouter = this.router.params.subscribe((params) => {
             const id = params["id"];
@@ -73,6 +76,9 @@ export class OrderComponent implements OnDestroy {
                 this.isLoading = false;
             },
         });
+        this.reviewsService.getUserReviews().subscribe((data: Review[]) => {
+            this.dataReview = data;
+        });
     }
 
     /**
@@ -85,7 +91,7 @@ export class OrderComponent implements OnDestroy {
         isModal: boolean;
         title: string;
     }) {
-        this.modalData = {
+        this.dataModal = {
             catalogId: payload.catalog_id,
             isModal: payload.isModal,
             title: payload.title,
@@ -108,13 +114,13 @@ export class OrderComponent implements OnDestroy {
      * Добавление отзыва.
      */
     createReview() {
-        const { catalogId } = this.modalData;
+        const { catalogId } = this.dataModal;
         this.reviewsService
             .createReview(catalogId, { ...this.reviewForm.value })
             .subscribe({
                 next: () => {
                     this.reviewForm.reset();
-                    this.modalData = {
+                    this.dataModal = {
                         catalogId: 0,
                         isModal: false,
                         title: "",
@@ -136,12 +142,22 @@ export class OrderComponent implements OnDestroy {
      */
     closeModal(event: MouseEvent) {
         if (event.target === event.currentTarget) {
-            this.modalData = {
+            this.dataModal = {
                 catalogId: 0,
                 isModal: false,
                 title: "",
             };
+            this.error = "";
+            this.reviewForm.reset();
         }
+    }
+
+    /**
+     * Проверка, есть ли отзыв в reviews.
+     * @param id
+     */
+    isReview(id: number) {
+        return !this.dataReview.find((item) => item.catalog_id === id);
     }
 
     ngOnDestroy() {

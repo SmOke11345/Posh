@@ -10,6 +10,7 @@ import { Cart } from "../../models/Cart";
 import { BehaviorSubjectService } from "../../services/behavior-subject.service";
 import { RouterLink } from "@angular/router";
 import { ModalComponent } from "../../components/modal/modal.component";
+import { Modal } from "../../models/Modal";
 
 @Component({
     selector: "app-cart",
@@ -20,7 +21,14 @@ export class CartComponent implements OnInit {
     cartData: Cart[] = [];
     remove_id: number;
     isLoading: boolean;
-    isClear: boolean = false;
+
+    dataModal: Modal = {
+        title: "Удалить все товары из корзины?",
+        content:
+            "Вы точно хотите удалить все товары из корзины? Отменить данное действие будет невозможно.",
+        btnActionText: "Удалить",
+        isShow: false,
+    };
 
     constructor(
         private cartService: CartService,
@@ -70,7 +78,7 @@ export class CartComponent implements OnInit {
                 this.cartData = [];
             });
         }
-        this.isClear = false;
+        this.dataModal.isShow = false;
     }
 
     /**

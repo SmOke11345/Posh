@@ -117,7 +117,7 @@
     width: 100%;
     height: 100%;
     background-color: $section-white;
-    z-index: 100;
+    z-index: 100000;
     overflow: auto;
     padding: 7.5rem 0 7.5rem;
 
@@ -254,4 +254,64 @@
     width: 100%;
     height: 100%;
     background: rgba($dark, 0.3);
+}
+
+.feedback {
+    position: fixed;
+    left: 5%;
+    bottom: 3%;
+    z-index: 100;
+    cursor: pointer;
+
+    &__inner {
+        position: relative;
+    }
+
+    &__img {
+        img {
+            width: 10rem;
+            height: 10rem;
+            @media screen and (max-width: $mobile) {
+                width: 7rem;
+                height: 7rem;
+            }
+        }
+    }
+
+    .wave {
+        position: absolute;
+        z-index: -1;
+        width: 12rem;
+        height: 12rem;
+        border-radius: 50%;
+        border: 0.4rem solid #107cb3;
+        top: 48%;
+        left: 50%;
+        transform: translate(-50%, -50%) scale(0);
+        animation: wave 3s infinite;
+
+        @media screen and (max-width: $mobile) {
+            width: 9rem;
+            height: 9rem;
+        }
+    }
+
+    .wave1 {
+        animation-delay: 1s;
+    }
+
+    .wave2 {
+        animation-delay: 2s;
+    }
+
+    @keyframes wave {
+        0% {
+            transform: translate(-50%, -50%) scale(0);
+            opacity: 1;
+        }
+        100% {
+            transform: translate(-50%, -50%) scale(1.3);
+            opacity: 0;
+        }
+    }
 }

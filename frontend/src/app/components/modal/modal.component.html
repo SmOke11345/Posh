@@ -7,7 +7,7 @@
             <p>{{ content }}</p>
         </div>
         <div class="modal__btns wrap-btn">
-            <ng-container *ngIf="!isReset">
+            <ng-container *ngIf="!isNoAction">
                 <div class="modal__item-btn">
                     <button
                         (click)="changeStatus(true)"
@@ -20,7 +20,7 @@
                 <button
                     (click)="close($event)"
                     class="btn btn--secondary medium">
-                    {{ isReset ? "Закрыть" : "Отмена" }}
+                    {{ isNoAction ? "Закрыть" : "Отмена" }}
                 </button>
             </div>
         </div>

@@ -13,7 +13,7 @@
                         <h2>Корзина</h2>
                     </div>
                     <div class="cart__clear">
-                        <button (click)="isClear = true" class="clear">
+                        <button (click)="dataModal.isShow = true" class="clear">
                             Очистить корзину
                         </button>
                     </div>
@@ -76,9 +76,7 @@
 </section>
 <app-modal
     (statusChange)="clearCart($event)"
-    [btnActionText]="'Удалить'"
-    [content]="
-        'Вы точно хотите удалить все товары из корзины? Отменить данное действие будет невозможно.'
-    "
-    [isShow]="isClear"
-    [title]="'Удалить все товары из корзины?'"></app-modal>
+    [btnActionText]="dataModal.btnActionText"
+    [content]="dataModal.content"
+    [isShow]="dataModal.isShow"
+    [title]="dataModal.title"></app-modal>

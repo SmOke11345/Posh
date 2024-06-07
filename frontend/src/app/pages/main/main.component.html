@@ -46,7 +46,12 @@
                     <h2>не пропусти новые товары</h2>
                 </div>
                 <div class="novelty__btn">
-                    <button class="btn btn--secondary">Смотреть новинки</button>
+                    <button
+                        [queryParams]="{ sort: 'createdAt' }"
+                        class="btn btn--secondary"
+                        routerLink="/catalog">
+                        Смотреть новинки
+                    </button>
                 </div>
             </div>
             <div class="grid">

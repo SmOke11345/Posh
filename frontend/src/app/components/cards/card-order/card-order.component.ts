@@ -1,4 +1,4 @@
-import { Component, EventEmitter, Input, OnInit, Output } from "@angular/core";
+import { Component, EventEmitter, Input, Output } from "@angular/core";
 import { NgIf } from "@angular/common";
 import { OrderProduct } from "../../../models/Order";
 import { RouterLink } from "@angular/router";
@@ -12,35 +12,23 @@ import { ReviewsService } from "../../../pages/reviews/reviews.service";
     styleUrl: "./card-order.component.scss",
     providers: [ReviewsService],
 })
-export class CardOrderComponent implements OnInit {
+export class CardOrderComponent {
     @Input() item: OrderProduct;
     @Input() status: string;
+    @Input() isReview: boolean;
     @Output() createReview = new EventEmitter<{
         catalog_id: number;
         isModal: boolean;
         title: string;
     }>();
 
-    isModal = false;
-    isReview: boolean;
+    isModal: boolean;
 
-    constructor(private reviewsService: ReviewsService) {
+    constructor() {
         this.item = {} as OrderProduct;
-        this.isReview = false;
         this.status = "Ожидайте звонка";
-    }
-
-    ngOnInit() {
-        this.reviewsService.getUserReviews().subscribe((data) => {
-            if (!data.length) {
-                this.isReview = true;
-            }
-            data.find((item) => {
-                if (item.catalog_id !== this.item.id) {
-                    this.isReview = true;
-                }
-            });
-        });
+        this.isModal = false;
+        this.isReview = false;
     }
 
     /**

@@ -13,7 +13,7 @@ export class ModalComponent {
     @Input() content: string = "";
     @Input() btnActionText: string = "";
     @Input() isShow: boolean = false;
-    @Input() isReset: boolean = false;
+    @Input() isNoAction: boolean = false;
     @Output() statusChange = new EventEmitter<boolean>();
 
     constructor() {}

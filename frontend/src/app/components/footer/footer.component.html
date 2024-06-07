@@ -13,7 +13,7 @@
                 </div>
             </div>
             <form
-                (ngSubmit)="submit($event)"
+                (ngSubmit)="onSubmit()"
                 [formGroup]="form"
                 class="form"
                 method="post">
@@ -32,8 +32,8 @@
         <div class="wrapper">
             <div class="footer__logo">
                 <img
-                    loading="lazy"
                     alt="logo"
+                    loading="lazy"
                     src="./assets/img/footer/logo--white.svg" />
             </div>
         </div>
@@ -78,3 +78,9 @@
         <div class="background"></div>
     </div>
 </footer>
+<app-modal
+    [btnActionText]="dataModal.btnActionText"
+    [content]="dataModal.content"
+    [isNoAction]="true"
+    [isShow]="dataModal.isShow"
+    [title]="dataModal.title"></app-modal>

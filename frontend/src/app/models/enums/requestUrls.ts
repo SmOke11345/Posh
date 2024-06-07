@@ -6,6 +6,7 @@ export enum Url {
     LOGIN = `${host}/auth/login`,
     REGISTER = `${host}/auth/register`,
     RESTORE = `${host}/auth/reset-password`,
+    SUBSCRIBE = `${host}/mail/subscribe`,
     USERS = `${host}/users`,
     CATALOG = `${host}/catalogs`,
     REVIEW = `${host}/reviews`,

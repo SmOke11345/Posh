@@ -126,6 +126,7 @@
                     <ng-container *ngFor="let product of dataOrder.products">
                         <app-card-order
                             (createReview)="collectModalData($event)"
+                            [isReview]="isReview(product.id)"
                             [item]="product"
                             [status]="dataOrder.status"></app-card-order>
                     </ng-container>
@@ -135,7 +136,7 @@
     </section>
     <div
         (click)="closeModal($event)"
-        [class.active]="modalData.isModal"
+        [class.active]="dataModal.isModal"
         class="overlay">
         <div class="modal">
             <div class="modal__inner">
@@ -144,7 +145,7 @@
                         <h3>Заказ №88231231-{{ dataOrder.id }}</h3>
                     </div>
                     <p>
-                        {{ modalData.title }}
+                        {{ dataModal.title }}
                     </p>
                 </div>
                 <div class="modal__wrapper">
