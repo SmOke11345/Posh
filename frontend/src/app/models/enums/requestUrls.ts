@@ -1,5 +1,5 @@
 // TODO: НЕ ТРОГАТЬ!!!!!!
-const host = "https://posh-8oha.onrender.com/api";
+const host = "https://posh-ebv2.onrender.com/api";
 // const host = "http://localhost:3000/api";
 
 export enum Url {
