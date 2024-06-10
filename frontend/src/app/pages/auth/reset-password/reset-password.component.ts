@@ -39,15 +39,18 @@ import { ModalComponent } from "../../../components/modal/modal.component";
 })
 export class ResetPasswordComponent implements OnDestroy {
     resetForm: FormGroup;
-    error: string = "";
-    condition: boolean = false;
     showPassword: boolean;
+    condition: boolean;
+
+    error: string = "";
     typeInputPassword: string = "password";
+
     dataModal: { isSend: boolean; title: string; content: string } = {
         isSend: false,
         title: "",
         content: "",
     };
+
     private readonly subRouter: Subscription;
 
     constructor(
@@ -58,6 +61,7 @@ export class ResetPasswordComponent implements OnDestroy {
         private storeData: StoreDataUserService,
     ) {
         this.showPassword = false;
+        this.condition = false;
         this.resetForm = new FormGroup({
             email: new FormControl<string>("", [Validators.email]),
             password: new FormControl<string>("", [Validators.minLength(8)]),
@@ -87,16 +91,11 @@ export class ResetPasswordComponent implements OnDestroy {
      * Обработка ошибок и отправка данных.
      */
     onSubmit() {
-        if (this.resetForm.invalid) {
-            return;
-        }
         if (this.condition) {
             this.usersService
                 .patchUserPassword(this.resetForm.controls["password"].value)
                 .subscribe({
                     next: () => {
-                        this.resetForm.reset();
-                        this.error = "";
                         this.storeData.destroyUserData();
                         this.route.navigate(["/auth/login"]);
                     },
