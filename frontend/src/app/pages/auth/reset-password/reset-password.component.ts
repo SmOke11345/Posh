@@ -97,6 +97,7 @@ export class ResetPasswordComponent implements OnDestroy {
                     next: () => {
                         this.resetForm.reset();
                         this.error = "";
+                        this.storeData.destroyUserData();
                         this.route.navigate(["/auth/login"]);
                     },
                     error: (error) => {

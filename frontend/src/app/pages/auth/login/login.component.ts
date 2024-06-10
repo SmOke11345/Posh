@@ -44,7 +44,6 @@ export class LoginComponent {
         }
         this.authService.login({ ...this.loginForm.value }).subscribe({
             error: (error) => {
-                console.log(error);
                 this.errors = [`${error.error.message}`];
             },
             complete: () => {

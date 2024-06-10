@@ -140,7 +140,9 @@ export class ProductComponent implements OnDestroy {
             this.favoriteService.removeFavorite(catalog_id).subscribe();
             this._isFavorite = false;
         } else {
-            this.favoriteService.addFavorite(catalog_id).subscribe();
+            this.favoriteService.addFavorite(catalog_id).subscribe({
+                error: () => this.route.navigate(["/auth/login"]),
+            });
             this._isFavorite = true;
         }
     }
@@ -152,11 +154,13 @@ export class ProductComponent implements OnDestroy {
         if (this._isCart) {
             this.cartService.removeFromCart(catalog_id).subscribe();
             this.subjectService.removeCartOneItem(catalog_id);
-            this._isCart = false;
+            return (this._isCart = false);
         } else {
             this.cartService
                 .addToCart(catalog_id, this.selectedSize)
-                .subscribe();
+                .subscribe({
+                    error: () => this.route.navigate(["/auth/login"]),
+                });
             this.subjectService.setCartOneItem({
                 id: catalog_id,
                 title: this.dataProduct.title,
@@ -167,7 +171,7 @@ export class ProductComponent implements OnDestroy {
                 count: 1,
                 chapterAndType: "", // Сделано для отображения => не обязательно заполнять все данные.
             });
-            this._isCart = true;
+            return (this._isCart = true);
         }
     }
 
@@ -194,6 +198,9 @@ export class ProductComponent implements OnDestroy {
         this.cartService.addToCart(catalog_id, size).subscribe({
             next: (data) => {
                 this.subjectService.setCartOneItem(data);
+            },
+            error: () => {
+                this.route.navigate(["/auth/login"]);
             },
             complete: () => {
                 // TODO: Поменять логику в будущем.

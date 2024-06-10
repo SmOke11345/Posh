@@ -269,8 +269,8 @@
 
     &__img {
         img {
-            width: 10rem;
-            height: 10rem;
+            width: 9rem;
+            height: 9rem;
             @media screen and (max-width: $mobile) {
                 width: 7rem;
                 height: 7rem;
@@ -281,8 +281,8 @@
     .wave {
         position: absolute;
         z-index: -1;
-        width: 12rem;
-        height: 12rem;
+        width: 11rem;
+        height: 11rem;
         border-radius: 50%;
         border: 0.4rem solid #107cb3;
         top: 48%;

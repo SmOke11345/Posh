@@ -25,6 +25,7 @@ export class StoreDataUserService {
             ? this.cookieService.set("access_token", token, {
                   expires: new Date(Date.now() + 30 * 24 * 60 * 60 * 1000), // 30 дней
                   sameSite: "Strict",
+                  path: "/",
               })
             : this.cookieService.set("access_token", token);
     }
@@ -67,6 +68,7 @@ export class StoreDataUserService {
      * Удаление данных пользователя из localStorage и cookie.
      */
     destroyUserData() {
+        this.cookieService.delete("access_token", "/");
         this.cookieService.delete("access_token");
         localStorage.removeItem("user_data");
         localStorage.removeItem("cart");
