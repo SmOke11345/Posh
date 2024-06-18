@@ -19,6 +19,9 @@ export class BehaviorSubjectService {
     //
     private favorite = new BehaviorSubject<shortCatalog[]>([]);
     favorite$ = this.favorite.asObservable();
+    //
+    private checkout = new BehaviorSubject<Cart[]>([]);
+    checkout$ = this.checkout.asObservable();
 
     constructor() {
         if (typeof localStorage !== "undefined") {
@@ -182,6 +185,26 @@ export class BehaviorSubjectService {
             return JSON.parse(localStorage.getItem("favorite") as string);
         }
     }
+
+    /**
+     * Установка значений checkout.
+     * @param value
+     */
+    setCheckout(value: Cart[]) {
+        if (typeof localStorage !== "undefined") {
+            localStorage.setItem("checkout", JSON.stringify(value));
+            this.checkout.next(value);
+        }
+    }
+
+    // /**
+    //  * Получение checkout.
+    //  */
+    // getCheckout() {
+    //     if (typeof localStorage !== "undefined") {
+    //         return JSON.parse(localStorage.getItem("checkout") as string);
+    //     }
+    // }
 
     /**
      * Удаление товара из избранных.

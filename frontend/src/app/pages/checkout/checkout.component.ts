@@ -13,9 +13,10 @@ import { CardBasketComponent } from "../../components/cards/card-basket/card-bas
 import { Cart } from "../../models/Cart";
 import { NgxMaskDirective } from "ngx-mask";
 import { OrdersService } from "../orders/orders.service";
-import { Router, RouterLink } from "@angular/router";
+import { NavigationStart, Router, RouterLink } from "@angular/router";
 import { CartService } from "../cart/cart.service";
 import { CardOrderComponent } from "../../components/cards/card-order/card-order.component";
+import { Subscription } from "rxjs";
 
 @Component({
     selector: "app-checkout",
@@ -23,7 +24,7 @@ import { CardOrderComponent } from "../../components/cards/card-order/card-order
     styleUrl: "./checkout.component.scss",
 })
 export class CheckoutComponent implements OnInit {
-    cart: Cart[];
+    dataCheckout: Cart[];
     userData: User;
 
     orderForm: FormGroup = new FormGroup({});
@@ -53,6 +54,8 @@ export class CheckoutComponent implements OnInit {
         },
     ];
 
+    private readonly subRouter: Subscription;
+
     constructor(
         private storeData: StoreDataUserService,
         private subjectService: BehaviorSubjectService,
@@ -61,7 +64,19 @@ export class CheckoutComponent implements OnInit {
         private router: Router,
     ) {
         this.userData = {} as User;
-        this.cart = [] as Cart[];
+        this.dataCheckout = [] as Cart[];
+        this.subjectService.checkout$.subscribe((data) => {
+            this.dataCheckout = data;
+        });
+        this.subRouter = this.router.events.subscribe((event) => {
+            if (event instanceof NavigationStart) {
+                if (event) {
+                    this.subjectService.setCheckout([]);
+                    // TODO: Удалить товар из корзины после перехода на другую страницу. Либо сделать получение ICatalog в product другим способом, без добавления в корзину.
+                    this.cartService.removeFromCart(this.dataCheckout[0].id);
+                }
+            }
+        });
     }
 
     ngOnInit() {
@@ -81,8 +96,6 @@ export class CheckoutComponent implements OnInit {
                 Validators.required,
             ]),
         });
-
-        this.cart = this.subjectService.getCart();
     }
 
     selectDelivery(name: string, id: number) {
@@ -104,18 +117,22 @@ export class CheckoutComponent implements OnInit {
             this.orderForm.controls["address"].setValue("Забрать в магазине");
         }
         if (this.orderForm.valid) {
-            const products = this.cart;
+            const products = this.dataCheckout;
             const summary = this.getTotalCost();
             this.orderService
                 .createOrder({ ...this.orderForm.value, products, summary })
                 .subscribe({
                     next: () => {
                         this.cartService.clearCart().subscribe();
-                        this.subjectService.setCart([]);
+                        this.subjectService.setCheckout([]);
                         return this.router.navigate(["/orders"]);
                     },
                 });
         }
+    }
+
+    ngOnDestroy() {
+        if (this.subRouter) this.subRouter.unsubscribe();
     }
 }
 

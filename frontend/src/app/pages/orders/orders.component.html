@@ -75,7 +75,9 @@
                                                 order.status ===
                                                 'В процессе доставки',
                                             'orders__status-info--completed':
-                                                order.status === 'Получено'
+                                                order.status === 'Получено',
+                                            'orders__status-info--cancelled':
+                                                order.status === 'Отменено'
                                         }"
                                         class="orders__status-info">
                                         <h4>{{ order.status }}</h4>

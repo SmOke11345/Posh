@@ -197,17 +197,14 @@ export class ProductComponent implements OnDestroy {
         const size = this.selectedSize;
         this.cartService.addToCart(catalog_id, size).subscribe({
             next: (data) => {
-                this.subjectService.setCartOneItem(data);
+                // Используется для получения измененный данных о товаре, после добавление в корзину.
+                this.subjectService.setCheckout([data]);
             },
             error: () => {
                 this.route.navigate(["/auth/login"]);
             },
             complete: () => {
-                // TODO: Поменять логику в будущем.
-                this.route.navigate(["/cart"]);
-                setTimeout(() => {
-                    this.route.navigate(["/checkout"]);
-                }, 100);
+                this.route.navigate(["/checkout"]);
             },
         });
     }

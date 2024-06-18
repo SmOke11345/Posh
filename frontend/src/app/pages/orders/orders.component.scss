@@ -99,6 +99,10 @@
         }
     }
 
+    &__status-info--cancelled {
+        background-color: $error;
+    }
+
     &__summary {
         display: flex;
         align-items: baseline;

@@ -8,7 +8,7 @@ import { CartService } from "./cart.service";
 import { CardBasketComponent } from "../../components/cards/card-basket/card-basket.component";
 import { Cart } from "../../models/Cart";
 import { BehaviorSubjectService } from "../../services/behavior-subject.service";
-import { RouterLink } from "@angular/router";
+import { Router, RouterLink } from "@angular/router";
 import { ModalComponent } from "../../components/modal/modal.component";
 import { Modal } from "../../models/Modal";
 
@@ -31,6 +31,7 @@ export class CartComponent implements OnInit {
     };
 
     constructor(
+        private router: Router,
         private cartService: CartService,
         private subjectService: BehaviorSubjectService,
     ) {
@@ -93,6 +94,11 @@ export class CartComponent implements OnInit {
      */
     getTotalCount() {
         return this.subjectService.getCountProductInCart();
+    }
+
+    setCheckout(value: Cart[]) {
+        this.subjectService.setCheckout(value);
+        this.router.navigate(["/checkout"]);
     }
 }
 

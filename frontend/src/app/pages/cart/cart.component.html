@@ -65,7 +65,9 @@
                     </div>
                 </div>
                 <div class="cart__btn">
-                    <button class="btn" routerLink="/checkout">Заказать</button>
+                    <button class="btn" (click)="setCheckout(cartData)">
+                        Заказать
+                    </button>
                 </div>
             </div>
         </div>
