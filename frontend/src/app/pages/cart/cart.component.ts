@@ -86,14 +86,14 @@ export class CartComponent implements OnInit {
      * Получение итоговой суммы корзины.
      */
     getTotalCost() {
-        return this.subjectService.getTotalCost();
+        return this.subjectService.getTotalCost(true);
     }
 
     /**
      * Получение итогового количества товаров в корзине.
      */
     getTotalCount() {
-        return this.subjectService.getCountProductInCart();
+        return this.subjectService.getCountProductInCart(true);
     }
 
     setCheckout(value: Cart[]) {

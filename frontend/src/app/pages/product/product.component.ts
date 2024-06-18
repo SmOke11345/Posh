@@ -195,18 +195,28 @@ export class ProductComponent implements OnDestroy {
      */
     addToCheckout(catalog_id: number) {
         const size = this.selectedSize;
-        this.cartService.addToCart(catalog_id, size).subscribe({
-            next: (data) => {
-                // Используется для получения измененный данных о товаре, после добавление в корзину.
-                this.subjectService.setCheckout([data]);
-            },
-            error: () => {
-                this.route.navigate(["/auth/login"]);
-            },
-            complete: () => {
-                this.route.navigate(["/checkout"]);
-            },
-        });
+        // TODO: как-то так...
+        const preparedColor =
+            this.dataProduct.description.titles.slice(-2, -1) +
+            " - " +
+            this.dataProduct.description.texts.slice(-2, -1);
+        const preparedDataCart = {
+            id: catalog_id,
+            title: this.dataProduct.title,
+            size: size,
+            color: preparedColor,
+            image: this.dataProduct.images[0],
+            cost: this.dataProduct.cost,
+            count: 1,
+            chapterAndType:
+                this.dataProduct.gender +
+                "/" +
+                this.dataProduct.chapter +
+                "/" +
+                this.dataProduct.type,
+        };
+        this.subjectService.setCheckout([preparedDataCart]);
+        this.route.navigate(["/checkout"]);
     }
 }
 

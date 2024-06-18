@@ -17,6 +17,7 @@ import { CatalogComponent } from "./pages/catalog/catalog.component";
 import { NotFoundComponent } from "./pages/not-found/not-found.component";
 import { MainComponent } from "./pages/main/main.component";
 import { ResetPasswordComponent } from "./pages/auth/reset-password/reset-password.component";
+import { CheckoutGuard } from "./guards/checkout.guard";
 
 export const routes: Routes = [
     {
@@ -63,7 +64,7 @@ export const routes: Routes = [
                 path: Pages.CHECKOUT,
                 title: "Оформление заказа",
                 component: CheckoutComponent,
-                canActivate: [AuthGuard],
+                canActivate: [AuthGuard, CheckoutGuard],
             },
             {
                 path: `${Pages.PRODUCT}/:id`,

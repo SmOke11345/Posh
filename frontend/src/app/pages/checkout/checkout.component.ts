@@ -1,4 +1,4 @@
-import { Component, NgModule, OnInit } from "@angular/core";
+import { Component, NgModule, OnDestroy, OnInit } from "@angular/core";
 import {
     FormControl,
     FormGroup,
@@ -23,7 +23,7 @@ import { Subscription } from "rxjs";
     templateUrl: "./checkout.component.html",
     styleUrl: "./checkout.component.scss",
 })
-export class CheckoutComponent implements OnInit {
+export class CheckoutComponent implements OnInit, OnDestroy {
     dataCheckout: Cart[];
     userData: User;
 
@@ -70,11 +70,7 @@ export class CheckoutComponent implements OnInit {
         });
         this.subRouter = this.router.events.subscribe((event) => {
             if (event instanceof NavigationStart) {
-                if (event) {
-                    this.subjectService.setCheckout([]);
-                    // TODO: Удалить товар из корзины после перехода на другую страницу. Либо сделать получение ICatalog в product другим способом, без добавления в корзину.
-                    this.cartService.removeFromCart(this.dataCheckout[0].id);
-                }
+                this.subjectService.setCheckout([]);
             }
         });
     }
@@ -105,11 +101,11 @@ export class CheckoutComponent implements OnInit {
     }
 
     getTotalCount() {
-        return this.subjectService.getCountProductInCart();
+        return this.subjectService.getCountProductInCart(false);
     }
 
     getTotalCost() {
-        return this.subjectService.getTotalCost();
+        return this.subjectService.getTotalCost(false);
     }
 
     onSubmit() {

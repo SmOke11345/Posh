@@ -97,7 +97,9 @@ export class HeaderComponent implements OnInit, DoCheck, OnDestroy {
     }
 
     ngDoCheck() {
-        if (this.cartCount !== this.subjectService.getCountProductInCart()) {
+        if (
+            this.cartCount !== this.subjectService.getCountProductInCart(true)
+        ) {
             this.setCartCount();
         }
     }
@@ -146,7 +148,7 @@ export class HeaderComponent implements OnInit, DoCheck, OnDestroy {
     }
 
     setCartCount() {
-        this.cartCount = this.subjectService.getCountProductInCart();
+        this.cartCount = this.subjectService.getCountProductInCart(true);
     }
 
     /**

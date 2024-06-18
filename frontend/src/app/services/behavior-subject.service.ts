@@ -147,10 +147,10 @@ export class BehaviorSubjectService {
     /**
      * Получение числа товаров в корзине.
      */
-    getCountProductInCart() {
-        const cart: Cart[] = this.getCart();
-        if (cart) {
-            return cart.reduce((acc, item) => acc + item.count, 0);
+    getCountProductInCart(condition: boolean) {
+        const data: Cart[] = condition ? this.getCart() : this.getCheckout();
+        if (data) {
+            return data.reduce((acc, item) => acc + item.count, 0);
         }
         return 0;
     }
@@ -158,10 +158,10 @@ export class BehaviorSubjectService {
     /**
      * Получение итоговой суммы корзины.
      */
-    getTotalCost() {
-        const cart: Cart[] = this.getCart();
-        if (cart) {
-            return cart.reduce((acc, item) => acc + item.cost * item.count, 0);
+    getTotalCost(condition: boolean) {
+        const data: Cart[] = condition ? this.getCart() : this.getCheckout();
+        if (data) {
+            return data.reduce((acc, item) => acc + item.cost * item.count, 0);
         }
         return 0;
     }
@@ -197,14 +197,14 @@ export class BehaviorSubjectService {
         }
     }
 
-    // /**
-    //  * Получение checkout.
-    //  */
-    // getCheckout() {
-    //     if (typeof localStorage !== "undefined") {
-    //         return JSON.parse(localStorage.getItem("checkout") as string);
-    //     }
-    // }
+    /**
+     * Получение checkout.
+     */
+    getCheckout() {
+        if (typeof localStorage !== "undefined") {
+            return JSON.parse(localStorage.getItem("checkout") as string);
+        }
+    }
 
     /**
      * Удаление товара из избранных.
