@@ -132,7 +132,7 @@ export class CatalogsService {
 
         if (!sizes) sizes = "";
         if (!colors) colors = "";
-        if (!sort) sort = "rating";
+        if (!sort) sort = "createdAt";
         if (!orderBy) orderBy = "desc";
 
         if (sort[0] === "-") sort = sort.replace("-", "");

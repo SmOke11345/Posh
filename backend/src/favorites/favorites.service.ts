@@ -51,6 +51,7 @@ export class FavoritesService {
 
         const _favorite = await this.prismaService.favorite.findFirst({
             where: {
+                user_id,
                 catalog_id,
             },
         });
