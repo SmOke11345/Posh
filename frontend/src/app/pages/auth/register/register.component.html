@@ -23,6 +23,9 @@
                         name="name"
                         placeholder="Имя"
                         type="text" />
+                    <ng-container *ngIf="registerForm.controls['name'].errors">
+                        <span class="info-text error">Обязательное поле</span>
+                    </ng-container>
                 </div>
                 <div class="form__input">
                     <label for="lastname"></label>
@@ -129,9 +132,9 @@
                 <div class="form__input checkbox">
                     <input
                         id="police"
+                        formControlName="police"
                         name="police"
-                        type="checkbox"
-                        value="false" />
+                        type="checkbox" />
                     <label class="label-checkbox" for="police"
                         >При нажатии на кнопку “Зарегистрироваться” вы
                         соглашаетесь с правилами и условиями сайта.
@@ -142,8 +145,7 @@
                         formControlName="rememberMe"
                         id="rememberMe"
                         name="rememberMe"
-                        type="checkbox"
-                        value="false" />
+                        type="checkbox" />
                     <label class="label-checkbox" for="rememberMe"
                         >Оставить в системе после регистрации.</label
                     >
@@ -153,6 +155,11 @@
                 <button class="btn btn--icon" type="submit">
                     Зарегистрироваться
                 </button>
+                <ng-container *ngIf="registerForm.controls['police'].errors">
+                    <span class="info-text error"
+                        >Не забудьте согласиться с правилами и условиями</span
+                    >
+                </ng-container>
             </div>
         </form>
     </div>

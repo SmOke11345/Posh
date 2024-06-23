@@ -19,7 +19,7 @@ export class CatalogComponent implements OnDestroy {
     colorsList: string[];
     isLoading: boolean;
 
-    selectedSort: string = "По популярности";
+    selectedSort: string = "По новинкам";
     isOpen: boolean = false;
     isFilter: boolean = false;
     isSelected: boolean[] = [false, false, false, false, false];
@@ -28,7 +28,10 @@ export class CatalogComponent implements OnDestroy {
     selectedColors: string[] = [];
 
     optionList: { name: string; value: string }[] = [
-        { name: "По популярности", value: "rating" },
+        {
+            name: "По новинкам",
+            value: "createdAt",
+        },
         {
             name: "По возрастанию цены",
             value: "-cost",
@@ -37,10 +40,7 @@ export class CatalogComponent implements OnDestroy {
             name: "По убыванию цены",
             value: "cost",
         },
-        {
-            name: "По новинкам",
-            value: "createdAt",
-        },
+        { name: "По популярности", value: "rating" },
     ];
 
     categoryList: {
@@ -77,7 +77,7 @@ export class CatalogComponent implements OnDestroy {
     error: string = "";
 
     defaultQuery: Params = {
-        sort: "rating",
+        sort: "createdAt",
         orderBy: "desc",
         chapter: "",
         type: "",
@@ -179,7 +179,7 @@ export class CatalogComponent implements OnDestroy {
             inputs[i].checked = false;
         }
         this.defaultQuery = {
-            sort: "rating",
+            sort: "createdAt",
             orderBy: "desc",
             chapter: "",
             type: "",

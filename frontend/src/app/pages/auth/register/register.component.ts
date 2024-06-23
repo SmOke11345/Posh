@@ -31,6 +31,7 @@ export class RegisterComponent {
                 Validators.required,
                 Validators.minLength(8),
             ]),
+            police: new FormControl(false, [Validators.requiredTrue]),
             rememberMe: new FormControl(false),
         });
 

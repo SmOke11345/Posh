@@ -59,13 +59,15 @@
                             name="name"
                             placeholder="Имя"
                             type="text" />
+                        <span
+                            *ngIf="orderForm.controls['name'].errors"
+                            class="info-text error"
+                            >Обязательное поле</span
+                        >
                     </div>
                     <div class="form__input large">
                         <label for="lastname"></label>
                         <input
-                            [ngClass]="{
-                                error: orderForm.controls['lastname'].errors
-                            }"
                             formControlName="lastname"
                             id="lastname"
                             name="lastname"

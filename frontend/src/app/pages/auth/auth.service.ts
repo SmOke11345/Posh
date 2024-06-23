@@ -22,8 +22,8 @@ export class AuthService {
      * Регистрация пользователя.
      * @param payload
      */
-    register(payload: User & { rememberMe: boolean }) {
-        const { rememberMe, ...data } = payload;
+    register(payload: User & { rememberMe: boolean; police: boolean }) {
+        const { rememberMe, police, ...data } = payload;
         localStorage.setItem("rememberMe", JSON.stringify(rememberMe));
         this.subject.setRememberMe(rememberMe); // Сохраняем в глобальном хранилище
 

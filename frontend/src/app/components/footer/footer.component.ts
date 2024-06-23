@@ -51,10 +51,10 @@ export class FooterComponent {
                     this.dataModal.content = `Спасибо что присоединились к нам!`;
                 },
                 error: (error) => {
-                    this.form.reset();
                     this.dataModal.title = "Письмо не отправлено";
                     this.dataModal.content = error.error.message;
                     this.dataModal.isShow = true;
+                    this.form.reset();
                 },
                 complete: () => {
                     this.dataModal.isShow = true;
